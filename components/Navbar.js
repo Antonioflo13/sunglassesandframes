@@ -57,9 +57,17 @@ export const Navbar = () => {
           <button>
             <div className="flex flex-col justify-center items-center">
               {language === "it" ? (
-                <img className="logo" src={logoIta.src} alt="indice-logo" />
+                <img
+                  className="logo"
+                  src={logoIta.src}
+                  alt="sunglassesandframes-logo"
+                />
               ) : (
-                <img className="logo" src={logoEng.src} alt="indice-logo" />
+                <img
+                  className="logo"
+                  src={logoEng.src}
+                  alt="sunglassesandframes-logo"
+                />
               )}
             </div>
           </button>

@@ -4,9 +4,9 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <title>Indice</title>
+        <title>sunglassesandframes</title>
       </Head>
-      <meta name="description" content="Indice" />
+      <meta name="description" content="sunglassesandframes" />
       <body>
         <Main />
         <NextScript />

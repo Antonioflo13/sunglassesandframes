@@ -17,7 +17,7 @@ const FaqPage = () => {
   return (
     <Layout>
       <Head>
-        <title>Indice - FAQ</title>
+        <title>sunglassesandframes - FAQ</title>
         <meta name="description" content="FAQ" />
       </Head>
       <AnimatedPage margins={true} grey>
@@ -73,7 +73,7 @@ const FaqList = ({ title, itemsCount }) => (
         .fill(0)
         .map((_, i) => (
           <li key={`${title}.${i}`} className="my-2">
-            <div className="text-sm font-black italic mackay text-indice-red">
+            <div className="text-sm font-black italic mackay text-sunglassesandframes-red">
               <FormattedMessage id={`${title}.${i}.title`} />
             </div>
             <div className="text-xs whitespace-pre-line">

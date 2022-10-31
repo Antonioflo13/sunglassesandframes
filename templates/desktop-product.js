@@ -27,7 +27,7 @@ const DesktopProduct = props => {
     <>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-20 mt-4 customTemplate">
         <div className="flex flex-col justify-start items-center buyContainer">
-          <div className="text-indice-red text-xs font-bold italic mackay noToHead mt-2">
+          <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead mt-2">
             {shopifyProduct.vendor}
           </div>
           <div className="ml-1 text-xs uppercase font-bold mt-2">
@@ -234,7 +234,7 @@ const FormattedMessage = ({ values, ...props }) => (
   <OriginalFormattedMessage
     values={{
       b: chunk => <b>{chunk}</b>,
-      r: chunk => <b className="text-indice-red">{chunk}</b>,
+      r: chunk => <b className="text-sunglassesandframes-red">{chunk}</b>,
       ...values,
     }}
     {...props}

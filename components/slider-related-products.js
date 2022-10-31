@@ -49,7 +49,7 @@ const sliderRelatedProducts = props => {
             {/*          }*/}
             {/*          alt="product"*/}
             {/*        />*/}
-            {/*        <div className="text-indice-red text-xs font-bold italic mackay noToHead">*/}
+            {/*        <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead">*/}
             {/*          {item.vendor}*/}
             {/*        </div>*/}
             {/*        <div className="text-xs uppercase font-bold">*/}
@@ -119,7 +119,7 @@ const FormattedMessage = ({ values, ...props }) => (
   <OriginalFormattedMessage
     values={{
       b: chunk => <b>{chunk}</b>,
-      r: chunk => <b className="text-indice-red">{chunk}</b>,
+      r: chunk => <b className="text-sunglassesandframes-red">{chunk}</b>,
       ...values,
     }}
     {...props}

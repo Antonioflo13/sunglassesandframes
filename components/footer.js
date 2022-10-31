@@ -34,7 +34,7 @@ const Footer = () => {
           >
             <div className="flex justify-center noDesktop">
               <div className="block w-16">
-                <img src={logo.src} alt="indice-logo" />
+                <img src={logo.src} alt="sunglassesandframes-logo" />
               </div>
             </div>
             <div className="flex flex-col accordionDesktop">
@@ -54,21 +54,21 @@ const Footer = () => {
             <div className="flex flex-col accordionMobile mobileCenterSocial">
               <>
                 <a
-                  href="https://www.facebook.com/indice.vision"
+                  href="https://www.facebook.com/sunglassesandframes.vision"
                   target="_blank"
                 >
                   <FontAwesomeIcon icon={faFacebook} />
                 </a>
                 <a
                   className="ml-2"
-                  href="https://www.instagram.com/indice.vision"
+                  href="https://www.instagram.com/sunglassesandframes.vision"
                   target="_blank"
                 >
                   <FontAwesomeIcon icon={faInstagram} />
                 </a>
                 <a
                   className="ml-2"
-                  href="https://www.linkedin.com/company/indicevision"
+                  href="https://www.linkedin.com/company/sunglassesandframesvision"
                   target="_blank"
                 >
                   <FontAwesomeIcon icon={faLinkedin} />
@@ -111,21 +111,21 @@ const Footer = () => {
               </div>
               <div className="flex">
                 <a
-                  href="https://www.facebook.com/indice.vision"
+                  href="https://www.facebook.com/sunglassesandframes.vision"
                   target="_blank"
                 >
                   <FontAwesomeIcon icon={faFacebook} />
                 </a>
                 <a
                   className="ml-2"
-                  href="https://www.instagram.com/indice.vision"
+                  href="https://www.instagram.com/sunglassesandframes.vision"
                   target="_blank"
                 >
                   <FontAwesomeIcon icon={faInstagram} />
                 </a>
                 <a
                   className="ml-2"
-                  href="https://www.linkedin.com/company/indicevision"
+                  href="https://www.linkedin.com/company/sunglassesandframesvision"
                   target="_blank"
                 >
                   <FontAwesomeIcon icon={faLinkedin} />
@@ -134,7 +134,7 @@ const Footer = () => {
             </div>
             <div className="flex flex-col noMobile">
               <div className="block w-16">
-                <img src={logo.src} alt="indice logo" />
+                <img src={logo.src} alt="sunglassesandframes logo" />
               </div>
             </div>
             <div className="flex flex-col accordionDesktop">
@@ -147,7 +147,7 @@ const Footer = () => {
                 </div>
               </Link>
               <a
-                href="https://indice-vision.myshopify.com/15652721/policies/terms-of-service.html?locale=en"
+                href="https://sunglassesandframes-vision.myshopify.com/15652721/policies/terms-of-service.html?locale=en"
                 target="_blank"
               >
                 <div className="text-xs">
@@ -195,7 +195,7 @@ const Footer = () => {
                     </div>
                   </Link>
                   <a
-                    href="https://indice-vision.myshopify.com/15652721/policies/terms-of-service.html?locale=en"
+                    href="https://sunglassesandframes-vision.myshopify.com/15652721/policies/terms-of-service.html?locale=en"
                     target="_blank"
                   >
                     <div className="text-xs">

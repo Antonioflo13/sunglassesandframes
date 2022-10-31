@@ -20,7 +20,7 @@ const IndexPage = ({ articles }) => {
   return (
     <>
       <Head>
-        <title>Indice</title>
+        <title>sunglassesandframes</title>
 
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <Script

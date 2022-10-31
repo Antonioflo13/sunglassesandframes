@@ -4,7 +4,7 @@ import React from "react";
 
 const ActionButtonRight = ({ isProduct }) => (
   <div
-    className="flex items-center justify-center w-6 h-6 rounded-full text-xs text-white bg-indice-red"
+    className="flex items-center justify-center w-6 h-6 rounded-full text-xs text-white bg-sunglassesandframes-red"
     style={{
       width: "2rem",
       height: "2rem",

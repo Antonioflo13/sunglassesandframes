@@ -17,7 +17,7 @@ const AnimatedPage = ({ children, margins, fullHeight, grey, noAnimate }) => {
         style={{ backgroundColor: "white" }}
         initial={false}
         className={classnames("w-full", {
-          "bg-indice-grey": grey,
+          "bg-sunglassesandframes-grey": grey,
           "pt-10 md:pt-0": !fullHeight,
         })}
       >

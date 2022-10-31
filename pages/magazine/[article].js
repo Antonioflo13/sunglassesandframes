@@ -37,7 +37,7 @@ const Article = ({ article, collectionProducts }) => {
       {article && (
         <Layout>
           <Head>
-            <title>Indice - {article?.handle}</title>
+            <title>sunglassesandframes - {article?.handle}</title>
             <meta name="description" content={article?.handle} />
           </Head>
           <AnimatedPage margins={true}>

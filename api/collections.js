@@ -1,7 +1,7 @@
 import request from "./request";
 
 async function getAllCollections() {
-  const indice = `
+  const sunglassesandframes = `
 {
     collections(
       sortKey: TITLE, first: 250
@@ -18,8 +18,8 @@ async function getAllCollections() {
 
   let QUERY = null;
   switch (process.env.NEXT_QUERY) {
-    case "indice":
-      QUERY = indice;
+    case "sunglassesandframes":
+      QUERY = sunglassesandframes;
       break;
   }
 
@@ -27,7 +27,7 @@ async function getAllCollections() {
 }
 
 async function getCollection(collection) {
-  const indice = `
+  const sunglassesandframes = `
 {
   collection(handle: "${collection}") {
     id
@@ -81,8 +81,8 @@ async function getCollection(collection) {
 
   let QUERY = null;
   switch (process.env.NEXT_QUERY) {
-    case "indice":
-      QUERY = indice;
+    case "sunglassesandframes":
+      QUERY = sunglassesandframes;
       break;
   }
 

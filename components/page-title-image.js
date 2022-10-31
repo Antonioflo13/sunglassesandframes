@@ -98,7 +98,7 @@ const PageTitleImage = ({
 export default PageTitleImage;
 
 export const Bold = ({ children }) => (
-  <span className="text-2xl md:text-4xl font-black italic mackay text-indice-red">
+  <span className="text-2xl md:text-4xl font-black italic mackay text-sunglassesandframes-red">
     {children}
   </span>
 );

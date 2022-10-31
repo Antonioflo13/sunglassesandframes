@@ -48,7 +48,7 @@ const Store = ({ isAbout, isModal, selectSingleIcon }) => {
                   />
                 </div>
                 <div className={`${isModal ? "containerStores" : ""}`}>
-                  <motion.div className="text-indice-red text-xs font-bold italic mackay noToHead">
+                  <motion.div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead">
                     <FormattedMessage id={store.name} />
                   </motion.div>
                   <motion.div

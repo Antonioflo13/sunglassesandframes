@@ -23,12 +23,12 @@ const SliderArticleProducts = ({ productsinArticle }) => {
         >
           {productsinArticle.map(item => (
             <SwiperSlide key={item.id}>
-                {item.node.handle}
+              {item.node.handle}
               <Link
-                  href={{
-                      pathname: '/collections/[product]',
-                      query: { product: item.node.handle },
-                  }}
+                href={{
+                  pathname: "/collections/[product]",
+                  query: { product: item.node.handle },
+                }}
               >
                 <div style={{ cursor: "pointer" }}>
                   <img
@@ -36,7 +36,7 @@ const SliderArticleProducts = ({ productsinArticle }) => {
                     src={item.node.images[0].originalSrc}
                     alt="product"
                   />
-                  <div className="text-indice-red text-xs font-bold italic mackay noToHead mt-2">
+                  <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead mt-2">
                     {item.node.vendor}
                   </div>
                   <div className="ml-1 text-xs uppercase font-bold mt-2">
@@ -88,7 +88,7 @@ const FormattedMessage = ({ values, ...props }) => (
   <OriginalFormattedMessage
     values={{
       b: chunk => <b>{chunk}</b>,
-      r: chunk => <b className="text-indice-red">{chunk}</b>,
+      r: chunk => <b className="text-sunglassesandframes-red">{chunk}</b>,
       ...values,
     }}
     {...props}

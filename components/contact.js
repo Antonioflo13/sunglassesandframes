@@ -233,7 +233,7 @@ const Contact = ({ setShown }) => {
                 </div>
               </div>
               <textarea
-                className="mt-5 block w-full bg-indice-grey px-4 pt-4 pb-3 text-sm"
+                className="mt-5 block w-full bg-sunglassesandframes-grey px-4 pt-4 pb-3 text-sm"
                 style={{ borderRadius: "1.5rem" }}
                 rows="4"
                 id="message"
@@ -251,7 +251,7 @@ const Contact = ({ setShown }) => {
                 </div>
                 <div>
                   <button
-                    className="rounded-full bg-indice-red pt-1 pb-px px-4 leading-5 text-white font-bold text-xs uppercase"
+                    className="rounded-full bg-sunglassesandframes-red pt-1 pb-px px-4 leading-5 text-white font-bold text-xs uppercase"
                     type="submit"
                     disabled={disabled}
                     style={disabled ? { opacity: "0.6" } : { opacity: "1.0" }}
@@ -294,7 +294,7 @@ export default Contact;
 
 const Input = props => (
   <input
-    className="mt-1 block w-full bg-indice-grey px-4 pt-2 pb-1 text-sm"
+    className="mt-1 block w-full bg-sunglassesandframes-grey px-4 pt-2 pb-1 text-sm"
     style={{ borderRadius: "1.5rem" }}
     {...props}
   />

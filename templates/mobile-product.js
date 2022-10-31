@@ -86,7 +86,7 @@ const MobileProductTemplate = props => {
             <Swiper
               id="swiper-image-pdp"
               style={{ height: "100vh", paddingTop: "30%" }}
-              className="bg-indice-grey"
+              className="bg-sunglassesandframes-grey"
               direction={"vertical"}
               loop={true}
               slidesPerView={1}
@@ -148,7 +148,7 @@ const MobileProductTemplate = props => {
                     <div className="slide-icon"></div>
                   </div>
                   <div className="w-full flex flex-col justify-start items-center">
-                    <div className="text-indice-red text-xs font-bold italic mackay noToHead">
+                    <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead">
                       {index.vendor}
                     </div>
                     <div className="ml-1 text-xs uppercase font-bold mt-2">
@@ -362,7 +362,7 @@ const FormattedMessage = ({ values, ...props }) => (
   <OriginalFormattedMessage
     values={{
       b: chunk => <b>{chunk}</b>,
-      r: chunk => <b className="text-indice-red">{chunk}</b>,
+      r: chunk => <b className="text-sunglassesandframes-red">{chunk}</b>,
       ...values,
     }}
     {...props}

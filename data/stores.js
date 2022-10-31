@@ -9,7 +9,7 @@ export const stores = [
     image: { src: imageStoreBrescia, alt: "Store Brescia" },
     address: "Via Padre Giulio Bevilacqua, 7",
     otheraddress: "25121 Brescia (BS)",
-    email: "brescia@indice.vision",
+    email: "brescia@sunglassesandframes.vision",
     cell: "+39 3206330888",
     linkCall: "tel:3206330888",
     linkMap:
@@ -22,11 +22,11 @@ export const stores = [
     image: { src: imageStoreForte, alt: "Store Forte dei Marmi" },
     address: "Via Giuseppe Mazzini, 3A",
     otheraddress: "55042 Forte dei Marmi (LU)",
-    email: "fortedeimarmi@indice.vision",
+    email: "fortedeimarmi@sunglassesandframes.vision",
     cell: "+39 3311276285",
     linkCall: "tel:3311276285",
     linkMap:
-      "https://www.google.com/maps/place/indice,+occhiali+straordinari+a+Forte+dei+Marmi/@43.9593014,10.1667225,17z/data=!3m1!4b1!4m5!3m4!1s0x12d5097af137b36d:0x4d5787592fae2e4b!8m2!3d43.9593014!4d10.1689112",
+      "https://www.google.com/maps/place/sunglassesandframes,+occhiali+straordinari+a+Forte+dei+Marmi/@43.9593014,10.1667225,17z/data=!3m1!4b1!4m5!3m4!1s0x12d5097af137b36d:0x4d5787592fae2e4b!8m2!3d43.9593014!4d10.1689112",
     linkMex: "https://wa.me/+393311276285",
   },
   {
@@ -35,7 +35,7 @@ export const stores = [
     image: { src: imageStoreCortina, alt: "Store Brescia" },
     address: "Via Roma, 3",
     otheraddress: "32043 Cortina d'Ampezzo (BL)",
-    email: "cortina@indice.vision",
+    email: "cortina@sunglassesandframes.vision",
     cell: "+39 3206330888",
     linkCall: "tel:3206330888",
     linkMap:

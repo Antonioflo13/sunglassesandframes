@@ -24,7 +24,9 @@ const CollectionTemplate = ({ collection }) => {
   return (
     <Layout>
       <Head>
-        <title>Indice - {isBrand ? collection.title : collection.handle}</title>
+        <title>
+          sunglassesandframes - {isBrand ? collection.title : collection.handle}
+        </title>
         <meta
           name="description"
           content={isBrand ? collection.description : null}
@@ -67,7 +69,7 @@ const CollectionTemplate = ({ collection }) => {
             <div>
               <h1 className="text-center">
                 {isBrand ? (
-                  <div className="mt-10 text-indice text-xl font-bold uppercase">
+                  <div className="mt-10 text-sunglassesandframes text-xl font-bold uppercase">
                     {collection.title}
                   </div>
                 ) : (
@@ -78,7 +80,7 @@ const CollectionTemplate = ({ collection }) => {
                         chunk;
                       },
                       title: (
-                        <div className="mt-10 text-indice text-xl font-bold uppercase">
+                        <div className="mt-10 text-sunglassesandframes text-xl font-bold uppercase">
                           collection.title
                         </div>
                       ),
@@ -189,7 +191,7 @@ const Product = ({ product, collection }) => {
             )}
           </div>
         </div>
-        <div className="text-indice-red text-xs font-bold italic mackay noToHead mt-2">
+        <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead mt-2">
           {product.vendor}
         </div>
         <div className="ml-1 text-xs uppercase font-bold mt-2">

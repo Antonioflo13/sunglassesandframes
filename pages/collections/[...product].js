@@ -78,7 +78,7 @@ const Product = ({
   return (
     <Layout>
       <Head>
-        <title>Indice - {productHandle}</title>
+        <title>sunglassesandframes - {productHandle}</title>
         <meta name="description" content={productHandle} />
       </Head>
       <AnimatedPage margins={true} noAnimate={true} fullHeight={true}>

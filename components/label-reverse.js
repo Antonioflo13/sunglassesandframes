@@ -6,7 +6,7 @@ const LabelReverse = ({ children, disabled = false, style = {}, ...props }) => {
   return (
     <motion.button
       whileHover={{ scale: 1.1 }}
-      className="rounded-full bg-white pt-1 pb-px px-4 leading-5 text-indice-red font-bold text-xs uppercase"
+      className="rounded-full bg-white pt-1 pb-px px-4 leading-5 text-sunglassesandframes-red font-bold text-xs uppercase"
       style={{ opacity, ...style }}
       {...props}
       disabled={disabled}

@@ -42,7 +42,7 @@ const CollectionsPage = ({ collections }) => {
   return (
     <Layout>
       <Head>
-        <title>Indice - Collections</title>
+        <title>sunglassesandframes - Collections</title>
         <meta name="description" content="Designers" />
       </Head>
       <AnimatedPage margins={true}>
@@ -53,7 +53,7 @@ const CollectionsPage = ({ collections }) => {
               {letter.collectionsList.map((collection, index) => (
                 <li key={index}>
                   {collection.viewLetter && (
-                    <div className="font-semibold text-2xl font-serif italic mb-3 text-indice-red">
+                    <div className="font-semibold text-2xl font-serif italic mb-3 text-sunglassesandframes-red">
                       {letter.letter}
                     </div>
                   )}
@@ -69,14 +69,15 @@ const CollectionsPage = ({ collections }) => {
                       href={{
                         pathname:
                           collection.products?.edges?.length > 0 &&
-                          collection.handle === "indice-capsule-collection"
+                          collection.handle ===
+                            "sunglassesandframes-capsule-collection"
                             ? "/collections/[collection]"
                             : "/collections/[collection]",
                         query: { collection: collection.handle },
                       }}
                     >
                       <span>
-                        <motion.h2 className=" text-indice text-xl font-bold uppercase">
+                        <motion.h2 className=" text-sunglassesandframes text-xl font-bold uppercase">
                           {collection.title}
                         </motion.h2>
                         <p className="text-xs mt-2">{collection.description}</p>
