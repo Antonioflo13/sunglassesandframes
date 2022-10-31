@@ -32,7 +32,7 @@ const SliderHomeCollection = () => {
             <SwiperSlide key={item.id}>
                 <Link
                     href={{
-                        pathname: `/collections/[collection]/[product]`,
+                        pathname: "/collections/[collection]/[product]",
                         query: { collection: item.vendor, product: item.handle },
                     }}
                 >
