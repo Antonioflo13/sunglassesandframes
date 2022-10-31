@@ -94,7 +94,6 @@ const Index = ({ articles }) => {
                     <Image
                       fill="true"
                       sizes="100%"
-                      object-fit="contain"
                       src={item.imageheader.url}
                       alt="image-header"
                     />

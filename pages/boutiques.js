@@ -1,5 +1,7 @@
 //REACT
 import React from "react";
+//NEXT
+import Image from "next/image";
 //COMPONENTS
 import AnimatedPage from "../components/animated-page";
 import Breadcrumbs from "../components/breadcrumbs";
@@ -25,11 +27,15 @@ const Boutiques = () => {
           <div className="container-boutiques">
             {stores.map((item, key) => (
               <div className="boutiques" key={key}>
-                <img
-                  className="boutiques-image"
-                  src={item.image.src.src}
-                  alt="image header"
-                />
+                <div className="image-container">
+                  <Image
+                    fill="true"
+                    sizes="100%"
+                    className="boutiques-image"
+                    src={item.image.src.src}
+                    alt="image-boutique"
+                  />
+                </div>
                 <h1 className="boutiques-title text-xl font-bold ">
                   {item.name}
                 </h1>
@@ -50,6 +56,7 @@ const Boutiques = () => {
           }
 
           .boutiques {
+            position: relative;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -64,13 +71,14 @@ const Boutiques = () => {
             margin-top: 10px;
             margin-bottom: 5px;
           }
-
-          .boutiques-image {
+          
+          .image-container {
+            position: relative;
             width: 100%;
             height: 200px;
-            object-fit: cover;
             border-top-left-radius: 25px;
             border-top-right-radius: 25px;
+            overflow: hidden;
           }
 
           .boutiques-description {
