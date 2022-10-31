@@ -1,3 +1,4 @@
+import Head from "next/head";
 //REACT
 import type { AppProps } from "next/app";
 //INTL
@@ -11,11 +12,16 @@ import { Provider } from "react-redux";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
-      <IntlProvider locale={"it"}>
-        <Component {...pageProps} />˙
-      </IntlProvider>
-    </Provider>
+    <>
+      <Head>
+        <title>Indice</title>
+      </Head>
+      <Provider store={store}>
+        <IntlProvider locale={"it"}>
+          <Component {...pageProps} />˙
+        </IntlProvider>
+      </Provider>
+    </>
   );
 }
 

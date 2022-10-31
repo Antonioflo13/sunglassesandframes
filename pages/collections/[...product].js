@@ -75,10 +75,12 @@ const Product = ({
     />
   );
 
+  const title = `Indice - ${productHandle}`;
+
   return (
     <Layout>
       <Head>
-        <title>Indice - {productHandle}</title>
+        <title>{title}</title>
         <meta name="description" content={productHandle} />
       </Head>
       <AnimatedPage margins={true} noAnimate={true} fullHeight={true}>
