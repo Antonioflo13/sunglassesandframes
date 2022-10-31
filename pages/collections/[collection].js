@@ -168,10 +168,7 @@ export async function getServerSideProps({ params }) {
 const Product = ({ product, collection }) => {
   return (
     <Link
-      href={{
-        pathname: "/collections/[collection]/[product]",
-        query: { collection: collection.handle, product: product.handle },
-      }}
+      href={`/collections/${collection.handle}/${product.handle}`}
     >
       <div className="w-full flex flex-col items-center">
         <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
