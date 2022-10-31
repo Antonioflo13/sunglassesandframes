@@ -39,18 +39,20 @@ const SliderArticles = ({ articles }) => {
                     className={mainClasses.linkSliderHomeArticle}
                   >
                     <div className="swiper-carousel-animate-opacity">
-                      <Image
-                        className="object-cover rounded-md"
-                        fill="true"
-                        sizes="100%"
-                        priority={true}
-                        src={
-                          isDesktop
-                            ? article.imageheader.url
-                            : article.imageheadermobile?.url
-                        }
-                        alt=""
-                      />
+                      <div className="relative" style={{height: "347px"}}>
+                        <Image
+                          className="object-cover rounded-md"
+                          fill="true"
+                          sizes="100%"
+                          priority={true}
+                          src={
+                            isDesktop
+                              ? article.imageheader.url
+                              : article.imageheadermobile?.url
+                          }
+                          alt="magazine-image"
+                        />
+                      </div>
                       <div className={mainClasses["slide-content"]}>
                         <h2 className="text-white">{article.title}</h2>
                         <p className="text-white">{article.description}</p>
