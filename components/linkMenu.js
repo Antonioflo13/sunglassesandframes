@@ -51,8 +51,8 @@ const LinkMenu = ({ children, to, sidebar }) => {
 
           .imageMenu {
             border-radius: 25px;
-            height: 70px !important;
-            width: 200px !important;
+            height: 150px !important;
+            width: 370px !important;
             object-fit: cover;
           }
 

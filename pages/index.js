@@ -33,8 +33,8 @@ const IndexPage = ({ articles }) => {
       <Layout articles={articles}>
         <AnimatedPage fullHeight>
           <SliderArticles articles={articles} />
-          <SliderMenu />
           <SliderHomeCollection />
+          <SliderMenu />
           {show && (
             <ModalsIcons
               selectSingleIcon={selectSingleIcon}

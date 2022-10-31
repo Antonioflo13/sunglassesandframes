@@ -34,22 +34,19 @@ const Footer = () => {
           >
             <div className="flex justify-center noDesktop">
               <div className="block w-16">
-                <img src={logo.src} alt="sunglassesandframes-logo" />
+                <h1>sunglassesandframes</h1>
               </div>
             </div>
-            <div className="flex flex-col accordionDesktop">
+            <div className="flex flex-col accordionDesktop mt-20">
               <div className="font-bold uppercase text-sm">
                 <FormattedMessage id="footer.contacts.title" />
               </div>
               <div className="text-xs">
                 <FormattedMessage id="footer.contacts.email" />
               </div>
-              {stores.map(store => (
-                <div key={store.id} style={{ marginTop: "10px" }}>
-                  <div className="font-bold text-sm">{store.name}</div>
-                  <div className="text-xs">{store.linkCall}</div>
-                </div>
-              ))}
+              <div className="text-xs">
+                <FormattedMessage id="footer.contacts.phone" />
+              </div>
             </div>
             <div className="flex flex-col accordionMobile mobileCenterSocial">
               <>
@@ -105,7 +102,7 @@ const Footer = () => {
                 </>
               )}
             </div>
-            <div className="flex flex-col accordionDesktop">
+            <div className="flex flex-col accordionDesktop mt-20">
               <div className="font-bold uppercase text-sm">
                 <FormattedMessage id="footer.social.title" />
               </div>
@@ -134,42 +131,16 @@ const Footer = () => {
             </div>
             <div className="flex flex-col noMobile">
               <div className="block w-16">
-                <img src={logo.src} alt="sunglassesandframes logo" />
+                <h1>sunglassesandframes</h1>
               </div>
             </div>
-            <div className="flex flex-col accordionDesktop">
+            <div className="flex flex-col accordionDesktop mt-20">
               <div className="font-bold uppercase text-sm">
                 <FormattedMessage id="footer.support.title" />
               </div>
-              <Link to="/faq">
-                <div className="text-xs">
-                  <FormattedMessage id="footer.support.faq" />
-                </div>
-              </Link>
-              <a
-                href="https://sunglassesandframes-vision.myshopify.com/15652721/policies/terms-of-service.html?locale=en"
-                target="_blank"
-              >
-                <div className="text-xs">
-                  <FormattedMessage id="footer.support.terms_and_conditions" />
-                </div>
-              </a>
-              <a
-                href="https://www.iubenda.com/privacy-policy/22164738"
-                target="_blank"
-              >
-                <div className="text-xs">
-                  <FormattedMessage id="footer.support.privacy_policy" />
-                </div>
-              </a>
-              <a
-                href="https://www.iubenda.com/privacy-policy/22164738/cookie-policy"
-                target="_blank"
-              >
-                <div className="text-xs">
-                  <FormattedMessage id="footer.support.cookie_policy" />
-                </div>
-              </a>
+              <div className="text-xs">
+                <FormattedMessage id="footer.contacts.email" />
+              </div>
             </div>
             <div className="flex flex-col accordionMobile">
               <div
@@ -221,18 +192,9 @@ const Footer = () => {
                 </>
               )}
             </div>
-            <div className="flex flex-col accordionDesktop">
+            <div className="flex flex-col accordionDesktop mt-20">
               <div className="font-bold uppercase text-sm">
                 <FormattedMessage id="footer.location.title" />
-              </div>
-              <div className="text-xs">
-                {stores.map(store => (
-                  <div key={store.id} style={{ marginTop: "10px" }}>
-                    <div className="font-bold text-sm">{store.name}</div>
-                    <div className="text-xs">{store.address}</div>
-                    <div className="text-xs">{store.otheraddress}</div>
-                  </div>
-                ))}
               </div>
             </div>
             <div className="flex flex-col accordionMobile">

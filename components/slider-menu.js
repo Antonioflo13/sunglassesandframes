@@ -8,6 +8,9 @@ const SliderMenu = () => {
   const isDesktop = useMediaQuery(768);
   return (
     <>
+      <div className="mt-20 mb-10" style={{ textAlign: "center" }}>
+        SHOP BY
+      </div>
       {isDesktop ? (
         <div className="sliderMenu">
           <div className="sliderMenu">
@@ -20,15 +23,6 @@ const SliderMenu = () => {
               </LinkMenu>
               <LinkMenu to="/boutiques">
                 <FormattedMessage id="sidebar.botiques" />
-              </LinkMenu>
-              <LinkMenu to="/magazine">
-                <FormattedMessage id="sidebar.magazine" />
-              </LinkMenu>
-              <LinkMenu to="/about">
-                <FormattedMessage id="sidebar.about" />
-              </LinkMenu>
-              <LinkMenu to="/faq">
-                <FormattedMessage id="sidebar.faq" />
               </LinkMenu>
             </div>
           </div>
@@ -57,21 +51,6 @@ const SliderMenu = () => {
                   <FormattedMessage id="sidebar.botiques" />
                 </LinkMenu>
               </SwiperSlide>
-              <SwiperSlide>
-                <LinkMenu to="/magazine">
-                  <FormattedMessage id="sidebar.magazine" />
-                </LinkMenu>
-              </SwiperSlide>
-              <SwiperSlide>
-                <LinkMenu to="/about">
-                  <FormattedMessage id="sidebar.about" />
-                </LinkMenu>
-              </SwiperSlide>
-              <SwiperSlide>
-                <LinkMenu to="/faq">
-                  <FormattedMessage id="sidebar.faq" />
-                </LinkMenu>
-              </SwiperSlide>
             </div>
           </Swiper>
         </div>
@@ -91,8 +70,7 @@ const SliderMenu = () => {
         .containerSliderMenu {
           display: flex;
           cursor: pointer;
-          justify-content: space-between;
-          column-gap: 20px;
+          justify-content: space-around;
         }
 
         .swiper-wrapper {

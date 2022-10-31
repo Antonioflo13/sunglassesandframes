@@ -54,13 +54,11 @@ const SliderHomeCollection = () => {
           ))}
         </Swiper>
       </div>
-      <div className="ml-1 text-xs mt-6 mb-10 text-center px-5">
-        <FormattedMessage id="home.slider_monthly.text" />
-      </div>
       <style jsx="true">{`
         .container-slider {
           cursor: pointer;
           width: 100%;
+          text-align: center;
         }
         @media (max-width: 768px) {
           .container-slider {
