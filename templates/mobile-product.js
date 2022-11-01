@@ -294,12 +294,12 @@ const MobileProductTemplate = props => {
                       </>
                     )}
                   </div>
-                  {relatedProducts.length > 0 && (
-                    <SliderRelatedProducts
-                      relatedProducts={relatedProducts}
-                      collectionHandle={collectionHandle}
-                    />
-                  )}
+                  {/*{relatedProducts.length > 0 && (*/}
+                  {/*  <SliderRelatedProducts*/}
+                  {/*    relatedProducts={relatedProducts}*/}
+                  {/*    collectionHandle={collectionHandle}*/}
+                  {/*  />*/}
+                  {/*)}*/}
                   <Footer />
                 </div>
               </BottomSheet>
