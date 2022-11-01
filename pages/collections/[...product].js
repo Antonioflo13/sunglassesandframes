@@ -96,7 +96,6 @@ const Product = ({
             accordion={accordion}
             setAccordion={setAccordion}
           />
-        }
       </AnimatedPage>
     </Layout>
   );
