@@ -6,6 +6,7 @@ import { getCollection } from "../../api/collections";
 //STORE
 import { setShopifyCheckout } from "../../store/modules/shopify";
 import { setDialogContactShow } from "../../store/modules/dialogContact";
+import { setDialogContactProduct } from "../../store/modules/dialogContact";
 import { setCart } from "../../store/modules/cart";
 import { useDispatch, useSelector } from "react-redux";
 //HOOKS
@@ -66,7 +67,8 @@ const Product = ({
   };
 
   const askForPrice = () => {
-    dispatch(setDialogContactShow(true, product));
+    dispatch(setDialogContactShow(true));
+    dispatch(setDialogContactProduct({ title: product.title, vendor: product.vendor}));
   };
 
   const mainImage = (
