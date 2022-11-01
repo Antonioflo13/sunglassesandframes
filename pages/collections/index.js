@@ -60,7 +60,7 @@ const CollectionsPage = ({ collections }) => {
 
                   <div
                     className={`${
-                      collection.products?.edges?.length > 0
+                      collection.products?.nodes?.length > 0
                         ? "available"
                         : "unavailable"
                     } mb-6`}
@@ -68,7 +68,7 @@ const CollectionsPage = ({ collections }) => {
                     <Link
                       href={{
                         pathname:
-                          collection.products?.edges?.length > 0 &&
+                          collection.products?.nodes?.length > 0 &&
                           collection.handle === "indice-capsule-collection"
                             ? "/collections/[collection]"
                             : "/collections/[collection]",
