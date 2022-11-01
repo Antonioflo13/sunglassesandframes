@@ -110,7 +110,6 @@ const Product = ({
             </div>
           </div>
         )}
-        {isDesktop ? (
           <DesktopProduct
             shopifyProduct={product}
             buy={buy}
@@ -121,19 +120,7 @@ const Product = ({
             accordion={accordion}
             setAccordion={setAccordion}
           />
-        ) : (
-          <MobileProduct
-            // shopifyProducts={products}
-            shopifyProduct={product}
-            buy={buy}
-            askForPrice={askForPrice}
-            mainImage={mainImage}
-            relatedProducts={relatedProducts}
-            collectionHandle={collectionHandle}
-            accordion={accordion}
-            setAccordion={setAccordion}
-          />
-        )}
+        }
       </AnimatedPage>
     </Layout>
   );
