@@ -34,7 +34,6 @@ const MobileProductTemplate = props => {
     setAccordion,
   } = props;
   //SWIPER NAVIGATION
-  console.log(relatedProducts);
   const [isExpanded, setIsExpanded] = useState(false);
   const indexSlide = relatedProducts.findIndex(
     product => product.handle === shopifyProduct.handle
