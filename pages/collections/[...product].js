@@ -86,30 +86,6 @@ const Product = ({
         <meta name="description" content={productHandle} />
       </Head>
       <AnimatedPage margins={true} noAnimate={true} fullHeight={true}>
-        {isDesktop && (
-          <div className="flex">
-            <div className="w-full md:w-1/ mt-8">
-              <PageTitle
-                breadcrumbs={[
-                  {
-                    title: "breadcrumbs.designers",
-                    link: "/collections",
-                  },
-
-                  {
-                    title: product.vendor,
-                    link: "/collections/" + collectionHandle,
-                  },
-                  {
-                    title: product.title,
-                    link: "/collections/" + productHandle,
-                  },
-                ]}
-                title=" "
-              />
-            </div>
-          </div>
-        )}
           <DesktopProduct
             shopifyProduct={product}
             buy={buy}
