@@ -86,16 +86,16 @@ const Product = ({
         <meta name="description" content={productHandle} />
       </Head>
       <AnimatedPage margins={true} noAnimate={true} fullHeight={true}>
-          <DesktopProduct
-            shopifyProduct={product}
-            buy={buy}
-            askForPrice={askForPrice}
-            mainImage={mainImage}
-            relatedProducts={relatedProducts}
-            collectionHandle={collectionHandle}
-            accordion={accordion}
-            setAccordion={setAccordion}
-          />
+          {/*<DesktopProduct*/}
+          {/*  shopifyProduct={product}*/}
+          {/*  buy={buy}*/}
+          {/*  askForPrice={askForPrice}*/}
+          {/*  mainImage={mainImage}*/}
+          {/*  relatedProducts={relatedProducts}*/}
+          {/*  collectionHandle={collectionHandle}*/}
+          {/*  accordion={accordion}*/}
+          {/*  setAccordion={setAccordion}*/}
+          {/*/>*/}
       </AnimatedPage>
     </Layout>
   );
