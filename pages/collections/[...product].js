@@ -86,16 +86,54 @@ const Product = ({
         <meta name="description" content={productHandle} />
       </Head>
       <AnimatedPage margins={true} noAnimate={true} fullHeight={true}>
-          {/*<DesktopProduct*/}
-          {/*  shopifyProduct={product}*/}
-          {/*  buy={buy}*/}
-          {/*  askForPrice={askForPrice}*/}
-          {/*  mainImage={mainImage}*/}
-          {/*  relatedProducts={relatedProducts}*/}
-          {/*  collectionHandle={collectionHandle}*/}
-          {/*  accordion={accordion}*/}
-          {/*  setAccordion={setAccordion}*/}
-          {/*/>*/}
+        {isDesktop && (
+          <div className="flex">
+            <div className="w-full md:w-1/ mt-8">
+              <PageTitle
+                breadcrumbs={[
+                  {
+                    title: "breadcrumbs.designers",
+                    link: "/collections",
+                  },
+
+                  {
+                    title: product.vendor,
+                    link: "/collections/" + collectionHandle,
+                  },
+                  {
+                    title: product.title,
+                    link: "/collections/" + productHandle,
+                  },
+                ]}
+                title=" "
+              />
+            </div>
+          </div>
+        )}
+        {isDesktop ? (
+          <DesktopProduct
+            shopifyProduct={product}
+            buy={buy}
+            askForPrice={askForPrice}
+            mainImage={mainImage}
+            relatedProducts={relatedProducts}
+            collectionHandle={collectionHandle}
+            accordion={accordion}
+            setAccordion={setAccordion}
+          />
+        ) : (
+          <MobileProduct
+            // shopifyProducts={products}
+            shopifyProduct={product}
+            buy={buy}
+            askForPrice={askForPrice}
+            mainImage={mainImage}
+            relatedProducts={relatedProducts}
+            collectionHandle={collectionHandle}
+            accordion={accordion}
+            setAccordion={setAccordion}
+          />
+        )}
       </AnimatedPage>
     </Layout>
   );
