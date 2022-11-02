@@ -11,7 +11,6 @@ import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
 import logo from "../assets/images/logo-black.png";
 import { stores } from "../data/stores";
 import useMediaQuery from "../hooks/useMediaQuery";
-import useWindowSize from "../hooks/useWindowSize";
 
 const Footer = () => {
   const [accordion, setAccordion] = React.useState({
@@ -19,9 +18,7 @@ const Footer = () => {
     support: false,
     wherIs: false,
   });
-  const { width } = useWindowSize();
-
-  let isDesktop = width > 768;
+  const isDesktop = useMediaQuery(768);
 
   return (
     <>
