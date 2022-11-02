@@ -82,9 +82,17 @@ const Footer = () => {
                   <FormattedMessage id="footer.contacts.title" />
                 </div>
                 {accordion.contact ? (
-                  <FontAwesomeIcon icon={faMinus} className="containerIcon" />
+                  <FontAwesomeIcon
+                    icon={faMinus}
+                    className="containerIcon"
+                    width={20}
+                  />
                 ) : (
-                  <FontAwesomeIcon icon={faPlus} className="containerIcon" />
+                  <FontAwesomeIcon
+                    icon={faPlus}
+                    className="containerIcon"
+                    width={20}
+                  />
                 )}
               </div>
               {accordion.contact && (
@@ -152,9 +160,17 @@ const Footer = () => {
                   <FormattedMessage id="footer.support.title" />
                 </div>
                 {accordion.support ? (
-                  <FontAwesomeIcon icon={faMinus} className="containerIcon" />
+                  <FontAwesomeIcon
+                    icon={faMinus}
+                    className="containerIcon"
+                    width={20}
+                  />
                 ) : (
-                  <FontAwesomeIcon icon={faPlus} className="containerIcon" />
+                  <FontAwesomeIcon
+                    icon={faPlus}
+                    className="containerIcon"
+                    width={20}
+                  />
                 )}
               </div>
               {accordion.support && (
@@ -207,9 +223,17 @@ const Footer = () => {
                   <FormattedMessage id="footer.location.title" />
                 </div>
                 {accordion.wherIs ? (
-                  <FontAwesomeIcon icon={faMinus} className="containerIcon" />
+                  <FontAwesomeIcon
+                    icon={faMinus}
+                    className="containerIcon"
+                    width={20}
+                  />
                 ) : (
-                  <FontAwesomeIcon icon={faPlus} className="containerIcon" />
+                  <FontAwesomeIcon
+                    icon={faPlus}
+                    className="containerIcon"
+                    width={20}
+                  />
                 )}
               </div>
               {accordion.wherIs && (
