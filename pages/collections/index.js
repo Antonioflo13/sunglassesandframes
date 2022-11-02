@@ -1,5 +1,5 @@
 //REACT
-import React, { useState } from "react";
+import React from "react";
 //NEXT
 import Link from "next/link";
 //HOOKS
@@ -14,7 +14,6 @@ import { getAllCollections } from "../../api/collections";
 import Head from "next/head";
 
 const CollectionsPage = ({ collections }) => {
-  const [letters, setLetters] = useState();
   collections = collections.data.collections.nodes;
   //HOOKS
   const isDesktop = useMediaQuery("768");
@@ -40,6 +39,8 @@ const CollectionsPage = ({ collections }) => {
     collectionsList => (collectionsList.collectionsList[0].viewLetter = true)
   );
 
+  console.log("alphabeticList", alphabeticList);
+
   return (
     <Layout>
       <Head>
@@ -48,54 +49,67 @@ const CollectionsPage = ({ collections }) => {
       </Head>
       <AnimatedPage margins={true}>
         {/* {isDesktop && <Breadcrumbs title="Designers" />} */}
-        <div className="containerCollections mt-20">
-          <div className="containerDesigner">
-            <ul>
-              {collectionsListByAlphabet.map((letter, index) => (
-                <React.Fragment key={index}>
-                  {letter.collectionsList.map((collection, index) => (
-                    <li key={index}>
-                      {collection.viewLetter && (
-                        <div className="font-semibold text-2xl font-serif italic mb-3 text-sunglassesandframes-red">
-                          {letter.letter}
-                        </div>
-                      )}
+        <div className="mt-20">
+          <div>
+            {alphabeticList.map(item => (
+              <span
+                className="item"
+                style={{ marginLeft: "10px" }}
+                key={item + 1}
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+          <div className="containerCollections mt-10">
+            <div className="containerDesigner">
+              <ul>
+                {collectionsListByAlphabet.map((letter, index) => (
+                  <React.Fragment key={index}>
+                    {letter.collectionsList.map((collection, index) => (
+                      <li key={index}>
+                        {collection.viewLetter && (
+                          <div className="font-semibold text-2xl font-serif italic mb-3 text-sunglassesandframes-red">
+                            {letter.letter}
+                          </div>
+                        )}
 
-                      <div
-                        className={`${
-                          collection.products?.edges?.length > 0
-                            ? "available"
-                            : "unavailable"
-                        } mb-6`}
-                      >
-                        <Link
-                          href={{
-                            pathname:
-                              collection.products?.edges?.length > 0 &&
-                              collection.handle ===
-                                "sunglassesandframes-capsule-collection"
-                                ? "/collections/[collection]"
-                                : "/collections/[collection]",
-                            query: { collection: collection.handle },
-                          }}
+                        <div
+                          className={`${
+                            collection.products?.edges?.length > 0
+                              ? "available"
+                              : "unavailable"
+                          } mb-6`}
                         >
-                          <span>
-                            <motion.h2 className=" text-sunglassesandframes text-xl font-bold uppercase">
-                              {collection.title}
-                            </motion.h2>
-                            {/* <p className="text-xs mt-2">
+                          <Link
+                            href={{
+                              pathname:
+                                collection.products?.edges?.length > 0 &&
+                                collection.handle ===
+                                  "sunglassesandframes-capsule-collection"
+                                  ? "/collections/[collection]"
+                                  : "/collections/[collection]",
+                              query: { collection: collection.handle },
+                            }}
+                          >
+                            <span>
+                              <motion.h2 className=" text-sunglassesandframes text-xl font-bold uppercase">
+                                {collection.title}
+                              </motion.h2>
+                              {/* <p className="text-xs mt-2">
                               {collection.description}
                             </p> */}
-                          </span>
-                        </Link>
-                      </div>
-                    </li>
-                  ))}
-                </React.Fragment>
-              ))}
-            </ul>
+                            </span>
+                          </Link>
+                        </div>
+                      </li>
+                    ))}
+                  </React.Fragment>
+                ))}
+              </ul>
+            </div>
+            <div className="containerCollectionPromo"></div>
           </div>
-          <div className="containerCollectionPromo"></div>
         </div>
         {/* {!isDesktop && <Breadcrumbs title="Boutiques" />} */}
       </AnimatedPage>
