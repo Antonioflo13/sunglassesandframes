@@ -1,5 +1,5 @@
 //REACT
-import React from "react";
+import React, { useState } from "react";
 //NEXT
 import Link from "next/link";
 //HOOKS
@@ -14,6 +14,7 @@ import { getAllCollections } from "../../api/collections";
 import Head from "next/head";
 
 const CollectionsPage = ({ collections }) => {
+  const [letters, setLetters] = useState();
   collections = collections.data.collections.nodes;
   //HOOKS
   const isDesktop = useMediaQuery("768");
@@ -46,50 +47,57 @@ const CollectionsPage = ({ collections }) => {
         <meta name="description" content="Designers" />
       </Head>
       <AnimatedPage margins={true}>
-        {isDesktop && <Breadcrumbs title="Designers" />}
-        <ul className="containerDesigner">
-          {collectionsListByAlphabet.map((letter, index) => (
-            <React.Fragment key={index}>
-              {letter.collectionsList.map((collection, index) => (
-                <li key={index}>
-                  {collection.viewLetter && (
-                    <div className="font-semibold text-2xl font-serif italic mb-3 text-sunglassesandframes-red">
-                      {letter.letter}
-                    </div>
-                  )}
+        {/* {isDesktop && <Breadcrumbs title="Designers" />} */}
+        <div className="containerCollections mt-20">
+          <div className="containerDesigner">
+            <ul>
+              {collectionsListByAlphabet.map((letter, index) => (
+                <React.Fragment key={index}>
+                  {letter.collectionsList.map((collection, index) => (
+                    <li key={index}>
+                      {collection.viewLetter && (
+                        <div className="font-semibold text-2xl font-serif italic mb-3 text-sunglassesandframes-red">
+                          {letter.letter}
+                        </div>
+                      )}
 
-                  <div
-                    className={`${
-                      collection.products?.edges?.length > 0
-                        ? "available"
-                        : "unavailable"
-                    } mb-6`}
-                  >
-                    <Link
-                      href={{
-                        pathname:
-                          collection.products?.edges?.length > 0 &&
-                          collection.handle ===
-                            "sunglassesandframes-capsule-collection"
-                            ? "/collections/[collection]"
-                            : "/collections/[collection]",
-                        query: { collection: collection.handle },
-                      }}
-                    >
-                      <span>
-                        <motion.h2 className=" text-sunglassesandframes text-xl font-bold uppercase">
-                          {collection.title}
-                        </motion.h2>
-                        <p className="text-xs mt-2">{collection.description}</p>
-                      </span>
-                    </Link>
-                  </div>
-                </li>
+                      <div
+                        className={`${
+                          collection.products?.edges?.length > 0
+                            ? "available"
+                            : "unavailable"
+                        } mb-6`}
+                      >
+                        <Link
+                          href={{
+                            pathname:
+                              collection.products?.edges?.length > 0 &&
+                              collection.handle ===
+                                "sunglassesandframes-capsule-collection"
+                                ? "/collections/[collection]"
+                                : "/collections/[collection]",
+                            query: { collection: collection.handle },
+                          }}
+                        >
+                          <span>
+                            <motion.h2 className=" text-sunglassesandframes text-xl font-bold uppercase">
+                              {collection.title}
+                            </motion.h2>
+                            {/* <p className="text-xs mt-2">
+                              {collection.description}
+                            </p> */}
+                          </span>
+                        </Link>
+                      </div>
+                    </li>
+                  ))}
+                </React.Fragment>
               ))}
-            </React.Fragment>
-          ))}
-        </ul>
-        {!isDesktop && <Breadcrumbs title="Boutiques" />}
+            </ul>
+          </div>
+          <div className="containerCollectionPromo"></div>
+        </div>
+        {/* {!isDesktop && <Breadcrumbs title="Boutiques" />} */}
       </AnimatedPage>
       <style jsx="true">
         {`
@@ -104,11 +112,18 @@ const CollectionsPage = ({ collections }) => {
           }
 
           .containerDesigner {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            row-gap: 1em;
-            column-gap: 5em;
-            margin-bottom: 100px;
+            width: 40%;
+          }
+
+          .containerCollectionPromo {
+            width: 60%;
+            background-color: black;
+            height: 100vh;
+          }
+
+          .containerCollections {
+            display: flex;
+            gap: 10rem;
           }
 
           .collection {
@@ -117,10 +132,6 @@ const CollectionsPage = ({ collections }) => {
 
           @media (max-width: 768px) {
             .containerDesigner {
-              grid-template-columns: repeat(1, 1fr);
-              row-gap: 1em;
-              margin-bottom: 0;
-              margin-top: 50px;
             }
           }
         `}
