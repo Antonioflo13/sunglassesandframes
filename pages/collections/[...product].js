@@ -43,7 +43,15 @@ const Product = ({
     shipping: false,
   });
   const relatedProducts = CollectionProducts.data.collection.products.nodes;
+  const mainImage = (
+      <GalleryProducts
+          images={product.variants.edges[0].node.product.images.nodes}
+      />
+  );
 
+  const title = `Indice - ${productHandle}`;
+
+  //FUNCTIONS
   const buy = async () => {
     let checkoutId = getCookie("checkoutId");
 
@@ -73,14 +81,6 @@ const Product = ({
       setDialogContactProduct({ title: product.title, vendor: product.vendor })
     );
   };
-
-  const mainImage = (
-    <GalleryProducts
-      images={product.variants.edges[0].node.product.images.nodes}
-    />
-  );
-
-  const title = `Indice - ${productHandle}`;
 
   return (
     <Layout>

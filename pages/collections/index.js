@@ -66,9 +66,12 @@ const CollectionsPage = ({ collections }) => {
                     } mb-6`}
                   >
                     <Link
+                      style={{
+                        pointerEvents:
+                          !collection.products?.nodes?.length && "none",
+                      }}
                       href={{
                         pathname:
-                          collection.products?.nodes?.length > 0 &&
                           collection.handle === "indice-capsule-collection"
                             ? "/collections/[collection]"
                             : "/collections/[collection]",

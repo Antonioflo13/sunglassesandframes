@@ -1,11 +1,17 @@
+//REACT
 import React from "react";
-import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
-import { Swiper, SwiperSlide } from "swiper/react";
-import useMediaQuery from "../hooks/useMediaQuery";
-import EffectCarousel from "../utils/effect-carousel.esm";
-import { Autoplay } from "swiper";
+//NEXT
 import Link from "next/link";
 import Image from "next/image";
+//HOOKS
+import useMediaQuery from "../hooks/useMediaQuery";
+//INTL
+import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
+//SWIPER
+import { Swiper, SwiperSlide } from "swiper/react";
+import EffectCarousel from "../utils/effect-carousel.esm";
+import { Autoplay } from "swiper";
+//CSS
 import mainClasses from "./scss/main.module.scss";
 
 const SliderArticles = ({ articles }) => {
@@ -39,10 +45,12 @@ const SliderArticles = ({ articles }) => {
                     className={mainClasses.linkSliderHomeArticle}
                   >
                     <div className="swiper-carousel-animate-opacity">
-                      <div className="relative" style={{height: "347px"}}>
+                      <div className="image-container">
                         <Image
                           className="object-cover rounded-md"
                           fill="true"
+                          style={{ objectFit: "cover" }}
+                          placeholder="blurDataURL"
                           sizes="100%"
                           priority={true}
                           src={
@@ -68,6 +76,18 @@ const SliderArticles = ({ articles }) => {
       <div className="ml-1 text-xs mt-6 mb-20 text-center px-5">
         <FormattedMessage id="home.slider_articles.text" />
       </div>
+      <style jsx="true">{`
+        .image-container {
+        position: relative;
+          height: 347px;
+        }
+
+        @media (max-width: 768px) {
+          .image-container {
+            height: 400px;
+          }
+        }
+      `}</style>
     </>
   );
 };
