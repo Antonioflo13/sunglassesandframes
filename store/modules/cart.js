@@ -4,6 +4,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState: {
     value: null,
+    visible: false,
   },
   reducers: {
     setCart: (state, action) => {

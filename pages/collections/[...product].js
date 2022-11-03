@@ -21,6 +21,7 @@ import DesktopProduct from "../../templates/desktop-product";
 import MobileProduct from "../../templates/mobile-product";
 import Layout from "../../components/layout";
 import Head from "next/head";
+import Client from "shopify-buy";
 
 const Product = ({
   resProduct,
@@ -31,7 +32,8 @@ const Product = ({
   const product = resProduct.data.product;
 
   //STORE
-  const shopifyClient = useSelector(state => JSON.parse(state.shopify.client));
+  const checkout = useSelector(state => JSON.parse(state.shopify.checkout));
+  const language = useSelector(state => state.language.value);
   const dispatch = useDispatch();
 
   //HOOKS
@@ -47,14 +49,19 @@ const Product = ({
   const buy = async () => {
     let checkoutId = getCookie("checkoutId");
     if (!checkoutId) {
-      checkoutId = (await shopifyClient.checkout.create()).id;
+      checkoutId = checkout.id;
       setCookie("checkoutId", checkoutId, 90);
     }
-    const updatedCheckout = await shopifyClient.checkout.addLineItems(
+    const buildClient = Client.buildClient({
+      domain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN,
+      storefrontAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESSTOKEN,
+      language: language,
+    });
+    const updatedCheckout = await buildClient.checkout.addLineItems(
       checkoutId,
       [
         {
-          variantId: product.id,
+          variantId: product.variants.edges[0].node.id,
           quantity: 1,
         },
       ]
@@ -62,8 +69,9 @@ const Product = ({
 
     const { lineItems, totalPrice } = updatedCheckout;
     const cartContent = { lineItems, totalPrice };
-    await dispatch(setShopifyCheckout(updatedCheckout));
-    dispatch(setCart(cartContent));
+    console.log(cartContent);
+    // await dispatch(setShopifyCheckout(updatedCheckout));
+    dispatch(setCart(JSON.stringify(cartContent)));
   };
 
   const askForPrice = () => {

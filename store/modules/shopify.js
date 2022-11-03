@@ -9,16 +9,10 @@ export const shopifySlice = createSlice({
   },
   reducers: {
     setClient: (state, action) => {
-      state.client = JSON.stringify(
-        Client.buildClient({
-          domain: process.env.SHOPIFY_STORE_DOMAIN,
-          storefrontAccessToken: process.env.SHOPIFY_STOREFRONT_ACCESSTOKEN,
-          language: action.payload,
-        })
-      );
+      state.checkout = action.payload;
     },
     setShopifyCheckout: (state, action) => {
-      state.checkout = JSON.stringify(action.payload);
+      state.checkout = action.payload;
     },
   },
 });

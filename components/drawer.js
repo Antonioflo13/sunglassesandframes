@@ -16,6 +16,7 @@ import mastercard from "../assets/images/2.svg";
 import visa from "../assets/images/3.svg";
 import amex from "../assets/images/4.svg";
 import logo from "../assets/images/logo-black.png";
+import Client from "shopify-buy";
 
 const getItems = cart => {
   if (cart) {
@@ -38,14 +39,20 @@ const Drawer = ({ handleClose, setShowCart }) => {
   const intl = useIntl();
 
   //STORE
-  const shopifyClient = useSelector(state => JSON.parse(state.shopify.client));
-  const cart = useSelector(state => state.cart.value);
+  const checkout = useSelector(state => JSON.parse(state.shopify.checkout));
+  const cart = useSelector(state => JSON.parse(state.cart.value));
+  const language = useSelector(state =>state.language.value);
   const dispatch = useDispatch();
 
   //FUNCTIONS
   const handleAddItem = async id => {
     const checkoutId = getCookie("checkoutId");
-    const updatedCheckout = await shopifyClient.checkout.addLineItems(
+    const buildClient = Client.buildClient({
+      domain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN,
+      storefrontAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESSTOKEN,
+      language: language,
+    });
+    const updatedCheckout = await buildClient.checkout.addLineItems(
       checkoutId,
       [
         {
@@ -57,12 +64,18 @@ const Drawer = ({ handleClose, setShowCart }) => {
     const { lineItems, totalPrice } = updatedCheckout;
     const cartContent = { lineItems, totalPrice };
 
-    await dispatch(setShopifyCheckout(updatedCheckout));
-    setShowCart(cartContent);
+    // await dispatch(setShopifyCheckout(updatedCheckout));
+    setShowCart(JSON.stringify(cartContent));
   };
   const handleRemoveItem = async id => {
     const checkoutId = getCookie("checkoutId");
-    const updatedCheckout = await shopifyClient.checkout.addLineItems(
+    const buildClient = Client.buildClient({
+      domain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN,
+      storefrontAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESSTOKEN,
+      language: language,
+    });
+    console.log(checkout.webUrl);
+    const updatedCheckout = await buildClient.checkout.addLineItems(
       checkoutId,
       [
         {
@@ -74,26 +87,33 @@ const Drawer = ({ handleClose, setShowCart }) => {
     const { lineItems, totalPrice } = updatedCheckout;
     const cartContent = { lineItems, totalPrice };
 
-    await dispatch(setShopifyCheckout(updatedCheckout));
-    setShowCart(cartContent);
+    // await dispatch(setShopifyCheckout(updatedCheckout));
+    setShowCart(JSON.stringify(cartContent));
   };
 
   const handleRemoveItems = async id => {
     const checkoutId = getCookie("checkoutId");
     const lineItemIdsToRemove = [id];
-    const updatedCheckout = await shopifyClient.checkout.removeLineItems(
+    const buildClient = Client.buildClient({
+      domain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN,
+      storefrontAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESSTOKEN,
+      language: language,
+    });
+    const updatedCheckout = await buildClient.checkout.removeLineItems(
       checkoutId,
       lineItemIdsToRemove
     );
+    await buildClient.checkout.fetch(checkoutId);
     const { lineItems, totalPrice } = updatedCheckout;
     const cartContent = { lineItems, totalPrice };
 
-    await setShopifyCheckout(updatedCheckout);
-    setShowCart(cartContent);
+    // await setShopifyCheckout(updatedCheckout);
+    setShowCart(JSON.stringify(cartContent));
   };
-  // const goToCheckout = () => {
-  //   window.open(shopifyCheckout.webUrl, "_self")
-  //}
+
+  const goToCheckout = async () => {
+    window.open(checkout.webUrl, "_self")
+  }
 
   const items = parserLineItems(getItems(cart));
 
@@ -146,7 +166,7 @@ const Drawer = ({ handleClose, setShowCart }) => {
                         <div className="text-xs uppercase font-bold">
                           {item.titleProduct}
                         </div>
-                        <div>€ {item.details.price}</div>
+                        <div>€ {item.details.price.amount}</div>
                       </div>
                       <div className="drawer-product-actions">
                         <div className="icon-change-quantity">
@@ -180,7 +200,7 @@ const Drawer = ({ handleClose, setShowCart }) => {
                 <div className="font-bold">
                   {intl.formatMessage({ id: "drawer.total" }) +
                     "   " +
-                    numberWithCommas(cart?.totalPrice ? cart?.totalPrice : 0)}
+                    numberWithCommas(cart?.totalPrice ? cart?.totalPrice.amount : 0)}
                 </div>
               </div>
               <div className="drawer-recap-checkout mt-4">
@@ -188,16 +208,16 @@ const Drawer = ({ handleClose, setShowCart }) => {
                   className="w-full rounded-full bg-indice-red pt-1 pb-px px-4 leading-5 text-white font-bold text-xs uppercase"
                   style={{ height: "45px" }}
                 >
-                  <div className="font-bold">
+                  <div className="font-bold" onClick={goToCheckout}>
                     {intl.formatMessage({ id: "drawer.label_button" })}
                   </div>
                 </motion.button>
               </div>
               <div className="flex mt-10 gap-10">
-                <img src={paypal} width={30} alt="" />
-                <img src={mastercard} width={30} alt="" />
-                <img src={visa} width={30} alt="" />
-                <img src={amex} width={30} alt="" />
+                <img src={paypal.src} width={30} alt="" />
+                <img src={mastercard.src} width={30} alt="" />
+                <img src={visa.src} width={30} alt="" />
+                <img src={amex.src} width={30} alt="" />
               </div>
             </div>
           </div>
