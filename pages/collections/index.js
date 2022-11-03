@@ -69,6 +69,7 @@ const CollectionsPage = ({ collections }) => {
                       style={{
                         pointerEvents:
                           !collection.products?.nodes?.length && "none",
+                        touchAction: !collection.products?.nodes?.length && "none",
                       }}
                       href={{
                         pathname:
