@@ -2,7 +2,9 @@
 import React, { useState } from "react";
 //STORE
 import { useDispatch, useSelector } from "react-redux";
-import { setShopifyCheckout } from "../store/modules/shopify";
+import { setCartContent } from "../store/modules/cart";
+//HOOKS
+import shopifyBuildClient from "../hooks/shopifyBuildClient";
 //UTILS
 import { numberWithCommas, parserLineItems } from "../utils/parser"; //INTL
 import { useIntl } from "react-intl";
@@ -16,7 +18,6 @@ import mastercard from "../assets/images/2.svg";
 import visa from "../assets/images/3.svg";
 import amex from "../assets/images/4.svg";
 import logo from "../assets/images/logo-black.png";
-import Client from "shopify-buy";
 
 const getItems = cart => {
   if (cart) {
@@ -33,86 +34,60 @@ const sidebarVariants = {
   },
 };
 
-const Drawer = ({ handleClose, setShowCart }) => {
+const Drawer = ({ handleClose }) => {
   //STATE
   const [isVisible, setIsVisible] = useState(true);
   const intl = useIntl();
 
   //STORE
-  const checkout = useSelector(state => JSON.parse(state.shopify.checkout));
   const cart = useSelector(state => JSON.parse(state.cart.value));
   const language = useSelector(state =>state.language.value);
   const dispatch = useDispatch();
 
   //FUNCTIONS
   const handleAddItem = async id => {
-    const checkoutId = getCookie("checkoutId");
-    const buildClient = Client.buildClient({
-      domain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN,
-      storefrontAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESSTOKEN,
-      language: language,
-    });
-    const updatedCheckout = await buildClient.checkout.addLineItems(
-      checkoutId,
-      [
-        {
-          variantId: id,
-          quantity: 1,
-        },
-      ]
-    );
+    const item =  [
+      {
+        variantId: id,
+        quantity: 1,
+      },
+    ]
+    const updatedCheckout = await shopifyBuildClient('updateCheckout', language, item);
+
     const { lineItems, totalPrice } = updatedCheckout;
     const cartContent = { lineItems, totalPrice };
 
-    // await dispatch(setShopifyCheckout(updatedCheckout));
-    setShowCart(JSON.stringify(cartContent));
+    dispatch(setCartContent(JSON.stringify(cartContent)));
   };
+
   const handleRemoveItem = async id => {
-    const checkoutId = getCookie("checkoutId");
-    const buildClient = Client.buildClient({
-      domain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN,
-      storefrontAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESSTOKEN,
-      language: language,
-    });
-    console.log(checkout.webUrl);
-    const updatedCheckout = await buildClient.checkout.addLineItems(
-      checkoutId,
-      [
-        {
-          variantId: id,
-          quantity: -1,
-        },
-      ]
-    );
+    const item =  [
+      {
+        variantId: id,
+        quantity: -1,
+      },
+    ]
+    const updatedCheckout = await shopifyBuildClient('updateCheckout', language, item);
+
     const { lineItems, totalPrice } = updatedCheckout;
     const cartContent = { lineItems, totalPrice };
 
-    // await dispatch(setShopifyCheckout(updatedCheckout));
-    setShowCart(JSON.stringify(cartContent));
+    dispatch(setCartContent(JSON.stringify(cartContent)));
   };
 
   const handleRemoveItems = async id => {
-    const checkoutId = getCookie("checkoutId");
-    const lineItemIdsToRemove = [id];
-    const buildClient = Client.buildClient({
-      domain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN,
-      storefrontAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESSTOKEN,
-      language: language,
-    });
-    const updatedCheckout = await buildClient.checkout.removeLineItems(
-      checkoutId,
-      lineItemIdsToRemove
-    );
-    await buildClient.checkout.fetch(checkoutId);
+    const item = [id];
+    const updatedCheckout = await shopifyBuildClient('updateCheckout', language, item);
+
     const { lineItems, totalPrice } = updatedCheckout;
     const cartContent = { lineItems, totalPrice };
 
-    // await setShopifyCheckout(updatedCheckout);
-    setShowCart(JSON.stringify(cartContent));
+    dispatch(setCartContent(JSON.stringify(cartContent)));
   };
 
   const goToCheckout = async () => {
-    window.open(checkout.webUrl, "_self")
+    const checkoutWebUrl = getCookie("checkoutWebUrl");
+    window.open(checkoutWebUrl, "_self");
   }
 
   const items = parserLineItems(getItems(cart));
@@ -207,8 +182,9 @@ const Drawer = ({ handleClose, setShowCart }) => {
                 <motion.button
                   className="w-full rounded-full bg-indice-red pt-1 pb-px px-4 leading-5 text-white font-bold text-xs uppercase"
                   style={{ height: "45px" }}
+                  onClick={goToCheckout}
                 >
-                  <div className="font-bold" onClick={goToCheckout}>
+                  <div className="font-bold">
                     {intl.formatMessage({ id: "drawer.label_button" })}
                   </div>
                 </motion.button>
