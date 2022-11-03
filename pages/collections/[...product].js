@@ -4,6 +4,7 @@ import React from "react";
 import getProduct from "../../api/product";
 import { getCollection } from "../../api/collections";
 //STORE
+
 import { setDialogContactShow } from "../../store/modules/dialogContact";
 import { setDialogContactProduct } from "../../store/modules/dialogContact";
 import { setShowCart, setCartContent } from "../../store/modules/cart";
