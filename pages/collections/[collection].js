@@ -65,7 +65,8 @@ const CollectionTemplate = ({ collection }) => {
               <Image
                   fill="true"
                   style={{ objectFit: "cover" }}
-                  placeholder="blurDataURL"
+                  placeholder="blur"
+                  blurDataURL={collection.image.src}
                   sizes="100%"
                   priority={true}
                   src={collection.image.src}

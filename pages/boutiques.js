@@ -11,6 +11,7 @@ import { stores } from "../data/stores";
 //HOOKS
 import useMediaQuery from "../hooks/useMediaQuery";
 import Head from "next/head";
+import imageMenu from "../assets/images/menu.jpg";
 
 const Boutiques = () => {
   const isDesktop = useMediaQuery(768);
@@ -32,6 +33,9 @@ const Boutiques = () => {
                     fill="true"
                     sizes="100%"
                     className="boutiques-image"
+                    placeholder="blur"
+                    blurDataURL={imageMenu.src}
+                    priority={true}
                     src={item.image.src.src}
                     alt="image-boutique"
                   />

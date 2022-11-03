@@ -50,7 +50,8 @@ const SliderArticles = ({ articles }) => {
                           className="object-cover rounded-md"
                           fill="true"
                           style={{ objectFit: "cover" }}
-                          placeholder="blurDataURL"
+                          placeholder="blur"
+                          blurDataURL={article.imageheader.url}
                           sizes="100%"
                           priority={true}
                           src={

@@ -95,8 +95,9 @@ const Index = ({ articles }) => {
                       fill="true"
                       sizes="100%"
                       priority={true}
+                      placeholder="blur"
+                      blurDataURL={item.imageheader.url}
                       style={{ objectFit: "cover" }}
-                      placeholder="blurDataURL"
                       src={item.imageheader.url}
                       alt="image-header"
                     />
