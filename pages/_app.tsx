@@ -1,3 +1,5 @@
+//NEXT
+import { Analytics } from '@vercel/analytics/react';
 import Head from "next/head";
 //REACT
 import type { AppProps } from "next/app";
@@ -16,6 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Indice</title>
       </Head>
+      <Analytics />
       <Provider store={store}>
         <IntlProvider locale={"it"}>
           <Component {...pageProps} />˙
