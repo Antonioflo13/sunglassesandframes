@@ -80,9 +80,9 @@ const LinkMenu = ({ children, to, sidebar }) => {
               font-size: 12px;
             }
 
-            .imageMenu {
-              height: 70px !important;
-              width: 165px !important;
+            .containerItemMenu {
+              height: 70px;
+              width: 165px;
             }
           }
         `}</style>
