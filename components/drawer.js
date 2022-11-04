@@ -77,7 +77,7 @@ const Drawer = ({ handleClose }) => {
 
   const handleRemoveItems = async id => {
     const item = [id];
-    const updatedCheckout = await shopifyBuildClient('updateCheckout', language, item);
+    const updatedCheckout = await shopifyBuildClient('removeLineItems', language, item);
 
     const { lineItems, totalPrice } = updatedCheckout;
     const cartContent = { lineItems, totalPrice };

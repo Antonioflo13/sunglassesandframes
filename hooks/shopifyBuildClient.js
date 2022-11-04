@@ -9,6 +9,8 @@ const shopifyBuildClient = async (action, language, items) => {
     language: language,
   });
 
+  const checkoutId = getCookie("checkoutId");
+
   switch (action) {
     case "createCheckout":
       const { id, webUrl } = await buildClient.checkout.create();
@@ -16,8 +18,9 @@ const shopifyBuildClient = async (action, language, items) => {
       setCookie("checkoutWebUrl", webUrl, 90);
       break;
     case "updateCheckout":
-      let checkoutId = getCookie("checkoutId");
       return await buildClient.checkout.addLineItems(checkoutId, items);
+    case "removeLineItems":
+      return await buildClient.checkout.removeLineItems(checkoutId, items);
   }
 
 };
