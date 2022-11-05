@@ -25,7 +25,7 @@ const IndexPage = ({ articles }) => {
   useEffect(() => {
     let cookie = document.getElementById("cookie");
     console.log(cookie);
-    if (!localStorage.getItem("cookie-accepted")) {
+    if (localStorage.getItem("cookie-accepted") === true) {
       cookie = null;
       console.log(cookie);
     }
