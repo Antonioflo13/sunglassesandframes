@@ -22,6 +22,10 @@ const IndexPage = ({ articles }) => {
   let selectSingleIcon;
   const cookieAccepted = localStorage.getItem("cookie-accepted");
 
+  const onSaveCookiePreferences = preferences => {
+    localStorage.setItem("cookie-accepted", preferences);
+  };
+
   return (
     <>
       {!cookieAccepted && (
@@ -61,7 +65,7 @@ const IndexPage = ({ articles }) => {
                 "onPreferenceFirstExpressed": function(event) {
                     console.log('Cookie preference expressed, sending consent to Consent Solution', event);
                     if(event.consent) {
-                        localStorage.setItem("cookie-accepted", event.consent);
+                        onSaveCookiePreferences(event.consent);
                     }
                     _iub.cons_instructions.push(["submit",
                         {
