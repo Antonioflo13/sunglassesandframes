@@ -18,22 +18,17 @@ const IndexPage = ({ articles }) => {
   const language = useSelector(state => state.language.value);
   //STATE
   const [show, setShown] = useState(false);
-  const [oldValueLanguage, setOldValueLanguage] = useState("");
   articles = articles.data.allArticles;
   let selectSingleIcon;
 
   useEffect(() => {
-    setOldValueLanguage(language);
-    if (
-      localStorage.getItem("cookie-accepted") === null ||
-      oldValueLanguage !== language
-    ) {
+    if (localStorage.getItem("cookie-accepted") === null) {
       let script = document.createElement("script");
       script.src = "https://cdn.iubenda.com/cs/iubenda_cs.js";
       script.async = true;
       document.body.appendChild(script);
     }
-  }, [language]);
+  }, []);
 
   return (
     <>
@@ -59,19 +54,13 @@ const IndexPage = ({ articles }) => {
           },
            "callback": {
                 "onReady": function(event) {
-             
-                    console.log('Cookie banner is shown');
                     var banner = document.getElementById('iubenda-cs-banner');
                   
-                    if (banner && localStorage.getItem("cookie-accepted")) {
-                      banner = null;
-                    }
                     if (banner && !localStorage.getItem("cookie-accepted")) {
                       bannerHTML = banner.innerHTML;
                     }
                 },
                 "onPreferenceFirstExpressed": function(event) {
-                    console.log('Cookie preference expressed, sending consent to Consent Solution', event);
                     if(event.consent) {
                         localStorage.setItem("cookie-accepted", event.consent);
                     }
@@ -90,12 +79,11 @@ const IndexPage = ({ articles }) => {
                             }
                         },
                         {
-                            success: function(response) {
-                                console.log(response);
-                                console.log('Consent sent to Consent Solution');
+                            success: function() {
+                                
                             },
-                            error: function(response) {
-                                console.log(response);
+                            error: function() {
+                               
                             }
                         }
                     ]);
