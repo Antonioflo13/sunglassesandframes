@@ -23,18 +23,10 @@ const IndexPage = ({ articles }) => {
   articles = articles.data.allArticles;
   let selectSingleIcon;
   //FUNCTION
-  const setCountryByPosition = async () => {
-    await fetch("https://ipapi.co/json/")
-      .then(response => {
-        response.json().then(data => {
-          if (data.country.toLowerCase() !== "it") {
-            dispatch(setLanguage("en"));
-          }
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  const setLanguageByBrowser = () => {
+    if (navigator.language !== "it-IT") {
+      dispatch(setLanguage("en"));
+    }
   };
 
   const handlerCookieScript = () => {
@@ -48,7 +40,7 @@ const IndexPage = ({ articles }) => {
 
   useEffect(() => {
     handlerCookieScript();
-    setCountryByPosition().then(r => r);
+    setLanguageByBrowser();
   }, []);
 
   return (
