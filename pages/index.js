@@ -60,7 +60,10 @@ const IndexPage = ({ articles }) => {
                 "onReady": function() {
                     console.log('Cookie banner is shown');
                     var banner = document.getElementById('iubenda-cs-banner');
-                    console.log(banner);
+                  
+                    if (banner && localStorage.getItem("cookie-accepted")) {
+                      banner = null;
+                    }
                     if (banner && !localStorage.getItem("cookie-accepted")) {
                       bannerHTML = banner.innerHTML;
                     }
