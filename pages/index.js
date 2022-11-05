@@ -11,23 +11,44 @@ import AnimatedPage from "../components/animated-page";
 import Layout from "../components/layout";
 import Head from "next/head";
 import Script from "next/script";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setLanguage } from "../store/modules/language";
 
 const IndexPage = ({ articles }) => {
   //STORE
+  const dispatch = useDispatch();
   const language = useSelector(state => state.language.value);
   //STATE
   const [show, setShown] = useState(false);
   articles = articles.data.allArticles;
   let selectSingleIcon;
+  //FUNCTION
+  const setCountryByPosition = async () => {
+    await fetch("https://ipapi.co/json/")
+      .then(response => {
+        response.json().then(data => {
+          if (data.country.toLowerCase() !== "it") {
+            dispatch(setLanguage("en"));
+          }
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
-  useEffect(() => {
+  const handlerCookieScript = () => {
     if (localStorage.getItem("cookie-accepted") === null) {
       let script = document.createElement("script");
       script.src = "https://cdn.iubenda.com/cs/iubenda_cs.js";
       script.async = true;
       document.body.appendChild(script);
     }
+  };
+
+  useEffect(() => {
+    handlerCookieScript();
+    setCountryByPosition().then(r => r);
   }, []);
 
   return (
