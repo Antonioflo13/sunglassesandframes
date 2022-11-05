@@ -23,12 +23,14 @@ const IndexPage = ({ articles }) => {
 
   return (
     <>
-      <Script
-        type="text/javascript"
-        src="https://cdn.iubenda.com/cs/iubenda_cs.js"
-        async
-      />
-      <Script>{`
+      {!localStorage.getItem("cookie-accepted") && (
+        <>
+          <Script
+            type="text/javascript"
+            src="https://cdn.iubenda.com/cs/iubenda_cs.js"
+            async
+          />
+          <Script>{`
         var _iub = _iub || [];
         _iub.csConfiguration = {
         "lang":"${language}","siteId":2172061,"cookiePolicyId":22164738, 
@@ -57,7 +59,9 @@ const IndexPage = ({ articles }) => {
                 },
                 "onPreferenceFirstExpressed": function(event) {
                     console.log('Cookie preference expressed, sending consent to Consent Solution', event);
-                    
+                    if(event.consent) {
+                        localStorage.setItem("cookie-accepted", event.consent);
+                    }
                     _iub.cons_instructions.push(["submit",
                         {
                             consent: {
@@ -86,7 +90,8 @@ const IndexPage = ({ articles }) => {
             }
         };
         `}</Script>
-
+        </>
+      )}
       <Head>
         <title>Indice</title>
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
