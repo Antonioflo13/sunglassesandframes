@@ -47,32 +47,42 @@ const IndexPage = ({ articles }) => {
             "#000001",
             "fontSizeBody":12 
           },
-           "onPreferenceFirstExpressed": function(event) {
-                console.log('Cookie preference expressed, sending consent to Consent Solution');
-                _iub.cons_instructions.push(["submit",
-                    {
-                        consent: {
-                            subject: {},
-                            preferences: event,
-                            legal_notices: [{
-                                identifier: "cookie_policy"
-                            }],
-                            proofs: [{
-                                content: JSON.stringify(event),
-                                form: bannerHTML
-                            }]
-                        }
-                    },
-                    {
-                        success: function(response) {
-                            console.log(response);
-                            console.log('Consent sent to Consent Solution');
-                        },
-                        error: function(response) {
-                            console.log(response);
-                        }
+           "callback": {
+                "onReady": function() {
+                    console.log('Cookie banner is shown');
+                    var banner = document.getElementById('iubenda-cs-banner');
+                    if (banner) {
+                      bannerHTML = banner.innerHTML;
                     }
-                ]);
+                },
+                "onPreferenceFirstExpressed": function(event) {
+                    console.log('Cookie preference expressed, sending consent to Consent Solution');
+                    
+                    _iub.cons_instructions.push(["submit",
+                        {
+                            consent: {
+                                subject: {},
+                                preferences: event,
+                                legal_notices: [{
+                                    identifier: "cookie_policy"
+                                }],
+                                proofs: [{
+                                    content: JSON.stringify(event),
+                                    form: bannerHTML
+                                }]
+                            }
+                        },
+                        {
+                            success: function(response) {
+                                console.log(response);
+                                console.log('Consent sent to Consent Solution');
+                            },
+                            error: function(response) {
+                                console.log(response);
+                            }
+                        }
+                    ]);
+                }
             }
         };
         `}</Script>
