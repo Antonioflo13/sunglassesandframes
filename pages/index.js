@@ -23,21 +23,24 @@ const IndexPage = ({ articles }) => {
   let selectSingleIcon;
 
   useEffect(() => {
-    if (localStorage.getItem("cookie-accepted")) {
-      setCookieAccepted(true);
+    let cookie = document.getElementById("cookie");
+    console.log(cookie);
+    if (!localStorage.getItem("cookie-accepted")) {
+      cookie = null;
+      console.log(cookie);
     }
   }, []);
 
   return (
     <>
-      {cookieAccepted && (
-        <>
-          <Script
-            type="text/javascript"
-            src={!cookieAccepted && "https://cdn.iubenda.com/cs/iubenda_cs.js"}
-            async
-          />
-          <Script>{`
+      <Script
+        id="cookie"
+        type="text/javascript"
+        src="https://cdn.iubenda.com/cs/iubenda_cs.js"
+        async
+      />
+      <Script>
+        {`
         var _iub = _iub || [];
           _iub.csConfiguration = {
         "lang":"${language}","siteId":2172061,"cookiePolicyId":22164738, 
@@ -101,9 +104,8 @@ const IndexPage = ({ articles }) => {
                 }
             }
         };
-        `}</Script>
-        </>
-      )}
+        `}
+      </Script>
       <Head>
         <title>Indice</title>
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
