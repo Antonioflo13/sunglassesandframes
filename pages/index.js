@@ -18,22 +18,26 @@ const IndexPage = ({ articles }) => {
   const language = useSelector(state => state.language.value);
   //STATE
   const [show, setShown] = useState(false);
-  const [cookieAccepted, setCookieAccepted] = useState(false);
+  const [oldValueLanguage, setOldValueLanguage] = useState("");
   articles = articles.data.allArticles;
   let selectSingleIcon;
 
   useEffect(() => {
-    if (localStorage.getItem("cookie-accepted") === null) {
+    setOldValueLanguage(language);
+    if (
+      localStorage.getItem("cookie-accepted") === null ||
+      oldValueLanguage !== language
+    ) {
       let script = document.createElement("script");
       script.src = "https://cdn.iubenda.com/cs/iubenda_cs.js";
       script.async = true;
       document.body.appendChild(script);
     }
-  }, []);
+  }, [language]);
 
   return (
     <>
-      <Script id="cookie-config">
+      <Script>
         {`
         var _iub = _iub || [];
           _iub.csConfiguration = {
