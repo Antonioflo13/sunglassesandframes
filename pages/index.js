@@ -20,10 +20,11 @@ const IndexPage = ({ articles }) => {
   const [show, setShown] = useState(false);
   articles = articles.data.allArticles;
   let selectSingleIcon;
+  const cookieAccepted = localStorage.getItem("cookie-accepted");
 
   return (
     <>
-      {!localStorage.getItem("cookie-accepted") && (
+      {!cookieAccepted && (
         <>
           <Script
             type="text/javascript"
