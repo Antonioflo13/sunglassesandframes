@@ -1,5 +1,5 @@
 //REACT
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 //API
 import getAllArticles from "../api/articles";
 //COMPONENTS
@@ -18,13 +18,15 @@ const IndexPage = ({ articles }) => {
   const language = useSelector(state => state.language.value);
   //STATE
   const [show, setShown] = useState(false);
+  const [cookieAccepted, setCookieAccepted] = useState(false);
   articles = articles.data.allArticles;
   let selectSingleIcon;
-  const cookieAccepted = localStorage.getItem("cookie-accepted");
 
-  const onSaveCookiePreferences = preferences => {
-    localStorage.setItem("cookie-accepted", preferences);
-  };
+  useEffect(() => {
+    if (localStorage.getItem("cookie-accepted")) {
+      setCookieAccepted(true);
+    }
+  }, []);
 
   return (
     <>
@@ -65,7 +67,7 @@ const IndexPage = ({ articles }) => {
                 "onPreferenceFirstExpressed": function(event) {
                     console.log('Cookie preference expressed, sending consent to Consent Solution', event);
                     if(event.consent) {
-                        onSaveCookiePreferences(event.consent);
+                        localStorage.setItem("cookie-accepted", event.consent);
                     }
                     _iub.cons_instructions.push(["submit",
                         {
