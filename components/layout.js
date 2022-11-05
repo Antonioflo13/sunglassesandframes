@@ -21,6 +21,7 @@ const Layout = ({ children }) => {
   const language = useSelector(state => state.language.value);
   //ROUTER
   const router = useRouter();
+  console.log(router.pathname);
   //STATE
   const isDesktop = useMediaQuery(768);
   const messages = {
@@ -58,7 +59,7 @@ const Layout = ({ children }) => {
     >
       <Navbar />
       {children}
-      {router.pathname !== "/product" && isDesktop && <Footer />}
+      {router.pathname !== "/product" && <Footer />}
     </IntlProvider>
   );
 };

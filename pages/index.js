@@ -19,16 +19,15 @@ const IndexPage = ({ articles }) => {
 
   return (
     <>
+      <Script
+          type="text/javascript"
+          src="https://cdn.iubenda.com/cs/iubenda_cs.js"
+          async
+      />
+      <Script>{`var _iub = _iub || [];_iub.csConfiguration = {"lang":"it","siteId":2172061,"cookiePolicyId":22164738, "banner":{ "acceptButtonDisplay":true,"customizeButtonDisplay":true,"acceptButtonColor":"#800000","acceptButtonCaptionColor":"white","customizeButtonColor":"#212121","customizeButtonCaptionColor":"white","rejectButtonColor":"#0073CE","rejectButtonCaptionColor":"white","position":"float-bottom-center","textColor":"white","backgroundColor":"#000001","fontSizeBody":12 }};`}</Script>
       <Head>
         <title>Indice</title>
-
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <Script
-          type="text/javascript"
-          src="//cdn.iubenda.com/cs/iubenda_cs.js"
-          async
-        />
-        <Script>{`var _iub = _iub || [];_iub.csConfiguration = {"lang":"it","siteId":2172061,"cookiePolicyId":22164738, "banner":{ "acceptButtonDisplay":true,"customizeButtonDisplay":true,"acceptButtonColor":"#800000","acceptButtonCaptionColor":"white","customizeButtonColor":"#212121","customizeButtonCaptionColor":"white","rejectButtonColor":"#0073CE","rejectButtonCaptionColor":"white","position":"float-bottom-center","textColor":"white","backgroundColor":"#000001","fontSizeBody":12 }};`}</Script>
       </Head>
       <Layout articles={articles}>
 
