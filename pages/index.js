@@ -30,7 +30,7 @@ const IndexPage = ({ articles }) => {
 
   return (
     <>
-      {!cookieAccepted && (
+      {cookieAccepted && (
         <>
           <Script
             type="text/javascript"
