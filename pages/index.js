@@ -56,7 +56,7 @@ const IndexPage = ({ articles }) => {
                     }
                 },
                 "onPreferenceFirstExpressed": function(event) {
-                    console.log('Cookie preference expressed, sending consent to Consent Solution');
+                    console.log('Cookie preference expressed, sending consent to Consent Solution', event);
                     
                     _iub.cons_instructions.push(["submit",
                         {
