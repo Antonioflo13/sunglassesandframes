@@ -28,7 +28,8 @@ const IndexPage = ({ articles }) => {
         src="https://cdn.iubenda.com/cs/iubenda_cs.js"
         async
       />
-      <Script>{`var _iub = _iub || [];
+      <Script>{`
+        var _iub = _iub || [];
         _iub.csConfiguration = {
         "lang":"${language}","siteId":2172061,"cookiePolicyId":22164738, 
           "banner": { 
@@ -45,8 +46,36 @@ const IndexPage = ({ articles }) => {
             "backgroundColor":
             "#000001",
             "fontSizeBody":12 
-          }
-        };`}</Script>
+          },
+           "onPreferenceFirstExpressed": function(event) {
+                console.log('Cookie preference expressed, sending consent to Consent Solution');
+                _iub.cons_instructions.push(["submit",
+                    {
+                        consent: {
+                            subject: {},
+                            preferences: event,
+                            legal_notices: [{
+                                identifier: "cookie_policy"
+                            }],
+                            proofs: [{
+                                content: JSON.stringify(event),
+                                form: bannerHTML
+                            }]
+                        }
+                    },
+                    {
+                        success: function(response) {
+                            console.log(response);
+                            console.log('Consent sent to Consent Solution');
+                        },
+                        error: function(response) {
+                            console.log(response);
+                        }
+                    }
+                ]);
+            }
+        };
+        `}</Script>
 
       <Head>
         <title>Indice</title>
