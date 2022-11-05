@@ -21,7 +21,6 @@ const Layout = ({ children }) => {
   const language = useSelector(state => state.language.value);
   //ROUTER
   const router = useRouter();
-  console.log(router.pathname);
   //STATE
   const isDesktop = useMediaQuery(768);
   const messages = {
