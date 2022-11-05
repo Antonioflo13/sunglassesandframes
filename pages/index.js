@@ -24,10 +24,13 @@ const IndexPage = ({ articles }) => {
 
   useEffect(() => {
     let cookie = document.getElementById("cookie");
-    console.log(cookie);
+    let cookieConfig = document.getElementById("cookie-config");
+
+    console.log(cookie, cookieConfig);
     if (localStorage.getItem("cookie-accepted") === true) {
       cookie = null;
-      console.log(cookie);
+      cookieConfig = null;
+      console.log(cookie, cookieConfig);
     }
   }, []);
 
@@ -39,7 +42,7 @@ const IndexPage = ({ articles }) => {
         src="https://cdn.iubenda.com/cs/iubenda_cs.js"
         async
       />
-      <Script>
+      <Script id="cookie-config">
         {`
         var _iub = _iub || [];
           _iub.csConfiguration = {
