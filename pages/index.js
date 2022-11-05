@@ -40,9 +40,10 @@ const IndexPage = ({ articles }) => {
           <Script>{`
         var _iub = _iub || [];
          if (localStorage.getItem("cookie-accepted")) {
+          console.log(localStorage.getItem("cookie-accepted"));
           _iub.csConfiguration = {};
-         }
-        _iub.csConfiguration = {
+         } else {
+          _iub.csConfiguration = {
         "lang":"${language}","siteId":2172061,"cookiePolicyId":22164738, 
           "banner": { 
             "acceptButtonDisplay":true,
@@ -103,6 +104,7 @@ const IndexPage = ({ articles }) => {
                 }
             }
         };
+         }
         `}</Script>
         </>
       )}
