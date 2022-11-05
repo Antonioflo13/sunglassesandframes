@@ -23,25 +23,16 @@ const IndexPage = ({ articles }) => {
   let selectSingleIcon;
 
   useEffect(() => {
-    let cookie = document.getElementById("cookie");
-    let cookieConfig = document.getElementById("cookie-config");
-
-    console.log(cookie, cookieConfig);
-    if (localStorage.getItem("cookie-accepted") === true) {
-      cookie = null;
-      cookieConfig = null;
-      console.log(cookie, cookieConfig);
+    if (localStorage.getItem("cookie-accepted") === null) {
+      let script = document.createElement("script");
+      script.src = "https://cdn.iubenda.com/cs/iubenda_cs.js";
+      script.async = true;
+      document.body.appendChild(script);
     }
   }, []);
 
   return (
     <>
-      <Script
-        id="cookie"
-        type="text/javascript"
-        src="https://cdn.iubenda.com/cs/iubenda_cs.js"
-        async
-      />
       <Script id="cookie-config">
         {`
         var _iub = _iub || [];
