@@ -34,15 +34,11 @@ const IndexPage = ({ articles }) => {
         <>
           <Script
             type="text/javascript"
-            src="https://cdn.iubenda.com/cs/iubenda_cs.js"
+            src={!cookieAccepted && "https://cdn.iubenda.com/cs/iubenda_cs.js"}
             async
           />
           <Script>{`
         var _iub = _iub || [];
-         if (localStorage.getItem("cookie-accepted")) {
-          console.log(localStorage.getItem("cookie-accepted"));
-          _iub.csConfiguration = {};
-         } else {
           _iub.csConfiguration = {
         "lang":"${language}","siteId":2172061,"cookiePolicyId":22164738, 
           "banner": { 
@@ -61,7 +57,8 @@ const IndexPage = ({ articles }) => {
             "fontSizeBody":12 
           },
            "callback": {
-                "onReady": function() {
+                "onReady": function(event) {
+             
                     console.log('Cookie banner is shown');
                     var banner = document.getElementById('iubenda-cs-banner');
                   
@@ -104,7 +101,6 @@ const IndexPage = ({ articles }) => {
                 }
             }
         };
-         }
         `}</Script>
         </>
       )}
