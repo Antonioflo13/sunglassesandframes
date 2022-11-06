@@ -110,6 +110,11 @@ body {
   line-height: 2;
 }
 
+.swiper-pagination-bullet {
+  border: 5px solid white;
+  background: transparent;
+}
+
 .customStyle {
   padding-left: 1.25rem;
   padding-right: 1.25rem;

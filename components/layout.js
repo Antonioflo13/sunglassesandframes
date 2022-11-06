@@ -58,7 +58,9 @@ const Layout = ({ children }) => {
     >
       <Navbar />
       {children}
-      {router.pathname !== "/product" && <Footer />}
+      {router.pathname !== "/collections/[...product]" && !isDesktop && (
+        <Footer />
+      )}
     </IntlProvider>
   );
 };

@@ -70,66 +70,59 @@ const MobileProductTemplate = props => {
         allowSlidePrev={isExpanded}
         onActiveIndexChange={swipeToProduct}
         loop={true}
-        effect={"creative"}
-        creativeEffect={{
-          prev: {
-            opacity: 0,
-          },
-          next: {
-            opacity: 1,
-          },
-        }}
-        modules={[EffectCreative]}
       >
         {relatedProducts.map(index => (
           <SwiperSlide key={index.id}>
-            <Swiper
-              id="swiper-image-pdp"
-              style={{ height: "100vh" }}
-              className="bg-indice-grey"
-              direction={"vertical"}
-              loop={true}
-              slidesPerView={1}
-              pagination={true}
-              modules={[Pagination]}
-            >
-              {index.variants.edges[0].node.product.images.nodes.length > 0 &&
-                index.variants.edges[0].node.product.images.nodes.map(
-                  (image, index) => (
-                    <SwiperSlide key={index}>
-                      <div className="image-container">
-                        <Image
-                          fill="true"
-                          sizes="100%"
-                          priority={true}
-                          style={{
-                            objectFit: "contain",
-                            objectPosition: "center",
-                          }}
-                          src={image.originalSrc}
-                          alt={image.originalSrc}
-                        />
-                      </div>
-                    </SwiperSlide>
-                  )
-                )}
-              <button onClick={() => swipeToProduct("prev")}>
-                <img
-                  className="rowLeft"
-                  src={RowLeft.src}
-                  width={12}
-                  alt="row-left"
-                />
-              </button>
-              <button onClick={() => swipeToProduct("next")}>
-                <img
-                  className="rowRight"
-                  src={RowRight.src}
-                  width={12}
-                  alt="row-right"
-                />
-              </button>
-            </Swiper>
+            <div className="sliderWrapper">
+              <Swiper
+                id="swiper-image-pdp"
+                style={{ height: "100vh" }}
+                className="bg-indice-grey"
+                cssMode={true}
+                pagination={true}
+                direction={"vertical"}
+                loop={true}
+                slidesPerView={1}
+                modules={[Pagination]}
+              >
+                {index.variants.edges[0].node.product.images.nodes.length > 0 &&
+                  index.variants.edges[0].node.product.images.nodes.map(
+                    (image, index) => (
+                      <SwiperSlide key={index}>
+                        <div className="image-container">
+                          <Image
+                            fill="true"
+                            sizes="100%"
+                            priority={true}
+                            style={{
+                              objectFit: "contain",
+                              objectPosition: "center",
+                            }}
+                            src={image.originalSrc}
+                            alt={image.originalSrc}
+                          />
+                        </div>
+                      </SwiperSlide>
+                    )
+                  )}
+                <button onClick={() => swipeToProduct("prev")}>
+                  <img
+                    className="rowLeft"
+                    src={RowLeft.src}
+                    width={12}
+                    alt="row-left"
+                  />
+                </button>
+                <button onClick={() => swipeToProduct("next")}>
+                  <img
+                    className="rowRight"
+                    src={RowRight.src}
+                    width={12}
+                    alt="row-right"
+                  />
+                </button>
+              </Swiper>
+            </div>
             <div
               className={css`
                 position: absolute;
