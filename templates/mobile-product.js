@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 //SWIPER
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, EffectCreative } from "swiper";
+import { Pagination, Virtual } from "swiper";
 //NAVIGATE
 import { FormattedNumber } from "react-intl";
 //FORMAT MESSAGE
@@ -69,7 +69,13 @@ const MobileProductTemplate = props => {
         allowSlideNext={isExpanded}
         allowSlidePrev={isExpanded}
         onActiveIndexChange={swipeToProduct}
+        modules={[Virtual]}
         loop={true}
+        virtual={{
+          addSlidesAfter: 5,
+          addSlidesBefore: 5,
+          cache: true,
+        }}
       >
         {relatedProducts.map(index => (
           <SwiperSlide key={index.id}>
