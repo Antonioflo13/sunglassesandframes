@@ -42,11 +42,12 @@ const Product = ({
     size: false,
     shipping: false,
   });
+
   const relatedProducts = CollectionProducts.data.collection.products.nodes;
   const mainImage = (
-      <GalleryProducts
-          images={product.variants.edges[0].node.product.images.nodes}
-      />
+    <GalleryProducts
+      images={product.variants.edges[0].node.product.images.nodes}
+    />
   );
 
   const title = `Indice - ${productHandle}`;

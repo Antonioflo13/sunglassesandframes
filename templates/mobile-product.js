@@ -21,6 +21,7 @@ import ProductIcon from "../components/product-icon";
 import SliderRelatedProducts from "../components/slider-related-products";
 import Footer from "../components/footer";
 import { css } from "emotion";
+import Image from "next/image";
 
 const MobileProductTemplate = props => {
   const {
@@ -84,7 +85,7 @@ const MobileProductTemplate = props => {
           <SwiperSlide key={index.id}>
             <Swiper
               id="swiper-image-pdp"
-              style={{ height: "100vh", paddingTop: "30%" }}
+              style={{ height: "100vh" }}
               className="bg-indice-grey"
               direction={"vertical"}
               loop={true}
@@ -92,13 +93,26 @@ const MobileProductTemplate = props => {
               pagination={true}
               modules={[Pagination]}
             >
-              {index.variants.edges[0].node.product.images.nodes.map(
-                (image, index) => (
-                  <SwiperSlide key={index}>
-                    <img src={image.originalSrc} alt={image.originalSrc} />
-                  </SwiperSlide>
-                )
-              )}
+              {index.variants.edges[0].node.product.images.nodes.length > 0 &&
+                index.variants.edges[0].node.product.images.nodes.map(
+                  (image, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="image-container">
+                        <Image
+                          fill="true"
+                          sizes="100%"
+                          priority={true}
+                          style={{
+                            objectFit: "contain",
+                            objectPosition: "center",
+                          }}
+                          src={image.originalSrc}
+                          alt={image.originalSrc}
+                        />
+                      </div>
+                    </SwiperSlide>
+                  )
+                )}
               <button onClick={() => swipeToProduct("prev")}>
                 <img
                   className="rowLeft"
@@ -308,11 +322,17 @@ const MobileProductTemplate = props => {
         ))}
       </Swiper>
       <style jsx="true">{`
+        .image-container {
+          position: relative;
+          height: 100%;
+        }
+
         .slide-icon {
           border: 2px solid grey;
           width: 30px;
           border-radius: 10px;
         }
+
         .rowLeft {
           position: absolute;
           bottom: 35%;
