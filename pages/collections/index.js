@@ -72,40 +72,42 @@ const CollectionsPage = ({ collections }) => {
                           </div>
                         )}
 
-                  <div
-                    className={`${
-                      collection.products?.nodes?.length > 0
-                        ? "available"
-                        : "unavailable"
-                    } mb-6`}
-                  >
-                    <Link
-                      style={{
-                        pointerEvents:
-                          !collection.products?.nodes?.length && "none",
-                        touchAction: !collection.products?.nodes?.length && "none",
-                      }}
-                      href={{
-                        pathname:
-                          collection.handle === "sunglassesandframes-capsule-collection"
-                            ? "/collections/[collection]"
-                            : "/collections/[collection]",
-                        query: { collection: collection.handle },
-                      }}
-                    >
-                      <span>
-                        <motion.h2 className=" sunglassesandframes text-xl font-bold uppercase">
-                          {collection.title}
-                        </motion.h2>
-                        {/*<p className="text-xs mt-2">{collection.description}</p>*/}
-                      </span>
-                    </Link>
-                  </div>
-                </li>
-              ))}
-            </React.Fragment>
-          ))}
-        </ul>
+                        <div
+                          className={`${
+                            collection.products?.nodes?.length > 0
+                              ? "available"
+                              : "unavailable"
+                          } mb-6`}
+                        >
+                          <Link
+                            style={{
+                              pointerEvents:
+                                !collection.products?.nodes?.length && "none",
+                              touchAction:
+                                !collection.products?.nodes?.length && "none",
+                            }}
+                            href={{
+                              pathname:
+                                collection.handle ===
+                                "sunglassesandframes-capsule-collection"
+                                  ? "/collections/[collection]"
+                                  : "/collections/[collection]",
+                              query: { collection: collection.handle },
+                            }}
+                          >
+                            <span>
+                              <motion.h2 className=" sunglassesandframes text-xl font-bold uppercase">
+                                {collection.title}
+                              </motion.h2>
+                              {/*<p className="text-xs mt-2">{collection.description}</p>*/}
+                            </span>
+                          </Link>
+                        </div>
+                      </li>
+                    ))}
+                  </React.Fragment>
+                ))}
+              </ul>
             </div>
             <div className="containerCollectionPromo"></div>
           </div>
@@ -155,6 +157,7 @@ const CollectionsPage = ({ collections }) => {
 
 export async function getStaticProps() {
   const collections = await getAllCollections();
+  console.log(collections);
   return {
     props: { collections },
   };
