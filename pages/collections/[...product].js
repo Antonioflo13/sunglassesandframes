@@ -128,7 +128,7 @@ const Product = ({
         ) : (
           <MobileProduct
             // shopifyProducts={products}
-            shopifyProduct={product}
+            product={product}
             buy={buy}
             askForPrice={askForPrice}
             mainImage={mainImage}

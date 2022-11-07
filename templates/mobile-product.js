@@ -25,7 +25,7 @@ import Image from "next/image";
 
 const MobileProductTemplate = props => {
   const {
-    shopifyProducts,
+    product,
     shopifyProduct,
     buy,
     askForPrice,
@@ -36,11 +36,19 @@ const MobileProductTemplate = props => {
   } = props;
   //SWIPER NAVIGATION
   const [isExpanded, setIsExpanded] = useState(false);
+  const [products, setProducts] = useState(relatedProducts);
   const indexSlide = relatedProducts.findIndex(
-    product => product.handle === shopifyProduct.handle
+    relatedProduct => relatedProduct.handle === product.handle
   );
+  useEffect(() => {
+    const indexSlide = relatedProducts.findIndex(
+      relatedProduct => relatedProduct.handle === product.handle
+    );
+    setProducts(relatedProducts.splice(indexSlide, indexSlide + 5));
+  }, []);
   let index = null;
   const swipeToProduct = swiper => {
+    const indexSlide = 0;
     let index = indexSlide;
     if (swiper.swipeDirection === "prev" || swiper === "prev") {
       index = indexSlide === 0 ? relatedProducts.length - 1 : indexSlide - 1;
@@ -53,6 +61,7 @@ const MobileProductTemplate = props => {
     //   );
     // }
   };
+
   const [heightPage, setHeightPage] = useState(0);
   useEffect(() => {
     setHeightPage(window.innerHeight);
@@ -69,13 +78,7 @@ const MobileProductTemplate = props => {
         allowSlideNext={isExpanded}
         allowSlidePrev={isExpanded}
         onActiveIndexChange={swipeToProduct}
-        modules={[Virtual]}
         loop={true}
-        virtual={{
-          addSlidesAfter: 5,
-          addSlidesBefore: 5,
-          cache: true,
-        }}
       >
         {relatedProducts.map(index => (
           <SwiperSlide key={index.id}>
