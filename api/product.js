@@ -1,7 +1,7 @@
 import request from "./request";
 
 async function getProduct(product) {
-  const indice = `
+  const sunglassesandframes = `
 {
   product(handle: "${product}"){
     id
@@ -57,8 +57,8 @@ async function getProduct(product) {
 `;
   let QUERY = null;
   switch (process.env.NEXT_QUERY) {
-    case "indice":
-      QUERY = indice;
+    case "sunglassesandframes":
+      QUERY = sunglassesandframes;
       break;
     case "luxuryeyewear":
       QUERY = luxuryEyewear;

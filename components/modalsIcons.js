@@ -18,7 +18,7 @@ const ModalsIcons = ({ selectSingleIcon, setShown }) => {
             </button>
           </div>
           <div className="flex-1">
-            <motion.div className="text-indice-red text-xl font-bold italic mackay">
+            <motion.div className="text-sunglassesandframes-red text-xl font-bold italic mackay">
               <div style={{ display: "flex", marginTop: "20px" }}>
                 <img
                   className="removeIconMobile"

@@ -18,7 +18,6 @@ const Footer = () => {
     support: false,
     wherIs: false,
   });
-
   const isDesktop = useMediaQuery(768);
 
   return (
@@ -34,41 +33,38 @@ const Footer = () => {
           >
             <div className="flex justify-center noDesktop">
               <div className="block w-16">
-                <img src={logo.src} alt="indice-logo" />
+                <h1>sunglassesandframes</h1>
               </div>
             </div>
-            <div className="flex flex-col accordionDesktop">
+            <div className="flex flex-col accordionDesktop mt-20">
               <div className="font-bold uppercase text-sm">
                 <FormattedMessage id="footer.contacts.title" />
               </div>
               <div className="text-xs">
                 <FormattedMessage id="footer.contacts.email" />
               </div>
-              {stores.map(store => (
-                <div key={store.id} style={{ marginTop: "10px" }}>
-                  <div className="font-bold text-sm">{store.name}</div>
-                  <div className="text-xs">{store.linkCall}</div>
-                </div>
-              ))}
+              <div className="text-xs">
+                <FormattedMessage id="footer.contacts.phone" />
+              </div>
             </div>
             <div className="flex flex-col accordionMobile mobileCenterSocial">
               <>
                 <a
-                  href="https://www.facebook.com/indice.vision"
+                  href="https://www.facebook.com/sunglassesandframes.vision"
                   target="_blank"
                 >
                   <FontAwesomeIcon icon={faFacebook} />
                 </a>
                 <a
                   className="ml-2"
-                  href="https://www.instagram.com/indice.vision"
+                  href="https://www.instagram.com/sunglassesandframes.vision"
                   target="_blank"
                 >
                   <FontAwesomeIcon icon={faInstagram} />
                 </a>
                 <a
                   className="ml-2"
-                  href="https://www.linkedin.com/company/indicevision"
+                  href="https://www.linkedin.com/company/sunglassesandframesvision"
                   target="_blank"
                 >
                   <FontAwesomeIcon icon={faLinkedin} />
@@ -86,9 +82,17 @@ const Footer = () => {
                   <FormattedMessage id="footer.contacts.title" />
                 </div>
                 {accordion.contact ? (
-                  <FontAwesomeIcon icon={faMinus} style={{width: "10px"}} className="containerIcon" />
+                  <FontAwesomeIcon
+                    icon={faMinus}
+                    className="containerIcon"
+                    width={20}
+                  />
                 ) : (
-                  <FontAwesomeIcon icon={faPlus} style={{width: "10px"}}  className="containerIcon" />
+                  <FontAwesomeIcon
+                    icon={faPlus}
+                    className="containerIcon"
+                    width={20}
+                  />
                 )}
               </div>
               {accordion.contact && (
@@ -105,27 +109,27 @@ const Footer = () => {
                 </>
               )}
             </div>
-            <div className="flex flex-col accordionDesktop">
+            <div className="flex flex-col accordionDesktop mt-20">
               <div className="font-bold uppercase text-sm">
                 <FormattedMessage id="footer.social.title" />
               </div>
               <div className="flex">
                 <a
-                  href="https://www.facebook.com/indice.vision"
+                  href="https://www.facebook.com/sunglassesandframes.vision"
                   target="_blank"
                 >
                   <FontAwesomeIcon icon={faFacebook} />
                 </a>
                 <a
                   className="ml-2"
-                  href="https://www.instagram.com/indice.vision"
+                  href="https://www.instagram.com/sunglassesandframes.vision"
                   target="_blank"
                 >
                   <FontAwesomeIcon icon={faInstagram} />
                 </a>
                 <a
                   className="ml-2"
-                  href="https://www.linkedin.com/company/indicevision"
+                  href="https://www.linkedin.com/company/sunglassesandframesvision"
                   target="_blank"
                 >
                   <FontAwesomeIcon icon={faLinkedin} />
@@ -134,42 +138,16 @@ const Footer = () => {
             </div>
             <div className="flex flex-col noMobile">
               <div className="block w-16">
-                <img src={logo.src} alt="indice logo" />
+                <h1>sunglassesandframes</h1>
               </div>
             </div>
-            <div className="flex flex-col accordionDesktop">
+            <div className="flex flex-col accordionDesktop mt-20">
               <div className="font-bold uppercase text-sm">
                 <FormattedMessage id="footer.support.title" />
               </div>
-              <Link to="/faq">
-                <div className="text-xs">
-                  <FormattedMessage id="footer.support.faq" />
-                </div>
-              </Link>
-              <a
-                href="https://indice-vision.myshopify.com/15652721/policies/terms-of-service.html?locale=en"
-                target="_blank"
-              >
-                <div className="text-xs">
-                  <FormattedMessage id="footer.support.terms_and_conditions" />
-                </div>
-              </a>
-              <a
-                href="https://www.iubenda.com/privacy-policy/22164738"
-                target="_blank"
-              >
-                <div className="text-xs">
-                  <FormattedMessage id="footer.support.privacy_policy" />
-                </div>
-              </a>
-              <a
-                href="https://www.iubenda.com/privacy-policy/22164738/cookie-policy"
-                target="_blank"
-              >
-                <div className="text-xs">
-                  <FormattedMessage id="footer.support.cookie_policy" />
-                </div>
-              </a>
+              <div className="text-xs">
+                <FormattedMessage id="footer.contacts.email" />
+              </div>
             </div>
             <div className="flex flex-col accordionMobile">
               <div
@@ -182,9 +160,17 @@ const Footer = () => {
                   <FormattedMessage id="footer.support.title" />
                 </div>
                 {accordion.support ? (
-                  <FontAwesomeIcon icon={faMinus} style={{width: "10px"}}  className="containerIcon" />
+                  <FontAwesomeIcon
+                    icon={faMinus}
+                    className="containerIcon"
+                    width={20}
+                  />
                 ) : (
-                  <FontAwesomeIcon icon={faPlus}  style={{width: "10px"}}  className="containerIcon" />
+                  <FontAwesomeIcon
+                    icon={faPlus}
+                    className="containerIcon"
+                    width={20}
+                  />
                 )}
               </div>
               {accordion.support && (
@@ -195,7 +181,7 @@ const Footer = () => {
                     </div>
                   </Link>
                   <a
-                    href="https://indice-vision.myshopify.com/15652721/policies/terms-of-service.html?locale=en"
+                    href="https://sunglassesandframes-vision.myshopify.com/15652721/policies/terms-of-service.html?locale=en"
                     target="_blank"
                   >
                     <div className="text-xs">
@@ -221,18 +207,9 @@ const Footer = () => {
                 </>
               )}
             </div>
-            <div className="flex flex-col accordionDesktop">
+            <div className="flex flex-col accordionDesktop mt-20">
               <div className="font-bold uppercase text-sm">
                 <FormattedMessage id="footer.location.title" />
-              </div>
-              <div className="text-xs">
-                {stores.map(store => (
-                  <div key={store.id} style={{ marginTop: "10px" }}>
-                    <div className="font-bold text-sm">{store.name}</div>
-                    <div className="text-xs">{store.address}</div>
-                    <div className="text-xs">{store.otheraddress}</div>
-                  </div>
-                ))}
               </div>
             </div>
             <div className="flex flex-col accordionMobile">
@@ -246,9 +223,17 @@ const Footer = () => {
                   <FormattedMessage id="footer.location.title" />
                 </div>
                 {accordion.wherIs ? (
-                  <FontAwesomeIcon icon={faMinus} style={{width: "10px"}} className="containerIcon" />
+                  <FontAwesomeIcon
+                    icon={faMinus}
+                    className="containerIcon"
+                    width={20}
+                  />
                 ) : (
-                  <FontAwesomeIcon icon={faPlus} style={{width: "10px"}}  className="containerIcon" />
+                  <FontAwesomeIcon
+                    icon={faPlus}
+                    className="containerIcon"
+                    width={20}
+                  />
                 )}
               </div>
               {accordion.wherIs && (
@@ -278,6 +263,8 @@ const Footer = () => {
           {`
             .backgroudcolorfooter {
               background-color: #f8f8f8;
+              position: absolute;
+              width: 100%;
             }
 
             .containerAccordion {

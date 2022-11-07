@@ -99,7 +99,7 @@ const Drawer = ({ handleClose }) => {
         initial={"hidden"}
         animate={"shown"}
         exit={"hidden"}
-        className="fixed top-0 right-0 h-full w-full md:w-1/2 bg-indice-grey z-50"
+        className="fixed top-0 right-0 h-full w-full md:w-1/2 bg-sunglassesandframes-grey z-50"
         style={{ maxWidth: 500 }}
       >
         {isVisible && (
@@ -117,10 +117,14 @@ const Drawer = ({ handleClose }) => {
                     <img src={closeIcon.src} width={10} alt="cart-icon" />
                   </span>
                 </button>
-                <img className="logoDrawer" src={logo.src} alt="indice-logo" />
+                <img
+                  className="logoDrawer"
+                  src={logo.src}
+                  alt="sunglassesandframes-logo"
+                />
               </div>
             </div>
-            <div className="drawer-title text-indice text-l font-bold uppercase">
+            <div className="drawer-title text-sunglassesandframes text-l font-bold uppercase">
               {intl.formatMessage({ id: "drawer.title" })}
             </div>
             <div className="containerListItem">
@@ -132,10 +136,13 @@ const Drawer = ({ handleClose }) => {
                       key={`${item.id}-${key}`}
                     >
                       <div className="drawer-product-image">
-                        <img src={item.details.image.src} alt="product-image"></img>
+                        <img
+                          src={item.details.image.src}
+                          alt="product-image"
+                        ></img>
                       </div>
                       <div className="drawer-product-description">
-                        {/* <div className="text-indice-red text-xs font-bold italic mackay noToHead mt-2">
+                        {/* <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead mt-2">
                           {item.details.title}
                         </div> */}
                         <div className="text-xs uppercase font-bold">
@@ -180,7 +187,7 @@ const Drawer = ({ handleClose }) => {
               </div>
               <div className="drawer-recap-checkout mt-4">
                 <motion.button
-                  className="w-full rounded-full bg-indice-red pt-1 pb-px px-4 leading-5 text-white font-bold text-xs uppercase"
+                  className="w-full rounded-full bg-sunglassesandframes-red pt-1 pb-px px-4 leading-5 text-white font-bold text-xs uppercase"
                   style={{ height: "45px" }}
                   onClick={goToCheckout}
                 >

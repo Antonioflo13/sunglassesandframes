@@ -12,8 +12,8 @@ module.exports = {
         "100/100": "100%",
       },
       colors: {
-        "indice-red": "#800000",
-        "indice-grey": "#f0f0f0",
+        "sunglassesandframes-red": "#800000",
+        "sunglassesandframes-grey": "#f0f0f0",
       },
       fontSize: {
         "2xs": "0.625rem",

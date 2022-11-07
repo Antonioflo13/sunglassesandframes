@@ -15,13 +15,13 @@ const GalleryProducts = ({ images }) => {
     <>
       {imageList.length > 0 && (
         <div>
-          <div className="containerMainImage bg-indice-grey">
+          <div className="containerMainImage bg-sunglassesandframes-grey">
             <img className="mainImage" src={imageList[0].originalSrc} alt="" />
           </div>
           <div className="containerImageTubler">
             {imageList.slice(1, 4).map((item, index) => (
               <div
-                className="cursor-pointer w-7/12 flex justify-center bg-indice-grey"
+                className="cursor-pointer w-7/12 flex justify-center bg-sunglassesandframes-grey"
                 onClick={() => chageView(item)}
                 key={index}
               >

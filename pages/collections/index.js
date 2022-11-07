@@ -42,21 +42,35 @@ const CollectionsPage = ({ collections }) => {
   return (
     <Layout>
       <Head>
-        <title>Indice - Collections</title>
+        <title>sunglassesandframes - Collections</title>
         <meta name="description" content="Designers" />
       </Head>
       <AnimatedPage margins={true}>
-        {isDesktop && <Breadcrumbs title="Designers" />}
-        <ul className="containerDesigner">
-          {collectionsListByAlphabet.map((letter, index) => (
-            <React.Fragment key={index}>
-              {letter.collectionsList.map((collection, index) => (
-                <li key={index}>
-                  {collection.viewLetter && (
-                    <div className="font-semibold text-2xl font-serif italic mb-3 text-indice-red">
-                      {letter.letter}
-                    </div>
-                  )}
+        {/* {isDesktop && <Breadcrumbs title="Designers" />} */}
+        <div className="mt-20">
+          <div>
+            {alphabeticList.map(item => (
+              <span
+                className="item"
+                style={{ marginLeft: "10px" }}
+                key={item + 1}
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+          <div className="containerCollections mt-10">
+            <div className="containerDesigner">
+              <ul>
+                {collectionsListByAlphabet.map((letter, index) => (
+                  <React.Fragment key={index}>
+                    {letter.collectionsList.map((collection, index) => (
+                      <li key={index}>
+                        {collection.viewLetter && (
+                          <div className="font-semibold text-2xl font-serif italic mb-3 text-sunglassesandframes-red">
+                            {letter.letter}
+                          </div>
+                        )}
 
                   <div
                     className={`${
@@ -73,17 +87,17 @@ const CollectionsPage = ({ collections }) => {
                       }}
                       href={{
                         pathname:
-                          collection.handle === "indice-capsule-collection"
+                          collection.handle === "sunglassesandframes-capsule-collection"
                             ? "/collections/[collection]"
                             : "/collections/[collection]",
                         query: { collection: collection.handle },
                       }}
                     >
                       <span>
-                        <motion.h2 className=" text-indice text-xl font-bold uppercase">
+                        <motion.h2 className=" sunglassesandframes text-xl font-bold uppercase">
                           {collection.title}
                         </motion.h2>
-                        <p className="text-xs mt-2">{collection.description}</p>
+                        {/*<p className="text-xs mt-2">{collection.description}</p>*/}
                       </span>
                     </Link>
                   </div>
@@ -92,7 +106,11 @@ const CollectionsPage = ({ collections }) => {
             </React.Fragment>
           ))}
         </ul>
-        {!isDesktop && <Breadcrumbs title="Boutiques" />}
+            </div>
+            <div className="containerCollectionPromo"></div>
+          </div>
+        </div>
+        {/*{!isDesktop && <Breadcrumbs title="Boutiques" />}*/}
       </AnimatedPage>
       <style jsx="true">
         {`
@@ -107,11 +125,18 @@ const CollectionsPage = ({ collections }) => {
           }
 
           .containerDesigner {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            row-gap: 1em;
-            column-gap: 5em;
-            margin-bottom: 100px;
+            width: 40%;
+          }
+
+          .containerCollectionPromo {
+            width: 60%;
+            background-color: black;
+            height: 100vh;
+          }
+
+          .containerCollections {
+            display: flex;
+            gap: 10rem;
           }
 
           .collection {
@@ -120,10 +145,6 @@ const CollectionsPage = ({ collections }) => {
 
           @media (max-width: 768px) {
             .containerDesigner {
-              grid-template-columns: repeat(1, 1fr);
-              row-gap: 1em;
-              margin-bottom: 0;
-              margin-top: 50px;
             }
           }
         `}

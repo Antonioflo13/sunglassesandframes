@@ -50,25 +50,28 @@ export const Navbar = () => {
   return (
     <>
       <div className="px-5 md:px-5 left-0 top-0 w-full h-20 bg-white flex items-center justify-between z-30 customWidthHeader">
-        <button
-          className="text-black font-semibold text-xs md:text-sm"
-          onClick={() => dispatch(setSideBarShow(!showSideBar))}
-        >
-          {isDesktop ? (
-            <div style={{ fontSize: "10px" }}>MENU</div>
-          ) : (
-            <img src={menuBurgher.src} width={15} alt="burger-icon" />
-          )}
-        </button>
+        {isDesktop ? (
+          <div>icona casa</div>
+        ) : (
+          <>
+            <button
+              className="text-black font-semibold text-xs md:text-sm"
+              onClick={() => dispatch(setSideBarShow(!showSideBar))}
+            >
+              {isDesktop ? (
+                <div style={{ fontSize: "10px" }}>MENU</div>
+              ) : (
+                <img src={menuBurgher.src} width={15} alt="burger-icon" />
+              )}
+            </button>
+            <div>Q</div>
+          </>
+        )}
 
         <Link href="/">
           <button>
             <div className="flex flex-col justify-center items-center">
-              {language === "it" ? (
-                <img className="logo" src={logoIta.src} alt="indice-logo" />
-              ) : (
-                <img className="logo" src={logoEng.src} alt="indice-logo" />
-              )}
+              <h1>sunglassesandframes</h1>
             </div>
           </button>
         </Link>
@@ -95,6 +98,51 @@ export const Navbar = () => {
           />
         )}
       </div>
+      {isDesktop && (
+        <div className="customWidthHeaderTwo">
+          <div>
+            <Link href="/">
+              <button className="link">
+                <div className="flex flex-col justify-center items-center">
+                  Magaine
+                </div>
+              </button>
+            </Link>
+            <Link href="/">
+              <button className="link">
+                <div className="flex flex-col justify-center items-center">
+                  Shop By
+                </div>
+              </button>
+            </Link>
+            <Link href="/">
+              <button className="link">
+                <div className="flex flex-col justify-center items-center">
+                  Our Designer
+                </div>
+              </button>
+            </Link>
+            <Link href="/">
+              <button className="link">
+                <div className="flex flex-col justify-center items-center">
+                  New in
+                </div>
+              </button>
+            </Link>
+            <Link href="/">
+              <button className="link">
+                <div className="flex flex-col justify-center items-center">
+                  Promotions
+                </div>
+              </button>
+            </Link>
+          </div>
+          <input
+            placeholder="cerca"
+            style={{ border: "solid 1px", borderRadius: "5px" }}
+          />
+        </div>
+      )}
       <AnimatePresence>
         {showSideBar && (
           <motion.div
@@ -153,6 +201,20 @@ export const Navbar = () => {
           padding-left: 1.25rem;
           padding-right: 1.25rem;
           height: 70px;
+        }
+
+        .customWidthHeaderTwo {
+          max-width: 90rem;
+          display: flex;
+          margin-left: auto;
+          margin-right: auto;
+          padding-left: 1.25rem;
+          padding-right: 1.25rem;
+          justify-content: space-between;
+        }
+
+        .link {
+          padding-right: 2.5rem;
         }
 
         @media (max-width: 768px) {

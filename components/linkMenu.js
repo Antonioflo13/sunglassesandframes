@@ -58,9 +58,9 @@ const LinkMenu = ({ children, to, sidebar }) => {
           .containerItemMenu {
             position: relative;
             border-radius: 25px;
+            height: 150px !important;
+            width: 370px !important;
             overflow: hidden;
-            height: 70px;
-            width: 200px;
           }
 
           .textMenu {

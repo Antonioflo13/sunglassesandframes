@@ -37,7 +37,7 @@ const SliderHomeCollection = () => {
                     src={item.images[0].originalSrc}
                     alt="product"
                   />
-                  <div className="text-indice-red text-xs font-bold italic mackay noToHead">
+                  <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead">
                     {item.vendor}
                   </div>
                   <div className="text-xs uppercase font-bold">
@@ -49,13 +49,11 @@ const SliderHomeCollection = () => {
           ))}
         </Swiper>
       </div>
-      <div className="ml-1 text-xs mt-6 mb-10 text-center px-5">
-        <FormattedMessage id="home.slider_monthly.text" />
-      </div>
       <style jsx="true">{`
         .container-slider {
           cursor: pointer;
           width: 100%;
+          text-align: center;
         }
         @media (max-width: 768px) {
           .container-slider {
@@ -109,7 +107,7 @@ const FormattedMessage = ({ values, ...props }) => (
   <OriginalFormattedMessage
     values={{
       b: chunk => <b>{chunk}</b>,
-      r: chunk => <b className="text-indice-red">{chunk}</b>,
+      r: chunk => <b className="text-sunglassesandframes-red">{chunk}</b>,
       ...values,
     }}
     {...props}

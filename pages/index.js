@@ -106,14 +106,15 @@ const IndexPage = ({ articles }) => {
         `}
       </Script>
       <Head>
-        <title>Indice</title>
+        <title>sunglassesandframes</title>
+
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
       </Head>
       <Layout articles={articles}>
         <AnimatedPage fullHeight>
           <SliderArticles articles={articles} />
-          <SliderMenu />
           <SliderHomeCollection />
+          <SliderMenu />
           {show && (
             <ModalsIcons
               selectSingleIcon={selectSingleIcon}

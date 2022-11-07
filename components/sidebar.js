@@ -48,7 +48,7 @@ const Sidebar = () => {
         initial={"hidden"}
         animate={"shown"}
         exit={"hidden"}
-        className="fixed top-0 left-0 h-full w-full md:w-1/2 bg-indice-grey z-50"
+        className="fixed top-0 left-0 h-full w-full md:w-1/2 bg-sunglassesandframes-grey z-50"
         style={{ maxWidth: 500 }}
       >
         <div className="flexMenu mt-8 mx-10">

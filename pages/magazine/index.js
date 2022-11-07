@@ -73,7 +73,7 @@ const Index = ({ articles }) => {
     <>
       <Layout>
         <Head>
-          <title>Indice - Magazine</title>
+          <title>sunglassesandframes - Magazine</title>
           <meta name="description" content="Magazine" />
         </Head>
         <AnimatedPage margins={true}>

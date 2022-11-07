@@ -20,7 +20,7 @@ const Boutiques = () => {
     <>
       <Layout>
         <Head>
-          <title>Indice - Boutiques</title>
+          <title>sunglassesandframes - Boutiques</title>
           <meta name="description" content="Boutiques" />
         </Head>
         <AnimatedPage margins={true}>
@@ -75,7 +75,7 @@ const Boutiques = () => {
             margin-top: 10px;
             margin-bottom: 5px;
           }
-          
+
           .image-container {
             position: relative;
             width: 100%;
