@@ -34,72 +34,74 @@ const CollectionTemplate = ({ collection }) => {
         />
       </Head>
       <AnimatedPage margins={true} grey={true}>
-          <div className="customMarginTop">
-            {isDesktop && (
-              <PageTitle
-                breadcrumbs={[
-                  ...(isBrand
-                    ? [
-                        {
-                          title: "breadcrumbs.designers",
-                          link: "/collections",
-                        },
-                        {
-                          title: collection.title,
-                        },
-                      ]
-                    : [
-                        {
-                          title: `collection.${collection.handle}_breadcrumbs`,
-                        },
-                      ]),
-                ]}
-                title=" "
-                subtitle=" "
+        <div className="customMarginTop">
+          {isDesktop && (
+            <PageTitle
+              breadcrumbs={[
+                ...(isBrand
+                  ? [
+                      {
+                        title: "breadcrumbs.designers",
+                        link: "/collections",
+                      },
+                      {
+                        title: collection.title,
+                      },
+                    ]
+                  : [
+                      {
+                        title: `collection.${collection.handle}_breadcrumbs`,
+                      },
+                    ]),
+              ]}
+              title=" "
+              subtitle=" "
+            />
+          )}
+        </div>
+        {/* Info */}
+        <div>
+          <div className="img-header-container">
+            {collection.image && (
+              <Image
+                fill="true"
+                style={{ objectFit: "cover" }}
+                placeholder="blur"
+                blurDataURL={collection.image.src}
+                sizes="100%"
+                priority={true}
+                src={collection.image.src}
+                alt="header-collection"
               />
             )}
           </div>
-          {/* Info */}
           <div>
-            <div className="img-header-container">
-              <Image
-                  fill="true"
-                  style={{ objectFit: "cover" }}
-                  placeholder="blur"
-                  blurDataURL={collection.image.src}
-                  sizes="100%"
-                  priority={true}
-                  src={collection.image.src}
-                  alt="header-collection"
-              />
-            </div>
-            <div>
-              <h1 className="text-center">
-                {isBrand ? (
-                  <div className="mt-10 text-sunglassesandframes text-xl font-bold uppercase">
-                    {collection.title}
-                  </div>
-                ) : (
-                  <FormattedMessage
-                    id={`collection.${collection.handle}_title`}
-                    values={{
-                      b: chunk => {
-                        chunk;
-                      },
-                      title: (
-                        <div className="mt-10 text-sunglassesandframes text-xl font-bold uppercase">
-                          collection.title
-                        </div>
-                      ),
-                    }}
-                  />
-                )}
-              </h1>
-              <p className="mt-10">
-                {collection.description ? collection.description : null}
-              </p>
-            </div>
+            <h1 className="text-center">
+              {isBrand ? (
+                <div className="mt-10 text-sunglassesandframes text-xl font-bold uppercase">
+                  {collection.title}
+                </div>
+              ) : (
+                <FormattedMessage
+                  id={`collection.${collection.handle}_title`}
+                  values={{
+                    b: chunk => {
+                      chunk;
+                    },
+                    title: (
+                      <div className="mt-10 text-sunglassesandframes text-xl font-bold uppercase">
+                        collection.title
+                      </div>
+                    ),
+                  }}
+                />
+              )}
+            </h1>
+            <p className="mt-10">
+              {collection.description ? collection.description : null}
+            </p>
           </div>
+        </div>
         {/* Products */}
         <div className="mt-8 w-full">
           <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-12">
@@ -172,9 +174,7 @@ export async function getServerSideProps({ params }) {
 
 const Product = ({ product, collection }) => {
   return (
-    <Link
-      href={`/collections/${collection.handle}/${product.handle}`}
-    >
+    <Link href={`/collections/${collection.handle}/${product.handle}`}>
       <div className="w-full flex flex-col items-center">
         <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
           <div className="absolute top-0 w-full h-full">
