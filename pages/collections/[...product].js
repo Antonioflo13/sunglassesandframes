@@ -1,5 +1,6 @@
 //REACT
 import React from "react";
+
 //API
 import getProduct from "../../api/product";
 import { getCollection } from "../../api/collections";
