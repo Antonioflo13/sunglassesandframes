@@ -14,8 +14,7 @@ import Sidebar from "../components/sidebar";
 import Contact from "../components/contact";
 import Drawer from "../components/drawer";
 //IMAGES
-import logoIta from "../assets/images/logoIta.png";
-import logoEng from "../assets/images/logoEng.png";
+import logo from "../assets/images/logo.png";
 import menuBurgher from "../assets/images/menu-burger.svg";
 import cartIcon from "../assets/images/shopping-bag.svg";
 import Link from "next/link";
@@ -71,7 +70,7 @@ export const Navbar = () => {
         <Link href="/">
           <button>
             <div className="flex flex-col justify-center items-center">
-              <h1>sunglassesandframes</h1>
+              <img src={logo.src} width={150} alt="logo" />
             </div>
           </button>
         </Link>
@@ -131,7 +130,7 @@ export const Navbar = () => {
             </Link>
             <Link href="/">
               <button className="link">
-                <div className="flex flex-col justify-center items-center">
+                <div className="flex flex-col justify-center items-center red">
                   Promotions
                 </div>
               </button>
@@ -215,6 +214,10 @@ export const Navbar = () => {
 
         .link {
           padding-right: 2.5rem;
+        }
+
+        .red {
+          color: #ae0000;
         }
 
         @media (max-width: 768px) {
