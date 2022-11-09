@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+//API
+import { getProduct, getProductsByCollections } from "../api/product";
 //SWIPER
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
+
 //NAVIGATE
 import { FormattedNumber } from "react-intl";
 //FORMAT MESSAGE
@@ -41,20 +44,18 @@ const MobileProductTemplate = props => {
     relatedProduct => relatedProduct.handle === product.handle
   );
   useEffect(() => {
-    const indexSlide = relatedProducts.findIndex(
-      relatedProduct => relatedProduct.handle === product.handle
-    );
-    setProducts(relatedProducts.splice(indexSlide, indexSlide + 5));
+    getProductsByCollections(collectionHandle, 1).then(r => console.log(r));
+    setProducts([...relatedProducts].splice(indexSlide, indexSlide + 5));
   }, []);
   let index = null;
   const swipeToProduct = swiper => {
-    const indexSlide = 0;
-    let index = indexSlide;
-    if (swiper.swipeDirection === "prev" || swiper === "prev") {
-      index = indexSlide === 0 ? relatedProducts.length - 1 : indexSlide - 1;
-    } else if (swiper.swipeDirection === "next" || swiper === "next") {
-      index = indexSlide === relatedProducts.length - 1 ? 0 : indexSlide + 1;
-    }
+    // const indexSlide = 0;
+    // let index = indexSlide;
+    // if (swiper.swipeDirection === "prev" || swiper === "prev") {
+    //   index = indexSlide === 0 ? relatedProducts.length - 1 : indexSlide - 1;
+    // } else if (swiper.swipeDirection === "next" || swiper === "next") {
+    //   index = indexSlide === relatedProducts.length - 1 ? 0 : indexSlide + 1;
+    // }
     // if (index < shopifyProducts.length) {
     //   navigate(
     //     `/collections/${collectionHandle}/products/${shopifyProducts[index].handle}`

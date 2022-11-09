@@ -157,7 +157,6 @@ const CollectionsPage = ({ collections }) => {
 
 export async function getStaticProps() {
   const collections = await getAllCollections();
-  console.log(collections);
   return {
     props: { collections },
   };

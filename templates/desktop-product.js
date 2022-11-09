@@ -23,8 +23,6 @@ const DesktopProduct = props => {
     setAccordion,
   } = props;
 
-  console.log(relatedProducts);
-
   return (
     <>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-20 mt-4 customTemplate">

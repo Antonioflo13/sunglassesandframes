@@ -41,31 +41,69 @@ async function getProduct(product) {
 }
 `;
 
-  const luxuryEyewear = `
-{
-    collections(
-      sortKey: TITLE, first: 250
-    ) {
-      nodes {
-        id
-        handle
-        title
-        description
-      }
-    }
- }
-`;
   let QUERY = null;
   switch (process.env.NEXT_QUERY) {
     case "sunglassesandframes":
       QUERY = sunglassesandframes;
-      break;
-    case "luxuryeyewear":
-      QUERY = luxuryEyewear;
       break;
   }
 
   return await request("shopify", QUERY);
 }
 
-export default getProduct;
+async function getProductsByCollections(collection, first) {
+  const sunglassesandframes = `
+{
+  collection(handle: "${collection}") {
+    products(first: ${first}) {
+        nodes {
+          id
+        handle
+        title
+        description
+        descriptionHtml
+        vendor
+        availableForSale
+        tags
+        variants(first: 250) {
+          edges {
+            node {
+              id
+              quantityAvailable
+              priceV2 {
+                amount
+                currencyCode
+              }
+              product {
+                images(first: 250) {
+                  nodes {
+                    id
+                    originalSrc
+                  }
+                }
+                variants(first: 250) {
+                  nodes {
+                    id
+                  }
+                }
+              }
+            }
+          }
+        }
+    }
+    }
+  }
+}
+`;
+
+  let QUERY = null;
+  switch (process.env.NEXT_QUERY) {
+    case "sunglassesandframes":
+      QUERY = sunglassesandframes;
+      break;
+  }
+
+  return await request("shopify", QUERY);
+}
+
+export  {getProduct, getProductsByCollections};
