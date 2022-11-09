@@ -1,5 +1,5 @@
 //REACT
-import React from "react";
+import React, { useState } from "react";
 //NEXT
 import Link from "next/link";
 //HOOKS
@@ -40,6 +40,8 @@ const CollectionsPage = ({ collections }) => {
     collectionsList => (collectionsList.collectionsList[0].viewLetter = true)
   );
 
+  const [indice, setIndice] = useState("A");
+
   return (
     <Layout>
       <Head>
@@ -53,8 +55,13 @@ const CollectionsPage = ({ collections }) => {
             {alphabeticList.map(item => (
               <span
                 className="item"
-                style={{ marginLeft: "1rem" }}
+                style={
+                  indice === item
+                    ? { marginLeft: "1rem", borderBottom: "solid 1px black" }
+                    : { marginLeft: "1rem" }
+                }
                 key={item + 1}
+                onClick={() => setIndice(item)}
               >
                 <AnchorLink href={`#anchorLink-${item}`}>{item}</AnchorLink>
               </span>
