@@ -17,6 +17,7 @@ import Drawer from "../components/drawer";
 import logo from "../assets/images/logo.png";
 import menuBurgher from "../assets/images/menu-burger.svg";
 import cartIcon from "../assets/images/shopping-bag.svg";
+import homeIcon from "../assets/images/home.svg";
 import Link from "next/link";
 import { getCookie } from "../utils/cookie";
 
@@ -50,7 +51,7 @@ export const Navbar = () => {
     <>
       <div className="px-5 md:px-5 left-0 top-0 w-full h-20 bg-white flex items-center justify-between z-30 customWidthHeader">
         {isDesktop ? (
-          <div>icona casa</div>
+          <img src={homeIcon.src} width={15} alt="icon-home" />
         ) : (
           <>
             <button
@@ -79,14 +80,8 @@ export const Navbar = () => {
           style={{ fontSize: "10px" }}
           onClick={() => dispatch(setShowCart(true))}
         >
-          {isDesktop ? (
-            <div>CART ({totalQuantity ? totalQuantity : 0})</div>
-          ) : (
-            <>
-              <img src={cartIcon.src} width={15} alt="cart-icon" />
-              <div>({totalQuantity})</div>
-            </>
-          )}
+          <img src={cartIcon.src} width={15} alt="cart-icon" />
+          {/* <div>({totalQuantity})</div> */}
         </button>
         {showCart && (
           <Drawer
@@ -136,10 +131,7 @@ export const Navbar = () => {
               </button>
             </Link>
           </div>
-          <input
-            placeholder="cerca"
-            style={{ border: "solid 1px", borderRadius: "5px" }}
-          />
+          <input style={{ border: "solid 1px", borderRadius: "10px" }} />
         </div>
       )}
       <AnimatePresence>

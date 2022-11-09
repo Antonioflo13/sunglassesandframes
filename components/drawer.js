@@ -41,18 +41,22 @@ const Drawer = ({ handleClose }) => {
 
   //STORE
   const cart = useSelector(state => JSON.parse(state.cart.value));
-  const language = useSelector(state =>state.language.value);
+  const language = useSelector(state => state.language.value);
   const dispatch = useDispatch();
 
   //FUNCTIONS
   const handleAddItem = async id => {
-    const item =  [
+    const item = [
       {
         variantId: id,
         quantity: 1,
       },
-    ]
-    const updatedCheckout = await shopifyBuildClient('updateCheckout', language, item);
+    ];
+    const updatedCheckout = await shopifyBuildClient(
+      "updateCheckout",
+      language,
+      item
+    );
 
     const { lineItems, totalPrice } = updatedCheckout;
     const cartContent = { lineItems, totalPrice };
@@ -61,13 +65,17 @@ const Drawer = ({ handleClose }) => {
   };
 
   const handleRemoveItem = async id => {
-    const item =  [
+    const item = [
       {
         variantId: id,
         quantity: -1,
       },
-    ]
-    const updatedCheckout = await shopifyBuildClient('updateCheckout', language, item);
+    ];
+    const updatedCheckout = await shopifyBuildClient(
+      "updateCheckout",
+      language,
+      item
+    );
 
     const { lineItems, totalPrice } = updatedCheckout;
     const cartContent = { lineItems, totalPrice };
@@ -77,7 +85,11 @@ const Drawer = ({ handleClose }) => {
 
   const handleRemoveItems = async id => {
     const item = [id];
-    const updatedCheckout = await shopifyBuildClient('removeLineItems', language, item);
+    const updatedCheckout = await shopifyBuildClient(
+      "removeLineItems",
+      language,
+      item
+    );
 
     const { lineItems, totalPrice } = updatedCheckout;
     const cartContent = { lineItems, totalPrice };
@@ -88,7 +100,7 @@ const Drawer = ({ handleClose }) => {
   const goToCheckout = async () => {
     const checkoutWebUrl = getCookie("checkoutWebUrl");
     window.open(checkoutWebUrl, "_self");
-  }
+  };
 
   const items = parserLineItems(getItems(cart));
 
@@ -182,7 +194,9 @@ const Drawer = ({ handleClose }) => {
                 <div className="font-bold">
                   {intl.formatMessage({ id: "drawer.total" }) +
                     "   " +
-                    numberWithCommas(cart?.totalPrice ? cart?.totalPrice.amount : 0)}
+                    numberWithCommas(
+                      cart?.totalPrice ? cart?.totalPrice.amount : 0
+                    )}
                 </div>
               </div>
               <div className="drawer-recap-checkout mt-4">

@@ -12,6 +12,7 @@ import Layout from "../../components/layout";
 //API
 import { getAllCollections } from "../../api/collections";
 import Head from "next/head";
+import AnchorLink from "react-anchor-link-smooth-scroll-v2";
 
 const CollectionsPage = ({ collections }) => {
   collections = collections.data.collections.nodes;
@@ -48,14 +49,14 @@ const CollectionsPage = ({ collections }) => {
       <AnimatedPage margins={true}>
         {/* {isDesktop && <Breadcrumbs title="Designers" />} */}
         <div className="mt-20">
-          <div>
+          <div className="container-alphabetic">
             {alphabeticList.map(item => (
               <span
                 className="item"
-                style={{ marginLeft: "10px" }}
+                style={{ marginLeft: "1rem" }}
                 key={item + 1}
               >
-                {item}
+                <AnchorLink href="#anchorLink">{item}</AnchorLink>
               </span>
             ))}
           </div>
@@ -67,11 +68,13 @@ const CollectionsPage = ({ collections }) => {
                     {letter.collectionsList.map((collection, index) => (
                       <li key={index}>
                         {collection.viewLetter && (
-                          <div className="font-semibold text-2xl font-serif italic mb-3 text-sunglassesandframes-red">
-                            {letter.letter}
+                          <div
+                            id="anchorLink"
+                            className="font-semibold text-2xl font-serif mb-3"
+                          >
+                            <section>{letter.letter}</section>
                           </div>
                         )}
-
                         <div
                           className={`${
                             collection.products?.nodes?.length > 0
@@ -116,6 +119,9 @@ const CollectionsPage = ({ collections }) => {
       </AnimatedPage>
       <style jsx="true">
         {`
+          .container-alphabetic {
+            text-align: center;
+          }
           .unavailable:hover {
             opacity: 0.2;
             transition: opacity 0.2s ease-in-out;
@@ -128,6 +134,12 @@ const CollectionsPage = ({ collections }) => {
 
           .containerDesigner {
             width: 40%;
+            height: 100vh;
+            overflow-y: scroll;
+          }
+
+          ::-webkit-scrollbar {
+            display: none;
           }
 
           .containerCollectionPromo {
