@@ -2,7 +2,7 @@
 import React from "react";
 
 //API
-import getProduct from "../../api/product";
+import {getProduct} from "../../api/product";
 import { getCollection } from "../../api/collections";
 //STORE
 import { setDialogContactShow } from "../../store/modules/dialogContact";
