@@ -56,7 +56,7 @@ const CollectionsPage = ({ collections }) => {
                 style={{ marginLeft: "1rem" }}
                 key={item + 1}
               >
-                <AnchorLink href="#anchorLink">{item}</AnchorLink>
+                <AnchorLink href={`#anchorLink-${item}`}>{item}</AnchorLink>
               </span>
             ))}
           </div>
@@ -69,7 +69,7 @@ const CollectionsPage = ({ collections }) => {
                       <li key={index}>
                         {collection.viewLetter && (
                           <div
-                            id="anchorLink"
+                            id={`anchorLink-${letter.letter}`}
                             className="font-semibold text-2xl font-serif mb-3"
                           >
                             <section>{letter.letter}</section>
