@@ -59,14 +59,14 @@ const Product = ({
   const title = `Indice - ${productHandle}`;
 
   //FUNCTIONS
-  const buy = async () => {
+  const buy = async productId => {
     let checkoutId = getCookie("checkoutId");
 
     if (!checkoutId) {
       await shopifyBuildClient("createCheckout", language);
     }
     const items = {
-      variantId: product.variants.edges[0].node.id,
+      variantId: productId || product.variants.edges[0].node.id,
       quantity: 1,
     };
     const updatedCheckout = await shopifyBuildClient(

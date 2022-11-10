@@ -51,6 +51,7 @@ const MobileProductTemplate = props => {
   const [newHasNextPage, setNewHasNextPage] = useState(hasNextPage);
 
   useEffect(() => {
+    console.log(products);
     if (swiperIndex > products.length - 2 && newHasNextPage) {
       getProductsByCollections(collectionHandle, 20, newCursor).then(
         response => {
@@ -211,7 +212,12 @@ const MobileProductTemplate = props => {
                           />
 
                           <div>
-                            <Label style={{ width: "100%" }} onClick={buy}>
+                            <Label
+                              style={{ width: "100%" }}
+                              onClick={() =>
+                                buy(product.variants.edges[0].node.id)
+                              }
+                            >
                               <FormattedMessage id="product.buy" />
                             </Label>
                           </div>
