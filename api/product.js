@@ -51,11 +51,11 @@ async function getProduct(product) {
   return await request("shopify", QUERY);
 }
 
-async function getProductsByCollections(collection, first) {
+async function getProductsByCollections(collection, first, cursor) {
   const QUERY = `
 {
   collection(handle: "${collection}") {
-    products(first: ${first}) {
+    products(first: ${first}, after: ${cursor}) {
         pageInfo {
           hasNextPage
         }

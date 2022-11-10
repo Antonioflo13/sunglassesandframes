@@ -43,7 +43,7 @@ async function getCollection(collection) {
     image {
         src
     }
-    products(first: 250) {
+    products(first: 20) {
         pageInfo {
               hasNextPage
         }
