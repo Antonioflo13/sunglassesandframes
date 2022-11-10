@@ -45,6 +45,9 @@ const Product = ({
   });
 
   const relatedProducts = CollectionProducts.data.collection.products.nodes;
+
+  const cursor = CollectionProducts.data.collection.products.pageInfo.endCursor;
+
   const hasNextPage =
     CollectionProducts.data.collection.products.pageInfo.hasNextPage;
   const mainImage = (
@@ -133,6 +136,7 @@ const Product = ({
             // shopifyProducts={products}
             product={product}
             hasNextPage={hasNextPage}
+            cursor={cursor}
             buy={buy}
             askForPrice={askForPrice}
             mainImage={mainImage}

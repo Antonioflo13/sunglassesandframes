@@ -44,8 +44,12 @@ async function getCollection(collection) {
         src
     }
     products(first: 20) {
+        edges {
+          cursor
+        }
         pageInfo {
               hasNextPage
+              endCursor
         }
         nodes {
           id

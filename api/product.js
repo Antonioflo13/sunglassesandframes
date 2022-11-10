@@ -55,9 +55,13 @@ async function getProductsByCollections(collection, first, cursor) {
   const QUERY = `
 {
   collection(handle: "${collection}") {
-    products(first: ${first}, after: ${cursor}) {
+    products(first: ${first}, after: "${cursor}") {
+        edges {
+          cursor
+        }
         pageInfo {
           hasNextPage
+          endCursor
         }
         nodes {
           id

@@ -30,6 +30,7 @@ const MobileProductTemplate = props => {
   const {
     product,
     hasNextPage,
+    cursor,
     shopifyProduct,
     buy,
     askForPrice,
@@ -39,9 +40,6 @@ const MobileProductTemplate = props => {
     setAccordion,
   } = props;
   //SWIPER NAVIGATION
-  const indexSlide = relatedProducts.findIndex(
-    relatedProduct => relatedProduct.handle === product.handle
-  );
   const [isExpanded, setIsExpanded] = useState(false);
   const [products, setProducts] = useState(relatedProducts);
   const [swiperIndex, setSwiperIndex] = useState(
@@ -49,14 +47,19 @@ const MobileProductTemplate = props => {
       relatedProduct => relatedProduct.handle === product.handle
     )
   );
+  const [newCursor, setNewCursor] = useState(cursor);
+  const [newHasNextPage, setNewHasNextPage] = useState(hasNextPage);
+
   useEffect(() => {
-      console.log('index', swiperIndex);
-    console.log(products.length, hasNextPage);
-    if (swiperIndex > products.length - 2 && hasNextPage) {
-      getProductsByCollections(collectionHandle, products.length + 20).then(
+    if (swiperIndex > products.length - 2 && newHasNextPage) {
+      getProductsByCollections(collectionHandle, 20, newCursor).then(
         response => {
+          setNewCursor(response.data.collection.products.pageInfo.endCursor);
+          setNewHasNextPage(
+            response.data.collection.products.pageInfo.hasNextPage
+          );
           const newProducts = response.data.collection.products.nodes;
-          console.log("new", newProducts);
+
           setProducts(oldProducts => [...oldProducts, ...newProducts]);
         }
       );
