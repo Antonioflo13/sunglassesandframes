@@ -2,7 +2,7 @@
 import React from "react";
 
 //API
-import {getProduct} from "../../api/product";
+import { getProduct } from "../../api/product";
 import { getCollection } from "../../api/collections";
 //STORE
 import { setDialogContactShow } from "../../store/modules/dialogContact";
@@ -45,6 +45,8 @@ const Product = ({
   });
 
   const relatedProducts = CollectionProducts.data.collection.products.nodes;
+  const hasNextPage =
+    CollectionProducts.data.collection.products.pageInfo.hasNextPage;
   const mainImage = (
     <GalleryProducts
       images={product.variants.edges[0].node.product.images.nodes}
@@ -130,6 +132,7 @@ const Product = ({
           <MobileProduct
             // shopifyProducts={products}
             product={product}
+            hasNextPage={hasNextPage}
             buy={buy}
             askForPrice={askForPrice}
             mainImage={mainImage}

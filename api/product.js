@@ -52,10 +52,13 @@ async function getProduct(product) {
 }
 
 async function getProductsByCollections(collection, first) {
-  const sunglassesandframes = `
+  const QUERY = `
 {
   collection(handle: "${collection}") {
     products(first: ${first}) {
+        pageInfo {
+          hasNextPage
+        }
         nodes {
           id
         handle
@@ -96,14 +99,7 @@ async function getProductsByCollections(collection, first) {
 }
 `;
 
-  let QUERY = null;
-  switch (process.env.NEXT_QUERY) {
-    case "sunglassesandframes":
-      QUERY = sunglassesandframes;
-      break;
-  }
-
   return await request("shopify", QUERY);
 }
 
-export  {getProduct, getProductsByCollections};
+export { getProduct, getProductsByCollections };

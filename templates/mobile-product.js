@@ -29,6 +29,7 @@ import Image from "next/image";
 const MobileProductTemplate = props => {
   const {
     product,
+    hasNextPage,
     shopifyProduct,
     buy,
     askForPrice,
@@ -38,17 +39,34 @@ const MobileProductTemplate = props => {
     setAccordion,
   } = props;
   //SWIPER NAVIGATION
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [products, setProducts] = useState(relatedProducts);
   const indexSlide = relatedProducts.findIndex(
     relatedProduct => relatedProduct.handle === product.handle
   );
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [products, setProducts] = useState(
+    [...relatedProducts].splice(indexSlide, 2)
+  );
+  const [swiperIndex, setSwiperIndex] = useState(0);
   useEffect(() => {
-    getProductsByCollections(collectionHandle, 1).then(r => console.log(r));
-    setProducts([...relatedProducts].splice(indexSlide, indexSlide + 5));
-  }, []);
+    console.log(products.length);
+    if (swiperIndex > products.length - 2 && !hasNextPage) {
+      getProductsByCollections(collectionHandle, products.length + 20).then(
+        response => {
+          console.log(response);
+          const newProducts = response.data.collection.products.nodes;
+          console.log(newProducts);
+          setProducts(oldProducts => {
+            console.log(oldProducts);
+            oldProducts.concat(newProducts);
+          });
+          console.log(products);
+        }
+      );
+    }
+  }, [swiperIndex]);
   let index = null;
   const swipeToProduct = swiper => {
+    setSwiperIndex(swiper.activeIndex);
     // const indexSlide = 0;
     // let index = indexSlide;
     // if (swiper.swipeDirection === "prev" || swiper === "prev") {
@@ -81,7 +99,7 @@ const MobileProductTemplate = props => {
         onActiveIndexChange={swipeToProduct}
         loop={true}
       >
-        {relatedProducts.map(index => (
+        {products?.map(index => (
           <SwiperSlide key={index.id}>
             <div className="sliderWrapper">
               <Swiper

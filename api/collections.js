@@ -44,6 +44,9 @@ async function getCollection(collection) {
         src
     }
     products(first: 250) {
+        pageInfo {
+              hasNextPage
+        }
         nodes {
           id
         handle
