@@ -4,6 +4,16 @@
 @import 'swiper/css';
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
+
+/*classes*/
+.results-container-algolia {
+  @apply mt-8 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-12
+}
+
+.ais-Hits-list {
+  @apply results-container-algolia;
+
+}
 /*
 .tl-edges {
   @apply h-full;

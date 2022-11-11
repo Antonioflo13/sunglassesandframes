@@ -26,7 +26,7 @@ const AlgoliaSearch = () => {
 
 function Hit(props) {
   return (
-    <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-12">
+    <div>
       <Link href={``}>
         <div className="w-full flex flex-col items-center">
           <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
