@@ -88,7 +88,10 @@ const Contact = ({ setShown }) => {
               />
             </div>
             <div>
-              <button className="close-menu" onClick={() => dispatch(setDialogContactShow(false))}>
+              <button
+                className="close-menu"
+                onClick={() => dispatch(setDialogContactShow(false))}
+              >
                 <span>
                   <img src={closeIcon.src} width={10} alt="close-icon" />
                 </span>
@@ -253,7 +256,7 @@ const Contact = ({ setShown }) => {
                 </div>
                 <div>
                   <button
-                    className="rounded-full bg-sunglassesandframes-red pt-1 pb-px px-4 leading-5 text-white font-bold text-xs uppercase"
+                    className="rounded-full bg-sunglassesandframes-black pt-1 pb-px px-4 leading-5 text-white font-bold text-xs uppercase"
                     type="submit"
                     disabled={disabled}
                     style={disabled ? { opacity: "0.6" } : { opacity: "1.0" }}
