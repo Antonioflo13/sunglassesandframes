@@ -29,11 +29,25 @@ const Layout = ({ children }) => {
   };
 
   //FUNCTIONS
+  const setBodyOverflow = () => {
+    let body = document.querySelector("body");
+    console.log(router);
+    if (body && router.pathname === "/collections/[...product]") {
+      body.style.overflow = "hidden";
+    }
+    if (body && router.pathname !== "/collections/[...product]") {
+      body.style.overflow = "auto";
+    }
+  };
+
   const errorMissingTranslation = () => {
     //console.log("Error MISSING TRANSLATION]")
   };
 
   // //USE-EFFECT
+  useEffect(() => {
+    setBodyOverflow();
+  }, [router]);
   // useEffect(() => {
   //   client().then(r => r);
   // }, [language]);

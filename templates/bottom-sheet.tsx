@@ -19,7 +19,7 @@ interface Props {
 
 const getY = (height: number, mode: Mode): number => {
   if (mode === "collapsed") {
-    return height - 150;
+    return height - 140;
   }
   return height - height + 70;
 };
@@ -39,20 +39,13 @@ const BottomSheet: React.FC<Props> = ({
   }));
   const collapsedY = getY(height, "collapsed");
   const expandedY = getY(height, "expanded");
-  let body = document.querySelector("body");
 
   useEffect(() => {
     set({ y: mode === "collapsed" ? collapsedY : expandedY });
     if (mode === "collapsed") {
       isExpanded(true);
-      if (body) {
-        body.style.overflow = "hidden";
-      }
     } else {
       isExpanded(false);
-      if (body) {
-        body.style.overflow = "hidden";
-      }
     }
   }, [mode, collapsedY, expandedY, set]);
 
@@ -79,10 +72,6 @@ const BottomSheet: React.FC<Props> = ({
     }
 
     if (mode === "collapsed") {
-      let body = document.querySelector("body");
-      if (body) {
-        body.style.overflow = "hidden";
-      }
       return deltaY < -threshold ? expandedY : collapsedY;
     }
 
@@ -110,7 +99,7 @@ const BottomSheet: React.FC<Props> = ({
         config: {
           mass: velocity,
           tension: 500 * velocity,
-          friction: 80,
+          friction: 50,
         },
       });
 

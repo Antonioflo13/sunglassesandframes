@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 //API
-import { getProduct, getProductsByCollections } from "../api/product";
+import { getProductsByCollections } from "../api/product";
 //SWIPER
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
@@ -51,7 +51,6 @@ const MobileProductTemplate = props => {
   const [newHasNextPage, setNewHasNextPage] = useState(hasNextPage);
 
   useEffect(() => {
-    console.log(products);
     if (swiperIndex > products.length - 2 && newHasNextPage) {
       getProductsByCollections(collectionHandle, 20, newCursor).then(
         response => {
