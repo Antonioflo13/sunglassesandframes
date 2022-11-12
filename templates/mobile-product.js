@@ -1,9 +1,12 @@
+//REACT
 import React, { useEffect, useRef, useState } from "react";
+//NEXT
+import { useRouter } from "next/router";
 //API
 import { getProductsByCollections } from "../api/product";
 //SWIPER
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper";
+import { Pagination, Navigation } from "swiper";
 
 //NAVIGATE
 import { FormattedNumber } from "react-intl";
@@ -39,7 +42,7 @@ const MobileProductTemplate = props => {
     accordion,
     setAccordion,
   } = props;
-  //SWIPER NAVIGATION
+  //STATE
   const [isExpanded, setIsExpanded] = useState(false);
   const [products, setProducts] = useState(relatedProducts);
   const [swiperIndex, setSwiperIndex] = useState(
@@ -49,7 +52,11 @@ const MobileProductTemplate = props => {
   );
   const [newCursor, setNewCursor] = useState(cursor);
   const [newHasNextPage, setNewHasNextPage] = useState(hasNextPage);
+  const router = useRouter();
+  //REF
+  const swiperRef = useRef(null);
 
+  //EFFECT
   useEffect(() => {
     if (swiperIndex > products.length - 2 && newHasNextPage) {
       getProductsByCollections(collectionHandle, 20, newCursor).then(
@@ -65,9 +72,38 @@ const MobileProductTemplate = props => {
       );
     }
   }, [swiperIndex]);
-  let index = null;
+
+  //FUNCTIONS
+  const slideTo = () => {};
   const swipeToProduct = swiper => {
-    setSwiperIndex(swiper.activeIndex);
+    if (swiper === "prev") {
+      setSwiperIndex(prevSwiperIndexPrev => {
+        setSwiperIndex(prevSwiperIndexPrev - 1);
+        router.push(
+          `/collections/${collectionHandle}/${
+            products[prevSwiperIndexPrev - 1].handle
+          }`
+        );
+      });
+    }
+    if (swiper === "next") {
+      setSwiperIndex(prevSwiperIndexPrev => {
+        setSwiperIndex(prevSwiperIndexPrev + 1);
+        router.push(
+          `/collections/${collectionHandle}/${
+            products[prevSwiperIndexPrev + 1].handle
+          }`
+        );
+      });
+    }
+    if (swiper?.activeIndex) {
+      setSwiperIndex(swiper?.activeIndex);
+      router.push(
+        `/collections/${collectionHandle}/${
+          products[swiper?.activeIndex].handle
+        }`
+      );
+    }
     // const indexSlide = 0;
     // let index = indexSlide;
     // if (swiper.swipeDirection === "prev" || swiper === "prev") {
@@ -98,6 +134,8 @@ const MobileProductTemplate = props => {
         allowSlideNext={isExpanded}
         allowSlidePrev={isExpanded}
         onActiveIndexChange={swipeToProduct}
+        navigation={true}
+        modules={[Navigation]}
         loop={true}
       >
         {products.length}
@@ -137,22 +175,6 @@ const MobileProductTemplate = props => {
                         </SwiperSlide>
                       )
                     )}
-                  <button onClick={() => swipeToProduct("prev")}>
-                    <img
-                      className="rowLeft"
-                      src={RowLeft.src}
-                      width={12}
-                      alt="row-left"
-                    />
-                  </button>
-                  <button onClick={() => swipeToProduct("next")}>
-                    <img
-                      className="rowRight"
-                      src={RowRight.src}
-                      width={12}
-                      alt="row-right"
-                    />
-                  </button>
                 </Swiper>
               </div>
               <div
@@ -168,7 +190,9 @@ const MobileProductTemplate = props => {
                 <BottomSheet
                   defaultMode="collapsed"
                   height={heightPage}
-                  style={{ pointerEvents: "all" }}
+                  style={{
+                    pointerEvents: "all",
+                  }}
                   isExpanded={expanded => setIsExpanded(expanded)}
                 >
                   <div
