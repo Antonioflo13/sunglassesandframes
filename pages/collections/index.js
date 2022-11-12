@@ -1,5 +1,5 @@
 //REACT
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 //NEXT
 import Link from "next/link";
 //HOOKS
@@ -42,6 +42,9 @@ const CollectionsPage = ({ collections }) => {
 
   const [indice, setIndice] = useState("A");
 
+  const myRef = useRef(null);
+  const executeScroll = () => myRef.current.scrollIntoView();
+
   return (
     <Layout>
       <Head>
@@ -63,7 +66,7 @@ const CollectionsPage = ({ collections }) => {
                 key={item + 1}
                 onClick={() => setIndice(item)}
               >
-                <AnchorLink href={`#anchorLink-${item}`}>{item}</AnchorLink>
+                <span onClick={executeScroll}>{item}</span>
               </span>
             ))}
           </div>
@@ -76,7 +79,7 @@ const CollectionsPage = ({ collections }) => {
                       <li key={index}>
                         {collection.viewLetter && (
                           <div
-                            id={`anchorLink-${letter.letter}`}
+                            ref={myRef}
                             className="font-semibold text-2xl font-serif mb-3"
                           >
                             <section>{letter.letter}</section>
@@ -141,7 +144,7 @@ const CollectionsPage = ({ collections }) => {
 
           .containerDesigner {
             width: 40%;
-            height: 100vh;
+            height: 70vh;
             overflow-y: scroll;
           }
 
@@ -152,7 +155,7 @@ const CollectionsPage = ({ collections }) => {
           .containerCollectionPromo {
             width: 60%;
             background-color: black;
-            height: 100vh;
+            height: 70vh;
           }
 
           .containerCollections {
