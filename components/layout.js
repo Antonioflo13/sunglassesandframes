@@ -31,7 +31,6 @@ const Layout = ({ children }) => {
   //FUNCTIONS
   const setBodyOverflow = () => {
     let body = document.querySelector("body");
-    console.log(router);
     if (body && router.pathname === "/collections/[...product]") {
       body.style.overflow = "hidden";
     }
