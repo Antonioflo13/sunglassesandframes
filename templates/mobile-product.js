@@ -39,68 +39,55 @@ const MobileProductTemplate = props => {
     askForPrice,
     relatedProducts,
     collectionHandle,
-    accordion,
-    setAccordion,
   } = props;
   //STATE
   const [isExpanded, setIsExpanded] = useState(false);
-  const [products, setProducts] = useState(relatedProducts);
+  const [counterSwipe, setCounterSwipe] = useState(0);
+
+  const [products, setProducts] = useState(
+    [...relatedProducts].splice(
+      relatedProducts.findIndex(
+        relatedProduct => relatedProduct.handle === product.handle
+      ),
+      relatedProducts.findIndex(
+        relatedProduct => relatedProduct.handle === product.handle
+      ) + 20
+    )
+  );
+
   const [swiperIndex, setSwiperIndex] = useState(
-    relatedProducts.findIndex(
+    products.findIndex(
       relatedProduct => relatedProduct.handle === product.handle
     )
   );
   const [newCursor, setNewCursor] = useState(cursor);
   const [newHasNextPage, setNewHasNextPage] = useState(hasNextPage);
   const router = useRouter();
-  //REF
-  const swiperRef = useRef(null);
 
   //EFFECT
   useEffect(() => {
-    if (swiperIndex > products.length - 2 && newHasNextPage) {
-      getProductsByCollections(collectionHandle, 20, newCursor).then(
-        response => {
-          setNewCursor(response.data.collection.products.pageInfo.endCursor);
-          setNewHasNextPage(
-            response.data.collection.products.pageInfo.hasNextPage
-          );
-          const newProducts = response.data.collection.products.nodes;
-
-          setProducts(oldProducts => [...oldProducts, ...newProducts]);
-        }
+    if (swiperIndex > products.length - 2) {
+      const newProducts = [...relatedProducts].splice(
+        relatedProducts.findIndex(
+          relatedProduct => relatedProduct.handle === product.handle
+        ),
+        relatedProducts.findIndex(
+          relatedProduct => relatedProduct.handle === product.handle
+        ) + 20
       );
+
+      setProducts(oldProducts => [...oldProducts, ...newProducts]);
     }
   }, [swiperIndex]);
 
   //FUNCTIONS
-  const slideTo = () => {};
   const swipeToProduct = swiper => {
-    if (swiper === "prev") {
-      setSwiperIndex(prevSwiperIndexPrev => {
-        setSwiperIndex(prevSwiperIndexPrev - 1);
-        router.push(
-          `/collections/${collectionHandle}/${
-            products[prevSwiperIndexPrev - 1].handle
-          }`
-        );
-      });
-    }
-    if (swiper === "next") {
-      setSwiperIndex(prevSwiperIndexPrev => {
-        setSwiperIndex(prevSwiperIndexPrev + 1);
-        router.push(
-          `/collections/${collectionHandle}/${
-            products[prevSwiperIndexPrev + 1].handle
-          }`
-        );
-      });
-    }
+    console.log(swiper.activeIndex);
     if (swiper?.activeIndex) {
-      setSwiperIndex(swiper?.activeIndex);
+      setSwiperIndex(swiper?.activeIndex - 1);
       router.push(
         `/collections/${collectionHandle}/${
-          products[swiper?.activeIndex].handle
+          products[swiper?.activeIndex - 1].handle
         }`
       );
     }
@@ -125,9 +112,18 @@ const MobileProductTemplate = props => {
   const bottomSheetRef = useRef();
   let bottomSheetScrollTop = bottomSheetRef.current?.scrollTop;
   useEffect(() => {
-    bottomSheetScrollTop = 0;
-    document.getElementsByClassName("swiper-button-next")[0].style.zIndex = 0;
-    document.getElementsByClassName("swiper-button-prev")[0].style.zIndex = 0;
+    if (!isExpanded) {
+      bottomSheetScrollTop = 0;
+      document.getElementsByClassName("swiper-button-next")[0].style.zIndex = 0;
+      document.getElementsByClassName("swiper-button-prev")[0].style.zIndex = 0;
+    } else {
+      document.getElementsByClassName(
+        "swiper-button-next"
+      )[0].style.zIndex = 10;
+      document.getElementsByClassName(
+        "swiper-button-prev"
+      )[0].style.zIndex = 10;
+    }
   }, [isExpanded]);
   return (
     <div>
@@ -193,6 +189,7 @@ const MobileProductTemplate = props => {
                   height={heightPage}
                   style={{
                     pointerEvents: "all",
+                    overflow: isExpanded ? "hidden" : "scroll",
                   }}
                   isExpanded={expanded => setIsExpanded(expanded)}
                 >
@@ -201,7 +198,6 @@ const MobileProductTemplate = props => {
                     className="mb-10"
                     style={{
                       height: "100vh",
-                      overflow: isExpanded ? "hidden" : "scroll",
                     }}
                   >
                     <div
@@ -273,6 +269,18 @@ const MobileProductTemplate = props => {
                       <div className="mt-10">
                         <ProductIcon />
                       </div>
+                      <div
+                        className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
+                        dangerouslySetInnerHTML={{
+                          __html: product.descriptionHtml,
+                        }}
+                      />
+                      <div
+                        className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
+                        dangerouslySetInnerHTML={{
+                          __html: product.descriptionHtml,
+                        }}
+                      />
                       <div
                         className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
                         dangerouslySetInnerHTML={{

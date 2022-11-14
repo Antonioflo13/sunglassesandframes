@@ -45,6 +45,7 @@ const Product = ({
   });
 
   const relatedProducts = CollectionProducts.data.collection.products.nodes;
+  console.log(relatedProducts);
 
   const cursor = CollectionProducts.data.collection.products.pageInfo.endCursor;
 

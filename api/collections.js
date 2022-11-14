@@ -43,7 +43,7 @@ async function getCollection(collection) {
     image {
         src
     }
-    products(first: 20) {
+    products(first: 250) {
         edges {
           cursor
         }
