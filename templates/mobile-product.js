@@ -117,6 +117,7 @@ const MobileProductTemplate = props => {
       document.getElementsByClassName("swiper-button-next")[0].style.zIndex = 0;
       document.getElementsByClassName("swiper-button-prev")[0].style.zIndex = 0;
     } else {
+      bottomSheetScrollTop = 0;
       document.getElementsByClassName(
         "swiper-button-next"
       )[0].style.zIndex = 10;
@@ -143,7 +144,6 @@ const MobileProductTemplate = props => {
                 <Swiper
                   id="swiper-image-pdp"
                   style={{ height: "100vh" }}
-                  className="bg-indice-grey"
                   cssMode={true}
                   pagination={true}
                   direction={"vertical"}
@@ -190,11 +190,11 @@ const MobileProductTemplate = props => {
                   style={{
                     pointerEvents: "all",
                     overflow: isExpanded ? "hidden" : "scroll",
+                    background: "white",
                   }}
                   isExpanded={expanded => setIsExpanded(expanded)}
                 >
                   <div
-                    ref={bottomSheetRef}
                     className="mb-10"
                     style={{
                       height: "100vh",
@@ -206,6 +206,7 @@ const MobileProductTemplate = props => {
                         borderTop: "1px solid black",
                         borderRadius: "10px",
                       }}
+                      ref={bottomSheetRef}
                     >
                       <div
                         className="flex justify-center"
