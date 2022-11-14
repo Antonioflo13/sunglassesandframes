@@ -126,6 +126,8 @@ const MobileProductTemplate = props => {
   let bottomSheetScrollTop = bottomSheetRef.current?.scrollTop;
   useEffect(() => {
     bottomSheetScrollTop = 0;
+    document.getElementsByClassName("swiper-button-next")[0].style.zIndex = 0;
+    document.getElementsByClassName("swiper-button-prev")[0].style.zIndex = 0;
   }, [isExpanded]);
   return (
     <div>
@@ -202,7 +204,13 @@ const MobileProductTemplate = props => {
                       overflow: isExpanded ? "hidden" : "scroll",
                     }}
                   >
-                    <div className="customStyle mb-10">
+                    <div
+                      className="customStyle mb-10"
+                      style={{
+                        borderTop: "1px solid black",
+                        borderRadius: "10px",
+                      }}
+                    >
                       <div
                         className="flex justify-center"
                         style={{ padding: "10px 0" }}
@@ -271,74 +279,6 @@ const MobileProductTemplate = props => {
                           __html: product.descriptionHtml,
                         }}
                       />
-                      <div className="mt-5">
-                        <div className="flex flex-col">
-                          <div
-                            className="containerAccordion"
-                            onClick={() =>
-                              setAccordion({
-                                ...accordion,
-                                size: !accordion.size,
-                              })
-                            }
-                          >
-                            <div className="font-bold uppercase text-sm">
-                              <FormattedMessage id="product.size.title" />
-                            </div>
-                            {accordion.size ? (
-                              <FontAwesomeIcon
-                                icon={faMinus}
-                                className="containerIcon"
-                              />
-                            ) : (
-                              <FontAwesomeIcon
-                                icon={faPlus}
-                                className="containerIcon"
-                              />
-                            )}
-                          </div>
-                          {accordion.size && (
-                            <>
-                              <div className="text-xs">
-                                <FormattedMessage id="product.." />
-                              </div>
-                            </>
-                          )}
-                        </div>
-                        <div className="flex flex-col mt-5">
-                          <div
-                            className="containerAccordion"
-                            onClick={() =>
-                              setAccordion({
-                                ...accordion,
-                                shipping: !accordion.shipping,
-                              })
-                            }
-                          >
-                            <div className="font-bold uppercase text-sm">
-                              <FormattedMessage id="product.shipping.title" />
-                            </div>
-                            {accordion.shipping ? (
-                              <FontAwesomeIcon
-                                icon={faMinus}
-                                className="containerIcon"
-                              />
-                            ) : (
-                              <FontAwesomeIcon
-                                icon={faPlus}
-                                className="containerIcon"
-                              />
-                            )}
-                          </div>
-                          {accordion.shipping && (
-                            <>
-                              <div className="text-xs">
-                                <FormattedMessage id="product.." />
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      </div>
                       {/*{relatedProducts.length > 0 && (*/}
                       {/*  <SliderRelatedProducts*/}
                       {/*    relatedProducts={relatedProducts}*/}
