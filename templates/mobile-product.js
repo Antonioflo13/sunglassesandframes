@@ -2,8 +2,6 @@
 import React, { useEffect, useRef, useState } from "react";
 //NEXT
 import { useRouter } from "next/router";
-//API
-import { getProductsByCollections } from "../api/product";
 //SWIPER
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
@@ -24,8 +22,6 @@ import Image from "next/image";
 const MobileProductTemplate = props => {
   const {
     product,
-    hasNextPage,
-    cursor,
     shopifyProduct,
     buy,
     askForPrice,
@@ -36,7 +32,8 @@ const MobileProductTemplate = props => {
   const productIndex = relatedProducts.findIndex(
     relatedProduct => relatedProduct.handle === product.handle
   );
-  const maxLength = relatedProducts.length -1  < 20 ? relatedProducts.length - 1  : 20;
+  const maxLength =
+    relatedProducts.length - 1 < 20 ? relatedProducts.length - 1 : 20;
   const [isExpanded, setIsExpanded] = useState(false);
 
   const [products, setProducts] = useState(
@@ -52,15 +49,19 @@ const MobileProductTemplate = props => {
 
   //EFFECT
   useEffect(() => {
-    console.log(relatedProducts.length -1 );
     if (swiperIndex === 20) {
       let newProducts = null;
       if (relatedProducts.length - 1 < swiperIndex + 20) {
-        console.log(swiperIndex, relatedProducts.length - 1);
-        newProducts = [...relatedProducts].splice(swiperIndex, relatedProducts.length - 1);
+        newProducts = [...relatedProducts].splice(
+          swiperIndex,
+          relatedProducts.length - 1
+        );
         setProducts(oldProducts => [...oldProducts, ...newProducts]);
       } else {
-        newProducts = [...relatedProducts].splice(swiperIndex, swiperIndex + 20);
+        newProducts = [...relatedProducts].splice(
+          swiperIndex,
+          swiperIndex + 20
+        );
         setProducts(oldProducts => [...oldProducts, ...newProducts]);
       }
     }
@@ -69,13 +70,17 @@ const MobileProductTemplate = props => {
   //FUNCTIONS
   const swipeToProduct = swiper => {
     if (swiper?.activeIndex) {
-      console.log(swiper?.activeIndex);
-      setSwiperIndex(swiper?.activeIndex - 1);
-      router.push(
-        `/collections/${collectionHandle}/${
-          products[swiper?.activeIndex - 1].handle
-        }`
-      );
+      if (swiper.activeIndex > products.length - 1) {
+        setSwiperIndex(0);
+        router.push(`/collections/${collectionHandle}/${products[0].handle}`);
+      } else {
+        setSwiperIndex(swiper?.activeIndex - 1);
+        router.push(
+          `/collections/${collectionHandle}/${
+            products[swiper?.activeIndex - 1].handle
+          }`
+        );
+      }
     }
     // const indexSlide = 0;
     // let index = indexSlide;
@@ -292,6 +297,7 @@ const MobileProductTemplate = props => {
         .image-container {
           position: relative;
           height: 100%;
+          width: 95%;
         }
 
         .slide-icon {
