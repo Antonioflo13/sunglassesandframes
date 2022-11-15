@@ -13,14 +13,6 @@ import { FormattedNumber } from "react-intl";
 //FORMAT MESSAGE
 import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
 import BottomSheet from "./bottom-sheet";
-//ICON
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-//STORE BOUTIQUES
-import { stores } from "../data/stores";
-//ICONS
-import RowLeft from "../assets/images/product-page/angle-left.png";
-import RowRight from "../assets/images/product-page/angle-right.png";
 //COMPONENTS
 import Label from "../components/label";
 import ProductIcon from "../components/product-icon";
@@ -41,18 +33,14 @@ const MobileProductTemplate = props => {
     collectionHandle,
   } = props;
   //STATE
+  const productIndex = relatedProducts.findIndex(
+    relatedProduct => relatedProduct.handle === product.handle
+  );
+  const maxLength = relatedProducts.length -1  < 20 ? relatedProducts.length - 1  : 20;
   const [isExpanded, setIsExpanded] = useState(false);
-  const [counterSwipe, setCounterSwipe] = useState(0);
 
   const [products, setProducts] = useState(
-    [...relatedProducts].splice(
-      relatedProducts.findIndex(
-        relatedProduct => relatedProduct.handle === product.handle
-      ),
-      relatedProducts.findIndex(
-        relatedProduct => relatedProduct.handle === product.handle
-      ) + 20
-    )
+    [...relatedProducts].splice(productIndex, productIndex + maxLength)
   );
 
   const [swiperIndex, setSwiperIndex] = useState(
@@ -60,30 +48,28 @@ const MobileProductTemplate = props => {
       relatedProduct => relatedProduct.handle === product.handle
     )
   );
-  const [newCursor, setNewCursor] = useState(cursor);
-  const [newHasNextPage, setNewHasNextPage] = useState(hasNextPage);
   const router = useRouter();
 
   //EFFECT
   useEffect(() => {
-    if (swiperIndex > products.length - 2) {
-      const newProducts = [...relatedProducts].splice(
-        relatedProducts.findIndex(
-          relatedProduct => relatedProduct.handle === product.handle
-        ),
-        relatedProducts.findIndex(
-          relatedProduct => relatedProduct.handle === product.handle
-        ) + 20
-      );
-
-      setProducts(oldProducts => [...oldProducts, ...newProducts]);
+    console.log(relatedProducts.length -1 );
+    if (swiperIndex === 20) {
+      let newProducts = null;
+      if (relatedProducts.length - 1 < swiperIndex + 20) {
+        console.log(swiperIndex, relatedProducts.length - 1);
+        newProducts = [...relatedProducts].splice(swiperIndex, relatedProducts.length - 1);
+        setProducts(oldProducts => [...oldProducts, ...newProducts]);
+      } else {
+        newProducts = [...relatedProducts].splice(swiperIndex, swiperIndex + 20);
+        setProducts(oldProducts => [...oldProducts, ...newProducts]);
+      }
     }
   }, [swiperIndex]);
 
   //FUNCTIONS
   const swipeToProduct = swiper => {
-    console.log(swiper.activeIndex);
     if (swiper?.activeIndex) {
+      console.log(swiper?.activeIndex);
       setSwiperIndex(swiper?.activeIndex - 1);
       router.push(
         `/collections/${collectionHandle}/${
