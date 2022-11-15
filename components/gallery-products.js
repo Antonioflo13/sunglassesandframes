@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const GalleryProducts = ({ images }) => {
   const [imageList, setImageList] = useState([...images]);
-  const chageView = item => {
+  const changeView = item => {
     let imageListChange = [...images];
     const index = imageListChange.findIndex(
       image => image.originalSrc === item.originalSrc
@@ -15,14 +15,14 @@ const GalleryProducts = ({ images }) => {
     <>
       {imageList.length > 0 && (
         <div>
-          <div className="containerMainImage bg-sunglassesandframes-grey">
+          <div className="containerMainImage bg-white">
             <img className="mainImage" src={imageList[0].originalSrc} alt="" />
           </div>
           <div className="containerImageTubler">
             {imageList.slice(1, 4).map((item, index) => (
               <div
-                className="cursor-pointer w-7/12 flex justify-center bg-sunglassesandframes-grey"
-                onClick={() => chageView(item)}
+                className="cursor-pointer w-7/12 flex justify-center bg-white"
+                onClick={() => changeView(item)}
                 key={index}
               >
                 <img
@@ -41,10 +41,9 @@ const GalleryProducts = ({ images }) => {
           display: flex;
           justify-content: center;
           width: 100%;
-          margin-bottom: 1rem;
         }
         .mainImage {
-          width: 65%;
+          width: 40%;
         }
         .containerImageTubler {
           display: flex;
