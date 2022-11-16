@@ -12,7 +12,6 @@ import Layout from "../../components/layout";
 //API
 import { getAllCollections } from "../../api/collections";
 import Head from "next/head";
-import AnchorLink from "react-anchor-link-smooth-scroll-v2";
 
 const CollectionsPage = ({ collections }) => {
   collections = collections.data.collections.nodes;
