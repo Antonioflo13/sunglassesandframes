@@ -43,7 +43,15 @@ const CollectionsPage = ({ collections }) => {
   const [indice, setIndice] = useState("A");
 
   const myRef = useRef(null);
-  const executeScroll = () => myRef.current.scrollIntoView();
+  const executeScroll = letter => {
+    const letterId = document.getElementById(letter).offsetTop;
+    const container = document.getElementById("container");
+
+    container.scrollTo({
+      top: letterId - 240,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <Layout>
@@ -55,23 +63,23 @@ const CollectionsPage = ({ collections }) => {
         {/* {isDesktop && <Breadcrumbs title="Designers" />} */}
         <div className="mt-20">
           <div className="container-alphabetic">
-            {alphabeticList.map(item => (
+            {alphabeticList.map(letter => (
               <span
                 className="item"
                 style={
-                  indice === item
+                  indice === letter
                     ? { marginLeft: "1rem", borderBottom: "solid 1px black" }
                     : { marginLeft: "1rem" }
                 }
-                key={item + 1}
-                onClick={() => setIndice(item)}
+                key={letter + 1}
+                onClick={() => setIndice(letter)}
               >
-                <span onClick={executeScroll}>{item}</span>
+                <span onClick={() => executeScroll(letter)}>{letter}</span>
               </span>
             ))}
           </div>
           <div className="containerCollections mt-10">
-            <div className="containerDesigner">
+            <div id="container" className="containerDesigner">
               <ul>
                 {collectionsListByAlphabet.map((letter, index) => (
                   <React.Fragment key={index}>
@@ -82,7 +90,9 @@ const CollectionsPage = ({ collections }) => {
                             ref={myRef}
                             className="font-semibold text-2xl font-serif mb-3"
                           >
-                            <section>{letter.letter}</section>
+                            <section id={letter.letter}>
+                              {letter.letter}
+                            </section>
                           </div>
                         )}
                         <div
@@ -143,7 +153,7 @@ const CollectionsPage = ({ collections }) => {
           }
 
           .containerDesigner {
-            width: 40%;
+            width: 50%;
             height: 70vh;
             overflow-y: scroll;
           }
@@ -153,14 +163,15 @@ const CollectionsPage = ({ collections }) => {
           }
 
           .containerCollectionPromo {
-            width: 60%;
+            width: 40%;
             background-color: black;
             height: 70vh;
+            border-radius: 20px;
           }
 
           .containerCollections {
             display: flex;
-            gap: 10rem;
+            justify-content: space-between;
           }
 
           .collection {
