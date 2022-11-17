@@ -155,7 +155,7 @@ export async function getServerSideProps({ params }) {
   const collectionHandle = params.product[0];
   const productHandle = params.product[1];
   const resProduct = await getProduct(productHandle);
-  const CollectionProducts = await getCollection(collectionHandle);
+  const CollectionProducts = await getCollection(collectionHandle, 20);
   return {
     props: { resProduct, CollectionProducts, collectionHandle, productHandle },
   };

@@ -126,17 +126,20 @@ const DesktopProduct = props => {
           }
           .menu-button {
             padding: 10px;
+            border-width: 0 0 1px 0;
+            border-color: transparent;
           }
 
           .menu-button:hover,
           .menu-button:active,
           .menu-button:focus {
-            text-shadow: 0 0 0.1px black;
+            text-shadow: 0 0 1.5px black;
             border-width: 0 0 1px 0;
             border-color: black;
           }
 
           .product-description {
+          line-height: 1.4rem;
             width: 30%;
           }
 

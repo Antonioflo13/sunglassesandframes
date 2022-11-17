@@ -69,6 +69,9 @@ const MobileProductTemplate = props => {
 
   //FUNCTIONS
   const swipeToProduct = swiper => {
+    console.log(swiper);
+    console.log(productIndex);
+    console.log(relatedProducts.length -1 );
     if (swiper?.activeIndex) {
       if (swiper.activeIndex > products.length - 1) {
         setSwiperIndex(0);
