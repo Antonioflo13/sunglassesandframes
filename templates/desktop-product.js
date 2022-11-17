@@ -24,29 +24,32 @@ const DesktopProduct = props => {
         <div className="w-full flex flex-col-reverse md:flex-col imageContainer">
           <div className="hidden md:block">{mainImage}</div>
         </div>
-        <div className="flex flex-col justify-start items-center buyContainer">
-          <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
-            {shopifyProduct.vendor}
+        <div className="flex flex-col buyContainer">
+          <div className="flex flex-col items-center">
+            <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
+              {shopifyProduct.vendor}
+            </div>
+            <div className="ml-1 text-xs uppercase font-bold my-2">
+              {shopifyProduct.title}
+            </div>
+            <div className="mb-2">
+              <FormattedNumber
+                style="currency" // eslint-disable-line
+                value={shopifyProduct.variants.edges[0].node.priceV2.amount}
+                currency={
+                  shopifyProduct.variants.edges[0].node.priceV2.currencyCode
+                }
+                minimumFractionDigits={0}
+              />
+            </div>
           </div>
-          <div className="ml-1 text-xs uppercase font-bold mt-2">
-            {shopifyProduct.title}
-          </div>
-          <div className="flex items-center text-sm flex-col mb-5">
+          <div className="flex text-sm flex-col mb-5 text-center">
             {shopifyProduct.availableForSale &&
             !shopifyProduct.tags.includes("nfs") &&
             shopifyProduct.variants.edges[0].node.quantityAvailable > 0 ? (
               <>
-                <FormattedNumber
-                  style="currency" // eslint-disable-line
-                  value={shopifyProduct.variants.edges[0].node.priceV2.amount}
-                  currency={
-                    shopifyProduct.variants.edges[0].node.priceV2.currencyCode
-                  }
-                  minimumFractionDigits={2}
-                />
-
-                <div className="button-price">
-                  <Label onClick={buy}>
+                <div>
+                  <Label style={{ width: "60%" }} onClick={buy}>
                     <FormattedMessage id="product.buy" />
                   </Label>
                 </div>
@@ -69,6 +72,17 @@ const DesktopProduct = props => {
         </div>
         {/* Other info and main image */}
       </div>
+      <div className="flex gap-8">
+        <button className="text-xs menu-button">
+          <FormattedMessage id="product.details" />
+        </button>
+        <button className="text-xs menu-button">
+          <FormattedMessage id="product.size" />
+        </button>
+        <button className="text-xs menu-button">
+          <FormattedMessage id="product.delivery.and.returns" />
+        </button>
+      </div>
       <hr />
       <div
         className="my-4 text-xs whitespace-pre-line product-description"
@@ -76,9 +90,9 @@ const DesktopProduct = props => {
           __html: shopifyProduct.descriptionHtml,
         }}
       />
-      <div className="my-20 text-xs text-center px-5">
-        <FormattedMessage id="home.slider_monthly.text" />
-      </div>
+      {/*<div className="my-20 text-xs text-center px-5">*/}
+      {/*  <FormattedMessage id="home.slider_monthly.text" />*/}
+      {/*</div>*/}
       {/*{relatedProducts.length > 0 && (*/}
       {/*  <SliderRelatedProducts*/}
       {/*    relatedProducts={relatedProducts}*/}
@@ -110,13 +124,22 @@ const DesktopProduct = props => {
           .imageContainer {
             width: 60%;
           }
-          .textStores {
-            width: 100px;
-            margin: 0 auto;
+          .menu-button {
+            padding: 10px;
           }
+
+          .menu-button:hover,
+          .menu-button:active,
+          .menu-button:focus {
+            text-shadow: 0 0 0.1px black;
+            border-width: 0 0 1px 0;
+            border-color: black;
+          }
+
           .product-description {
             width: 30%;
           }
+
           .customTemplate {
             display: flex;
             justify-content: center;

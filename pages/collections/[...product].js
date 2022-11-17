@@ -56,7 +56,7 @@ const Product = ({
     />
   );
 
-  const title = `Indice - ${productHandle}`;
+  const title = `Sunglassesandframes - ${productHandle}`;
 
   //FUNCTIONS
   const buy = async productId => {

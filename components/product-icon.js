@@ -65,16 +65,16 @@ const ProductIcon = () => {
       </div>
       <style jsx="true">{`
         .icon {
-          width: 35px !important;
+          width: 25px !important;
         }
         .text-container {
-          font-size: 0.5rem;
+          font-size: 0.2rem;
           text-align: center;
         }
 
         @media (min-width: 768px) {
           .icon {
-            width: 35px;
+            width: 30px;
           }
           .text-container {
             font-size: 0.65rem;

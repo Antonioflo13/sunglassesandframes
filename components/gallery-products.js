@@ -43,7 +43,7 @@ const GalleryProducts = ({ images }) => {
           width: 100%;
         }
         .mainImage {
-          width: 40%;
+          width: 20%;
         }
         .containerImageTubler {
           display: flex;
