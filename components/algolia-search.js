@@ -11,8 +11,8 @@ import Link from "next/link";
 
 const AlgoliaSearch = () => {
   const searchClient = algoliasearch(
-    "17WRZZ9Y8K",
-    "c89f0d7433b24a99b93de0fce9cd0f8c"
+    process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+    process.env.NEXT_PUBLIC_ALGOLIA_API_KEY
   );
 
   const Hit = props => {
