@@ -96,6 +96,7 @@ const MobileProductTemplate = props => {
           { shallow: true }
         );
 
+
       }
     }
     // const indexSlide = 0;
