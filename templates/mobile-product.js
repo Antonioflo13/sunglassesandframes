@@ -23,8 +23,6 @@ import { getCollection } from "../api/collections";
 const MobileProductTemplate = props => {
   const {
     productHandle,
-    product,
-    shopifyProduct,
     hasMore,
     cursor,
     buy,
@@ -33,11 +31,13 @@ const MobileProductTemplate = props => {
     collectionHandle,
   } = props;
 
-  //STATE
-  const productIndex = relatedProducts.findIndex(
-    relatedProduct => relatedProduct.node.handle === productHandle
-  );
+  //ROUTER
+  const router = useRouter();
 
+  //HEIGHT
+  const [heightPage, setHeightPage] = useState(window.innerHeight);
+
+  //STATE
   const [isExpanded, setIsExpanded] = useState(false);
 
   const [products, setProducts] = useState(relatedProducts);
@@ -51,7 +51,37 @@ const MobileProductTemplate = props => {
       relatedProduct => relatedProduct.node.handle === productHandle
     )
   );
-  const router = useRouter();
+
+  const bottomSheetRef = useRef();
+
+  let bottomSheetScrollTop = bottomSheetRef.current?.scrollTop;
+
+  //FUNCTIONS
+  const swipeToProduct = swiper => {
+    if (swiper?.activeIndex) {
+      if (swiper.activeIndex > products.length - 1) {
+        console.log(swiper?.activeIndex);
+        setSwiperIndex(0);
+        router.push(
+          `/collections/${collectionHandle}/${products[0].node.handle}?cursor=${newCursor}`,
+          undefined,
+          { shallow: true }
+        );
+      } else {
+        setSwiperIndex(swiper?.activeIndex - 1);
+        router.push(
+          `/collections/${collectionHandle}/${
+            products[swiper?.activeIndex - 1].node.handle
+          }?cursor=${newCursor}`,
+          undefined,
+          { shallow: true }
+        );
+      }
+    }
+  };
+
+  const getProductByCollection = async (collectionHandle, first, cursor) =>
+    await getCollection(collectionHandle, first, cursor);
 
   //EFFECT
   useEffect(() => {
@@ -75,53 +105,11 @@ const MobileProductTemplate = props => {
     }
   }, [swiperIndex]);
 
-  //FUNCTIONS
-  const swipeToProduct = swiper => {
-    if (swiper?.activeIndex) {
-      if (swiper.activeIndex > products.length - 1) {
-        console.log(swiper?.activeIndex);
-        setSwiperIndex(0);
-        router.push(
-          `/collections/${collectionHandle}/${products[0].node.handle}?cursor=${newCursor}`,
-          undefined,
-          { shallow: true }
-        );
-      } else {
-        setSwiperIndex(swiper?.activeIndex - 1);
-        router.push(
-          `/collections/${collectionHandle}/${
-            products[swiper?.activeIndex - 1].node.handle
-          }?cursor=${newCursor}`,
-          undefined,
-          { shallow: true }
-        );
-
-
-      }
-    }
-    // const indexSlide = 0;
-    // let index = indexSlide;
-    // if (swiper.swipeDirection === "prev" || swiper === "prev") {
-    //   index = indexSlide === 0 ? relatedProducts.length - 1 : indexSlide - 1;
-    // } else if (swiper.swipeDirection === "next" || swiper === "next") {
-    //   index = indexSlide === relatedProducts.length - 1 ? 0 : indexSlide + 1;
-    // }
-    // if (index < shopifyProducts.length) {
-    //   navigate(
-    //     `/collections/${collectionHandle}/products/${shopifyProducts[index].handle}`
-    //   );
-    // }
-  };
-
-  const getProductByCollection = async (collectionHandle, first, cursor) =>
-    await getCollection(collectionHandle, first, cursor);
-
-  const [heightPage, setHeightPage] = useState(0);
   useEffect(() => {
     setHeightPage(window.innerHeight);
   }, [window.innerHeight]);
-  const bottomSheetRef = useRef();
-  let bottomSheetScrollTop = bottomSheetRef.current?.scrollTop;
+
+
   useEffect(() => {
     if (!isExpanded) {
       bottomSheetScrollTop = 0;
@@ -137,6 +125,7 @@ const MobileProductTemplate = props => {
       )[0].style.zIndex = 10;
     }
   }, [isExpanded]);
+
   return (
     <div>
       <Swiper
@@ -176,6 +165,8 @@ const MobileProductTemplate = props => {
                                 objectFit: "contain",
                                 objectPosition: "center",
                               }}
+                              placeholder="blur"
+                              blurDataURL={image.originalSrc}
                               src={image.originalSrc}
                               alt={image.originalSrc}
                             />
@@ -249,7 +240,7 @@ const MobileProductTemplate = props => {
                                 product.node.variants.edges[0].node.priceV2
                                   .currencyCode
                               }
-                              minimumFractionDigits={2}
+                              minimumFractionDigits={0}
                             />
 
                             <div>

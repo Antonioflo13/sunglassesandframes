@@ -125,7 +125,6 @@ const Product = ({
           />
         ) : (
           <MobileProduct
-            // shopifyProducts={products}
             productHandle={productHandle}
             product={product}
             hasMore={hasMore}
