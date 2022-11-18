@@ -15,8 +15,15 @@ import Head from "next/head";
 
 const CollectionsPage = ({ collections }) => {
   collections = collections.data.collections.nodes;
+
   //HOOKS
   const isDesktop = useMediaQuery("768");
+
+  //STATE
+  const [indice, setIndice] = useState("A");
+
+  const myRef = useRef(null);
+
   //generates alphabetical order products
   let collectionsListByAlphabet = [];
   let alphabeticList = [];
@@ -39,9 +46,7 @@ const CollectionsPage = ({ collections }) => {
     collectionsList => (collectionsList.collectionsList[0].viewLetter = true)
   );
 
-  const [indice, setIndice] = useState("A");
-
-  const myRef = useRef(null);
+  //FUNCTIONS
   const executeScroll = letter => {
     const letterId = document.getElementById(letter).offsetTop;
     const container = document.getElementById("container");
@@ -140,6 +145,7 @@ const CollectionsPage = ({ collections }) => {
         {`
           .container-alphabetic {
             text-align: center;
+            overflow-x: scroll;
           }
           .unavailable:hover {
             opacity: 0.2;
@@ -155,6 +161,7 @@ const CollectionsPage = ({ collections }) => {
             width: 50%;
             height: 70vh;
             overflow-y: scroll;
+            overflow-x: hidden;
           }
 
           ::-webkit-scrollbar {

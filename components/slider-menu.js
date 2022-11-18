@@ -6,15 +6,14 @@ import useMediaQuery from "../hooks/useMediaQuery";
 
 const SliderMenu = () => {
   const isDesktop = useMediaQuery(1024);
+    const isTablet = useMediaQuery(767);
   return (
     <>
       <div className="mt-20 mb-10" style={{ textAlign: "center" }}>
         SHOP BY
       </div>
       {isDesktop ? (
-        <div className="sliderMenu">
           <div className="sliderMenu">
-            <div className="containerSliderMenu">
               <LinkMenu to="/">
                 <FormattedMessage id="sidebar.home" />
               </LinkMenu>
@@ -24,15 +23,13 @@ const SliderMenu = () => {
               <LinkMenu to="/boutiques">
                 <FormattedMessage id="sidebar.botiques" />
               </LinkMenu>
-            </div>
           </div>
-        </div>
       ) : (
         <div className="sliderMenuMobile">
           <Swiper
             slidesPerView={2.2}
             centeredSlides={true}
-            spaceBetween={5}
+            spaceBetween={isTablet ? 200 : 400}
             loop={true}
           >
             <div style={{ cursor: "pointer" }}>
@@ -57,8 +54,10 @@ const SliderMenu = () => {
       )}
       <style jsx="true">{`
         .sliderMenu {
+        display: flex;
+        justify-content: center;
+        gap: 70px;
           padding-bottom: 40px;
-          max-width: 90rem;
           margin-left: auto;
           margin-right: auto;
           overflow-x: scroll;
@@ -72,12 +71,6 @@ const SliderMenu = () => {
 
         .sliderMenuMobile {
           padding-bottom: 40px;
-        }
-
-        .containerSliderMenu {
-          display: flex;
-          cursor: pointer;
-          justify-content: space-around;
         }
 
         .swiper-wrapper {
