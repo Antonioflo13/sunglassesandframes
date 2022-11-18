@@ -1,9 +1,9 @@
 /*! purgecss start ignore */
 @tailwind base;
 @tailwind components;
-@import 'swiper/css';
-@import 'swiper/css/navigation';
-@import 'swiper/css/pagination';
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
 
 /*classes*/
 .results-container-algolia {
@@ -28,7 +28,7 @@
   font-family: "Artegra Sans";
   font-weight: 400;
   font-style: normal;
-  src: url("../fonts/ArtegraSansExtended-Regular.otf");
+  src: url("../fonts/Lato-Regular.ttf");
   font-display: swap;
 }
 
@@ -36,7 +36,8 @@
   font-family: "Artegra Sans";
   font-weight: 700;
   font-style: bold;
-  src: url("../fonts/ArtegraSansExtended-Bold.otf");
+  src: url("../fonts/Lato-Regular.ttf");
+  /* src: url("../fonts/ArtegraSansExtended-Bold.otf"); */
   font-display: swap;
 }
 
@@ -44,7 +45,8 @@
   font-family: "Monument";
   font-weight: 400;
   font-style: normal;
-  src: url("../fonts/MonumentExtended-Regular.otf");
+  src: url("../fonts/Lato-Regular.ttf");
+  /* src: url("../fonts/MonumentExtended-Regular.otf"); */
   font-display: swap;
 }
 
@@ -52,7 +54,7 @@
   font-family: "Mackay";
   font-weight: 800;
   font-style: italic;
-  src: url("../fonts/Mackay-BlackItalic.otf");
+  /* src: url("../fonts/Mackay-BlackItalic.otf"); */
   font-display: swap;
 }
 
@@ -109,7 +111,7 @@ body {
 }
 
 .product-description br {
-  line-height: 2;
+  line-height: 2;c
 }
 
 /*SWIPER*/
@@ -124,7 +126,7 @@ body {
 }
 .swiper-button-prev,
 .swiper-button-next {
-  top: 66%;
+  top: 63%;
   font-size: 10px;
   color: black;
 }
@@ -200,7 +202,5 @@ body {
     display: block;
   }
 }
-
-
 
 @tailwind utilities;
