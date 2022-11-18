@@ -25,7 +25,7 @@ const SliderArticleCollection = ({ collectionProducts }) => {
             <SwiperSlide key={item.id}>
               <Link
                 href={{
-                  pathname: `/collections/${item.vendor}/${item.handle}`,
+                  pathname: `/designers/${item.vendor}/${item.handle}`,
                 }}
               >
                 <div style={{ cursor: "pointer" }}>

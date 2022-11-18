@@ -1,5 +1,8 @@
 //REACT
 import React, { useEffect } from "react";
+//NEXT
+import Link from "next/link";
+import { useRouter } from "next/router";
 //STORE
 import { useDispatch, useSelector } from "react-redux";
 import { setDialogContactShow } from "../store/modules/dialogContact";
@@ -7,6 +10,7 @@ import { setSideBarShow } from "../store/modules/sideBar";
 import { setCartContent, setShowCart } from "../store/modules/cart";
 //HOOKS
 import useMediaQuery from "../hooks/useMediaQuery";
+import { getCookie } from "../utils/cookie";
 //FRAMER-MOTION
 import { AnimatePresence, motion } from "framer-motion";
 //COMPONENTS
@@ -18,10 +22,10 @@ import logo from "../assets/images/logo.png";
 import menuBurgher from "../assets/images/menu-burger.svg";
 import cartIcon from "../assets/images/shopping-bag.svg";
 import homeIcon from "../assets/images/home.svg";
-import Link from "next/link";
-import { getCookie } from "../utils/cookie";
 
 export const Navbar = () => {
+  //ROUTER
+  const pathName = useRouter().pathname;
   //STORE
   const showDialogContact = useSelector(state => state.dialogContact.value);
   const showSideBar = useSelector(state => state.sideBar.value);
@@ -95,37 +99,57 @@ export const Navbar = () => {
       {isDesktop && (
         <div className="customWidthHeaderTwo">
           <div>
-            <Link href="/">
+            <Link href="/magazine">
               <button className="link">
-                <div className="flex flex-col justify-center items-center">
-                  Magaine
+                <div
+                  className={`${
+                    pathName === "/magazine" && "red"
+                  } flex flex-col justify-center items-center`}
+                >
+                  Magazine
                 </div>
               </button>
             </Link>
             <Link href="/">
               <button className="link">
-                <div className="flex flex-col justify-center items-center">
+                <div
+                  className={`${
+                    pathName === "/shop" && "red"
+                  } flex flex-col justify-center items-center`}
+                >
                   Shop By
                 </div>
               </button>
             </Link>
-            <Link href="/">
+            <Link href="/designers">
               <button className="link">
-                <div className="flex flex-col justify-center items-center">
+                <div
+                  className={`${
+                    pathName === "/designers" && "red"
+                  } flex flex-col justify-center items-center`}
+                >
                   Our Designer
                 </div>
               </button>
             </Link>
             <Link href="/">
               <button className="link">
-                <div className="flex flex-col justify-center items-center">
+                <div
+                  className={`${
+                    pathName === "/newIn" && "red"
+                  } flex flex-col justify-center items-center`}
+                >
                   New in
                 </div>
               </button>
             </Link>
             <Link href="/">
               <button className="link">
-                <div className="flex flex-col justify-center items-center red">
+                <div
+                  className={`${
+                    pathName === "/promotions" && "red"
+                  } flex flex-col justify-center items-center`}
+                >
                   Promotions
                 </div>
               </button>

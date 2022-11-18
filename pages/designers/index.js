@@ -117,8 +117,8 @@ const CollectionsPage = ({ collections }) => {
                               pathname:
                                 collection.handle ===
                                 "sunglassesandframes-capsule-collection"
-                                  ? "/collections/[collection]"
-                                  : "/collections/[collection]",
+                                  ? "/designers/[collection]"
+                                  : "/designers/[collection]",
                               query: { collection: collection.handle },
                             }}
                           >

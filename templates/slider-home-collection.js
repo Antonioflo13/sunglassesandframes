@@ -30,7 +30,7 @@ const SliderHomeCollection = () => {
         >
           {products?.map(item => (
             <SwiperSlide key={item.id}>
-              <Link href={`/collections/${item.vendor}/${item.handle}`}>
+              <Link href={`/designers/${item.vendor}/${item.handle}`}>
                 <div className="container-slider">
                   <img
                     className="img-product"

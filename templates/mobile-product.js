@@ -63,14 +63,14 @@ const MobileProductTemplate = props => {
         console.log(swiper?.activeIndex);
         setSwiperIndex(0);
         router.push(
-          `/collections/${collectionHandle}/${products[0].node.handle}?cursor=${newCursor}`,
+          `/designers/${collectionHandle}/${products[0].node.handle}?cursor=${newCursor}`,
           undefined,
           { shallow: true }
         );
       } else {
         setSwiperIndex(swiper?.activeIndex - 1);
         router.push(
-          `/collections/${collectionHandle}/${
+          `/designers/${collectionHandle}/${
             products[swiper?.activeIndex - 1].node.handle
           }?cursor=${newCursor}`,
           undefined,

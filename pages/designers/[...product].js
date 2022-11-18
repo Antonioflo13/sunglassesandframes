@@ -97,16 +97,16 @@ const Product = ({
                 breadcrumbs={[
                   {
                     title: "breadcrumbs.designers",
-                    link: "/collections",
+                    link: "/designers",
                   },
 
                   {
                     title: product.node.vendor,
-                    link: "/collections/" + collectionHandle,
+                    link: "/designers/" + collectionHandle,
                   },
                   {
                     title: product.node.title,
-                    link: "/collections/" + productHandle,
+                    link: "/designers/" + productHandle,
                   },
                 ]}
                 title=" "

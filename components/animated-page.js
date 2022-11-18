@@ -30,7 +30,7 @@ const AnimatedPage = ({ children, margins, fullHeight, grey, noAnimate }) => {
           {margins ? (
             <div
               className={classnames(
-                router.pathname === "/collections/[...product]" && !isDesktop
+                router.pathname === "/designers/[...product]" && !isDesktop
                   ? "w-full"
                   : "w-full customStyle"
               )}

@@ -25,7 +25,7 @@ const Search = ({ setShown }) => {
       {results.length > 0 ? (
         <ul>
           {results.map(result => (
-            <Link to={"/collections/" + result.handle} key={result.url}>
+            <Link to={"/designers/" + result.handle} key={result.url}>
               {result.title}
             </Link>
           ))}

@@ -4,7 +4,7 @@ import Link from "./LanguagesLink";
 
 const Product = ({ product, collectionHandle }) => {
   return (
-    <Link to={`/collections/${collectionHandle}/products/${product.handle}`}>
+    <Link to={`/designers/${collectionHandle}/products/${product.handle}`}>
       <div className="w-full flex flex-col items-center">
         <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
           <div className="absolute top-0 w-full h-full">

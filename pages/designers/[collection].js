@@ -101,7 +101,7 @@ const CollectionTemplate = ({ collection }) => {
                   ? [
                       {
                         title: "breadcrumbs.designers",
-                        link: "/collections",
+                        link: "/designers",
                       },
                       {
                         title: collection.title,
@@ -181,7 +181,7 @@ const CollectionTemplate = ({ collection }) => {
                   ? [
                       {
                         title: "breadcrumbs.designers",
-                        link: "/collections",
+                        link: "/designers",
                       },
                       {
                         title: collection.title,
@@ -235,7 +235,7 @@ export async function getServerSideProps({ params }) {
 const Product = ({ product, collection }) => {
   return (
     <Link href={{
-      pathname: `/collections/${collection.handle}/${product.node.handle}`,
+      pathname: `/designers/${collection.handle}/${product.node.handle}`,
       query: {cursor: product.cursor},
     }}>
       <div className="w-full flex flex-col items-center">

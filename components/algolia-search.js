@@ -18,7 +18,7 @@ const AlgoliaSearch = () => {
   const Hit = props => {
     return (
       <div>
-        <Link href={`/collections/${props.hit.vendor}/${props.hit.handle}`}>
+        <Link href={`/designers/${props.hit.vendor}/${props.hit.handle}`}>
           <div className="w-full flex flex-col items-center">
             <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
               <div className="absolute top-0 w-full h-full">

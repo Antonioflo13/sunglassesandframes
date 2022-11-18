@@ -17,7 +17,7 @@ const SliderMenu = () => {
               <LinkMenu to="/">
                 <FormattedMessage id="sidebar.home" />
               </LinkMenu>
-              <LinkMenu to="/collections">
+              <LinkMenu to="/designers">
                 <FormattedMessage id="sidebar.designers" />
               </LinkMenu>
               <LinkMenu to="/boutiques">
@@ -39,7 +39,7 @@ const SliderMenu = () => {
                 </LinkMenu>
               </SwiperSlide>
               <SwiperSlide>
-                <LinkMenu to="/collections">
+                <LinkMenu to="/designers">
                   <FormattedMessage id="sidebar.designers" />
                 </LinkMenu>
               </SwiperSlide>

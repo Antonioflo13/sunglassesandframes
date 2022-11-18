@@ -26,7 +26,7 @@ const SliderArticleProducts = ({ productsinArticle }) => {
               {item.node.handle}
               <Link
                 href={{
-                  pathname: `/collections/${item.node.handle}`,
+                  pathname: `/designers/${item.node.handle}`,
                 }}
               >
                 <div style={{ cursor: "pointer" }}>
