@@ -103,8 +103,8 @@ export const Navbar = () => {
               <button className="link">
                 <div
                   className={`${
-                    pathName === "/magazine" && "red"
-                  } flex flex-col justify-center items-center`}
+                    pathName === "/magazine" && "text-sunglassesandframes-red"
+                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
                 >
                   Magazine
                 </div>
@@ -114,8 +114,8 @@ export const Navbar = () => {
               <button className="link">
                 <div
                   className={`${
-                    pathName === "/shop" && "red"
-                  } flex flex-col justify-center items-center`}
+                    pathName === "/shop" && "text-sunglassesandframes-red"
+                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
                 >
                   Shop By
                 </div>
@@ -125,8 +125,8 @@ export const Navbar = () => {
               <button className="link">
                 <div
                   className={`${
-                    pathName === "/designers" && "red"
-                  } flex flex-col justify-center items-center`}
+                    pathName === "/designers" && "text-sunglassesandframes-red"
+                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
                 >
                   Our Designer
                 </div>
@@ -136,8 +136,8 @@ export const Navbar = () => {
               <button className="link">
                 <div
                   className={`${
-                    pathName === "/newIn" && "red"
-                  } flex flex-col justify-center items-center`}
+                    pathName === "/newIn" && "text-sunglassesandframes-red"
+                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
                 >
                   New in
                 </div>
@@ -147,8 +147,8 @@ export const Navbar = () => {
               <button className="link">
                 <div
                   className={`${
-                    pathName === "/promotions" && "red"
-                  } flex flex-col justify-center items-center`}
+                    pathName === "/promotions" && "text-sunglassesandframes-red"
+                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
                 >
                   Promotions
                 </div>
@@ -230,10 +230,6 @@ export const Navbar = () => {
 
         .link {
           padding-right: 2.5rem;
-        }
-
-        .red {
-          color: #ae0000;
         }
 
         @media (max-width: 768px) {
