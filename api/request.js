@@ -1,5 +1,4 @@
 async function request(requestTo, query) {
-  console.log(query);
   let URL = null;
   let headers = null;
   switch (requestTo) {

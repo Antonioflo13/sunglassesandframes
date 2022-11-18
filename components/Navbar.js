@@ -1,5 +1,8 @@
 //REACT
 import React, { useEffect } from "react";
+//NEXT
+import Link from "next/link";
+import { useRouter } from "next/router";
 //STORE
 import { useDispatch, useSelector } from "react-redux";
 import { setDialogContactShow } from "../store/modules/dialogContact";
@@ -7,6 +10,7 @@ import { setSideBarShow } from "../store/modules/sideBar";
 import { setCartContent, setShowCart } from "../store/modules/cart";
 //HOOKS
 import useMediaQuery from "../hooks/useMediaQuery";
+import { getCookie } from "../utils/cookie";
 //FRAMER-MOTION
 import { AnimatePresence, motion } from "framer-motion";
 //COMPONENTS
@@ -14,14 +18,14 @@ import Sidebar from "../components/sidebar";
 import Contact from "../components/contact";
 import Drawer from "../components/drawer";
 //IMAGES
-import logoIta from "../assets/images/logoIta.png";
-import logoEng from "../assets/images/logoEng.png";
+import logo from "../assets/images/logo.png";
 import menuBurgher from "../assets/images/menu-burger.svg";
 import cartIcon from "../assets/images/shopping-bag.svg";
-import Link from "next/link";
-import { getCookie } from "../utils/cookie";
+import homeIcon from "../assets/images/home.svg";
 
 export const Navbar = () => {
+  //ROUTER
+  const pathName = useRouter().pathname;
   //STORE
   const showDialogContact = useSelector(state => state.dialogContact.value);
   const showSideBar = useSelector(state => state.sideBar.value);
@@ -51,7 +55,7 @@ export const Navbar = () => {
     <>
       <div className="px-5 md:px-5 left-0 top-0 w-full h-20 bg-white flex items-center justify-between z-30 customWidthHeader">
         {isDesktop ? (
-          <div>icona casa</div>
+          <img src={homeIcon.src} width={15} alt="icon-home" />
         ) : (
           <>
             <button
@@ -71,7 +75,7 @@ export const Navbar = () => {
         <Link href="/">
           <button>
             <div className="flex flex-col justify-center items-center">
-              <h1>sunglassesandframes</h1>
+              <img src={logo.src} width={150} alt="logo" />
             </div>
           </button>
         </Link>
@@ -80,14 +84,8 @@ export const Navbar = () => {
           style={{ fontSize: "10px" }}
           onClick={() => dispatch(setShowCart(true))}
         >
-          {isDesktop ? (
-            <div>CART ({totalQuantity ? totalQuantity : 0})</div>
-          ) : (
-            <>
-              <img src={cartIcon.src} width={15} alt="cart-icon" />
-              <div>({totalQuantity})</div>
-            </>
-          )}
+          <img src={cartIcon.src} width={15} alt="cart-icon" />
+          {/* <div>({totalQuantity})</div> */}
         </button>
         {showCart && (
           <Drawer
@@ -101,46 +99,63 @@ export const Navbar = () => {
       {isDesktop && (
         <div className="customWidthHeaderTwo">
           <div>
-            <Link href="/">
+            <Link href="/magazine">
               <button className="link">
-                <div className="flex flex-col justify-center items-center">
-                  Magaine
+                <div
+                  className={`${
+                    pathName === "/magazine" && "red"
+                  } flex flex-col justify-center items-center`}
+                >
+                  Magazine
                 </div>
               </button>
             </Link>
             <Link href="/">
               <button className="link">
-                <div className="flex flex-col justify-center items-center">
+                <div
+                  className={`${
+                    pathName === "/shop" && "red"
+                  } flex flex-col justify-center items-center`}
+                >
                   Shop By
                 </div>
               </button>
             </Link>
-            <Link href="/">
+            <Link href="/designers">
               <button className="link">
-                <div className="flex flex-col justify-center items-center">
+                <div
+                  className={`${
+                    pathName === "/designers" && "red"
+                  } flex flex-col justify-center items-center`}
+                >
                   Our Designer
                 </div>
               </button>
             </Link>
             <Link href="/">
               <button className="link">
-                <div className="flex flex-col justify-center items-center">
+                <div
+                  className={`${
+                    pathName === "/newIn" && "red"
+                  } flex flex-col justify-center items-center`}
+                >
                   New in
                 </div>
               </button>
             </Link>
             <Link href="/">
               <button className="link">
-                <div className="flex flex-col justify-center items-center">
+                <div
+                  className={`${
+                    pathName === "/promotions" && "red"
+                  } flex flex-col justify-center items-center`}
+                >
                   Promotions
                 </div>
               </button>
             </Link>
           </div>
-          <input
-            placeholder="cerca"
-            style={{ border: "solid 1px", borderRadius: "5px" }}
-          />
+          <input style={{ border: "solid 1px", borderRadius: "10px" }} />
         </div>
       )}
       <AnimatePresence>
@@ -215,6 +230,10 @@ export const Navbar = () => {
 
         .link {
           padding-right: 2.5rem;
+        }
+
+        .red {
+          color: #ae0000;
         }
 
         @media (max-width: 768px) {

@@ -29,11 +29,24 @@ const Layout = ({ children }) => {
   };
 
   //FUNCTIONS
+  const setBodyOverflow = () => {
+    let body = document.querySelector("body");
+    if (body && router.pathname === "/designers/[...product]" && !isDesktop) {
+      body.style.overflow = "hidden";
+    }
+    if (body && router.pathname !== "/designers/[...product]" && isDesktop) {
+      body.style.overflow = "auto";
+    }
+  };
+
   const errorMissingTranslation = () => {
     //console.log("Error MISSING TRANSLATION]")
   };
 
   // //USE-EFFECT
+  useEffect(() => {
+    setBodyOverflow();
+  }, [router]);
   // useEffect(() => {
   //   client().then(r => r);
   // }, [language]);
@@ -58,7 +71,9 @@ const Layout = ({ children }) => {
     >
       <Navbar />
       {children}
-      {router.pathname !== "/collections/[...product]" && <Footer />}
+      {router.pathname !== "/designers/[...product]" && (
+        <Footer />
+      )}
     </IntlProvider>
   );
 };

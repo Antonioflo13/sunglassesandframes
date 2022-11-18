@@ -174,13 +174,14 @@ export async function getStaticPaths() {
     paths,
     fallback: "blocking",
   };
+
 }
 
 export async function getStaticProps(context) {
   const handle = context.params.article;
   const article = await getArticle(handle);
   const shopifyCollection = article?.data?.article?.shopifyCollection;
-  const collectionProducts = await getCollection(shopifyCollection);
+  const collectionProducts = await getCollection(shopifyCollection, 20);
   return {
     props: { article, collectionProducts },
   };

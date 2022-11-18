@@ -1,9 +1,19 @@
 /*! purgecss start ignore */
 @tailwind base;
 @tailwind components;
-@import 'swiper/css';
-@import 'swiper/css/navigation';
-@import 'swiper/css/pagination';
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+
+/*classes*/
+.results-container-algolia {
+  @apply mt-8 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-12
+}
+
+/*algolia*/
+.ais-Hits-list {
+  @apply results-container-algolia;
+}
 /*
 .tl-edges {
   @apply h-full;
@@ -18,7 +28,7 @@
   font-family: "Artegra Sans";
   font-weight: 400;
   font-style: normal;
-  src: url("../fonts/ArtegraSansExtended-Regular.otf");
+  src: url("../fonts/Lato-Regular.ttf");
   font-display: swap;
 }
 
@@ -26,7 +36,8 @@
   font-family: "Artegra Sans";
   font-weight: 700;
   font-style: bold;
-  src: url("../fonts/ArtegraSansExtended-Bold.otf");
+  src: url("../fonts/Lato-Regular.ttf");
+  /* src: url("../fonts/ArtegraSansExtended-Bold.otf"); */
   font-display: swap;
 }
 
@@ -34,7 +45,8 @@
   font-family: "Monument";
   font-weight: 400;
   font-style: normal;
-  src: url("../fonts/MonumentExtended-Regular.otf");
+  src: url("../fonts/Lato-Regular.ttf");
+  /* src: url("../fonts/MonumentExtended-Regular.otf"); */
   font-display: swap;
 }
 
@@ -42,7 +54,7 @@
   font-family: "Mackay";
   font-weight: 800;
   font-style: italic;
-  src: url("../fonts/Mackay-BlackItalic.otf");
+  /* src: url("../fonts/Mackay-BlackItalic.otf"); */
   font-display: swap;
 }
 
@@ -97,22 +109,26 @@ body {
   -o-border-outline: 0 !important;
   -webkit-border-outline: 0 !important;
 }
-.h-screen-fixed {
-  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-  height: calc(var(--vh, 1vh) * 100);
-}
-.min-h-screen-fixed {
-  min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-  min-height: calc(var(--vh, 1vh) * 100);
-}
 
 .product-description br {
   line-height: 2;
 }
 
+/*SWIPER*/
 .swiper-pagination-bullet {
-  border: 5px solid white;
+  border: 5px solid black;
   background: transparent;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 20px;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  top: 63%;
+  font-size: 10px;
+  color: black;
 }
 
 .customStyle {
@@ -186,7 +202,5 @@ body {
     display: block;
   }
 }
-
-
 
 @tailwind utilities;

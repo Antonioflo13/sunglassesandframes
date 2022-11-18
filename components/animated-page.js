@@ -3,19 +3,22 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import { motion } from "framer-motion";
 import useMediaQuery from "../hooks/useMediaQuery";
+import { useRouter } from "next/router";
 
 const AnimatedPage = ({ children, margins, fullHeight, grey, noAnimate }) => {
-  const url = typeof window !== "undefined" ? window.location.href : "";
+  //ROUTER
+  const router = useRouter();
+  //HOOKS
   const isDesktop = useMediaQuery(768);
   return (
     <>
       <motion.div
-        initial={{ opacity: 0}}
+        initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
           duration: 0.5,
           delay: 0.4,
-          ease: [0, 0.71, 0.2, 1.01]
+          ease: [0, 0.71, 0.2, 1.01],
         }}
         style={{ backgroundColor: "white" }}
         className={classnames("w-full", {
@@ -27,7 +30,7 @@ const AnimatedPage = ({ children, margins, fullHeight, grey, noAnimate }) => {
           {margins ? (
             <div
               className={classnames(
-                url.includes("product") && !isDesktop
+                router.pathname === "/designers/[...product]" && !isDesktop
                   ? "w-full"
                   : "w-full customStyle"
               )}

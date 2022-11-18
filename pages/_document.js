@@ -4,9 +4,7 @@ import React from "react";
 export default function Document() {
   return (
     <Html lang="en">
-      <Head>
-        <title>sunglassesandframes</title>
-      </Head>
+      <Head></Head>
       <meta name="description" content="sunglassesandframes" />
       <body>
         <Main />

@@ -12,7 +12,7 @@ module.exports = {
         "100/100": "100%",
       },
       colors: {
-        "sunglassesandframes-red": "#800000",
+        "sunglassesandframes-black": "#000000",
         "sunglassesandframes-grey": "#f0f0f0",
       },
       fontSize: {

@@ -1,23 +1,16 @@
+//REACT
 import React, { useEffect, useRef, useState } from "react";
-//API
-import { getProduct, getProductsByCollections } from "../api/product";
+//NEXT
+import { useRouter } from "next/router";
 //SWIPER
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper";
+import { Pagination, Navigation } from "swiper";
 
 //NAVIGATE
 import { FormattedNumber } from "react-intl";
 //FORMAT MESSAGE
 import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
 import BottomSheet from "./bottom-sheet";
-//ICON
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-//STORE BOUTIQUES
-import { stores } from "../data/stores";
-//ICONS
-import RowLeft from "../assets/images/product-page/angle-left.png";
-import RowRight from "../assets/images/product-page/angle-right.png";
 //COMPONENTS
 import Label from "../components/label";
 import ProductIcon from "../components/product-icon";
@@ -25,309 +18,299 @@ import SliderRelatedProducts from "../components/slider-related-products";
 import Footer from "../components/footer";
 import { css } from "emotion";
 import Image from "next/image";
+import { getCollection } from "../api/collections";
 
 const MobileProductTemplate = props => {
   const {
-    product,
-    shopifyProduct,
+    productHandle,
+    hasMore,
+    cursor,
     buy,
     askForPrice,
     relatedProducts,
     collectionHandle,
-    accordion,
-    setAccordion,
   } = props;
-  //SWIPER NAVIGATION
+
+  //ROUTER
+  const router = useRouter();
+
+  //HEIGHT
+  const [heightPage, setHeightPage] = useState(window.innerHeight);
+
+  //STATE
   const [isExpanded, setIsExpanded] = useState(false);
+
   const [products, setProducts] = useState(relatedProducts);
-  const indexSlide = relatedProducts.findIndex(
-    relatedProduct => relatedProduct.handle === product.handle
+
+  const [hasNextPage, setHasNextPage] = useState(hasMore);
+
+  const [newCursor, setNewCursor] = useState(cursor);
+
+  const [swiperIndex, setSwiperIndex] = useState(
+    products.findIndex(
+      relatedProduct => relatedProduct.node.handle === productHandle
+    )
   );
-  useEffect(() => {
-    getProductsByCollections(collectionHandle, 1).then(r => console.log(r));
-    setProducts([...relatedProducts].splice(indexSlide, indexSlide + 5));
-  }, []);
-  let index = null;
+
+  const bottomSheetRef = useRef();
+
+  let bottomSheetScrollTop = bottomSheetRef.current?.scrollTop;
+
+  //FUNCTIONS
   const swipeToProduct = swiper => {
-    // const indexSlide = 0;
-    // let index = indexSlide;
-    // if (swiper.swipeDirection === "prev" || swiper === "prev") {
-    //   index = indexSlide === 0 ? relatedProducts.length - 1 : indexSlide - 1;
-    // } else if (swiper.swipeDirection === "next" || swiper === "next") {
-    //   index = indexSlide === relatedProducts.length - 1 ? 0 : indexSlide + 1;
-    // }
-    // if (index < shopifyProducts.length) {
-    //   navigate(
-    //     `/collections/${collectionHandle}/products/${shopifyProducts[index].handle}`
-    //   );
-    // }
+    if (swiper?.activeIndex) {
+      if (swiper.activeIndex > products.length - 1) {
+        console.log(swiper?.activeIndex);
+        setSwiperIndex(0);
+        router.push(
+          `/designers/${collectionHandle}/${products[0].node.handle}?cursor=${newCursor}`,
+          undefined,
+          { shallow: true }
+        );
+      } else {
+        setSwiperIndex(swiper?.activeIndex - 1);
+        router.push(
+          `/designers/${collectionHandle}/${
+            products[swiper?.activeIndex - 1].node.handle
+          }?cursor=${newCursor}`,
+          undefined,
+          { shallow: true }
+        );
+      }
+    }
   };
 
-  const [heightPage, setHeightPage] = useState(0);
+  const getProductByCollection = async (collectionHandle, first, cursor) =>
+    await getCollection(collectionHandle, first, cursor);
+
+  //EFFECT
+  useEffect(() => {
+    if (swiperIndex === products.length - 2 && hasNextPage) {
+      getProductByCollection(collectionHandle, 20, newCursor).then(response => {
+        const newProducts = response.data.collection.products.edges;
+        const isMore = response.data.collection.products.pageInfo.hasNextPage;
+        setHasNextPage(isMore);
+        setProducts(oldProducts => [...oldProducts, ...newProducts]);
+      });
+    }
+
+    if (swiperIndex === products.length - 2 && !hasNextPage) {
+      getProductByCollection(collectionHandle, 20).then(response => {
+        const newProducts = response.data.collection.products.edges;
+        const isMore = response.data.collection.products.pageInfo.hasNextPage;
+        setHasNextPage(isMore);
+        setNewCursor(products[swiperIndex].cursor);
+        setProducts(oldProducts => [...oldProducts, ...newProducts]);
+      });
+    }
+  }, [swiperIndex]);
+
   useEffect(() => {
     setHeightPage(window.innerHeight);
   }, [window.innerHeight]);
-  const bottomSheetRef = useRef();
-  let bottomSheetScrollTop = bottomSheetRef.current?.scrollTop;
+
+
   useEffect(() => {
-    bottomSheetScrollTop = 0;
+    if (!isExpanded) {
+      bottomSheetScrollTop = 0;
+      document.getElementsByClassName("swiper-button-next")[0].style.zIndex = 0;
+      document.getElementsByClassName("swiper-button-prev")[0].style.zIndex = 0;
+    } else {
+      bottomSheetScrollTop = 0;
+      document.getElementsByClassName(
+        "swiper-button-next"
+      )[0].style.zIndex = 10;
+      document.getElementsByClassName(
+        "swiper-button-prev"
+      )[0].style.zIndex = 10;
+    }
   }, [isExpanded]);
+
   return (
     <div>
       <Swiper
-        initialSlide={indexSlide}
+        initialSlide={swiperIndex}
         allowSlideNext={isExpanded}
         allowSlidePrev={isExpanded}
         onActiveIndexChange={swipeToProduct}
+        navigation={true}
+        modules={[Navigation]}
         loop={true}
       >
-        {relatedProducts.map(index => (
-          <SwiperSlide key={index.id}>
-            <div className="sliderWrapper">
-              <Swiper
-                id="swiper-image-pdp"
-                style={{ height: "100vh" }}
-                className="bg-indice-grey"
-                cssMode={true}
-                pagination={true}
-                direction={"vertical"}
-                loop={true}
-                slidesPerView={1}
-                modules={[Pagination]}
+        {products &&
+          products.map((product, index) => (
+            <SwiperSlide key={index}>
+              <div className="sliderWrapper">
+                <Swiper
+                  id="swiper-image-pdp"
+                  style={{ height: "100vh" }}
+                  cssMode={true}
+                  pagination={true}
+                  direction={"vertical"}
+                  loop={true}
+                  slidesPerView={1}
+                  modules={[Pagination]}
+                >
+                  {product.node.variants.edges[0].node.product.images.nodes
+                    .length > 0 &&
+                    product.node.variants.edges[0].node.product.images.nodes.map(
+                      (image, product) => (
+                        <SwiperSlide key={product}>
+                          <div className="image-container">
+                            <Image
+                              fill="true"
+                              sizes="100%"
+                              priority={true}
+                              style={{
+                                objectFit: "contain",
+                                objectPosition: "center",
+                              }}
+                              placeholder="blur"
+                              blurDataURL={image.originalSrc}
+                              src={image.originalSrc}
+                              alt={image.originalSrc}
+                            />
+                          </div>
+                        </SwiperSlide>
+                      )
+                    )}
+                </Swiper>
+              </div>
+              <div
+                className={css`
+                  position: absolute;
+                  width: 100%;
+                  height: 100%;
+                  top: 0;
+                  pointer-events: none;
+                  z-index: 1;
+                `}
               >
-                {index.variants.edges[0].node.product.images.nodes.length > 0 &&
-                  index.variants.edges[0].node.product.images.nodes.map(
-                    (image, index) => (
-                      <SwiperSlide key={index}>
-                        <div className="image-container">
-                          <Image
-                            fill="true"
-                            sizes="100%"
-                            priority={true}
-                            style={{
-                              objectFit: "contain",
-                              objectPosition: "center",
-                            }}
-                            src={image.originalSrc}
-                            alt={image.originalSrc}
-                          />
-                        </div>
-                      </SwiperSlide>
-                    )
-                  )}
-                <button onClick={() => swipeToProduct("prev")}>
-                  <img
-                    className="rowLeft"
-                    src={RowLeft.src}
-                    width={12}
-                    alt="row-left"
-                  />
-                </button>
-                <button onClick={() => swipeToProduct("next")}>
-                  <img
-                    className="rowRight"
-                    src={RowRight.src}
-                    width={12}
-                    alt="row-right"
-                  />
-                </button>
-              </Swiper>
-            </div>
-            <div
-              className={css`
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                top: 0;
-                pointer-events: none;
-                z-index: 1;
-              `}
-            >
-              <BottomSheet
-                defaultMode="collapsed"
-                height={heightPage}
-                style={{ pointerEvents: "all" }}
-                isExpanded={expanded => setIsExpanded(expanded)}
-              >
-                <div
-                  ref={bottomSheetRef}
-                  className="customStyle mb-10"
+                <BottomSheet
+                  defaultMode="collapsed"
+                  height={heightPage}
                   style={{
-                    height: "100vh",
+                    pointerEvents: "all",
                     overflow: isExpanded ? "hidden" : "scroll",
+                    background: "white",
                   }}
+                  isExpanded={expanded => setIsExpanded(expanded)}
                 >
                   <div
-                    className="flex justify-center"
-                    style={{ padding: "10px 0" }}
-                  >
-                    <div className="slide-icon"></div>
-                  </div>
-                  <div className="w-full flex flex-col justify-start items-center">
-                    <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead">
-                      {index.vendor}
-                    </div>
-                    <div className="ml-1 text-xs uppercase font-bold mt-2">
-                      {index.title}
-                    </div>
-                  </div>
-                  <div className="text-center text-sm mb-5 mt-2">
-                    {index.availableForSale &&
-                    !index.tags.includes("nfs") &&
-                    index.variants.edges[0].node.quantityAvailable > 0 ? (
-                      <>
-                        <FormattedNumber
-                          style="currency" // eslint-disable-line
-                          value={index.variants.edges[0].node.priceV2.amount}
-                          currency={
-                            index.variants.edges[0].node.priceV2.currencyCode
-                          }
-                          minimumFractionDigits={2}
-                        />
-
-                        <div>
-                          <Label style={{ width: "100%" }} onClick={buy}>
-                            <FormattedMessage id="product.buy" />
-                          </Label>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="text-xs whitespace-pre-line product-description">
-                          <FormattedMessage id="product.specialEdition" />
-                        </div>
-
-                        <div>
-                          <Label
-                            style={{ width: "100%" }}
-                            onClick={askForPrice}
-                          >
-                            <FormattedMessage id="product.contact_us" />
-                          </Label>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                  <div className="mt-10">
-                    <ProductIcon />
-                  </div>
-                  <div
-                    className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
-                    dangerouslySetInnerHTML={{
-                      __html: index.descriptionHtml,
+                    className="mb-10"
+                    style={{
+                      height: "100vh",
                     }}
-                  />
-                  <div className="text-xs my-5 mb-10">
-                    <div className="mb-3">
-                      <FormattedMessage id="product.available.stores" />
-                    </div>
-                    <div className="available-store-container">
-                      <div className="containerStoresPDP">
-                        <img
-                          className="available-store-img"
-                          src={stores[1].image.src.src}
-                          alt={stores[1].image.src.src}
-                        />
-                        <div className="textStores">{stores[1].name}</div>
-                      </div>
-                      <div className="containerStoresPDP">
-                        <img
-                          className="available-store-img"
-                          src={stores[1].image.src.src}
-                          alt={stores[1].image.src.src}
-                        />
-                        <div className="textStores">{stores[1].name}</div>
-                      </div>
-                      <div className="containerStoresPDP">
-                        <img
-                          className="available-store-img"
-                          src={stores[1].image.src.src}
-                          alt={stores[1].image.src.src}
-                        />
-                        <div className="textStores">{stores[1].name}</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col mb-2">
+                  >
                     <div
-                      className="containerAccordion"
-                      onClick={() =>
-                        setAccordion({ ...accordion, size: !accordion.size })
-                      }
+                      className="customStyle mb-10"
+                      style={{
+                        borderTop: "1px solid black",
+                        borderRadius: "10px",
+                      }}
+                      ref={bottomSheetRef}
                     >
-                      <div className="font-bold uppercase text-sm">
-                        <FormattedMessage id="product.size.title" />
+                      <div
+                        className="flex justify-center"
+                        style={{ padding: "10px 0" }}
+                      >
+                        <div className="slide-icon"></div>
                       </div>
-                      {accordion.size ? (
-                        <FontAwesomeIcon
-                          icon={faMinus}
-                          className="containerIcon"
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={faPlus}
-                          className="containerIcon"
-                        />
-                      )}
-                    </div>
-                    {accordion.size && (
-                      <>
-                        <div className="text-xs">
-                          <FormattedMessage id="product.." />
+                      <div className="w-full flex flex-col justify-start items-center">
+                        <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead">
+                          {product.node.vendor}
                         </div>
-                      </>
-                    )}
-                  </div>
-                  <div className="flex flex-col">
-                    <div
-                      className="containerAccordion"
-                      onClick={() =>
-                        setAccordion({
-                          ...accordion,
-                          shipping: !accordion.shipping,
-                        })
-                      }
-                    >
-                      <div className="font-bold uppercase text-sm">
-                        <FormattedMessage id="product.shipping.title" />
+                        <div className="ml-1 text-xs uppercase font-bold mt-2">
+                          {product.node.title}
+                        </div>
                       </div>
-                      {accordion.shipping ? (
-                        <FontAwesomeIcon
-                          icon={faMinus}
-                          className="containerIcon"
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={faPlus}
-                          className="containerIcon"
-                        />
-                      )}
+                      <div className="text-center text-sm mb-5 mt-2">
+                        {product.node.availableForSale &&
+                        !product.node.tags.includes("nfs") &&
+                        product.node.variants.edges[0].node.quantityAvailable >
+                          0 ? (
+                          <>
+                            <FormattedNumber
+                              style="currency" // eslint-disable-line
+                              value={
+                                product.node.variants.edges[0].node.priceV2
+                                  .amount
+                              }
+                              currency={
+                                product.node.variants.edges[0].node.priceV2
+                                  .currencyCode
+                              }
+                              minimumFractionDigits={0}
+                            />
+
+                            <div>
+                              <Label
+                                style={{ width: "100%" }}
+                                onClick={() =>
+                                  buy(product.node.variants.edges[0].node.id)
+                                }
+                              >
+                                <FormattedMessage id="product.buy" />
+                              </Label>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="text-xs whitespace-pre-line product-description">
+                              <FormattedMessage id="product.specialEdition" />
+                            </div>
+
+                            <div>
+                              <Label
+                                style={{ width: "100%" }}
+                                onClick={askForPrice}
+                              >
+                                <FormattedMessage id="product.contact_us" />
+                              </Label>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                      <div className="mt-10">
+                        <ProductIcon />
+                      </div>
+                      <div
+                        className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
+                        dangerouslySetInnerHTML={{
+                          __html: product.node.descriptionHtml,
+                        }}
+                      />
+                      <div
+                        className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
+                        dangerouslySetInnerHTML={{
+                          __html: product.node.descriptionHtml,
+                        }}
+                      />
+                      <div
+                        className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
+                        dangerouslySetInnerHTML={{
+                          __html: product.node.descriptionHtml,
+                        }}
+                      />
+                      {/*{relatedProducts.length > 0 && (*/}
+                      {/*  <SliderRelatedProducts*/}
+                      {/*    relatedProducts={relatedProducts}*/}
+                      {/*    collectionHandle={collectionHandle}*/}
+                      {/*  />*/}
+                      {/*)}*/}
                     </div>
-                    {accordion.shipping && (
-                      <>
-                        <div className="text-xs">
-                          <FormattedMessage id="product.." />
-                        </div>
-                      </>
-                    )}
+                    <Footer />
                   </div>
-                  {/*{relatedProducts.length > 0 && (*/}
-                  {/*  <SliderRelatedProducts*/}
-                  {/*    relatedProducts={relatedProducts}*/}
-                  {/*    collectionHandle={collectionHandle}*/}
-                  {/*  />*/}
-                  {/*)}*/}
-                  <Footer />
-                </div>
-              </BottomSheet>
-            </div>
-          </SwiperSlide>
-        ))}
+                </BottomSheet>
+              </div>
+            </SwiperSlide>
+          ))}
       </Swiper>
       <style jsx="true">{`
         .image-container {
           position: relative;
           height: 100%;
+          width: 95%;
         }
 
         .slide-icon {

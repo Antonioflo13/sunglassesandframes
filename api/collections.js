@@ -31,8 +31,8 @@ async function getAllCollections() {
   return await request("shopify", QUERY);
 }
 
-async function getCollection(collection) {
-  const sunglassesandframes = `
+async function getCollection(collection, first, cursor) {
+  const QUERY = `
 {
   collection(handle: "${collection}") {
     id
@@ -43,53 +43,53 @@ async function getCollection(collection) {
     image {
         src
     }
-    products(first: 250) {
-        nodes {
+    products(first: ${first}, ${cursor ? `after: "${cursor}"`: ''}) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      edges {
+        cursor
+        node {
           id
-        handle
-        title
-        description
-        descriptionHtml
-        vendor
-        availableForSale
-        tags
-        variants(first: 250) {
-          edges {
-            node {
-              id
-              quantityAvailable
-              priceV2 {
-                amount
-                currencyCode
-              }
-              product {
-                images(first: 250) {
-                  nodes {
-                    id
-                    originalSrc
-                  }
+          handle
+          title
+          description
+          descriptionHtml
+          vendor
+          availableForSale
+          tags
+          variants(first: 250) {
+            edges {
+              node {
+                id
+                quantityAvailable
+                priceV2 {
+                  amount
+                  currencyCode
                 }
-                variants(first: 250) {
-                  nodes {
-                    id
+                product {
+                  images(first: 250) {
+                    nodes {
+                      originalSrc
+                      id
+                    }
+                  }
+                  variants(first: 250) {
+                    nodes {
+                      id
+                    }
                   }
                 }
               }
             }
           }
         }
-    }
+      }
     }
   }
 }
 `;
-
-  let QUERY = null;
-  switch (process.env.NEXT_QUERY) {
-    case "sunglassesandframes":
-      QUERY = sunglassesandframes;
-      break;
-  }
 
   return await request("shopify", QUERY);
 }
