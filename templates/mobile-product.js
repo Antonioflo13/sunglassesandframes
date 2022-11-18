@@ -18,70 +18,82 @@ import SliderRelatedProducts from "../components/slider-related-products";
 import Footer from "../components/footer";
 import { css } from "emotion";
 import Image from "next/image";
+import { getCollection } from "../api/collections";
 
 const MobileProductTemplate = props => {
   const {
+    productHandle,
     product,
     shopifyProduct,
+    hasMore,
+    cursor,
     buy,
     askForPrice,
     relatedProducts,
     collectionHandle,
   } = props;
+
   //STATE
   const productIndex = relatedProducts.findIndex(
-    relatedProduct => relatedProduct.handle === product.handle
+    relatedProduct => relatedProduct.node.handle === productHandle
   );
-  const maxLength =
-    relatedProducts.length - 1 < 20 ? relatedProducts.length - 1 : 20;
+
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const [products, setProducts] = useState(
-    [...relatedProducts].splice(productIndex, productIndex + maxLength)
-  );
+  const [products, setProducts] = useState(relatedProducts);
+
+  const [hasNextPage, setHasNextPage] = useState(hasMore);
+
+  const [newCursor, setNewCursor] = useState(cursor);
 
   const [swiperIndex, setSwiperIndex] = useState(
     products.findIndex(
-      relatedProduct => relatedProduct.handle === product.handle
+      relatedProduct => relatedProduct.node.handle === productHandle
     )
   );
   const router = useRouter();
 
   //EFFECT
   useEffect(() => {
-    if (swiperIndex === 20) {
-      let newProducts = null;
-      if (relatedProducts.length - 1 < swiperIndex + 20) {
-        newProducts = [...relatedProducts].splice(
-          swiperIndex,
-          relatedProducts.length - 1
-        );
+    if (swiperIndex === products.length - 2 && hasNextPage) {
+      getProductByCollection(collectionHandle, 20, newCursor).then(response => {
+        const newProducts = response.data.collection.products.edges;
+        const isMore = response.data.collection.products.pageInfo.hasNextPage;
+        setHasNextPage(isMore);
         setProducts(oldProducts => [...oldProducts, ...newProducts]);
-      } else {
-        newProducts = [...relatedProducts].splice(
-          swiperIndex,
-          swiperIndex + 20
-        );
+      });
+    }
+
+    if (swiperIndex === products.length - 2 && !hasNextPage) {
+      getProductByCollection(collectionHandle, 20).then(response => {
+        const newProducts = response.data.collection.products.edges;
+        const isMore = response.data.collection.products.pageInfo.hasNextPage;
+        setHasNextPage(isMore);
+        setNewCursor(products[swiperIndex].cursor);
         setProducts(oldProducts => [...oldProducts, ...newProducts]);
-      }
+      });
     }
   }, [swiperIndex]);
 
   //FUNCTIONS
   const swipeToProduct = swiper => {
-    console.log(swiper);
-    console.log(productIndex);
-    console.log(relatedProducts.length -1 );
     if (swiper?.activeIndex) {
       if (swiper.activeIndex > products.length - 1) {
+        console.log(swiper?.activeIndex);
         setSwiperIndex(0);
-        router.push(`/collections/${collectionHandle}/${products[0].handle}`);
+        router.push(
+          `/collections/${collectionHandle}/${products[0].node.handle}?cursor=${newCursor}`,
+          undefined,
+          { shallow: true }
+        );
       } else {
         setSwiperIndex(swiper?.activeIndex - 1);
         router.push(
           `/collections/${collectionHandle}/${
-            products[swiper?.activeIndex - 1].handle
-          }`
+            products[swiper?.activeIndex - 1].node.handle
+          }?cursor=${newCursor}`,
+          undefined,
+          { shallow: true }
         );
       }
     }
@@ -98,6 +110,9 @@ const MobileProductTemplate = props => {
     //   );
     // }
   };
+
+  const getProductByCollection = async (collectionHandle, first, cursor) =>
+    await getCollection(collectionHandle, first, cursor);
 
   const [heightPage, setHeightPage] = useState(0);
   useEffect(() => {
@@ -145,9 +160,9 @@ const MobileProductTemplate = props => {
                   slidesPerView={1}
                   modules={[Pagination]}
                 >
-                  {product.variants.edges[0].node.product.images.nodes.length >
-                    0 &&
-                    product.variants.edges[0].node.product.images.nodes.map(
+                  {product.node.variants.edges[0].node.product.images.nodes
+                    .length > 0 &&
+                    product.node.variants.edges[0].node.product.images.nodes.map(
                       (image, product) => (
                         <SwiperSlide key={product}>
                           <div className="image-container">
@@ -210,24 +225,26 @@ const MobileProductTemplate = props => {
                       </div>
                       <div className="w-full flex flex-col justify-start items-center">
                         <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead">
-                          {product.vendor}
+                          {product.node.vendor}
                         </div>
                         <div className="ml-1 text-xs uppercase font-bold mt-2">
-                          {product.title}
+                          {product.node.title}
                         </div>
                       </div>
                       <div className="text-center text-sm mb-5 mt-2">
-                        {product.availableForSale &&
-                        !product.tags.includes("nfs") &&
-                        product.variants.edges[0].node.quantityAvailable > 0 ? (
+                        {product.node.availableForSale &&
+                        !product.node.tags.includes("nfs") &&
+                        product.node.variants.edges[0].node.quantityAvailable >
+                          0 ? (
                           <>
                             <FormattedNumber
                               style="currency" // eslint-disable-line
                               value={
-                                product.variants.edges[0].node.priceV2.amount
+                                product.node.variants.edges[0].node.priceV2
+                                  .amount
                               }
                               currency={
-                                product.variants.edges[0].node.priceV2
+                                product.node.variants.edges[0].node.priceV2
                                   .currencyCode
                               }
                               minimumFractionDigits={2}
@@ -237,7 +254,7 @@ const MobileProductTemplate = props => {
                               <Label
                                 style={{ width: "100%" }}
                                 onClick={() =>
-                                  buy(product.variants.edges[0].node.id)
+                                  buy(product.node.variants.edges[0].node.id)
                                 }
                               >
                                 <FormattedMessage id="product.buy" />
@@ -267,19 +284,19 @@ const MobileProductTemplate = props => {
                       <div
                         className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
                         dangerouslySetInnerHTML={{
-                          __html: product.descriptionHtml,
+                          __html: product.node.descriptionHtml,
                         }}
                       />
                       <div
                         className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
                         dangerouslySetInnerHTML={{
-                          __html: product.descriptionHtml,
+                          __html: product.node.descriptionHtml,
                         }}
                       />
                       <div
                         className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
                         dangerouslySetInnerHTML={{
-                          __html: product.descriptionHtml,
+                          __html: product.node.descriptionHtml,
                         }}
                       />
                       {/*{relatedProducts.length > 0 && (*/}

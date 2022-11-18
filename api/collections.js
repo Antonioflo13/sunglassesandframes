@@ -44,48 +44,48 @@ async function getCollection(collection, first, cursor) {
         src
     }
     products(first: ${first}, ${cursor ? `after: "${cursor}"`: ''}) {
-        edges {
-          cursor
-        }
-        pageInfo {
-              hasNextPage
-              endCursor
-        }
-        nodes {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      edges {
+        cursor
+        node {
           id
-        handle
-        title
-        description
-        descriptionHtml
-        vendor
-        availableForSale
-        tags
-        variants(first: 250) {
-          edges {
-            node {
-              id
-              quantityAvailable
-              priceV2 {
-                amount
-                currencyCode
-              }
-              product {
-                images(first: 250) {
-                  nodes {
-                    id
-                    originalSrc
-                  }
+          handle
+          title
+          description
+          descriptionHtml
+          vendor
+          availableForSale
+          tags
+          variants(first: 250) {
+            edges {
+              node {
+                id
+                quantityAvailable
+                priceV2 {
+                  amount
+                  currencyCode
                 }
-                variants(first: 250) {
-                  nodes {
-                    id
+                product {
+                  images(first: 250) {
+                    nodes {
+                      originalSrc
+                      id
+                    }
+                  }
+                  variants(first: 250) {
+                    nodes {
+                      id
+                    }
                   }
                 }
               }
             }
           }
         }
-    }
+      }
     }
   }
 }

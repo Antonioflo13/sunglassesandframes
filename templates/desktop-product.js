@@ -27,26 +27,26 @@ const DesktopProduct = props => {
         <div className="flex flex-col buyContainer">
           <div className="flex flex-col items-center">
             <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
-              {shopifyProduct.vendor}
+              {shopifyProduct.node.vendor}
             </div>
             <div className="ml-1 text-xs uppercase font-bold my-2">
-              {shopifyProduct.title}
+              {shopifyProduct.node.title}
             </div>
             <div className="mb-2">
               <FormattedNumber
                 style="currency" // eslint-disable-line
-                value={shopifyProduct.variants.edges[0].node.priceV2.amount}
+                value={shopifyProduct.node.variants.edges[0].node.priceV2.amount}
                 currency={
-                  shopifyProduct.variants.edges[0].node.priceV2.currencyCode
+                  shopifyProduct.node.variants.edges[0].node.priceV2.currencyCode
                 }
                 minimumFractionDigits={0}
               />
             </div>
           </div>
           <div className="flex text-sm flex-col mb-5 text-center">
-            {shopifyProduct.availableForSale &&
-            !shopifyProduct.tags.includes("nfs") &&
-            shopifyProduct.variants.edges[0].node.quantityAvailable > 0 ? (
+            {shopifyProduct.node.availableForSale &&
+            !shopifyProduct.node.tags.includes("nfs") &&
+            shopifyProduct.node.variants.edges[0].node.quantityAvailable > 0 ? (
               <>
                 <div>
                   <Label style={{ width: "60%" }} onClick={buy}>
@@ -87,7 +87,7 @@ const DesktopProduct = props => {
       <div
         className="my-4 text-xs whitespace-pre-line product-description"
         dangerouslySetInnerHTML={{
-          __html: shopifyProduct.descriptionHtml,
+          __html: shopifyProduct.node.descriptionHtml,
         }}
       />
       {/*<div className="my-20 text-xs text-center px-5">*/}

@@ -20,6 +20,7 @@ const GalleryProducts = ({ images }) => {
             <Image
               fill="true"
               sizes="100%"
+              priority={true}
               style={{ objectFit: "contain", transform: "scale(1.5)" }}
               src={imageList[0].originalSrc}
               alt="main-image"
@@ -35,6 +36,7 @@ const GalleryProducts = ({ images }) => {
                 <Image
                   fill="true"
                   sizes="100%"
+                  priority={true}
                   key={item.id}
                   style={{ objectFit: "contain" }}
                   className="imageTumblr"

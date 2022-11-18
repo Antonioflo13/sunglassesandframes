@@ -25,8 +25,9 @@ const CollectionTemplate = ({ collection }) => {
   const isBrand =
     collection.handle !== "optical" && collection.handle !== "sunglasses";
   const title = `Indice - ${isBrand ? collection.title : collection.handle}`;
+
   //STATE
-  const [products, setProducts] = useState(collection.products.nodes);
+  const [products, setProducts] = useState(collection.products.edges);
 
   // State to trigger oad more
   const [loadMore, setLoadMore] = useState(false);
@@ -52,6 +53,7 @@ const CollectionTemplate = ({ collection }) => {
     }
   };
 
+  //USEEFFECT
   //Initialize the intersection observer API
   useEffect(() => {
     const options = {
@@ -69,8 +71,9 @@ const CollectionTemplate = ({ collection }) => {
   useEffect(() => {
     if (loadMore && hasMore) {
       getProductByCollection().then(response => {
-        const newProducts = response.data.collection.products.nodes;
+        const newProducts = response.data.collection.products.edges;
         const isMore = response.data.collection.products.pageInfo.hasNextPage;
+        console.log(isMore)
         const cursor = response.data.collection.products.pageInfo.endCursor;
         setCursor(cursor);
         setHasMore(isMore);
@@ -161,9 +164,9 @@ const CollectionTemplate = ({ collection }) => {
         {/* Products */}
         <div className="mt-8 w-full">
           <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-12">
-            {products.map(product => (
+            {products.map((product, index) => (
               <Product
-                key={product.id}
+                key={index}
                 product={product}
                 collection={collection}
               />
@@ -231,15 +234,18 @@ export async function getServerSideProps({ params }) {
 
 const Product = ({ product, collection }) => {
   return (
-    <Link href={`/collections/${collection.handle}/${product.handle}`}>
+    <Link href={{
+      pathname: `/collections/${collection.handle}/${product.node.handle}`,
+      query: {cursor: product.cursor},
+    }}>
       <div className="w-full flex flex-col items-center">
         <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
           <div className="absolute top-0 w-full h-full">
-            {product.variants.edges[0].node.product.images.nodes.length > 0 && (
+            {product.node.variants.edges[0].node.product.images.nodes.length > 0 && (
               <img
                 className="w-full h-full"
                 src={
-                  product.variants.edges[0].node.product.images.nodes[0]
+                  product.node.variants.edges[0].node.product.images.nodes[0]
                     .originalSrc
                 }
                 alt="product-image"
@@ -249,22 +255,22 @@ const Product = ({ product, collection }) => {
           </div>
         </div>
         <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead mt-2">
-          {product.vendor}
+          {product.node.vendor}
         </div>
         <div className="ml-1 text-xs uppercase font-bold mt-2">
-          {product.title}
+          {product.node.title}
         </div>
-        {product.availableForSale &&
-          !product.tags.includes("nfs") &&
-          product.variants.edges[0].node.product.quantityAvailable > 0 && (
+        {product.node.availableForSale &&
+          !product.node.tags.includes("nfs") &&
+          product.node.variants.edges[0].node.product.quantityAvailable > 0 && (
             <p className="text-2xs">
               <FormattedNumber
                 style="currency"
-                value={product.variants.edges[0].node.product.priceV2.amount}
+                value={product.node.variants.edges[0].node.product.priceV2.amount}
                 currency={
-                  product.variants.edges[0].node.product.priceV2.currencyCode
+                  product.node.variants.edges[0].node.product.priceV2.currencyCode
                 }
-                minimumFractionDigits={2}
+                minimumFractionDigits={0}
               />
             </p>
           )}
