@@ -29,7 +29,7 @@ const SliderMenu = () => {
           <Swiper
             slidesPerView={2.2}
             centeredSlides={true}
-            spaceBetween={isTablet ? 200 : 400}
+            spaceBetween={isTablet ? 200 : 370}
             loop={true}
           >
             <div style={{ cursor: "pointer" }}>

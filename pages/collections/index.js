@@ -123,7 +123,7 @@ const CollectionsPage = ({ collections }) => {
                             }}
                           >
                             <span>
-                              <motion.h2 className=" sunglassesandframes text-xl font-bold uppercase">
+                              <motion.h2 className=" sunglassesandframes text-xs md:text-xl font-bold uppercase">
                                 {collection.title}
                               </motion.h2>
                               {/*<p className="text-xs mt-2">{collection.description}</p>*/}
