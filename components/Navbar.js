@@ -29,7 +29,6 @@ export const Navbar = () => {
   //STORE
   const showDialogContact = useSelector(state => state.dialogContact.value);
   const showSideBar = useSelector(state => state.sideBar.value);
-  const language = useSelector(state => state.language.value);
 
   const cart = useSelector(state => JSON.parse(state.cart.value));
   const showCart = useSelector(state => state.cart.show);
@@ -51,7 +50,7 @@ export const Navbar = () => {
     }
   }, []);
 
-  const [hasHover, setHasHover] = useState(true);
+  const [hasHover, setHasHover] = useState(false);
 
   return (
     <>
@@ -166,52 +165,64 @@ export const Navbar = () => {
       )}
       {isDesktop && hasHover && (
         <div className="fullScrennBackground">
-          <div
-            style={{ backgroundColor: "white", height: "30vh", width: "100%" }}
-          >
-            <div className="containerMenuTwo">
-              <div className="containerItems">
-                <div className="flex flex-col items-center">
-                  <div className="first">TREND</div>
-                  <div>Round</div>
-                  <div>Squared</div>
-                  <div>Cat eve</div>
-                  <div>Aviator</div>
-                  <div>Mask</div>
-                </div>
+          <AnimatePresence>
+            <motion.div
+              key={hasHover ? "success" : "error"}
+              initial={{ opacity: 0, height: "0px" }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: "0px" }}
+              transition={{ type: "tween" }}
+              style={{
+                backgroundColor: "white",
+                paddingBottom: "40px",
+              }}
+              onMouseEnter={() => setHasHover(true)}
+              onMouseLeave={() => setHasHover(false)}
+            >
+              <div className="containerMenuTwo">
+                <div className="containerItems">
+                  <div className="flex flex-col items-center">
+                    <div className="first">TREND</div>
+                    <div>Round</div>
+                    <div>Squared</div>
+                    <div>Cat eve</div>
+                    <div>Aviator</div>
+                    <div>Mask</div>
+                  </div>
 
-                <div className="flex flex-col items-center">
-                  <div className="first">OCCASIONE</div>
-                  <div>Round</div>
-                  <div>Squared</div>
-                  <div>Cat eve</div>
-                  <div>Aviator</div>
-                  <div>Mask</div>
-                </div>
+                  <div className="flex flex-col items-center">
+                    <div className="first">OCCASIONE</div>
+                    <div>Round</div>
+                    <div>Squared</div>
+                    <div>Cat eve</div>
+                    <div>Aviator</div>
+                    <div>Mask</div>
+                  </div>
 
-                <div className="flex flex-col items-center">
-                  <div className="first">STILE</div>
-                  <div>Round</div>
-                  <div>Squared</div>
-                  <div>Cat eve</div>
-                  <div>Aviator</div>
-                  <div>Mask</div>
-                </div>
+                  <div className="flex flex-col items-center">
+                    <div className="first">STILE</div>
+                    <div>Round</div>
+                    <div>Squared</div>
+                    <div>Cat eve</div>
+                    <div>Aviator</div>
+                    <div>Mask</div>
+                  </div>
 
-                <div className="flex flex-col  items-center">
-                  <div className="first">SHAPE</div>
-                  <div>Round</div>
-                  <div>Squared</div>
-                  <div>Cat eve</div>
-                  <div>Aviator</div>
-                  <div>Mask</div>
+                  <div className="flex flex-col  items-center">
+                    <div className="first">SHAPE</div>
+                    <div>Round</div>
+                    <div>Squared</div>
+                    <div>Cat eve</div>
+                    <div>Aviator</div>
+                    <div>Mask</div>
+                  </div>
+                </div>
+                <div className="containerAdv">
+                  <div className="adv"></div>
                 </div>
               </div>
-              <div className="containerAdv">
-                <div className="adv"></div>
-              </div>
-            </div>
-          </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       )}
       <AnimatePresence>
@@ -318,7 +329,7 @@ export const Navbar = () => {
 
         .adv {
           width: 90%;
-          height: 75%;
+          height: 230px;
           background-color: black;
           border-radius: 15px;
         }
