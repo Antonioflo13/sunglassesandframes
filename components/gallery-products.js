@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import Image from "next/image";
 
 const GalleryProducts = ({ images }) => {
   const [imageList, setImageList] = useState([...images]);
-  const chageView = item => {
+  const changeView = item => {
     let imageListChange = [...images];
     const index = imageListChange.findIndex(
       image => image.originalSrc === item.originalSrc
@@ -15,21 +16,34 @@ const GalleryProducts = ({ images }) => {
     <>
       {imageList.length > 0 && (
         <div>
-          <div className="containerMainImage bg-sunglassesandframes-grey">
-            <img className="mainImage" src={imageList[0].originalSrc} alt="" />
+          <div className="containerMainImage bg-white">
+            <Image
+              fill="true"
+              sizes="100%"
+              priority={true}
+              style={{ objectFit: "contain", transform: "scale(1.5)" }}
+              src={imageList[0].originalSrc}
+              placeholder="blur"
+              blurDataURL={imageList[0].originalSrc}
+              alt="main-image"
+            />
           </div>
           <div className="containerImageTubler">
             {imageList.slice(1, 4).map((item, index) => (
               <div
-                className="cursor-pointer w-7/12 flex justify-center bg-sunglassesandframes-grey"
-                onClick={() => chageView(item)}
+                className="carousel-image-container cursor-pointer w-7/12 flex justify-center bg-white"
+                onClick={() => changeView(item)}
                 key={index}
               >
-                <img
+                <Image
+                  fill="true"
+                  sizes="100%"
+                  priority={true}
                   key={item.id}
+                  style={{ objectFit: "contain" }}
                   className="imageTumblr"
                   src={item.originalSrc}
-                  alt=""
+                  alt="image-carousel"
                 />
               </div>
             ))}
@@ -37,14 +51,15 @@ const GalleryProducts = ({ images }) => {
         </div>
       )}
       <style jsx="true">{`
-        .containerMainImage {
-          display: flex;
-          justify-content: center;
+        .carousel-image-container {
+          position: relative;
+          height: 200px;
           width: 100%;
-          margin-bottom: 1rem;
         }
-        .mainImage {
-          width: 65%;
+        .containerMainImage {
+          position: relative;
+          width: 100%;
+          height: 200px;
         }
         .containerImageTubler {
           display: flex;

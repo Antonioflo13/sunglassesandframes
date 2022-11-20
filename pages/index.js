@@ -54,16 +54,16 @@ const IndexPage = ({ articles }) => {
           "banner": { 
             "acceptButtonDisplay":true,
             "customizeButtonDisplay":true,
-            "acceptButtonColor":"#800000",
+            "acceptButtonColor":"#000000",
             "acceptButtonCaptionColor":"white",
             "customizeButtonColor":"#212121",
             "customizeButtonCaptionColor":"white",
             "rejectButtonColor":"#0073CE",
             "rejectButtonCaptionColor":"white",
             "position":"float-bottom-center",
-            "textColor":"white",
+            "textColor":"black",
             "backgroundColor":
-            "#000001",
+            "#FFF",
             "fontSizeBody":12 
           },
            "callback": {

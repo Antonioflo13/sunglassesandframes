@@ -31,8 +31,7 @@ const Layout = ({ children }) => {
   //FUNCTIONS
   const setBodyOverflow = () => {
     let body = document.querySelector("body");
-    if (body && router.pathname === "/collections/[...product]") {
-      body.style.overflow = "hidden";
+    if (body && router.pathname === "/designers/[...product]" && !isDesktop) {
       document.body.classList.add("overflow-hidden");
     }
     if (body && router.pathname !== "/collections/[...product]") {
@@ -72,7 +71,7 @@ const Layout = ({ children }) => {
     >
       <Navbar />
       {children}
-      {router.pathname !== "/collections/[...product]" && <Footer />}
+      {router.pathname !== "/designers/[...product]" && <Footer />}
     </IntlProvider>
   );
 };

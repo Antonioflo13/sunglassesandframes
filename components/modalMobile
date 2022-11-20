@@ -1,5 +1,5 @@
-import { motion } from "framer-motion"
-import React from "react"
+import { motion } from "framer-motion";
+import React from "react";
 
 const ModalMobile = ({ children, setShown, customWidthModal }) => {
   return (
@@ -34,7 +34,7 @@ const ModalMobile = ({ children, setShown, customWidthModal }) => {
         onClick={event => {
           // Prevents dismissal from children clicks
           if (event.target === event.currentTarget) {
-            setShown(false)
+            setShown(false);
           }
         }}
       >
@@ -49,7 +49,7 @@ const ModalMobile = ({ children, setShown, customWidthModal }) => {
         </div>
       </motion.div>
     </>
-  )
-}
+  );
+};
 
-export default ModalMobile
+export default ModalMobile;

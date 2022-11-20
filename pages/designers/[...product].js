@@ -28,8 +28,11 @@ const Product = ({
   CollectionProducts,
   collectionHandle,
   productHandle,
+  cursor,
+  hasMore,
 }) => {
-  const product = resProduct.data.product;
+
+  const product = {node:resProduct.data.product};
 
   //STORE
   const language = useSelector(state => state.language.value);
@@ -38,25 +41,16 @@ const Product = ({
   //HOOKS
   const isDesktop = useMediaQuery(768);
 
-  //STATE
-  const [accordion, setAccordion] = React.useState({
-    size: false,
-    shipping: false,
-  });
 
-  const relatedProducts = CollectionProducts.data.collection.products.nodes;
+  const relatedProducts = CollectionProducts.data.collection.products.edges;
 
-  const cursor = CollectionProducts.data.collection.products.pageInfo.endCursor;
-
-  const hasNextPage =
-    CollectionProducts.data.collection.products.pageInfo.hasNextPage;
   const mainImage = (
     <GalleryProducts
-      images={product.variants.edges[0].node.product.images.nodes}
+      images={product.node.variants.edges[0].node.product.images.nodes}
     />
   );
 
-  const title = `Indice - ${productHandle}`;
+  const title = `Sunglassesandframes - ${productHandle}`;
 
   //FUNCTIONS
   const buy = async productId => {
@@ -103,16 +97,16 @@ const Product = ({
                 breadcrumbs={[
                   {
                     title: "breadcrumbs.designers",
-                    link: "/collections",
+                    link: "/designers",
                   },
 
                   {
-                    title: product.vendor,
-                    link: "/collections/" + collectionHandle,
+                    title: product.node.vendor,
+                    link: "/designers/" + collectionHandle,
                   },
                   {
-                    title: product.title,
-                    link: "/collections/" + productHandle,
+                    title: product.node.title,
+                    link: "/designers/" + productHandle,
                   },
                 ]}
                 title=" "
@@ -128,22 +122,18 @@ const Product = ({
             mainImage={mainImage}
             relatedProducts={relatedProducts}
             collectionHandle={collectionHandle}
-            accordion={accordion}
-            setAccordion={setAccordion}
           />
         ) : (
           <MobileProduct
-            // shopifyProducts={products}
+            productHandle={productHandle}
             product={product}
-            hasNextPage={hasNextPage}
+            hasMore={hasMore}
             cursor={cursor}
             buy={buy}
             askForPrice={askForPrice}
             mainImage={mainImage}
             relatedProducts={relatedProducts}
             collectionHandle={collectionHandle}
-            accordion={accordion}
-            setAccordion={setAccordion}
           />
         )}
       </AnimatedPage>
@@ -151,13 +141,26 @@ const Product = ({
   );
 };
 
-export async function getServerSideProps({ params }) {
-  const collectionHandle = params.product[0];
-  const productHandle = params.product[1];
+export async function getServerSideProps({ query }) {
+  const collectionHandle = query.product[0];
+  const productHandle = query.product[1];
+  const cursor = query.cursor;
   const resProduct = await getProduct(productHandle);
-  const CollectionProducts = await getCollection(collectionHandle);
+  let CollectionProducts = await getCollection(collectionHandle, 20, cursor);
+  const hasMore = CollectionProducts.data.collection.products.pageInfo.hasNextPage;
+  const productNode = {node: resProduct.data.product};
+  CollectionProducts.data.collection.products.edges.unshift(productNode);
+
+
   return {
-    props: { resProduct, CollectionProducts, collectionHandle, productHandle },
+    props: {
+      resProduct,
+      CollectionProducts,
+      collectionHandle,
+      productHandle,
+      hasMore,
+      cursor,
+    },
   };
 }
 

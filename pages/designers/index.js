@@ -1,5 +1,5 @@
 //REACT
-import React from "react";
+import React, { useState, useRef } from "react";
 //NEXT
 import Link from "next/link";
 //HOOKS
@@ -15,8 +15,15 @@ import Head from "next/head";
 
 const CollectionsPage = ({ collections }) => {
   collections = collections.data.collections.nodes;
+
   //HOOKS
   const isDesktop = useMediaQuery("768");
+
+  //STATE
+  const [indice, setIndice] = useState("A");
+
+  const myRef = useRef(null);
+
   //generates alphabetical order products
   let collectionsListByAlphabet = [];
   let alphabeticList = [];
@@ -39,6 +46,17 @@ const CollectionsPage = ({ collections }) => {
     collectionsList => (collectionsList.collectionsList[0].viewLetter = true)
   );
 
+  //FUNCTIONS
+  const executeScroll = letter => {
+    const letterId = document.getElementById(letter).offsetTop;
+    const container = document.getElementById("container");
+
+    container.scrollTo({
+      top: letterId - 240,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <Layout>
       <Head>
@@ -48,30 +66,39 @@ const CollectionsPage = ({ collections }) => {
       <AnimatedPage margins={true}>
         {/* {isDesktop && <Breadcrumbs title="Designers" />} */}
         <div className="mt-20">
-          <div>
-            {alphabeticList.map(item => (
+          <div className="container-alphabetic">
+            {alphabeticList.map(letter => (
               <span
                 className="item"
-                style={{ marginLeft: "10px" }}
-                key={item + 1}
+                style={
+                  indice === letter
+                    ? { marginLeft: "1rem", borderBottom: "solid 1px black" }
+                    : { marginLeft: "1rem" }
+                }
+                key={letter + 1}
+                onClick={() => setIndice(letter)}
               >
-                {item}
+                <span onClick={() => executeScroll(letter)}>{letter}</span>
               </span>
             ))}
           </div>
           <div className="containerCollections mt-10">
-            <div className="containerDesigner">
+            <div id="container" className="containerDesigner">
               <ul>
                 {collectionsListByAlphabet.map((letter, index) => (
                   <React.Fragment key={index}>
                     {letter.collectionsList.map((collection, index) => (
                       <li key={index}>
                         {collection.viewLetter && (
-                          <div className="font-semibold text-2xl font-serif italic mb-3 text-sunglassesandframes-red">
-                            {letter.letter}
+                          <div
+                            ref={myRef}
+                            className="font-semibold text-2xl font-serif mb-3"
+                          >
+                            <section id={letter.letter}>
+                              {letter.letter}
+                            </section>
                           </div>
                         )}
-
                         <div
                           className={`${
                             collection.products?.nodes?.length > 0
@@ -90,13 +117,13 @@ const CollectionsPage = ({ collections }) => {
                               pathname:
                                 collection.handle ===
                                 "sunglassesandframes-capsule-collection"
-                                  ? "/collections/[collection]"
-                                  : "/collections/[collection]",
+                                  ? "/designers/[collection]"
+                                  : "/designers/[collection]",
                               query: { collection: collection.handle },
                             }}
                           >
                             <span>
-                              <motion.h2 className=" sunglassesandframes text-xl font-bold uppercase">
+                              <motion.h2 className=" sunglassesandframes text-xs md:text-xl font-bold uppercase">
                                 {collection.title}
                               </motion.h2>
                               {/*<p className="text-xs mt-2">{collection.description}</p>*/}
@@ -116,6 +143,10 @@ const CollectionsPage = ({ collections }) => {
       </AnimatedPage>
       <style jsx="true">
         {`
+          .container-alphabetic {
+            text-align: center;
+            overflow-x: scroll;
+          }
           .unavailable:hover {
             opacity: 0.2;
             transition: opacity 0.2s ease-in-out;
@@ -127,18 +158,26 @@ const CollectionsPage = ({ collections }) => {
           }
 
           .containerDesigner {
-            width: 40%;
+            width: 50%;
+            height: 70vh;
+            overflow-y: scroll;
+            overflow-x: hidden;
+          }
+
+          ::-webkit-scrollbar {
+            display: none;
           }
 
           .containerCollectionPromo {
-            width: 60%;
+            width: 40%;
             background-color: black;
-            height: 100vh;
+            height: 70vh;
+            border-radius: 20px;
           }
 
           .containerCollections {
             display: flex;
-            gap: 10rem;
+            justify-content: space-between;
           }
 
           .collection {

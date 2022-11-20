@@ -33,7 +33,7 @@ const sliderRelatedProducts = props => {
             {/*  <SwiperSlide key={item.id}>*/}
             {/*    <Link*/}
             {/*      href={{*/}
-            {/*        pathname: `/collections/[collection]/[product]`,*/}
+            {/*        pathname: `/designers/[collection]/[product]`,*/}
             {/*        query: {*/}
             {/*          collection: collectionHandle,*/}
             {/*          product: item.handle,*/}

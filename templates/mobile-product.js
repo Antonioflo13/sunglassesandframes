@@ -2,8 +2,6 @@
 import React, { useEffect, useRef, useState } from "react";
 //NEXT
 import { useRouter } from "next/router";
-//API
-import { getProductsByCollections } from "../api/product";
 //SWIPER
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
@@ -13,14 +11,6 @@ import { FormattedNumber } from "react-intl";
 //FORMAT MESSAGE
 import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
 import BottomSheet from "./bottom-sheet";
-//ICON
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-//STORE BOUTIQUES
-import { stores } from "../data/stores";
-//ICONS
-import RowLeft from "../assets/images/product-page/angle-left.png";
-import RowRight from "../assets/images/product-page/angle-right.png";
 //COMPONENTS
 import Label from "../components/label";
 import ProductIcon from "../components/product-icon";
@@ -28,105 +18,114 @@ import SliderRelatedProducts from "../components/slider-related-products";
 import Footer from "../components/footer";
 import { css } from "emotion";
 import Image from "next/image";
+import { getCollection } from "../api/collections";
 
 const MobileProductTemplate = props => {
   const {
-    product,
-    hasNextPage,
+    productHandle,
+    hasMore,
     cursor,
-    shopifyProduct,
     buy,
     askForPrice,
     relatedProducts,
     collectionHandle,
-    accordion,
-    setAccordion,
   } = props;
+
+  //ROUTER
+  const router = useRouter();
+
+  //HEIGHT
+  const [heightPage, setHeightPage] = useState(window.innerHeight);
+
   //STATE
   const [isExpanded, setIsExpanded] = useState(false);
+
   const [products, setProducts] = useState(relatedProducts);
+
+  const [hasNextPage, setHasNextPage] = useState(hasMore);
+
+  const [newCursor, setNewCursor] = useState(cursor);
+
   const [swiperIndex, setSwiperIndex] = useState(
-    relatedProducts.findIndex(
-      relatedProduct => relatedProduct.handle === product.handle
+    products.findIndex(
+      relatedProduct => relatedProduct.node.handle === productHandle
     )
   );
-  const [newCursor, setNewCursor] = useState(cursor);
-  const [newHasNextPage, setNewHasNextPage] = useState(hasNextPage);
-  const router = useRouter();
-  //REF
-  const swiperRef = useRef(null);
+
+  const bottomSheetRef = useRef();
+
+  let bottomSheetScrollTop = bottomSheetRef.current?.scrollTop;
+
+  //FUNCTIONS
+  const swipeToProduct = swiper => {
+    if (swiper?.activeIndex) {
+      if (swiper.activeIndex > products.length - 1) {
+        console.log(swiper?.activeIndex);
+        setSwiperIndex(0);
+        router.push(
+          `/designers/${collectionHandle}/${products[0].node.handle}?cursor=${newCursor}`,
+          undefined,
+          { shallow: true }
+        );
+      } else {
+        setSwiperIndex(swiper?.activeIndex - 1);
+        router.push(
+          `/designers/${collectionHandle}/${
+            products[swiper?.activeIndex - 1].node.handle
+          }?cursor=${newCursor}`,
+          undefined,
+          { shallow: true }
+        );
+      }
+    }
+  };
+
+  const getProductByCollection = async (collectionHandle, first, cursor) =>
+    await getCollection(collectionHandle, first, cursor);
 
   //EFFECT
   useEffect(() => {
-    if (swiperIndex > products.length - 2 && newHasNextPage) {
-      getProductsByCollections(collectionHandle, 20, newCursor).then(
-        response => {
-          setNewCursor(response.data.collection.products.pageInfo.endCursor);
-          setNewHasNextPage(
-            response.data.collection.products.pageInfo.hasNextPage
-          );
-          const newProducts = response.data.collection.products.nodes;
+    if (swiperIndex === products.length - 2 && hasNextPage) {
+      getProductByCollection(collectionHandle, 20, newCursor).then(response => {
+        const newProducts = response.data.collection.products.edges;
+        const isMore = response.data.collection.products.pageInfo.hasNextPage;
+        setHasNextPage(isMore);
+        setProducts(oldProducts => [...oldProducts, ...newProducts]);
+      });
+    }
 
-          setProducts(oldProducts => [...oldProducts, ...newProducts]);
-        }
-      );
+    if (swiperIndex === products.length - 2 && !hasNextPage) {
+      getProductByCollection(collectionHandle, 20).then(response => {
+        const newProducts = response.data.collection.products.edges;
+        const isMore = response.data.collection.products.pageInfo.hasNextPage;
+        setHasNextPage(isMore);
+        setNewCursor(products[swiperIndex].cursor);
+        setProducts(oldProducts => [...oldProducts, ...newProducts]);
+      });
     }
   }, [swiperIndex]);
 
-  //FUNCTIONS
-  const slideTo = () => {};
-  const swipeToProduct = swiper => {
-    if (swiper === "prev") {
-      setSwiperIndex(prevSwiperIndexPrev => {
-        setSwiperIndex(prevSwiperIndexPrev - 1);
-        router.push(
-          `/collections/${collectionHandle}/${
-            products[prevSwiperIndexPrev - 1].handle
-          }`
-        );
-      });
-    }
-    if (swiper === "next") {
-      setSwiperIndex(prevSwiperIndexPrev => {
-        setSwiperIndex(prevSwiperIndexPrev + 1);
-        router.push(
-          `/collections/${collectionHandle}/${
-            products[prevSwiperIndexPrev + 1].handle
-          }`
-        );
-      });
-    }
-    if (swiper?.activeIndex) {
-      setSwiperIndex(swiper?.activeIndex);
-      router.push(
-        `/collections/${collectionHandle}/${
-          products[swiper?.activeIndex].handle
-        }`
-      );
-    }
-    // const indexSlide = 0;
-    // let index = indexSlide;
-    // if (swiper.swipeDirection === "prev" || swiper === "prev") {
-    //   index = indexSlide === 0 ? relatedProducts.length - 1 : indexSlide - 1;
-    // } else if (swiper.swipeDirection === "next" || swiper === "next") {
-    //   index = indexSlide === relatedProducts.length - 1 ? 0 : indexSlide + 1;
-    // }
-    // if (index < shopifyProducts.length) {
-    //   navigate(
-    //     `/collections/${collectionHandle}/products/${shopifyProducts[index].handle}`
-    //   );
-    // }
-  };
-
-  const [heightPage, setHeightPage] = useState(0);
   useEffect(() => {
     setHeightPage(window.innerHeight);
   }, [window.innerHeight]);
-  const bottomSheetRef = useRef();
-  let bottomSheetScrollTop = bottomSheetRef.current?.scrollTop;
+
+
   useEffect(() => {
-    bottomSheetScrollTop = 0;
+    if (!isExpanded) {
+      bottomSheetScrollTop = 0;
+      document.getElementsByClassName("swiper-button-next")[0].style.zIndex = 0;
+      document.getElementsByClassName("swiper-button-prev")[0].style.zIndex = 0;
+    } else {
+      bottomSheetScrollTop = 0;
+      document.getElementsByClassName(
+        "swiper-button-next"
+      )[0].style.zIndex = 10;
+      document.getElementsByClassName(
+        "swiper-button-prev"
+      )[0].style.zIndex = 10;
+    }
   }, [isExpanded]);
+
   return (
     <div>
       <Swiper
@@ -145,7 +144,6 @@ const MobileProductTemplate = props => {
                 <Swiper
                   id="swiper-image-pdp"
                   style={{ height: "100vh" }}
-                  className="bg-indice-grey"
                   cssMode={true}
                   pagination={true}
                   direction={"vertical"}
@@ -153,9 +151,9 @@ const MobileProductTemplate = props => {
                   slidesPerView={1}
                   modules={[Pagination]}
                 >
-                  {product.variants.edges[0].node.product.images.nodes.length >
-                    0 &&
-                    product.variants.edges[0].node.product.images.nodes.map(
+                  {product.node.variants.edges[0].node.product.images.nodes
+                    .length > 0 &&
+                    product.node.variants.edges[0].node.product.images.nodes.map(
                       (image, product) => (
                         <SwiperSlide key={product}>
                           <div className="image-container">
@@ -167,6 +165,8 @@ const MobileProductTemplate = props => {
                                 objectFit: "contain",
                                 objectPosition: "center",
                               }}
+                              placeholder="blur"
+                              blurDataURL={image.originalSrc}
                               src={image.originalSrc}
                               alt={image.originalSrc}
                             />
@@ -191,18 +191,25 @@ const MobileProductTemplate = props => {
                   height={heightPage}
                   style={{
                     pointerEvents: "all",
+                    overflow: isExpanded ? "hidden" : "scroll",
+                    background: "white",
                   }}
                   isExpanded={expanded => setIsExpanded(expanded)}
                 >
                   <div
-                    ref={bottomSheetRef}
                     className="mb-10"
                     style={{
                       height: "100vh",
-                      overflow: isExpanded ? "hidden" : "scroll",
                     }}
                   >
-                    <div className="customStyle mb-10">
+                    <div
+                      className="customStyle mb-10"
+                      style={{
+                        borderTop: "1px solid black",
+                        borderRadius: "10px",
+                      }}
+                      ref={bottomSheetRef}
+                    >
                       <div
                         className="flex justify-center"
                         style={{ padding: "10px 0" }}
@@ -211,34 +218,36 @@ const MobileProductTemplate = props => {
                       </div>
                       <div className="w-full flex flex-col justify-start items-center">
                         <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead">
-                          {product.vendor}
+                          {product.node.vendor}
                         </div>
                         <div className="ml-1 text-xs uppercase font-bold mt-2">
-                          {product.title}
+                          {product.node.title}
                         </div>
                       </div>
                       <div className="text-center text-sm mb-5 mt-2">
-                        {product.availableForSale &&
-                        !product.tags.includes("nfs") &&
-                        product.variants.edges[0].node.quantityAvailable > 0 ? (
+                        {product.node.availableForSale &&
+                        !product.node.tags.includes("nfs") &&
+                        product.node.variants.edges[0].node.quantityAvailable >
+                          0 ? (
                           <>
                             <FormattedNumber
                               style="currency" // eslint-disable-line
                               value={
-                                product.variants.edges[0].node.priceV2.amount
+                                product.node.variants.edges[0].node.priceV2
+                                  .amount
                               }
                               currency={
-                                product.variants.edges[0].node.priceV2
+                                product.node.variants.edges[0].node.priceV2
                                   .currencyCode
                               }
-                              minimumFractionDigits={2}
+                              minimumFractionDigits={0}
                             />
 
                             <div>
                               <Label
                                 style={{ width: "100%" }}
                                 onClick={() =>
-                                  buy(product.variants.edges[0].node.id)
+                                  buy(product.node.variants.edges[0].node.id)
                                 }
                               >
                                 <FormattedMessage id="product.buy" />
@@ -268,77 +277,21 @@ const MobileProductTemplate = props => {
                       <div
                         className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
                         dangerouslySetInnerHTML={{
-                          __html: product.descriptionHtml,
+                          __html: product.node.descriptionHtml,
                         }}
                       />
-                      <div className="mt-5">
-                        <div className="flex flex-col">
-                          <div
-                            className="containerAccordion"
-                            onClick={() =>
-                              setAccordion({
-                                ...accordion,
-                                size: !accordion.size,
-                              })
-                            }
-                          >
-                            <div className="font-bold uppercase text-sm">
-                              <FormattedMessage id="product.size.title" />
-                            </div>
-                            {accordion.size ? (
-                              <FontAwesomeIcon
-                                icon={faMinus}
-                                className="containerIcon"
-                              />
-                            ) : (
-                              <FontAwesomeIcon
-                                icon={faPlus}
-                                className="containerIcon"
-                              />
-                            )}
-                          </div>
-                          {accordion.size && (
-                            <>
-                              <div className="text-xs">
-                                <FormattedMessage id="product.." />
-                              </div>
-                            </>
-                          )}
-                        </div>
-                        <div className="flex flex-col mt-5">
-                          <div
-                            className="containerAccordion"
-                            onClick={() =>
-                              setAccordion({
-                                ...accordion,
-                                shipping: !accordion.shipping,
-                              })
-                            }
-                          >
-                            <div className="font-bold uppercase text-sm">
-                              <FormattedMessage id="product.shipping.title" />
-                            </div>
-                            {accordion.shipping ? (
-                              <FontAwesomeIcon
-                                icon={faMinus}
-                                className="containerIcon"
-                              />
-                            ) : (
-                              <FontAwesomeIcon
-                                icon={faPlus}
-                                className="containerIcon"
-                              />
-                            )}
-                          </div>
-                          {accordion.shipping && (
-                            <>
-                              <div className="text-xs">
-                                <FormattedMessage id="product.." />
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      </div>
+                      <div
+                        className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
+                        dangerouslySetInnerHTML={{
+                          __html: product.node.descriptionHtml,
+                        }}
+                      />
+                      <div
+                        className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
+                        dangerouslySetInnerHTML={{
+                          __html: product.node.descriptionHtml,
+                        }}
+                      />
                       {/*{relatedProducts.length > 0 && (*/}
                       {/*  <SliderRelatedProducts*/}
                       {/*    relatedProducts={relatedProducts}*/}
@@ -357,6 +310,7 @@ const MobileProductTemplate = props => {
         .image-container {
           position: relative;
           height: 100%;
+          width: 95%;
         }
 
         .slide-icon {

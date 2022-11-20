@@ -1,5 +1,5 @@
 //REACT
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 //NEXT
 import Link from "next/link";
 import Head from "next/head";
@@ -16,13 +16,72 @@ import Layout from "../../components/layout";
 import Image from "next/image";
 
 const CollectionTemplate = ({ collection }) => {
+
   collection = collection.data.collection;
+
   //HOOKS
   const isDesktop = useMediaQuery(768);
 
   const isBrand =
     collection.handle !== "optical" && collection.handle !== "sunglasses";
   const title = `Indice - ${isBrand ? collection.title : collection.handle}`;
+
+  //STATE
+  const [products, setProducts] = useState(collection.products.edges);
+
+  // State to trigger oad more
+  const [loadMore, setLoadMore] = useState(false);
+
+  // State of whether there is more to load
+  const [hasMore, setHasMore] = useState(collection.products.pageInfo.hasNextPage);
+
+  // Cursor
+  const [cursor, setCursor] = useState(collection.products.pageInfo.endCursor);
+
+  //Set a ref for the loading div
+  const loadRef = useRef();
+
+  //FUNCTIONS
+  const getProductByCollection = async () =>
+    await getCollection(collection.handle, 20, cursor);
+
+  // Handle intersection with load more div
+  const handleObserver = entities => {
+    const target = entities[0];
+    if (target.isIntersecting) {
+      setLoadMore(true);
+    }
+  };
+
+  //USEEFFECT
+  //Initialize the intersection observer API
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 1.0,
+    };
+    const observer = new IntersectionObserver(handleObserver, options);
+    if (loadRef.current) {
+      observer.observe(loadRef.current);
+    }
+  }, []);
+
+  // Handle loading more articles
+  useEffect(() => {
+    if (loadMore && hasMore) {
+      getProductByCollection().then(response => {
+        const newProducts = response.data.collection.products.edges;
+        const isMore = response.data.collection.products.pageInfo.hasNextPage;
+        console.log(isMore)
+        const cursor = response.data.collection.products.pageInfo.endCursor;
+        setCursor(cursor);
+        setHasMore(isMore);
+        setProducts(oldProducts => [...oldProducts, ...newProducts]);
+        setLoadMore(false);
+      });
+    }
+  }, [loadMore, hasMore]); //eslint-disable-line
 
   return (
     <Layout>
@@ -42,7 +101,7 @@ const CollectionTemplate = ({ collection }) => {
                   ? [
                       {
                         title: "breadcrumbs.designers",
-                        link: "/collections",
+                        link: "/designers",
                       },
                       {
                         title: collection.title,
@@ -105,9 +164,9 @@ const CollectionTemplate = ({ collection }) => {
         {/* Products */}
         <div className="mt-8 w-full">
           <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-12">
-            {collection.products.nodes.map(product => (
+            {products.map((product, index) => (
               <Product
-                key={product.id}
+                key={index}
                 product={product}
                 collection={collection}
               />
@@ -122,7 +181,7 @@ const CollectionTemplate = ({ collection }) => {
                   ? [
                       {
                         title: "breadcrumbs.designers",
-                        link: "/collections",
+                        link: "/designers",
                       },
                       {
                         title: collection.title,
@@ -139,6 +198,7 @@ const CollectionTemplate = ({ collection }) => {
             />
           </div>
         )}
+        <div ref={loadRef}></div>
       </AnimatedPage>
       <style jsx="true">
         {`
@@ -166,7 +226,7 @@ export default CollectionTemplate;
 
 export async function getServerSideProps({ params }) {
   const collectionHandle = params.collection;
-  const collection = await getCollection(collectionHandle);
+  const collection = await getCollection(collectionHandle, 20);
   return {
     props: { collection },
   };
@@ -174,15 +234,18 @@ export async function getServerSideProps({ params }) {
 
 const Product = ({ product, collection }) => {
   return (
-    <Link href={`/collections/${collection.handle}/${product.handle}`}>
+    <Link href={{
+      pathname: `/designers/${collection.handle}/${product.node.handle}`,
+      query: {cursor: product.cursor},
+    }}>
       <div className="w-full flex flex-col items-center">
         <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
           <div className="absolute top-0 w-full h-full">
-            {product.variants.edges[0].node.product.images.nodes.length > 0 && (
+            {product.node.variants.edges[0].node.product.images.nodes.length > 0 && (
               <img
                 className="w-full h-full"
                 src={
-                  product.variants.edges[0].node.product.images.nodes[0]
+                  product.node.variants.edges[0].node.product.images.nodes[0]
                     .originalSrc
                 }
                 alt="product-image"
@@ -192,22 +255,22 @@ const Product = ({ product, collection }) => {
           </div>
         </div>
         <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead mt-2">
-          {product.vendor}
+          {product.node.vendor}
         </div>
         <div className="ml-1 text-xs uppercase font-bold mt-2">
-          {product.title}
+          {product.node.title}
         </div>
-        {product.availableForSale &&
-          !product.tags.includes("nfs") &&
-          product.variants.edges[0].node.product.quantityAvailable > 0 && (
+        {product.node.availableForSale &&
+          !product.node.tags.includes("nfs") &&
+          product.node.variants.edges[0].node.product.quantityAvailable > 0 && (
             <p className="text-2xs">
               <FormattedNumber
                 style="currency"
-                value={product.variants.edges[0].node.product.priceV2.amount}
+                value={product.node.variants.edges[0].node.product.priceV2.amount}
                 currency={
-                  product.variants.edges[0].node.product.priceV2.currencyCode
+                  product.node.variants.edges[0].node.product.priceV2.currencyCode
                 }
-                minimumFractionDigits={2}
+                minimumFractionDigits={0}
               />
             </p>
           )}
