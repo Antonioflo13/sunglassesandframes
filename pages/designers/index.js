@@ -19,9 +19,6 @@ const CollectionsPage = ({ collections }) => {
   //HOOKS
   const isDesktop = useMediaQuery("768");
 
-  //STATE
-  const [indice, setIndice] = useState("A");
-
   const myRef = useRef(null);
 
   //generates alphabetical order products
@@ -46,6 +43,9 @@ const CollectionsPage = ({ collections }) => {
     collectionsList => (collectionsList.collectionsList[0].viewLetter = true)
   );
 
+  //STATE
+  const [letterIndex, setLetterIndex] = useState(alphabeticList[0]);
+
   //FUNCTIONS
   const executeScroll = letter => {
     const letterId = document.getElementById(letter).offsetTop;
@@ -67,16 +67,18 @@ const CollectionsPage = ({ collections }) => {
         {/* {isDesktop && <Breadcrumbs title="Designers" />} */}
         <div className="mt-20">
           <div className="container-alphabetic">
-            {alphabeticList.map(letter => (
+            {alphabeticList.map((letter, index) => (
               <span
-                className="item"
                 style={
-                  indice === letter
-                    ? { marginLeft: "1rem", borderBottom: "solid 1px black" }
-                    : { marginLeft: "1rem" }
+                  letterIndex === letter
+                    ? {
+                        marginLeft: "1rem",
+                        borderBottom: "solid 1px black",
+                      }
+                    : { marginLeft: "1rem", cursor: "pointer" }
                 }
-                key={letter + 1}
-                onClick={() => setIndice(letter)}
+                key={index}
+                onClick={() => setLetterIndex(letter)}
               >
                 <span onClick={() => executeScroll(letter)}>{letter}</span>
               </span>
@@ -117,9 +119,9 @@ const CollectionsPage = ({ collections }) => {
                               pathname:
                                 collection.handle ===
                                 "sunglassesandframes-capsule-collection"
-                                  ? "/designers/[collection]"
-                                  : "/designers/[collection]",
-                              query: { collection: collection.handle },
+                                  ? "/designers/[designer]"
+                                  : "/designers/[designer]",
+                              query: { designer: collection.handle },
                             }}
                           >
                             <span>

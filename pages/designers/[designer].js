@@ -225,7 +225,7 @@ const CollectionTemplate = ({ collection }) => {
 export default CollectionTemplate;
 
 export async function getServerSideProps({ params }) {
-  const collectionHandle = params.collection;
+  const collectionHandle = params.designer;
   const collection = await getCollection(collectionHandle, 20);
   return {
     props: { collection },
@@ -254,7 +254,7 @@ const Product = ({ product, collection }) => {
             )}
           </div>
         </div>
-        <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead mt-2">
+        <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
           {product.node.vendor}
         </div>
         <div className="ml-1 text-xs uppercase font-bold mt-2">

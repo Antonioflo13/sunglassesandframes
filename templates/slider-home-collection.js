@@ -37,7 +37,7 @@ const SliderHomeCollection = () => {
                     src={item.images[0].originalSrc}
                     alt="product"
                   />
-                  <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead">
+                  <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead">
                     {item.vendor}
                   </div>
                   <div className="text-xs uppercase font-bold">
@@ -107,7 +107,7 @@ const FormattedMessage = ({ values, ...props }) => (
   <OriginalFormattedMessage
     values={{
       b: chunk => <b>{chunk}</b>,
-      r: chunk => <b className="text-sunglassesandframes-red">{chunk}</b>,
+      r: chunk => <b className="text-sunglassesandframes-black">{chunk}</b>,
       ...values,
     }}
     {...props}

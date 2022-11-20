@@ -1,9 +1,11 @@
 {
   "contact_us": "Contattaci",
   "whatsapp": "WhatsApp",
-  "home.contact_us": "Contattaci",
+
   "navbar.extraordinary": "straordinari",
   "navbar.eyeglasses": "occhiali",
+
+  "home.contact_us": "Contattaci",
   "home.appointment.title": "Prenota un\n<b>appuntamento</b>\nin boutique",
   "home.appointment.subtitle": "Decidi tu quando e come, e accedi all'esclusivo servizio di <b>Eyewear Concierge</b>: uno dei nostri sales assistant ti aspetta!",
   "home.appointment.times": "Da <b>martedì</b> a <b>sabato</b> 10:00-13:00 15:30-19:30. <b>Domenica</b> e <b>lunedì</b> su appuntamento.",
@@ -20,10 +22,12 @@
   "home.slider_monthly.title": "Monthly Highlight",
   "home.slider_monthly.text": "Il servizio di Oue <r>Eyewear Concierge</r> è a tua completa disposizione. <b>Scrivici</b> per chiarire ogni dubbio e trovare il tuo occhiale straordinario!",
   "home.slider_articles.text": "<b>sunglassesandframes</b> rappresenta la nostra passione per il design, l'innovazione e la ricerca, trasformata nel mondo dell'occhialeria. Scopri il nostro mondo e goditi il viaggio! :)",
+
   "designers.title": "sunglassesandframes – Designer",
   "designers.description": "",
   "designers.discover": "Scopri",
   "designers.coming_soon": "In arrivo",
+
   "sidebar.header": "Da <b>martedì</b> a <b>sabato</b> 10:00-13:00 15:30-19:30. <b>Domenica</b> e <b>lunedì</b> su appuntamento.",
   "sidebar.home": "Home",
   "sidebar.designers": "Designer",
@@ -35,7 +39,8 @@
   "sidebar.faq": "FAQ",
   "sidebar.services": "Servizi",
   "sidebar.magazine": "Magazine",
-  "sidebar.botiques": "Botiques",
+  "sidebar.boutiques": "Boutiques",
+
   "collection.title": "sunglassesandframes – {collection}",
   "collection.sunglasses": "Occhiali da sole",
   "collection.optical": "Occhiali da vista",
@@ -47,6 +52,7 @@
   "contacts.title": "Siamo a tua\n<b>disposizione</b>",
   "contacts.subtitle": "Il nostro servizio eyewear concierge è a tua completa disposizione. Scrivici per chiarire ogni dubbio e trovare i tuoi occhiali straordinari!",
   "contacts.phone_alternative": "In alternativa, contattaci al +39 320 63 30 888",
+
   "product.title": "sunglassesandframes – {product}",
   "contacts.send": "invia",
   "contacts.text": "Sapremo in automatico che ci stai contattando per",
@@ -60,7 +66,18 @@
   "product.buy": "Acquista",
   "product.contact_us": "CONTATTACI PER IL PREZZO",
   "product.specialEdition": "Edizione speciale",
+  "product.size.title": "taglia & vestibilità",
+  "product.shipping.title": "spedizione & resi",
+  "product.available.stores": "Disponibile <b>online</b> e <b>in store</b> in:",
+  "product.icon.original.certified": "Originale e certificato",
+  "product.icon.worldwide.shipping": "Spedizione in tutto il mondo",
+  "product.money.back": "Rimborso garantito",
+  "product.secure.payment": "Pagamento sicuro",
+  "product.trackable.orders": "Ordini tracciabili",
+
   "breadcrumbs.designers": "Designers",
+  "breadcrumbs.magazine": "Magazine",
+
   "faq": "FAQ",
   "faq.page_title": "sunglassesandframes – FAQ",
   "faq.page_description": "",
@@ -95,6 +112,7 @@
   "faq.returns.1.description": "Per organizzare correttamente un reso, visita la pagina sulla politica di reso oppure scrivici tramite form di contatto.",
   "faq.returns.2.title": "Rimborsi ",
   "faq.returns.2.description": "I rimborsi vengono automaticamente erogati al metodo di pagamento scelto in fase di ordine. Questa procedura dura circa tre giorni lavorativi.",
+
   "services.title": "sunglassesandframes – Servizi",
   "services.description": "",
   "services.visit.title": "Esame della vista",
@@ -103,6 +121,7 @@
   "services.rebalance.description": "Se il tuo occhiale necessità di un riassetto, portacelo e lo riporteremo alla miglior condizione possibile.",
   "services.assembly.title": "Montaggio espresso",
   "services.assembly.description": "Il nostro team di specialisti garantisce la consegna espressa del tuo occhiale per i più comuni difetti di vista.",
+
   "footer.contacts.title": "Contatti",
   "footer.contacts.email": "info@sunglassesandframes.com",
   "footer.contacts.phone": "+39 339 46 44 407",
@@ -119,12 +138,14 @@
   "footer.credits.designed_by": "Designed by <b>Enrico Botta</b>",
   "footer.credits.copyright": "© 2021 <b>sunglassesandframes</b>",
   "footer.legal": "sunglassesandframes srl - P.IVA IT03943290985",
+
   "capsule.title": "sunglassesandframes – Capsule",
   "capsule.description": "",
   "capsule.0.title": "sunglassesandframes x RETROSUPERFUTURE",
   "capsule.0.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vulputate lobortis ligula sed molestie.",
   "capsule.1.title": "sunglassesandframes x JACQUE MARIE MAGE",
   "capsule.1.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vulputate lobortis ligula sed molestie.",
+
   "about.title": "sunglassesandframes – About",
   "about.who.title": "Chi\n<b>siamo</b>",
   "about.who.description": "<b>sunglassesandframes</b> rappresenta tutta la nostra passione per il design, l'innovazione e la ricerca, declinati nel mondo dell'ottica.\n\nIl nostro team è giovane, specializzato ed entusiasta e lavora ogni giorno per offrire un servizio all'altezza dei tuoi desideri.\n\n",
@@ -132,27 +153,22 @@
   "about.where.title": "Dove\n<b>siamo</b>",
   "about.where.description": "<b>sunglassesandframes</b> rappresenta tutta la nostra passione per il design, l'innovazione e la ricerca, declinati nel mondo dell'ottica.\n\nIl nostro team è giovane, specializzato ed entusiasta e lavora ogni giorno per offrire un servizio all'altezza dei tuoi desideri.",
   "directions": "Indicazioni",
+
   "modal.call.title": "con quale botique vuoi parlare?",
   "modal.subtile": "Il nostro servizio eyewear concierge è a completa disposizione\n in tempo reale su <b>whatsapp</b>!",
   "modal.call": "Con quale boutique vuoi parlare?",
   "modal.maps": "Quale boutique vuoi raggiungere?",
   "modal.whatsapp": "Con quale boutique vuoi chattare?",
+
   "drawer.title": "Shopping bag",
   "drawer.label_button": "VAI AL CHECKOUT",
   "drawer.total": " TOTAL: €",
+
   "magazine.page_title": "sunglassesandframes – Magazine",
   "magazine.page_description": "",
-  "botiques.page_title": "sunglassesandframes - Botiques",
-  "botiques.page_description": "",
+
   "article.title": "sunglassesandframes – {article}",
-  "article.description": "{article}",
-  "breadcrumbs.magazine": "Magazine",
-  "product.size.title": "taglia & vestibilità",
-  "product.shipping.title": "spedizione & resi",
-  "product.available.stores": "Disponibile <b>online</b> e <b>in store</b> in:",
-  "product.icon.original.certified": "Originale e certificato",
-  "product.icon.worldwide.shipping": "Spedizione in tutto il mondo",
-  "product.money.back": "Rimborso garantito",
-  "product.secure.payment": "Pagamento sicuro",
-  "product.trackable.orders": "Ordini tracciabili"
+  "article.description": "{article}"
+
+
 }
