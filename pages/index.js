@@ -113,7 +113,7 @@ const IndexPage = ({ articles }) => {
       </Head>
       <Layout articles={articles}>
         <AnimatedPage fullHeight>
-          <AlgoliaSearch />
+          {/* <AlgoliaSearch /> */}
           <SliderArticles articles={articles} />
           <SliderHomeCollection />
           <SliderMenu />
