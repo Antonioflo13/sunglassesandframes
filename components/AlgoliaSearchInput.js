@@ -16,7 +16,7 @@ const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
       value={currentRefinement}
       onChange={event => refine(event.currentTarget.value)}
       placeholder="Search..."
-      class="border-2 border-black rounded-xl py-2 px-4 bg-white placeholder-gray-400 text-black appearance-none w-full block pl-12 focus:outline-none"
+      className="border-2 border-black rounded-xl py-2 px-4 bg-white placeholder-gray-400 text-black appearance-none w-full block pl-12 focus:outline-none"
     />
   </label>
 );
