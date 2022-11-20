@@ -121,8 +121,9 @@ export const Navbar = () => {
               <button className="link">
                 <div
                   className={`${
-                    pathName === "/magazine" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:font-bold`}
+                    pathName === "/magazine" &&
+                    "text-sunglassesandframes-black font-bold mackay"
+                  } flex flex-col justify-center items-center hover:font-bold mackay`}
                 >
                   Magazine
                 </div>
@@ -136,8 +137,9 @@ export const Navbar = () => {
             >
               <div
                 className={`${
-                  pathName === "/shop" && "text-sunglassesandframes-red"
-                } flex flex-col justify-center items-center hover:text-bold`}
+                  pathName === "/shop" &&
+                  "text-sunglassesandframes-black font-bold mackay"
+                } flex flex-col justify-center items-center hover:font-bold mackay`}
               >
                 Shop By
               </div>
@@ -147,8 +149,9 @@ export const Navbar = () => {
               <button className="link">
                 <div
                   className={`${
-                    pathName === "/designers" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-bold`}
+                    pathName === "/designers" &&
+                    "text-sunglassesandframes-black font-bold mackay"
+                  } flex flex-col justify-center items-center hover:font-bold mackay`}
                 >
                   Our Designer
                 </div>
@@ -158,8 +161,9 @@ export const Navbar = () => {
               <button className="link">
                 <div
                   className={`${
-                    pathName === "/newIn" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-bold`}
+                    pathName === "/newIn" &&
+                    "text-sunglassesandframes-black font-bold mackay"
+                  } flex flex-col justify-center items-center hover:font-bold mackay`}
                 >
                   New in
                 </div>
@@ -169,8 +173,9 @@ export const Navbar = () => {
               <button className="link">
                 <div
                   className={`${
-                    pathName === "/promotions" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center text-sunglassesandframes-red hover:text-bold`}
+                    pathName === "/promotions" &&
+                    "text-sunglassesandframes-black font-bold mackay"
+                  } flex flex-col justify-center items-center text-sunglassesandframes-red hover:font-bold mackay`}
                 >
                   Promotions
                 </div>

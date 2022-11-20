@@ -37,10 +37,10 @@ const SliderHomeCollection = () => {
                     src={item.images[0].originalSrc}
                     alt="product"
                   />
-                  <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead">
+                  <div className="text-xs uppercase font-bold">
                     {item.vendor}
                   </div>
-                  <div className="text-xs uppercase font-bold">
+                  <div className="text-sunglassesandframes-black text-xs font-bold mackay noToHead">
                     {item.title}
                   </div>
                 </div>
