@@ -1,5 +1,8 @@
 //REACT
 import React, { useState, useEffect } from "react";
+//NEXT
+import Link from "next/link";
+import { useRouter } from "next/router";
 //STORE
 import { useDispatch, useSelector } from "react-redux";
 import { setDialogContactShow } from "../store/modules/dialogContact";
@@ -55,15 +58,16 @@ export const Navbar = () => {
     }
   }, []);
 
-  const openSearchModal = event => {
+  const openSearchModal = () => {
     setIsSearchActive(true);
     document.body.classList.add("overflow-hidden");
   };
 
-  const closeSearchModal = event => {
+  const closeSearchModal = () => {
     setIsSearchActive(false);
     document.body.classList.remove("overflow-hidden");
   };
+  const [hasHover, setHasHover] = useState(false);
 
   return (
     <>
@@ -118,29 +122,33 @@ export const Navbar = () => {
                 <div
                   className={`${
                     pathName === "/magazine" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
+                  } flex flex-col justify-center items-center`}
                 >
                   Magazine
                 </div>
               </button>
             </Link>
-            <Link href="/">
-              <button className="link">
-                <div
-                  className={`${
-                    pathName === "/shop" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
-                >
-                  Shop By
-                </div>
-              </button>
-            </Link>
+
+            <button
+              className="link"
+              onMouseEnter={() => setHasHover(true)}
+              onMouseLeave={() => setHasHover(false)}
+            >
+              <div
+                className={`${
+                  pathName === "/shop" && "text-sunglassesandframes-red"
+                } flex flex-col justify-center items-center`}
+              >
+                Shop By
+              </div>
+            </button>
+
             <Link href="/designers">
               <button className="link">
                 <div
                   className={`${
                     pathName === "/designers" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
+                  } flex flex-col justify-center items-center`}
                 >
                   Our Designer
                 </div>
@@ -151,7 +159,7 @@ export const Navbar = () => {
                 <div
                   className={`${
                     pathName === "/newIn" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
+                  } flex flex-col justify-center items-center`}
                 >
                   New in
                 </div>
@@ -162,7 +170,7 @@ export const Navbar = () => {
                 <div
                   className={`${
                     pathName === "/promotions" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
+                  } flex flex-col justify-center items-center text-sunglassesandframes-red`}
                 >
                   Promotions
                 </div>
@@ -190,6 +198,68 @@ export const Navbar = () => {
             icon={faSearch}
             onClick={openSearchModal}
           />
+        </div>
+      )}
+      {isDesktop && hasHover && (
+        <div className="fullScrennBackground">
+          <AnimatePresence>
+            <motion.div
+              key={hasHover ? "success" : "error"}
+              initial={{ opacity: 0, height: "0px" }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: "0px" }}
+              transition={{ type: "tween" }}
+              style={{
+                backgroundColor: "white",
+                paddingBottom: "40px",
+              }}
+              onMouseEnter={() => setHasHover(true)}
+              onMouseLeave={() => setHasHover(false)}
+            >
+              <div className="containerMenuTwo">
+                <div className="containerItems">
+                  <div className="flex flex-col items-center">
+                    <div className="first">TREND</div>
+                    <div>Round</div>
+                    <div>Squared</div>
+                    <div>Cat eve</div>
+                    <div>Aviator</div>
+                    <div>Mask</div>
+                  </div>
+
+                  <div className="flex flex-col items-center">
+                    <div className="first">OCCASIONE</div>
+                    <div>Round</div>
+                    <div>Squared</div>
+                    <div>Cat eve</div>
+                    <div>Aviator</div>
+                    <div>Mask</div>
+                  </div>
+
+                  <div className="flex flex-col items-center">
+                    <div className="first">STILE</div>
+                    <div>Round</div>
+                    <div>Squared</div>
+                    <div>Cat eve</div>
+                    <div>Aviator</div>
+                    <div>Mask</div>
+                  </div>
+
+                  <div className="flex flex-col  items-center">
+                    <div className="first">SHAPE</div>
+                    <div>Round</div>
+                    <div>Squared</div>
+                    <div>Cat eve</div>
+                    <div>Aviator</div>
+                    <div>Mask</div>
+                  </div>
+                </div>
+                <div className="containerAdv">
+                  <div className="adv"></div>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       )}
       <AnimatePresence>
@@ -260,6 +330,49 @@ export const Navbar = () => {
           padding-left: 1.25rem;
           padding-right: 1.25rem;
           justify-content: space-between;
+        }
+
+        .fullScrennBackground {
+          height: 100%;
+          background-color: rgb(0 0 0/25%);
+          z-index: 99;
+          width: 100%;
+          margin-left: auto;
+          margin-right: auto;
+          position: absolute;
+        }
+
+        .containerMenuTwo {
+          max-width: 90rem;
+          margin-left: auto;
+          padding-top: 30px;
+          margin-right: auto;
+          padding-left: 1.25rem;
+          padding-right: 1.25rem;
+          display: flex;
+          justify-content: space-between;
+          z-index: 999;
+        }
+
+        .containerItems {
+          display: flex;
+          gap: 10rem;
+          width: 70%;
+        }
+
+        .containerAdv {
+          width: 30%;
+        }
+
+        .adv {
+          width: 90%;
+          height: 230px;
+          background-color: black;
+          border-radius: 15px;
+        }
+
+        .first {
+          margin-bottom: 10px;
         }
 
         .link {
