@@ -1,5 +1,5 @@
 //REACT
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 //NEXT
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -23,12 +23,20 @@ import menuBurgher from "../assets/images/menu-burger.svg";
 import cartIcon from "../assets/images/shopping-bag.svg";
 import homeIcon from "../assets/images/home.svg";
 
+import AlgoliaSearch from "../components/algolia-search";
+
+//Add FontAwesome
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
 export const Navbar = () => {
   //ROUTER
   const pathName = useRouter().pathname;
   //STORE
   const showDialogContact = useSelector(state => state.dialogContact.value);
   const showSideBar = useSelector(state => state.sideBar.value);
+  const language = useSelector(state => state.language.value);
+  const [isSearchActive, setIsSearchActive] = useState(false);
 
   const cart = useSelector(state => JSON.parse(state.cart.value));
   const showCart = useSelector(state => state.cart.show);
@@ -50,6 +58,15 @@ export const Navbar = () => {
     }
   }, []);
 
+  const openSearchModal = () => {
+    setIsSearchActive(true);
+    document.body.classList.add("overflow-hidden");
+  };
+
+  const closeSearchModal = () => {
+    setIsSearchActive(false);
+    document.body.classList.remove("overflow-hidden");
+  };
   const [hasHover, setHasHover] = useState(false);
 
   return (
@@ -159,8 +176,28 @@ export const Navbar = () => {
                 </div>
               </button>
             </Link>
+            <div
+              id="search-overlay"
+              className={`absolute w-screen h-screen top-0 left-0 z-50 bg-slate-400/75 transition-all duration-300 ${
+                isSearchActive ? "visible opacity-100" : "invisible opacity-0"
+              }`}
+              onClick={closeSearchModal}
+            >
+              {/* className="absolute top-50/100 left-50/100 min-w-[80%] min-h-[80%] translate-x-[-50%] translate-y-[-50%] bg-white" */}
+              <div
+                className="absolute top-[5%] left-[5%] w-[90%] h-[90%]  bg-white overflow-auto p-4"
+                onClick={e => e.stopPropagation()}
+              >
+                <AlgoliaSearch />
+              </div>
+            </div>
           </div>
-          <input style={{ border: "solid 1px", borderRadius: "10px" }} />
+          <FontAwesomeIcon
+            style={{ marginLeft: "2px", width: 12 }}
+            className="cursor-pointer"
+            icon={faSearch}
+            onClick={openSearchModal}
+          />
         </div>
       )}
       {isDesktop && hasHover && (

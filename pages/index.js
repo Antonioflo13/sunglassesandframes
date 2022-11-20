@@ -13,7 +13,7 @@ import Head from "next/head";
 import Script from "next/script";
 import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../store/modules/language";
-import AlgoliaSearch from "../components/algolia-search";
+// import AlgoliaSearch from "../components/algolia-search";
 
 const IndexPage = ({ articles }) => {
   //STORE
