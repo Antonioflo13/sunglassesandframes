@@ -133,7 +133,7 @@ const DesktopProduct = props => {
           .menu-button:hover,
           .menu-button:active,
           .menu-button:focus {
-            text-shadow: 0 0 1.5px black;
+            text-shadow: 0 0 1.2px black;
             border-width: 0 0 1px 0;
             border-color: black;
           }
@@ -159,7 +159,7 @@ const FormattedMessage = ({ values, ...props }) => (
   <OriginalFormattedMessage
     values={{
       b: chunk => <b>{chunk}</b>,
-      r: chunk => <b className="text-sunglassesandframes-red">{chunk}</b>,
+      r: chunk => <b className="text-sunglassesandframes-black">{chunk}</b>,
       ...values,
     }}
     {...props}

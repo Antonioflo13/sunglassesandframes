@@ -20,16 +20,13 @@ const SliderMenu = () => {
               <LinkMenu to="/designers">
                 <FormattedMessage id="sidebar.designers" />
               </LinkMenu>
-              <LinkMenu to="/boutiques">
-                <FormattedMessage id="sidebar.botiques" />
-              </LinkMenu>
           </div>
       ) : (
         <div className="sliderMenuMobile">
           <Swiper
-            slidesPerView={2.2}
+            slidesPerView={isTablet ? 2.2 : 2}
             centeredSlides={true}
-            spaceBetween={isTablet ? 200 : 370}
+            spaceBetween={isTablet ? 200 : 358}
             loop={true}
           >
             <div style={{ cursor: "pointer" }}>
@@ -41,11 +38,6 @@ const SliderMenu = () => {
               <SwiperSlide>
                 <LinkMenu to="/designers">
                   <FormattedMessage id="sidebar.designers" />
-                </LinkMenu>
-              </SwiperSlide>
-              <SwiperSlide>
-                <LinkMenu to="/botiques">
-                  <FormattedMessage id="sidebar.botiques" />
                 </LinkMenu>
               </SwiperSlide>
             </div>

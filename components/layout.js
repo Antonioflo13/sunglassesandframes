@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 //STORE
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 //HOOKS
 import useMediaQuery from "../hooks/useMediaQuery";
 //PROP-TYPES
@@ -47,21 +47,6 @@ const Layout = ({ children }) => {
   useEffect(() => {
     setBodyOverflow();
   }, [router]);
-  // useEffect(() => {
-  //   client().then(r => r);
-  // }, [language]);
-  //
-  // const client = async () => {
-  //   const buildClient = await Client.buildClient({
-  //     domain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN,
-  //     storefrontAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESSTOKEN,
-  //     language: language,
-  //   });
-  //   const checkout =  await buildClient.checkout.create();
-  //   const checkoutId = checkout.id;
-  //   setCookie("checkoutId", checkoutId, 90);
-  //   dispatch(setShopifyCheckout(JSON.stringify(checkout)));
-  // }
 
   return (
     <IntlProvider

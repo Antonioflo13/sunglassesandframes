@@ -69,9 +69,6 @@ const Sidebar = () => {
               <LinkMenu to="/designers" sidebar>
                 <FormattedMessage id="sidebar.designers" />
               </LinkMenu>
-              <LinkMenu to="/boutiques" sidebar>
-                <FormattedMessage id="sidebar.botiques" />
-              </LinkMenu>
               <LinkMenu to="/magazine" sidebar>
                 <FormattedMessage id="sidebar.magazine" />
               </LinkMenu>

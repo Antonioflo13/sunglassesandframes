@@ -42,7 +42,7 @@ export const Navbar = () => {
     .map(item => item.quantity)
     .reduce((prev, curr) => prev + curr, 0);
 
-  // USEEFFECT
+  // EFFECT
   useEffect(() => {
     let cartContent = getCookie("cart");
     if (cartContent) {
@@ -105,7 +105,7 @@ export const Navbar = () => {
                 <div
                   className={`${
                     pathName === "/magazine" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center`}
+                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
                 >
                   Magazine
                 </div>
@@ -120,7 +120,7 @@ export const Navbar = () => {
               <div
                 className={`${
                   pathName === "/shop" && "text-sunglassesandframes-red"
-                } flex flex-col justify-center items-center`}
+                } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
               >
                 Shop By
               </div>
@@ -131,7 +131,7 @@ export const Navbar = () => {
                 <div
                   className={`${
                     pathName === "/designers" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center`}
+                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
                 >
                   Our Designer
                 </div>
@@ -142,7 +142,7 @@ export const Navbar = () => {
                 <div
                   className={`${
                     pathName === "/newIn" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center`}
+                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
                 >
                   New in
                 </div>
@@ -153,7 +153,7 @@ export const Navbar = () => {
                 <div
                   className={`${
                     pathName === "/promotions" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center text-sunglassesandframes-red`}
+                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
                 >
                   Promotions
                 </div>
