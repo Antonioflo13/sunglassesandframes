@@ -1,8 +1,10 @@
 {
   "contact_us": "Contact us",
   "whatsapp": "WhatsApp",
+
   "navbar.extraordinary": "extraordinary",
   "navbar.eyeglasses": "eyeglasses",
+
   "home.contact_us": "Contact us",
   "home.appointment.title": "Book an\n<b>appointment</b>\nin boutique",
   "home.appointment.subtitle": "Discover our exclusive <b>Eyewear Concierge</b> service: our sales assistants are waiting for you!",
@@ -20,10 +22,12 @@
   "home.slider_monthly.title": " Monthly Highlight",
   "home.slider_monthly.text": "Oue <r>Eyewear Concierge</r> service is at your complete disposal. <b>Write us</b> to clarify any doubt and find your extraordinary eyewear!",
   "home.slider_articles.text": "<b>sunglassesandframes</b> represents our passion for design, innovation and research, turned into the eyewear world. Discover our world and enjoy the journey! :)",
+
   "designers.title": "sunglassesandframes – Designers",
   "designers.description": "",
   "designers.discover": "Discover",
   "designers.coming_soon": "Coming soon",
+
   "sidebar.header": "From <b>Tuesday</b> to <b>Saturday</b> 10:00-13:00 15:30-19:30. <b>Sunday</b> and <b>Monday</b> by appointment.",
   "sidebar.home": "HOME",
   "sidebar.designers": "DESIGNER",
@@ -34,8 +38,8 @@
   "sidebar.contacts": "CONTANCTS",
   "sidebar.faq": "FAQs",
   "sidebar.magazine": "MAGAZINE",
-  "sidebar.botiques": "BOUTIQUES",
   "sidebar.services": "Services",
+
   "collection.title": "sunglassesandframes – {collection}",
   "collection.sunglasses": "Sunglasses",
   "collection.optical": "Opticals",
@@ -44,11 +48,13 @@
   "collection.sunglasses_title": "\n<b>Extraordinary</b>\nsunglasses",
   "collection.optical_breadcrumbs": "Opticals",
   "collection.optical_title": "\n<b>Extraordinary</b>\nopticals",
+
   "contacts.title": "We are at your \n<b>disposal</b>",
   "contacts.subtitle": "Our Eyewear Concierge service is at your complete disposal. Write us to clarify any doubt and find your extraordinary eyewear!",
   "contacts.phone_alternative": "Alternatively, contact us at +39 320 63 30 888",
   "contacts.send": "send",
   "contacts.text": "We will automatically know that you are contacting us for",
+
   "product.title": "sunglassesandframes – {product}",
   "product.description": "{product}",
   "product.shipping_info": "We dispatch all orders within 24 hours to ensure you the best experience",
@@ -57,7 +63,9 @@
   "product.buy": "Buy",
   "product.contact_us": "ASK FOR PRICE",
   "product.specialEdition": "Special Edition",
+
   "breadcrumbs.designers": "Designers",
+
   "faq": "FAQs",
   "faq.page_title": "sunglassesandframes – FAQs",
   "faq.page_description": "",
@@ -90,6 +98,7 @@
   "faq.returns.1.description": "In order to organize a return, please visit our return policy page or drop us a line through our contact form.",
   "faq.returns.2.title": "Refunds",
   "faq.returns.2.description": "Refunds are automatically sent to the payment service used while ordering. The procedure takes up to 3 business days.",
+
   "services.title": "sunglassesandframes – Services",
   "services.description": "",
   "services.visit.title": "Eye test",
@@ -98,6 +107,7 @@
   "services.rebalance.description": "If your frames need a fix, we can do it for you. We will restore it to the best condition possible.",
   "services.assembly.title": "Express lenses customization",
   "services.assembly.description": "Our specialized team ensure express lenses customization for the most common issues.",
+
   "footer.contacts.title": "Contacts",
   "footer.contacts.email": "info@sunglassesandframes.vision",
   "footer.contacts.phone": "+39 320 63 30 888",
@@ -114,34 +124,41 @@
   "footer.credits.designed_by": "Designed by <b>Enrico Botta</b>",
   "footer.credits.copyright": "© 2021 <b>sunglassesandframes</b>",
   "footer.legal": "sunglassesandframes srl - P.IVA IT03943290985",
+
   "capsule.title": "sunglassesandframes – Capsule",
   "capsule.description": "",
   "capsule.0.title": "sunglassesandframes x RETROSUPERFUTURE",
   "capsule.0.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vulputate lobortis ligula sed molestie.",
   "capsule.1.title": "sunglassesandframes x JACQUE MARIE MAGE",
   "capsule.1.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vulputate lobortis ligula sed molestie.",
+
   "about.title": "sunglassesandframes – About",
   "about.who.title": "Our\n<b>team</b>",
   "about.who.description": "<b>sunglassesandframes</b> represents our passion for design, innovation and research, turned into the eyewear world.\n\nOur team is young, high-skilled and ready to offer you a service up to your expectations.\n\n",
   "about.who.description1": "\n\nOur Eyewear Concierge service is at your disposal to clarify any doubt and help with your new <b>extraordinary eyewear</b>",
   "about.where.title": "Where to\n<b>find us</b>",
   "about.where.description": "<b>sunglassesandframes</b> represents our passion for design, innovation and research, turned into the eyewear world.\n\nOur team is young, high-skilled and ready to offer you a service up to your expectations.",
+
   "directions": "Directions",
+
   "modal.call.title": "Choose the boutique you need to talk with",
   "modal.subtile": "Our Eyewear Concierge service it’s at your disposal\n in real time on <b>whatsapp</b>!",
   "modal.call": "Which boutique do you want to talk to?",
   "modal.maps": "Which boutique do you want to reach?",
   "modal.whatsapp": "Which boutique do you want to chat with?",
+
   "drawer.title": "YOUR SHOPPING BAG",
   "drawer.label_button": "GO TO CHECKOUT",
   "drawer.total": " TOTAL: €",
+
   "magazine.page_title": "sunglassesandframes - Magazine",
   "magazine.page_description": "",
-  "botiques.page_title": "sunglassesandframes - Botiques",
-  "botiques.page_description": "",
+
   "article.title": "sunglassesandframes – {article}",
   "article.description": "{article}",
+
   "breadcrumbs.magazine": "Magazine",
+
   "product.size.title": "size & fit",
   "product.details": "PRODUCT DETAILS",
   "product.size": "SIZE",
@@ -151,5 +168,6 @@
   "product.icon.worldwide.shipping": "Worldwide shipping",
   "product.money.back": "Money back guaranteed",
   "product.secure.payment": "Secure payment",
-  "product.trackable.orders": "Trackable orders"
+  "product.trackable.orders": "Trackable orders",
+  "product.delivery.and.returns": "DELIVERY & RETURNS"
 }

@@ -11,6 +11,7 @@ import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
 import logo from "../assets/images/logo.png";
 import { stores } from "../data/stores";
 import useMediaQuery from "../hooks/useMediaQuery";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Footer = () => {
   const [accordion, setAccordion] = React.useState({
@@ -93,19 +94,26 @@ const Footer = () => {
                   />
                 )}
               </div>
-              {accordion.contact && (
-                <>
-                  <div className="text-xs">
-                    <FormattedMessage id="footer.contacts.email" />
-                  </div>
-                  {stores.map(store => (
-                    <div key={store.id} style={{ marginTop: "10px" }}>
-                      <div className="font-bold text-sm">{store.name}</div>
-                      <div className="text-xs">{store.linkCall}</div>
+              <AnimatePresence>
+                {accordion.contact && (
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <div className="text-xs">
+                      <FormattedMessage id="footer.contacts.email" />
                     </div>
-                  ))}
-                </>
-              )}
+                    {stores.map(store => (
+                      <div key={store.id} style={{ marginTop: "10px" }}>
+                        <div className="font-bold text-sm">{store.name}</div>
+                        <div className="text-xs">{store.linkCall}</div>
+                      </div>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             <div className="flex flex-col accordionDesktop mt-20">
               <div className="font-bold uppercase text-sm">
@@ -169,39 +177,46 @@ const Footer = () => {
                   />
                 )}
               </div>
-              {accordion.support && (
-                <>
-                  <Link to="/faq">
-                    <div className="text-xs">
-                      <FormattedMessage id="footer.support.faq" />
-                    </div>
-                  </Link>
-                  <a
-                    href="https://sunglassesandframes-vision.myshopify.com/15652721/policies/terms-of-service.html?locale=en"
-                    target="_blank"
+              <AnimatePresence>
+                {accordion.support && (
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
                   >
-                    <div className="text-xs">
-                      <FormattedMessage id="footer.support.terms_and_conditions" />
-                    </div>
-                  </a>
-                  <a
-                    href="https://www.iubenda.com/privacy-policy/22164738"
-                    target="_blank"
-                  >
-                    <div className="text-xs">
-                      <FormattedMessage id="footer.support.privacy_policy" />
-                    </div>
-                  </a>
-                  <a
-                    href="https://www.iubenda.com/privacy-policy/22164738/cookie-policy"
-                    target="_blank"
-                  >
-                    <div className="text-xs">
-                      <FormattedMessage id="footer.support.cookie_policy" />
-                    </div>
-                  </a>
-                </>
-              )}
+                    <Link to="/faq">
+                      <div className="text-xs">
+                        <FormattedMessage id="footer.support.faq" />
+                      </div>
+                    </Link>
+                    <a
+                      href="https://sunglassesandframes-vision.myshopify.com/15652721/policies/terms-of-service.html?locale=en"
+                      target="_blank"
+                    >
+                      <div className="text-xs">
+                        <FormattedMessage id="footer.support.terms_and_conditions" />
+                      </div>
+                    </a>
+                    <a
+                      href="https://www.iubenda.com/privacy-policy/22164738"
+                      target="_blank"
+                    >
+                      <div className="text-xs">
+                        <FormattedMessage id="footer.support.privacy_policy" />
+                      </div>
+                    </a>
+                    <a
+                      href="https://www.iubenda.com/privacy-policy/22164738/cookie-policy"
+                      target="_blank"
+                    >
+                      <div className="text-xs">
+                        <FormattedMessage id="footer.support.cookie_policy" />
+                      </div>
+                    </a>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             <div className="flex flex-col accordionDesktop mt-20">
               <div className="font-bold uppercase text-sm">
@@ -232,17 +247,26 @@ const Footer = () => {
                   />
                 )}
               </div>
-              {accordion.wherIs && (
-                <div className="text-xs">
-                  {stores.map(store => (
-                    <div key={store.id} style={{ marginTop: "10px" }}>
-                      <div className="font-bold text-sm">{store.name}</div>
-                      <div className="text-xs">{store.address}</div>
-                      <div className="text-xs">{store.otheraddress}</div>
+              <AnimatePresence>
+                {accordion.wherIs && (
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <div className="text-xs">
+                      {stores.map(store => (
+                        <div key={store.id} style={{ marginTop: "10px" }}>
+                          <div className="font-bold text-sm">{store.name}</div>
+                          <div className="text-xs">{store.address}</div>
+                          <div className="text-xs">{store.otheraddress}</div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>
