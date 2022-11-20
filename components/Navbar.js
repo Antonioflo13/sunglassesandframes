@@ -153,23 +153,21 @@ export const Navbar = () => {
                 </div>
               </button>
             </Link>
-            {isSearchActive && (
+            <div
+              id="search-overlay"
+              className={`absolute w-screen h-screen top-0 left-0 z-50 bg-slate-400/75 transition-all duration-300 ${
+                isSearchActive ? "visible opacity-100" : "invisible opacity-0"
+              }`}
+              onClick={closeSearchModal}
+            >
+              {/* className="absolute top-50/100 left-50/100 min-w-[80%] min-h-[80%] translate-x-[-50%] translate-y-[-50%] bg-white" */}
               <div
-                id="search-overlay"
-                className={`absolute w-screen h-screen top-0 left-0 z-50 bg-slate-400/75 transition-all duration-300 ${
-                  isSearchActive ? "visible opacity-100" : "invisible opacity-0"
-                }`}
-                onClick={closeSearchModal}
+                className="absolute top-[5%] left-[5%] w-[90%] h-[90%]  bg-white overflow-auto p-4"
+                onClick={e => e.stopPropagation()}
               >
-                {/* className="absolute top-50/100 left-50/100 min-w-[80%] min-h-[80%] translate-x-[-50%] translate-y-[-50%] bg-white" */}
-                <div
-                  className="absolute top-[5%] left-[5%] w-[90%] h-[90%]  bg-white overflow-auto p-4"
-                  onClick={e => e.stopPropagation()}
-                >
-                  <AlgoliaSearch />
-                </div>
+                <AlgoliaSearch />
               </div>
-            )}
+            </div>
           </div>
           <FontAwesomeIcon
             style={{ marginLeft: "2px", width: 12 }}
