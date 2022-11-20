@@ -8,11 +8,12 @@ import {
 } from "react-instantsearch-dom";
 import { FormattedNumber } from "react-intl";
 import Link from "next/link";
+import AlgoliaSearchInput from "./AlgoliaSearchInput";
 
 const AlgoliaSearch = () => {
   const searchClient = algoliasearch(
-    "17WRZZ9Y8K",
-    "c89f0d7433b24a99b93de0fce9cd0f8c"
+    process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+    process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ADMIN_KEY
   );
 
   const Hit = props => {
@@ -52,7 +53,17 @@ const AlgoliaSearch = () => {
 
   return (
     <InstantSearch indexName="shopify_products" searchClient={searchClient}>
-      <SearchBox />
+      {/* <SearchBox
+        className="text-center"
+        autoFocus
+        reset
+        translations={{
+          submitTitle: "Submit your search query.",
+          resetTitle: "Clear your search query.",
+          placeholder: "Clicca qui!",
+        }}
+      /> */}
+      <AlgoliaSearchInput />
       <div className="mt-8 w-full">
         <Hits hitComponent={Hit} />
       </div>

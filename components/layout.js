@@ -33,9 +33,10 @@ const Layout = ({ children }) => {
     let body = document.querySelector("body");
     if (body && router.pathname === "/collections/[...product]") {
       body.style.overflow = "hidden";
+      document.body.classList.add("overflow-hidden");
     }
     if (body && router.pathname !== "/collections/[...product]") {
-      body.style.overflow = "auto";
+      document.body.classList.add("overflow-auto");
     }
   };
 

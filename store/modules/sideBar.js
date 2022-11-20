@@ -8,7 +8,9 @@ export const sideBarSlice = createSlice({
   reducers: {
     setSideBarShow: (state, action) => {
       state.value = action.payload;
-      document.body.style.overflow = action.payload ? "hidden" : "visible";
+      document.body.classList.add(
+        action.payload ? "overflow-hidden" : "overflow-visible"
+      );
     },
   },
 });
