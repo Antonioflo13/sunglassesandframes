@@ -122,7 +122,7 @@ export const Navbar = () => {
                 <div
                   className={`${
                     pathName === "/magazine" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
+                  } flex flex-col justify-center items-center hover:font-bold`}
                 >
                   Magazine
                 </div>
@@ -137,7 +137,7 @@ export const Navbar = () => {
               <div
                 className={`${
                   pathName === "/shop" && "text-sunglassesandframes-red"
-                } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
+                } flex flex-col justify-center items-center hover:text-bold`}
               >
                 Shop By
               </div>
@@ -148,7 +148,7 @@ export const Navbar = () => {
                 <div
                   className={`${
                     pathName === "/designers" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
+                  } flex flex-col justify-center items-center hover:text-bold`}
                 >
                   Our Designer
                 </div>
@@ -159,7 +159,7 @@ export const Navbar = () => {
                 <div
                   className={`${
                     pathName === "/newIn" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
+                  } flex flex-col justify-center items-center hover:text-bold`}
                 >
                   New in
                 </div>
@@ -170,7 +170,7 @@ export const Navbar = () => {
                 <div
                   className={`${
                     pathName === "/promotions" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
+                  } flex flex-col justify-center items-center text-sunglassesandframes-red hover:text-bold`}
                 >
                   Promotions
                 </div>
@@ -204,10 +204,9 @@ export const Navbar = () => {
         <div className="fullScrennBackground">
           <AnimatePresence>
             <motion.div
-              key={hasHover ? "success" : "error"}
               initial={{ opacity: 0, height: "0px" }}
               animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: "0px" }}
+              exit={{ opacity: 0, height: "auto" }}
               transition={{ type: "tween" }}
               style={{
                 backgroundColor: "white",

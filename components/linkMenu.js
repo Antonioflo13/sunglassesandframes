@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import imageMenu from "../assets/images/menu.jpg";
 import Image from "next/image";
 
-const LinkMenu = ({ children, to, sidebar }) => {
+const LinkMenu = ({ children, to, sidebar, image }) => {
   //STORE
   const dispatch = useDispatch();
 
@@ -46,8 +46,8 @@ const LinkMenu = ({ children, to, sidebar }) => {
                 style={{ objectFit: "cover" }}
                 sizes="100%"
                 placeholder="blur"
-                blurDataURL={imageMenu.src}
-                src={imageMenu.src}
+                blurDataURL={image}
+                src={image}
                 alt="imageMenu"
               />
               <div className="textMenu">{children}</div>

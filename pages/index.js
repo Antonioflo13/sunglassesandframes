@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 //API
 import getAllArticles from "../api/articles";
+import getShopBy from "../api/shopBy";
 //COMPONENTS
 import ModalsIcons from "../components/modalsIcons";
 import SliderMenu from "../components/slider-menu";
@@ -15,10 +16,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../store/modules/language";
 // import AlgoliaSearch from "../components/algolia-search";
 
-const IndexPage = ({ articles }) => {
+const IndexPage = ({ articles, shopBy }) => {
   //STORE
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.value);
+  const allShopBy = shopBy.data.allShopBies;
   //STATE
   const [show, setShown] = useState(false);
   articles = articles.data.allArticles;
@@ -116,7 +118,7 @@ const IndexPage = ({ articles }) => {
           {/* <AlgoliaSearch /> */}
           <SliderArticles articles={articles} />
           <SliderHomeCollection />
-          <SliderMenu />
+          <SliderMenu allShopBy={allShopBy} />
           {show && (
             <ModalsIcons
               selectSingleIcon={selectSingleIcon}
@@ -131,8 +133,9 @@ const IndexPage = ({ articles }) => {
 
 export async function getStaticProps() {
   const articles = await getAllArticles();
+  const shopBy = await getShopBy();
   return {
-    props: { articles },
+    props: { articles, shopBy },
   };
 }
 

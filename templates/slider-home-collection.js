@@ -9,7 +9,7 @@ const SliderHomeCollection = () => {
 
   return (
     <>
-      <div className="ml-1 text-xs uppercase font-bold mt-2 text-center">
+      <div className="mt-20 mb-10 text-center uppercase">
         <FormattedMessage id="home.slider_monthly.title" />
       </div>
       <div className="sliderCollection">
