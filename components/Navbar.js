@@ -75,19 +75,17 @@ export const Navbar = () => {
         {isDesktop ? (
           <img src={homeIcon.src} width={15} alt="icon-home" />
         ) : (
-          <>
+          <div style={{ display: "flex", gap: "5px" }}>
             <button
               className="text-black font-semibold text-xs md:text-sm"
               onClick={() => dispatch(setSideBarShow(!showSideBar))}
             >
-              {isDesktop ? (
-                <div style={{ fontSize: "10px" }}>MENU</div>
-              ) : (
+              {!isDesktop && (
                 <img src={menuBurgher.src} width={15} alt="burger-icon" />
               )}
             </button>
             <div>Q</div>
-          </>
+          </div>
         )}
 
         <Link href="/">
@@ -137,8 +135,9 @@ export const Navbar = () => {
             >
               <div
                 className={`${
-                  pathName === "/shop" &&
-                  "text-sunglassesandframes-black font-bold mackay"
+                  pathName === "/shop" ||
+                  (hasHover &&
+                    "text-sunglassesandframes-black font-bold mackay")
                 } flex flex-col justify-center items-center hover:font-bold mackay`}
               >
                 Shop By

@@ -84,13 +84,13 @@ const Footer = () => {
                   <FontAwesomeIcon
                     icon={faMinus}
                     className="containerIcon"
-                    width={20}
+                    width={10}
                   />
                 ) : (
                   <FontAwesomeIcon
                     icon={faPlus}
                     className="containerIcon"
-                    width={20}
+                    width={10}
                   />
                 )}
               </div>
@@ -167,13 +167,13 @@ const Footer = () => {
                   <FontAwesomeIcon
                     icon={faMinus}
                     className="containerIcon"
-                    width={20}
+                    width={10}
                   />
                 ) : (
                   <FontAwesomeIcon
                     icon={faPlus}
                     className="containerIcon"
-                    width={20}
+                    width={10}
                   />
                 )}
               </div>
@@ -237,13 +237,13 @@ const Footer = () => {
                   <FontAwesomeIcon
                     icon={faMinus}
                     className="containerIcon"
-                    width={20}
+                    width={10}
                   />
                 ) : (
                   <FontAwesomeIcon
                     icon={faPlus}
                     className="containerIcon"
-                    width={20}
+                    width={10}
                   />
                 )}
               </div>

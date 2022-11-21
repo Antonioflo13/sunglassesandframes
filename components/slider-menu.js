@@ -33,21 +33,17 @@ const SliderMenu = ({ allShopBy }) => {
             loop={true}
           >
             <div style={{ cursor: "pointer" }}>
-              <SwiperSlide>
-                <LinkMenu to="/">
-                  <FormattedMessage id="sidebar.home" />
-                </LinkMenu>
-              </SwiperSlide>
-              <SwiperSlide>
-                <LinkMenu to="/designers">
-                  <FormattedMessage id="sidebar.designers" />
-                </LinkMenu>
-              </SwiperSlide>
-              <SwiperSlide>
-                <LinkMenu to="/designers">
-                  <FormattedMessage id="sidebar.designers" />
-                </LinkMenu>
-              </SwiperSlide>
+              {allShopBy.map((item, key) => (
+                <SwiperSlide>
+                  <LinkMenu
+                    key={key}
+                    to={item.handle}
+                    image={item.backgroundImage.url}
+                  >
+                    <div className="uppercase">{item.item}</div>
+                  </LinkMenu>
+                </SwiperSlide>
+              ))}
             </div>
           </Swiper>
         </div>
