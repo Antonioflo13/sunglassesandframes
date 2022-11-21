@@ -23,13 +23,15 @@ import menuBurgher from "../assets/images/menu-burger.svg";
 import cartIcon from "../assets/images/shopping-bag.svg";
 import homeIcon from "../assets/images/home.svg";
 
+import Image from "next/image";
+
 import AlgoliaSearch from "../components/algolia-search";
 
 //Add FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-export const Navbar = () => {
+export const Navbar = ({ monthlyHighlight }) => {
   //ROUTER
   const pathName = useRouter().pathname;
   //STORE
@@ -68,6 +70,9 @@ export const Navbar = () => {
     document.body.classList.remove("overflow-hidden");
   };
   const [hasHover, setHasHover] = useState(false);
+  const itemMonthlyHighlight = monthlyHighlight?.data?.allMonthlyHighlights[0];
+
+  console.log("itemMonthlyHighlight", itemMonthlyHighlight);
 
   return (
     <>
@@ -258,7 +263,28 @@ export const Navbar = () => {
                   </div>
                 </div>
                 <div className="containerAdv">
-                  <div className="adv"></div>
+                  <Link href={itemMonthlyHighlight?.handle}>
+                    <div className="adv">
+                      <Image
+                        fill="true"
+                        style={{ objectFit: "cover" }}
+                        placeholder="blur"
+                        blurDataURL={itemMonthlyHighlight?.backgroundimage?.url}
+                        sizes="100%"
+                        priority={true}
+                        src={itemMonthlyHighlight?.backgroundimage?.url}
+                        alt="advImage"
+                      />
+                      <div className="containerTextAdv">
+                        <p className="textAdv">
+                          {itemMonthlyHighlight?.designer}
+                        </p>
+                        <p className="textAdv centertext">
+                          {itemMonthlyHighlight?.text}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
               </div>
             </motion.div>
@@ -371,7 +397,30 @@ export const Navbar = () => {
           width: 90%;
           height: 230px;
           background-color: black;
+          position: relative;
+          overflow: hidden;
           border-radius: 15px;
+        }
+
+        .containerTextAdv {
+          margin-left: auto;
+          margin-right: auto;
+          left: 0;
+          right: 0;
+          text-align: center;
+          position: absolute;
+          font-weight: bold;
+          color: white;
+          bottom: 30%;
+          text-shadow: 5px 5px 5px rgb(0 0 0 / 50%);
+        }
+
+        .textAdv {
+          text-transform: uppercase;
+        }
+
+        .centertext {
+          text-align: center;
         }
 
         .first {

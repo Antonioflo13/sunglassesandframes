@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 //API
 import getAllArticles from "../api/articles";
 import getShopBy from "../api/shopBy";
+import getMonthlyHighlight from "../api/monthlyHighlight";
 //COMPONENTS
 import ModalsIcons from "../components/modalsIcons";
 import SliderMenu from "../components/slider-menu";
@@ -16,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../store/modules/language";
 // import AlgoliaSearch from "../components/algolia-search";
 
-const IndexPage = ({ articles, shopBy }) => {
+const IndexPage = ({ articles, shopBy, monthlyHighlight }) => {
   //STORE
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.value);
@@ -113,7 +114,7 @@ const IndexPage = ({ articles, shopBy }) => {
 
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
       </Head>
-      <Layout articles={articles}>
+      <Layout articles={articles} monthlyHighlight={monthlyHighlight}>
         <AnimatedPage fullHeight>
           {/* <AlgoliaSearch /> */}
           <SliderArticles articles={articles} />
@@ -134,8 +135,9 @@ const IndexPage = ({ articles, shopBy }) => {
 export async function getStaticProps() {
   const articles = await getAllArticles();
   const shopBy = await getShopBy();
+  const monthlyHighlight = await getMonthlyHighlight();
   return {
-    props: { articles, shopBy },
+    props: { articles, shopBy, monthlyHighlight },
   };
 }
 
