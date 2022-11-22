@@ -72,8 +72,6 @@ export const Navbar = ({ monthlyHighlight }) => {
   const [hasHover, setHasHover] = useState(false);
   const itemMonthlyHighlight = monthlyHighlight?.data?.allMonthlyHighlights[0];
 
-  console.log("itemMonthlyHighlight", itemMonthlyHighlight);
-
   return (
     <>
       <div className="px-5 md:px-5 left-0 top-0 w-full h-20 bg-white flex items-center justify-between z-30 customWidthHeader">
@@ -263,13 +261,11 @@ export const Navbar = ({ monthlyHighlight }) => {
                   </div>
                 </div>
                 <div className="containerAdv">
-                  <Link href={itemMonthlyHighlight?.handle}>
+                  <Link href={`designers/${itemMonthlyHighlight?.handle}`}>
                     <div className="adv">
                       <Image
                         fill="true"
                         style={{ objectFit: "cover" }}
-                        placeholder="blur"
-                        blurDataURL={itemMonthlyHighlight?.backgroundimage?.url}
                         sizes="100%"
                         priority={true}
                         src={itemMonthlyHighlight?.backgroundimage?.url}

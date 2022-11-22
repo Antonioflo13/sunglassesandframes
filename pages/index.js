@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import getAllArticles from "../api/articles";
 import getShopBy from "../api/shopBy";
 import getMonthlyHighlight from "../api/monthlyHighlight";
+import { getCollection } from "../api/collections";
+import getDefaultProductImage from "../api/defaultProductImage";
 //COMPONENTS
 import ModalsIcons from "../components/modalsIcons";
 import SliderMenu from "../components/slider-menu";
@@ -17,7 +19,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../store/modules/language";
 // import AlgoliaSearch from "../components/algolia-search";
 
-const IndexPage = ({ articles, shopBy, monthlyHighlight }) => {
+const IndexPage = ({
+  articles,
+  shopBy,
+  monthlyHighlight,
+  monthlyHighlightCollection,
+  defaultProductImage,
+}) => {
   //STORE
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.value);
@@ -118,7 +126,10 @@ const IndexPage = ({ articles, shopBy, monthlyHighlight }) => {
         <AnimatedPage fullHeight>
           {/* <AlgoliaSearch /> */}
           <SliderArticles articles={articles} />
-          <SliderHomeCollection />
+          <SliderHomeCollection
+            monthlyHighlightCollection={monthlyHighlightCollection}
+            defaultProductImage={defaultProductImage}
+          />
           <SliderMenu allShopBy={allShopBy} />
           {show && (
             <ModalsIcons
@@ -136,8 +147,22 @@ export async function getStaticProps() {
   const articles = await getAllArticles();
   const shopBy = await getShopBy();
   const monthlyHighlight = await getMonthlyHighlight();
+  const shopifyCollectionHandle =
+    monthlyHighlight?.data?.allMonthlyHighlights[0]?.handle;
+
+  const monthlyHighlightCollection = await getCollection(
+    shopifyCollectionHandle,
+    20
+  );
+  const defaultProductImage = await getDefaultProductImage();
   return {
-    props: { articles, shopBy, monthlyHighlight },
+    props: {
+      articles,
+      shopBy,
+      monthlyHighlight,
+      monthlyHighlightCollection,
+      defaultProductImage,
+    },
   };
 }
 

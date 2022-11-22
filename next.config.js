@@ -2,6 +2,10 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["www.datocms-assets.com", "cdn.shopify.com"]
-  }
+    domains: [
+      "www.datocms-assets.com",
+      "cdn.shopify.com",
+      "via.placeholder.com",
+    ],
+  },
 };

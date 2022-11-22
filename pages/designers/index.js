@@ -2,6 +2,8 @@
 import React, { useState, useRef } from "react";
 //NEXT
 import Link from "next/link";
+import Head from "next/head";
+import Image from "next/image";
 //HOOKS
 import useMediaQuery from "../../hooks/useMediaQuery";
 //COMPONENTS
@@ -11,9 +13,9 @@ import { motion } from "framer-motion";
 import Layout from "../../components/layout";
 //API
 import { getAllCollections } from "../../api/collections";
-import Head from "next/head";
+import getMonthlyHighlight from "../../api/monthlyHighlight";
 
-const CollectionsPage = ({ collections }) => {
+const CollectionsPage = ({ collections, monthlyHighlight }) => {
   collections = collections.data.collections.nodes;
 
   //HOOKS
@@ -56,6 +58,8 @@ const CollectionsPage = ({ collections }) => {
       behavior: "smooth",
     });
   };
+
+  const itemMonthlyHighlight = monthlyHighlight?.data?.allMonthlyHighlights[0];
 
   return (
     <Layout>
@@ -138,7 +142,30 @@ const CollectionsPage = ({ collections }) => {
                 ))}
               </ul>
             </div>
-            <div className="containerCollectionPromo"></div>
+            {isDesktop && (
+              <div className="containerCollectionPromo">
+                <Link href={`designers/${itemMonthlyHighlight?.handle}`}>
+                  <div className="adv">
+                    <Image
+                      fill="true"
+                      style={{ objectFit: "cover" }}
+                      sizes="100%"
+                      priority={true}
+                      src={itemMonthlyHighlight?.backgroundimage?.url}
+                      alt="advImage"
+                    />
+                    <div className="containerTextAdv">
+                      <p className="textAdv">
+                        {itemMonthlyHighlight?.designer}
+                      </p>
+                      <p className="textAdv centertext">
+                        {itemMonthlyHighlight?.text}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
         {/*{!isDesktop && <Breadcrumbs title="Boutiques" />}*/}
@@ -175,6 +202,26 @@ const CollectionsPage = ({ collections }) => {
             background-color: black;
             height: 70vh;
             border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+          }
+
+          .containerTextAdv {
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            text-align: center;
+            position: absolute;
+            font-weight: bold;
+            color: white;
+            bottom: 30%;
+            text-shadow: 5px 5px 5px rgb(0 0 0 / 50%);
+          }
+
+          .textAdv {
+            text-transform: uppercase;
           }
 
           .containerCollections {
@@ -198,8 +245,9 @@ const CollectionsPage = ({ collections }) => {
 
 export async function getStaticProps() {
   const collections = await getAllCollections();
+  const monthlyHighlight = await getMonthlyHighlight();
   return {
-    props: { collections },
+    props: { collections, monthlyHighlight },
   };
 }
 
