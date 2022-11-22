@@ -152,7 +152,7 @@ export async function getStaticProps() {
 
   const monthlyHighlightCollection = await getCollection(
     shopifyCollectionHandle,
-    20
+    30
   );
   const defaultProductImage = await getDefaultProductImage();
   return {

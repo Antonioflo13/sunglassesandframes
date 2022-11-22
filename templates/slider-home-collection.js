@@ -54,7 +54,7 @@ const SliderHomeCollection = ({
                       fill="true"
                       sizes="100%"
                       priority={true}
-                      className="img-product"
+                      style={{ objectFit: "cover" }}
                       src={
                         item?.node?.variants?.edges[0]?.node?.product?.images
                           ?.nodes.length > 0
