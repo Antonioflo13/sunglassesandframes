@@ -6,7 +6,6 @@ import useMediaQuery from "../hooks/useMediaQuery";
 
 const SliderMenu = ({ allShopBy }) => {
   const isDesktop = useMediaQuery(1024);
-  const isTablet = useMediaQuery(767);
   return (
     <>
       <div className="mt-20 mb-10" style={{ textAlign: "center" }}>
@@ -14,7 +13,7 @@ const SliderMenu = ({ allShopBy }) => {
       </div>
       {isDesktop ? (
         <div className="sliderMenu">
-          {allShopBy.map((item, key) => (
+          {allShopBy?.map((item, key) => (
             <LinkMenu
               key={key}
               to={item.handle}
@@ -33,7 +32,7 @@ const SliderMenu = ({ allShopBy }) => {
             loop={true}
           >
             <div style={{ cursor: "pointer" }}>
-              {allShopBy.map((item, key) => (
+              {allShopBy?.map((item, key) => (
                 <SwiperSlide>
                   <LinkMenu
                     key={key}
