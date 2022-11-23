@@ -29,7 +29,7 @@ const IndexPage = ({
   //STORE
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.value);
-  const allShopBy = shopBy.data.allShopBies;
+  const allShopBy = shopBy?.data?.allShopBies;
   //STATE
   const [show, setShown] = useState(false);
   articles = articles.data.allArticles;
