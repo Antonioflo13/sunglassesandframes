@@ -31,8 +31,7 @@ const Product = ({
   cursor,
   hasMore,
 }) => {
-
-  const product = {node:resProduct.data.product};
+  const product = { node: resProduct.data.product };
 
   //STORE
   const language = useSelector(state => state.language.value);
@@ -40,7 +39,6 @@ const Product = ({
 
   //HOOKS
   const isDesktop = useMediaQuery(768);
-
 
   const relatedProducts = CollectionProducts.data.collection.products.edges;
 
@@ -59,10 +57,12 @@ const Product = ({
     if (!checkoutId) {
       await shopifyBuildClient("createCheckout", language);
     }
+
     const items = {
-      variantId: productId || product.variants.edges[0].node.id,
+      variantId: product.node.variants.edges[0].node.id,
       quantity: 1,
     };
+
     const updatedCheckout = await shopifyBuildClient(
       "updateCheckout",
       language,
@@ -147,10 +147,10 @@ export async function getServerSideProps({ query }) {
   const cursor = query.cursor;
   const resProduct = await getProduct(productHandle);
   let CollectionProducts = await getCollection(collectionHandle, 20, cursor);
-  const hasMore = CollectionProducts.data.collection.products.pageInfo.hasNextPage;
-  const productNode = {node: resProduct.data.product};
+  const hasMore =
+    CollectionProducts.data.collection.products.pageInfo.hasNextPage;
+  const productNode = { node: resProduct.data.product };
   CollectionProducts.data.collection.products.edges.unshift(productNode);
-
 
   return {
     props: {

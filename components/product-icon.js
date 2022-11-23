@@ -8,7 +8,7 @@ import HandShake from "../assets/images/product-page/hand-shake.png";
 import Transaction from "../assets/images/product-page/transaction.png";
 import Worldwide from "../assets/images/product-page/worldwide.png";
 
-const ProductIcon = () => {
+const ProductIcon = ({ fontSize }) => {
   const icons = [
     {
       icon: Badge,
@@ -57,7 +57,7 @@ const ProductIcon = () => {
                 alt={icon.alt}
               />
             </div>
-            <div className="text-container">
+            <div style={{ fontSize: fontSize }} className="text-container">
               <FormattedMessage id={icon.description} />
             </div>
           </div>

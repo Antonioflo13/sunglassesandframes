@@ -147,9 +147,15 @@
   "modal.maps": "Which boutique do you want to reach?",
   "modal.whatsapp": "Which boutique do you want to chat with?",
 
-  "drawer.title": "YOUR SHOPPING BAG",
+  "drawer.title": "SHOPPING BAG",
   "drawer.label_button": "GO TO CHECKOUT",
-  "drawer.total": " TOTAL: €",
+  "drawer.total": " Total",
+  "drawer.quantity": "Quantity",
+  "drawer.summary": "Summary",
+  "drawer.subtotal": "Subtotal",
+  "drawer.delivery": "Delivery",
+  "drawer.empty": "Your bag is empty Add a product to your bag",
+  "drawer.ship.by": "Sending from Italy",
 
   "magazine.page_title": "sunglassesandframes - Magazine",
   "magazine.page_description": "",

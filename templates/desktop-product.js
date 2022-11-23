@@ -35,9 +35,12 @@ const DesktopProduct = props => {
             <div className="mb-2">
               <FormattedNumber
                 style="currency" // eslint-disable-line
-                value={shopifyProduct.node.variants.edges[0].node.priceV2.amount}
+                value={
+                  shopifyProduct.node.variants.edges[0].node.priceV2.amount
+                }
                 currency={
-                  shopifyProduct.node.variants.edges[0].node.priceV2.currencyCode
+                  shopifyProduct.node.variants.edges[0].node.priceV2
+                    .currencyCode
                 }
                 minimumFractionDigits={0}
               />
@@ -139,7 +142,7 @@ const DesktopProduct = props => {
           }
 
           .product-description {
-          line-height: 1.4rem;
+            line-height: 1.4rem;
             width: 30%;
           }
 
