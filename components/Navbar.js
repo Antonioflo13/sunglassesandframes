@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { setDialogContactShow } from "../store/modules/dialogContact";
 import { setSideBarShow } from "../store/modules/sideBar";
-import { setCartContent, setShowCart } from "../store/modules/cart";
+import { setCartContent } from "../store/modules/cart";
 //HOOKS
 import useMediaQuery from "../hooks/useMediaQuery";
 import { getCookie } from "../utils/cookie";
@@ -102,22 +102,14 @@ export const Navbar = ({ monthlyHighlight }) => {
             </div>
           </button>
         </Link>
-        <button
+        <Link
+          href="/cart"
           className="text-black font-semibold text-xs md:text-sm"
           style={{ fontSize: "10px" }}
-          onClick={() => dispatch(setShowCart(true))}
         >
           <img src={cartIcon.src} width={15} alt="cart-icon" />
           {/* <div>({totalQuantity})</div> */}
-        </button>
-        {showCart && (
-          <Drawer
-            handleClose={() => {
-              dispatch(setShowCart(false));
-            }}
-            setShowCart={r => dispatch(setCart(r))}
-          />
-        )}
+        </Link>
       </div>
       {isDesktop && (
         <div className="customWidthHeaderTwo">
@@ -306,32 +298,7 @@ export const Navbar = ({ monthlyHighlight }) => {
           />
         )}
       </AnimatePresence>
-      <AnimatePresence>
-        {showCart && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ type: "tween" }}
-            style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-            className="fixed top-0 right-0 h-full w-full z-10"
-            onClick={() => {
-              dispatch(setShowCart(false));
-            }}
-          />
-        )}
-      </AnimatePresence>
       <AnimatePresence>{showSideBar && <Sidebar />}</AnimatePresence>
-      <AnimatePresence>
-        {showCart && (
-          <Drawer
-            handleClose={() => {
-              dispatch(setShowCart(false));
-            }}
-            setShowCart={r => dispatch(setShowCart(r))}
-          />
-        )}
-      </AnimatePresence>
       <AnimatePresence>
         {showDialogContact && (
           <Contact setShown={dispatch(setDialogContactShow(true))} />

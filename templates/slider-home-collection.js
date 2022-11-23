@@ -89,8 +89,7 @@ const SliderHomeCollection = ({
           }
           @media (max-width: 768px) {
             .container-slider {
-              cursor: pointer;
-              width: 160px;
+              height: 150px;
             }
           }
           .sliderCollection {

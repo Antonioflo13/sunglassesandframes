@@ -27,9 +27,9 @@ const SliderMenu = ({ allShopBy }) => {
       ) : (
         <div className="sliderMenuMobile">
           <Swiper
-            slidesPerView={isTablet ? 2.2 : 2}
+            slidesPerView={2.4}
             centeredSlides={true}
-            spaceBetween={isTablet ? 200 : 358}
+            spaceBetween={30}
             loop={true}
           >
             <div style={{ cursor: "pointer" }}>
