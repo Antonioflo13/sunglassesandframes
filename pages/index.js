@@ -29,7 +29,6 @@ const IndexPage = ({
   //STORE
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.value);
-  const allShopBy = shopBy?.data?.allShopBies;
   //STATE
   const [show, setShown] = useState(false);
   articles = articles.data.allArticles;
@@ -50,6 +49,11 @@ const IndexPage = ({
     }
   };
 
+  console.log("shopBy", shopBy);
+  console.log("monthlyHighlight", monthlyHighlight);
+  console.log("monthlyHighlightCollection", monthlyHighlightCollection);
+  console.log("defaultProductImage", defaultProductImage);
+
   const [shopByRes, setShopByRes] = useState();
   const [monthlyHighlightRes, setMonthlyHighlightRes] = useState();
   const [monthlyHighlightCollectionRes, setMonthlyHighlightCollectionRes] =
@@ -59,10 +63,14 @@ const IndexPage = ({
   useEffect(() => {
     handlerCookieScript();
     setLanguageByBrowser();
-    setShopByRes(allShopBy);
-    setMonthlyHighlightRes(monthlyHighlight);
-    setMonthlyHighlightCollectionRes(monthlyHighlightCollection);
-    setDefaultProductImageRes(defaultProductImage);
+    setShopByRes(shopBy?.data?.allShopBies);
+    setMonthlyHighlightRes(monthlyHighlight?.data?.allMonthlyHighlights[0]);
+    setMonthlyHighlightCollectionRes(
+      monthlyHighlightCollection.data?.collection?.products?.edges
+    );
+    setDefaultProductImageRes(
+      defaultProductImage?.data?.defaultProductImage?.image?.url
+    );
   }, []);
 
   return (
