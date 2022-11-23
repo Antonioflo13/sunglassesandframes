@@ -30,7 +30,13 @@ const LinkMenu = ({ children, to, sidebar, image }) => {
         }}
       >
         <Link href={to}>
-          <p className="mt-3 font-semibold text-xs uppercase">{children}</p>
+          <p
+            className={`mt-3 font-semibold  ${
+              sidebar ? "text-l" : "text-xs uppercase"
+            }`}
+          >
+            {children}
+          </p>
         </Link>
       </motion.button>
     );

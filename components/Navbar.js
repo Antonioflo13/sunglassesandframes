@@ -1,5 +1,6 @@
 //REACT
 import React, { useState, useEffect } from "react";
+
 //NEXT
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -30,6 +31,7 @@ import AlgoliaSearch from "../components/algolia-search";
 //Add FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 
 export const Navbar = ({ monthlyHighlight }) => {
   //ROUTER
@@ -83,8 +85,10 @@ export const Navbar = ({ monthlyHighlight }) => {
               className="text-black font-semibold text-xs md:text-sm"
               onClick={() => dispatch(setSideBarShow(!showSideBar))}
             >
-              {!isDesktop && (
+              {!isDesktop && !showSideBar ? (
                 <img src={menuBurgher.src} width={15} alt="burger-icon" />
+              ) : (
+                <FontAwesomeIcon icon={faXmark} width={10} />
               )}
             </button>
             <div>Q</div>
