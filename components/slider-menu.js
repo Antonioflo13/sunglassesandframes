@@ -1,11 +1,11 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
 import { Swiper, SwiperSlide } from "swiper/react";
 import LinkMenu from "../components/linkMenu";
 import useMediaQuery from "../hooks/useMediaQuery";
 
 const SliderMenu = ({ allShopBy }) => {
   const isDesktop = useMediaQuery(1024);
+
   return (
     <>
       <div className="mt-20 mb-10" style={{ textAlign: "center" }}>

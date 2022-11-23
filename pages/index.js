@@ -50,9 +50,19 @@ const IndexPage = ({
     }
   };
 
+  const [shopByRes, setShopByRes] = useState();
+  const [monthlyHighlightRes, setMonthlyHighlightRes] = useState();
+  const [monthlyHighlightCollectionRes, setMonthlyHighlightCollectionRes] =
+    useState();
+  const [defaultProductImageRes, setDefaultProductImageRes] = useState();
+
   useEffect(() => {
     handlerCookieScript();
     setLanguageByBrowser();
+    setShopByRes(allShopBy);
+    setMonthlyHighlightRes(monthlyHighlight);
+    setMonthlyHighlightCollectionRes(monthlyHighlightCollection);
+    setDefaultProductImageRes(defaultProductImage);
   }, []);
 
   return (
@@ -122,15 +132,15 @@ const IndexPage = ({
 
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
       </Head>
-      <Layout articles={articles} monthlyHighlight={monthlyHighlight}>
+      <Layout articles={articles} monthlyHighlight={monthlyHighlightRes}>
         <AnimatedPage fullHeight>
           {/* <AlgoliaSearch /> */}
           <SliderArticles articles={articles} />
           <SliderHomeCollection
-            monthlyHighlightCollection={monthlyHighlightCollection}
-            defaultProductImage={defaultProductImage}
+            monthlyHighlightCollection={monthlyHighlightCollectionRes}
+            defaultProductImage={defaultProductImageRes}
           />
-          <SliderMenu allShopBy={allShopBy} />
+          <SliderMenu allShopBy={shopByRes} />
           {show && (
             <ModalsIcons
               selectSingleIcon={selectSingleIcon}
