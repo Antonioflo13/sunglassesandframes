@@ -41,6 +41,7 @@ const Cart = () => {
   const isDesktop = useMediaQuery(768);
 
   //FUNCTIONS
+
   const handleAddItem = async id => {
     setIsLoading(true);
     const item = [
