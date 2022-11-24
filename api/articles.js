@@ -3,7 +3,7 @@ import request from "./request";
 async function getAllArticles() {
   const query = `
 {
-    allArticles(orderBy: _createdAt_ASC, locale: it) {
+    allArticles(orderBy: _createdAt_ASC) {
           id
           title
           titlemagazine
