@@ -5,10 +5,16 @@ import {
   SearchBox,
   Hits,
   Highlight,
+  Stats,
+  SortBy,
+  Pagination,
 } from "react-instantsearch-dom";
 import { FormattedNumber } from "react-intl";
 import Link from "next/link";
 import AlgoliaSearchInput from "./AlgoliaSearchInput";
+
+import logo from "../assets/images/logo.png";
+import Image from "next/image";
 
 const AlgoliaSearch = () => {
   const searchClient = algoliasearch(
@@ -20,7 +26,7 @@ const AlgoliaSearch = () => {
     return (
       <div>
         <Link href={`/designers/${props.hit.vendor}/${props.hit.handle}`}>
-          <div className="w-full flex flex-col items-center">
+          <div className="w-full flex flex-col items-center text-center">
             <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
               <div className="absolute top-0 w-full h-full">
                 <img
@@ -32,18 +38,31 @@ const AlgoliaSearch = () => {
                 />
               </div>
             </div>
-            <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead mt-2">
-              {props.hit.vendor}
+            <div className="hit-name">
+              <Highlight
+                attribute="vendor"
+                hit={props.hit}
+                // className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead mt-2"
+              />
             </div>
-            <div className="ml-1 text-xs uppercase font-bold mt-2">
-              {props.hit.title}
+            {/* {props.hit.vendor} */}
+            {/* </Highlight> */}
+            <div className="hit-name">
+              <Highlight
+                attribute="title"
+                hit={props.hit}
+                // className="ml-1 text-xs uppercase font-bold mt-2"
+              />
             </div>
+            {/* {props.hit.title} */}
+            {/* </Highlight> */}
             <p className="text-2xs">
               <FormattedNumber
                 style="currency"
                 value={props.hit.price}
                 minimumFractionDigits={2}
               />
+              {" €"}
             </p>
           </div>
         </Link>
@@ -63,9 +82,28 @@ const AlgoliaSearch = () => {
           placeholder: "Clicca qui!",
         }}
       /> */}
-      <AlgoliaSearchInput />
+      <div className="flex justify-center items-center mb-3">
+        <Link href="/">
+          <Image src={logo.src} width={150} height={100} alt="logo" />
+        </Link>
+      </div>
+      <div className="mb-5">
+        <AlgoliaSearchInput />
+      </div>
+      <Stats />
+      <SortBy
+        defaultRefinement="shopify_products"
+        items={[
+          { value: "shopify_products", label: "Featured" },
+          { value: "shopify_products_price_asc", label: "Price asc." },
+          { value: "shopify_products_price_desc", label: "Price desc." },
+        ]}
+      />
       <div className="mt-8 w-full">
         <Hits hitComponent={Hit} />
+      </div>
+      <div className="pagination flex justify-center p-5">
+        <Pagination showLast />
       </div>
     </InstantSearch>
   );
