@@ -1,54 +1,53 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
 import { Swiper, SwiperSlide } from "swiper/react";
 import LinkMenu from "../components/linkMenu";
 import useMediaQuery from "../hooks/useMediaQuery";
 
-const SliderMenu = () => {
+const SliderMenu = ({ allShopBy }) => {
   const isDesktop = useMediaQuery(1024);
-    const isTablet = useMediaQuery(767);
+
   return (
     <>
       <div className="mt-20 mb-10" style={{ textAlign: "center" }}>
         SHOP BY
       </div>
       {isDesktop ? (
-          <div className="sliderMenu">
-              <LinkMenu to="/">
-                <FormattedMessage id="sidebar.home" />
-              </LinkMenu>
-              <LinkMenu to="/designers">
-                <FormattedMessage id="sidebar.designers" />
-              </LinkMenu>
-          </div>
+        <div className="sliderMenu">
+          {allShopBy?.map((item, key) => (
+            <LinkMenu
+              key={key}
+              to={item.handle}
+              image={item.backgroundImage.url}
+            >
+              <div className="uppercase">{item.item}</div>
+            </LinkMenu>
+          ))}
+        </div>
       ) : (
         <div className="sliderMenuMobile">
           <Swiper
-            slidesPerView={isTablet ? 2.2 : 2}
+            slidesPerView={2.4}
             centeredSlides={true}
-            spaceBetween={isTablet ? 200 : 358}
+            spaceBetween={30}
             loop={true}
           >
             <div style={{ cursor: "pointer" }}>
-              <SwiperSlide>
-                <LinkMenu to="/">
-                  <FormattedMessage id="sidebar.home" />
-                </LinkMenu>
-              </SwiperSlide>
-              <SwiperSlide>
-                <LinkMenu to="/designers">
-                  <FormattedMessage id="sidebar.designers" />
-                </LinkMenu>
-              </SwiperSlide>
+              {allShopBy?.map((item, key) => (
+                <SwiperSlide key={key}>
+                  <LinkMenu to={item.handle} image={item.backgroundImage.url}>
+                    <div className="uppercase">{item.item}</div>
+                  </LinkMenu>
+                </SwiperSlide>
+              ))}
             </div>
           </Swiper>
         </div>
       )}
       <style jsx="true">{`
         .sliderMenu {
-        display: flex;
-        justify-content: center;
-        gap: 70px;
+          display: flex;
+          justify-content: center;
+          gap: 70px;
           padding-bottom: 40px;
           margin-left: auto;
           margin-right: auto;
@@ -56,7 +55,7 @@ const SliderMenu = () => {
           -ms-overflow-style: none; /* for Internet Explorer, Edge */
           scrollbar-width: none; /* for Firefox */
         }
-        
+
         .sliderMenu::-webkit-scrollbar {
           display: none; /* for Chrome, Safari, and Opera */
         }

@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import imageMenu from "../assets/images/menu.jpg";
 import Image from "next/image";
 
-const LinkMenu = ({ children, to, sidebar }) => {
+const LinkMenu = ({ children, to, sidebar, image }) => {
   //STORE
   const dispatch = useDispatch();
 
@@ -30,7 +30,13 @@ const LinkMenu = ({ children, to, sidebar }) => {
         }}
       >
         <Link href={to}>
-          <p className="mt-3 font-semibold text-xs uppercase">{children}</p>
+          <p
+            className={`mt-3 font-semibold  ${
+              sidebar ? "text-l" : "text-xs uppercase"
+            }`}
+          >
+            {children}
+          </p>
         </Link>
       </motion.button>
     );
@@ -46,8 +52,8 @@ const LinkMenu = ({ children, to, sidebar }) => {
                 style={{ objectFit: "cover" }}
                 sizes="100%"
                 placeholder="blur"
-                blurDataURL={imageMenu.src}
-                src={imageMenu.src}
+                blurDataURL={image}
+                src={image}
                 alt="imageMenu"
               />
               <div className="textMenu">{children}</div>
@@ -57,9 +63,9 @@ const LinkMenu = ({ children, to, sidebar }) => {
         <style jsx="true">{`
           .containerItemMenu {
             position: relative;
-            border-radius: 25px;
-            height: 150px !important;
-            width: 370px !important;
+            border-radius: 20px;
+            height: 135px;
+            width: 350px;
             overflow: hidden;
           }
 
@@ -82,8 +88,8 @@ const LinkMenu = ({ children, to, sidebar }) => {
             }
 
             .containerItemMenu {
-              height: 70px;
-              width: 165px;
+              height: 110px;
+              width: 150px;
             }
           }
         `}</style>

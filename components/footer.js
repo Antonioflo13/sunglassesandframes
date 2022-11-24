@@ -39,10 +39,10 @@ const Footer = () => {
               <div className="font-bold uppercase text-sm">
                 <FormattedMessage id="footer.contacts.title" />
               </div>
-              <div className="text-xs">
+              <div className="text-xs mt-2 ">
                 <FormattedMessage id="footer.contacts.email" />
               </div>
-              <div className="text-xs">
+              <div className="text-xs mt-2 ">
                 <FormattedMessage id="footer.contacts.phone" />
               </div>
             </div>
@@ -84,13 +84,13 @@ const Footer = () => {
                   <FontAwesomeIcon
                     icon={faMinus}
                     className="containerIcon"
-                    width={20}
+                    width={10}
                   />
                 ) : (
                   <FontAwesomeIcon
                     icon={faPlus}
                     className="containerIcon"
-                    width={20}
+                    width={10}
                   />
                 )}
               </div>
@@ -102,13 +102,13 @@ const Footer = () => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    <div className="text-xs">
+                    <div className="text-xs mt-2 ">
                       <FormattedMessage id="footer.contacts.email" />
                     </div>
                     {stores.map(store => (
                       <div key={store.id} style={{ marginTop: "10px" }}>
                         <div className="font-bold text-sm">{store.name}</div>
-                        <div className="text-xs">{store.linkCall}</div>
+                        <div className="text-xs mt-2 ">{store.linkCall}</div>
                       </div>
                     ))}
                   </motion.div>
@@ -149,7 +149,7 @@ const Footer = () => {
               <div className="font-bold uppercase text-sm">
                 <FormattedMessage id="footer.support.title" />
               </div>
-              <div className="text-xs">
+              <div className="text-xs mt-2 ">
                 <FormattedMessage id="footer.contacts.email" />
               </div>
             </div>
@@ -167,13 +167,13 @@ const Footer = () => {
                   <FontAwesomeIcon
                     icon={faMinus}
                     className="containerIcon"
-                    width={20}
+                    width={10}
                   />
                 ) : (
                   <FontAwesomeIcon
                     icon={faPlus}
                     className="containerIcon"
-                    width={20}
+                    width={10}
                   />
                 )}
               </div>
@@ -186,7 +186,7 @@ const Footer = () => {
                     exit={{ opacity: 0 }}
                   >
                     <Link to="/faq">
-                      <div className="text-xs">
+                      <div className="text-xs mt-2 ">
                         <FormattedMessage id="footer.support.faq" />
                       </div>
                     </Link>
@@ -194,7 +194,7 @@ const Footer = () => {
                       href="https://sunglassesandframes-vision.myshopify.com/15652721/policies/terms-of-service.html?locale=en"
                       target="_blank"
                     >
-                      <div className="text-xs">
+                      <div className="text-xs mt-2 ">
                         <FormattedMessage id="footer.support.terms_and_conditions" />
                       </div>
                     </a>
@@ -202,7 +202,7 @@ const Footer = () => {
                       href="https://www.iubenda.com/privacy-policy/22164738"
                       target="_blank"
                     >
-                      <div className="text-xs">
+                      <div className="text-xs mt-2 ">
                         <FormattedMessage id="footer.support.privacy_policy" />
                       </div>
                     </a>
@@ -210,7 +210,7 @@ const Footer = () => {
                       href="https://www.iubenda.com/privacy-policy/22164738/cookie-policy"
                       target="_blank"
                     >
-                      <div className="text-xs">
+                      <div className="text-xs mt-2 ">
                         <FormattedMessage id="footer.support.cookie_policy" />
                       </div>
                     </a>
@@ -237,13 +237,13 @@ const Footer = () => {
                   <FontAwesomeIcon
                     icon={faMinus}
                     className="containerIcon"
-                    width={20}
+                    width={10}
                   />
                 ) : (
                   <FontAwesomeIcon
                     icon={faPlus}
                     className="containerIcon"
-                    width={20}
+                    width={10}
                   />
                 )}
               </div>
@@ -255,12 +255,14 @@ const Footer = () => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    <div className="text-xs">
+                    <div className="text-xs mt-2 ">
                       {stores.map(store => (
                         <div key={store.id} style={{ marginTop: "10px" }}>
                           <div className="font-bold text-sm">{store.name}</div>
-                          <div className="text-xs">{store.address}</div>
-                          <div className="text-xs">{store.otheraddress}</div>
+                          <div className="text-xs mt-2 ">{store.address}</div>
+                          <div className="text-xs mt-2 ">
+                            {store.otheraddress}
+                          </div>
                         </div>
                       ))}
                     </div>

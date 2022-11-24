@@ -2,6 +2,10 @@
 import React, { useEffect, useState } from "react";
 //API
 import getAllArticles from "../api/articles";
+import getShopBy from "../api/shopBy";
+import getMonthlyHighlight from "../api/monthlyHighlight";
+import { getCollection } from "../api/collections";
+import getDefaultProductImage from "../api/defaultProductImage";
 //COMPONENTS
 import ModalsIcons from "../components/modalsIcons";
 import SliderMenu from "../components/slider-menu";
@@ -13,12 +17,18 @@ import Head from "next/head";
 import Script from "next/script";
 import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../store/modules/language";
-// import AlgoliaSearch from "../components/algolia-search";
 
-const IndexPage = ({ articles }) => {
+const IndexPage = ({
+  articles,
+  shopBy,
+  monthlyHighlight,
+  monthlyHighlightCollection,
+  defaultProductImage,
+}) => {
   //STORE
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.value);
+  const allShopBy = shopBy?.data?.allShopBies;
   //STATE
   const [show, setShown] = useState(false);
   articles = articles.data.allArticles;
@@ -111,12 +121,14 @@ const IndexPage = ({ articles }) => {
 
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
       </Head>
-      <Layout articles={articles}>
+      <Layout articles={articles} monthlyHighlight={monthlyHighlight}>
         <AnimatedPage fullHeight>
-          {/* <AlgoliaSearch /> */}
           <SliderArticles articles={articles} />
-          <SliderHomeCollection />
-          <SliderMenu />
+          <SliderHomeCollection
+            monthlyHighlightCollection={monthlyHighlightCollection}
+            defaultProductImage={defaultProductImage}
+          />
+          <SliderMenu allShopBy={allShopBy} />
           {show && (
             <ModalsIcons
               selectSingleIcon={selectSingleIcon}
@@ -131,8 +143,24 @@ const IndexPage = ({ articles }) => {
 
 export async function getStaticProps() {
   const articles = await getAllArticles();
+  const shopBy = await getShopBy();
+  const monthlyHighlight = await getMonthlyHighlight();
+  const shopifyCollectionHandle =
+    monthlyHighlight?.data?.allMonthlyHighlights[0]?.handle;
+
+  const monthlyHighlightCollection = await getCollection(
+    shopifyCollectionHandle,
+    30
+  );
+  const defaultProductImage = await getDefaultProductImage();
   return {
-    props: { articles },
+    props: {
+      articles,
+      shopBy,
+      monthlyHighlight,
+      monthlyHighlightCollection,
+      defaultProductImage,
+    },
   };
 }
 

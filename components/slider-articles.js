@@ -74,12 +74,9 @@ const SliderArticles = ({ articles }) => {
           </div>
         </Swiper>
       </div>
-      <div className="ml-1 text-xs mt-6 mb-20 text-center px-5">
-        <FormattedMessage id="home.slider_articles.text" />
-      </div>
       <style jsx="true">{`
         .image-container {
-        position: relative;
+          position: relative;
           height: 347px;
         }
 

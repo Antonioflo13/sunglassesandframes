@@ -43,7 +43,7 @@ async function getCollection(collection, first, cursor) {
     image {
         src
     }
-    products(first: ${first}, ${cursor ? `after: "${cursor}"`: ''}) {
+    products(first: ${first}, ${cursor ? `after: "${cursor}"` : ""}) {
       pageInfo {
         endCursor
         hasNextPage

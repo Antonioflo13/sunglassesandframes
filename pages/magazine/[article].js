@@ -163,7 +163,7 @@ const Article = ({ article, collectionProducts }) => {
 
 export async function getStaticPaths() {
   const articles = await getAllArticles();
-  const paths = articles.data.allArticles.splice(0,5).map(article => {
+  const paths = articles.data.allArticles.splice(0, 5).map(article => {
     return {
       params: {
         article: article.handle,
@@ -174,7 +174,6 @@ export async function getStaticPaths() {
     paths,
     fallback: "blocking",
   };
-
 }
 
 export async function getStaticProps(context) {
