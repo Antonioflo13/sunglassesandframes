@@ -1,5 +1,6 @@
 //REACT
 import React, { useState, useEffect } from "react";
+
 //NEXT
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -7,7 +8,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { setDialogContactShow } from "../store/modules/dialogContact";
 import { setSideBarShow } from "../store/modules/sideBar";
-import { setCartContent, setShowCart } from "../store/modules/cart";
+import { setCartContent } from "../store/modules/cart";
 //HOOKS
 import useMediaQuery from "../hooks/useMediaQuery";
 import { getCookie } from "../utils/cookie";
@@ -23,13 +24,16 @@ import menuBurgher from "../assets/images/menu-burger.svg";
 import cartIcon from "../assets/images/shopping-bag.svg";
 import homeIcon from "../assets/images/home.svg";
 
+import Image from "next/image";
+
 import AlgoliaSearch from "../components/algolia-search";
 
 //Add FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 
-export const Navbar = () => {
+export const Navbar = ({ monthlyHighlight }) => {
   //ROUTER
   const pathName = useRouter().pathname;
   //STORE
@@ -68,6 +72,7 @@ export const Navbar = () => {
     document.body.classList.remove("overflow-hidden");
   };
   const [hasHover, setHasHover] = useState(false);
+  const itemMonthlyHighlight = monthlyHighlight?.data?.allMonthlyHighlights[0];
 
   return (
     <>
@@ -75,19 +80,19 @@ export const Navbar = () => {
         {isDesktop ? (
           <img src={homeIcon.src} width={15} alt="icon-home" />
         ) : (
-          <>
+          <div style={{ display: "flex", gap: "5px" }}>
             <button
               className="text-black font-semibold text-xs md:text-sm"
               onClick={() => dispatch(setSideBarShow(!showSideBar))}
             >
-              {isDesktop ? (
-                <div style={{ fontSize: "10px" }}>MENU</div>
-              ) : (
+              {!isDesktop && !showSideBar ? (
                 <img src={menuBurgher.src} width={15} alt="burger-icon" />
+              ) : (
+                <FontAwesomeIcon icon={faXmark} width={10} />
               )}
             </button>
             <div>Q</div>
-          </>
+          </div>
         )}
 
         <Link href="/">
@@ -97,22 +102,14 @@ export const Navbar = () => {
             </div>
           </button>
         </Link>
-        <button
+        <Link
+          href="/cart"
           className="text-black font-semibold text-xs md:text-sm"
           style={{ fontSize: "10px" }}
-          onClick={() => dispatch(setShowCart(true))}
         >
           <img src={cartIcon.src} width={15} alt="cart-icon" />
           {/* <div>({totalQuantity})</div> */}
-        </button>
-        {showCart && (
-          <Drawer
-            handleClose={() => {
-              dispatch(setShowCart(false));
-            }}
-            setShowCart={r => dispatch(setCart(r))}
-          />
-        )}
+        </Link>
       </div>
       {isDesktop && (
         <div className="customWidthHeaderTwo">
@@ -121,8 +118,9 @@ export const Navbar = () => {
               <button className="link">
                 <div
                   className={`${
-                    pathName === "/magazine" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
+                    pathName === "/magazine" &&
+                    "text-sunglassesandframes-black font-bold mackay"
+                  } flex flex-col justify-center items-center hover:font-bold mackay`}
                 >
                   Magazine
                 </div>
@@ -136,8 +134,10 @@ export const Navbar = () => {
             >
               <div
                 className={`${
-                  pathName === "/shop" && "text-sunglassesandframes-red"
-                } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
+                  pathName === "/shop" ||
+                  (hasHover &&
+                    "text-sunglassesandframes-black font-bold mackay")
+                } flex flex-col justify-center items-center hover:font-bold mackay`}
               >
                 Shop By
               </div>
@@ -147,8 +147,9 @@ export const Navbar = () => {
               <button className="link">
                 <div
                   className={`${
-                    pathName === "/designers" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
+                    pathName === "/designers" &&
+                    "text-sunglassesandframes-black font-bold mackay"
+                  } flex flex-col justify-center items-center hover:font-bold mackay`}
                 >
                   Our Designer
                 </div>
@@ -158,8 +159,9 @@ export const Navbar = () => {
               <button className="link">
                 <div
                   className={`${
-                    pathName === "/newIn" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
+                    pathName === "/newIn" &&
+                    "text-sunglassesandframes-black font-bold mackay"
+                  } flex flex-col justify-center items-center hover:font-bold mackay`}
                 >
                   New in
                 </div>
@@ -169,8 +171,9 @@ export const Navbar = () => {
               <button className="link">
                 <div
                   className={`${
-                    pathName === "/promotions" && "text-sunglassesandframes-red"
-                  } flex flex-col justify-center items-center hover:text-sunglassesandframes-red`}
+                    pathName === "/promotions" &&
+                    "text-sunglassesandframes-black font-bold mackay"
+                  } flex flex-col justify-center items-center text-sunglassesandframes-red hover:font-bold mackay`}
                 >
                   Promotions
                 </div>
@@ -204,10 +207,9 @@ export const Navbar = () => {
         <div className="fullScrennBackground">
           <AnimatePresence>
             <motion.div
-              key={hasHover ? "success" : "error"}
               initial={{ opacity: 0, height: "0px" }}
               animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: "0px" }}
+              exit={{ opacity: 0, height: "auto" }}
               transition={{ type: "tween" }}
               style={{
                 backgroundColor: "white",
@@ -255,7 +257,26 @@ export const Navbar = () => {
                   </div>
                 </div>
                 <div className="containerAdv">
-                  <div className="adv"></div>
+                  <Link href={`designers/${itemMonthlyHighlight?.handle}`}>
+                    <div className="adv">
+                      <Image
+                        fill="true"
+                        style={{ objectFit: "cover" }}
+                        sizes="100%"
+                        priority={true}
+                        src={itemMonthlyHighlight?.backgroundimage?.url}
+                        alt="advImage"
+                      />
+                      <div className="containerTextAdv">
+                        <p className="textAdv">
+                          {itemMonthlyHighlight?.designer}
+                        </p>
+                        <p className="textAdv centertext">
+                          {itemMonthlyHighlight?.text}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
               </div>
             </motion.div>
@@ -277,32 +298,7 @@ export const Navbar = () => {
           />
         )}
       </AnimatePresence>
-      <AnimatePresence>
-        {showCart && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ type: "tween" }}
-            style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-            className="fixed top-0 right-0 h-full w-full z-10"
-            onClick={() => {
-              dispatch(setShowCart(false));
-            }}
-          />
-        )}
-      </AnimatePresence>
       <AnimatePresence>{showSideBar && <Sidebar />}</AnimatePresence>
-      <AnimatePresence>
-        {showCart && (
-          <Drawer
-            handleClose={() => {
-              dispatch(setShowCart(false));
-            }}
-            setShowCart={r => dispatch(setShowCart(r))}
-          />
-        )}
-      </AnimatePresence>
       <AnimatePresence>
         {showDialogContact && (
           <Contact setShown={dispatch(setDialogContactShow(true))} />
@@ -368,7 +364,30 @@ export const Navbar = () => {
           width: 90%;
           height: 230px;
           background-color: black;
+          position: relative;
+          overflow: hidden;
           border-radius: 15px;
+        }
+
+        .containerTextAdv {
+          margin-left: auto;
+          margin-right: auto;
+          left: 0;
+          right: 0;
+          text-align: center;
+          position: absolute;
+          font-weight: bold;
+          color: white;
+          bottom: 30%;
+          text-shadow: 5px 5px 5px rgb(0 0 0 / 50%);
+        }
+
+        .textAdv {
+          text-transform: uppercase;
+        }
+
+        .centertext {
+          text-align: center;
         }
 
         .first {

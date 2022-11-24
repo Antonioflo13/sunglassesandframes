@@ -9,12 +9,25 @@
 
 /*classes*/
 .results-container-algolia {
-  @apply mt-8 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-12;
+  @apply mt-8 grid grid-cols-2 md:grid-cols-4 gap-x-3 md:gap-x-12 gap-y-8 md:gap-y-12;
 }
 
 /*algolia*/
 .ais-Hits-list {
   @apply results-container-algolia;
+}
+
+.ais-Hits-item {
+  justify-content: center;
+  transition: 0.3s all ease-in-out;
+}
+
+.ais-Hits-item:hover {
+  scale: 1.1;
+}
+
+.hit-name .ais-Highlight em {
+  font-weight: bold !important;
 }
 /*
 .tl-edges {
