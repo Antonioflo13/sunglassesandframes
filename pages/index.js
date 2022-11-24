@@ -17,7 +17,6 @@ import Head from "next/head";
 import Script from "next/script";
 import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../store/modules/language";
-// import AlgoliaSearch from "../components/algolia-search";
 
 const IndexPage = ({
   articles,
@@ -29,6 +28,7 @@ const IndexPage = ({
   //STORE
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.value);
+  const allShopBy = shopBy?.data?.allShopBies;
   //STATE
   const [show, setShown] = useState(false);
   articles = articles.data.allArticles;
@@ -49,28 +49,9 @@ const IndexPage = ({
     }
   };
 
-  console.log("shopBy", shopBy);
-  console.log("monthlyHighlight", monthlyHighlight);
-  console.log("monthlyHighlightCollection", monthlyHighlightCollection);
-  console.log("defaultProductImage", defaultProductImage);
-
-  const [shopByRes, setShopByRes] = useState();
-  const [monthlyHighlightRes, setMonthlyHighlightRes] = useState();
-  const [monthlyHighlightCollectionRes, setMonthlyHighlightCollectionRes] =
-    useState();
-  const [defaultProductImageRes, setDefaultProductImageRes] = useState();
-
   useEffect(() => {
     handlerCookieScript();
     setLanguageByBrowser();
-    setShopByRes(shopBy?.data?.allShopBies);
-    setMonthlyHighlightRes(monthlyHighlight?.data?.allMonthlyHighlights[0]);
-    setMonthlyHighlightCollectionRes(
-      monthlyHighlightCollection.data?.collection?.products?.edges
-    );
-    setDefaultProductImageRes(
-      defaultProductImage?.data?.defaultProductImage?.image?.url
-    );
   }, []);
 
   return (
@@ -140,15 +121,14 @@ const IndexPage = ({
 
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
       </Head>
-      <Layout articles={articles} monthlyHighlight={monthlyHighlightRes}>
+      <Layout articles={articles} monthlyHighlight={monthlyHighlight}>
         <AnimatedPage fullHeight>
-          {/* <AlgoliaSearch /> */}
           <SliderArticles articles={articles} />
           <SliderHomeCollection
-            monthlyHighlightCollection={monthlyHighlightCollectionRes}
-            defaultProductImage={defaultProductImageRes}
+            monthlyHighlightCollection={monthlyHighlightCollection}
+            defaultProductImage={defaultProductImage}
           />
-          <SliderMenu allShopBy={shopByRes} />
+          <SliderMenu allShopBy={allShopBy} />
           {show && (
             <ModalsIcons
               selectSingleIcon={selectSingleIcon}

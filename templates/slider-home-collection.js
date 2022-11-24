@@ -10,6 +10,10 @@ const SliderHomeCollection = ({
 }) => {
   const collectionHandle = monthlyHighlightCollection?.data?.collection?.handle;
   const [isVisible, setIsVisible] = useState(false);
+  monthlyHighlightCollection =
+    monthlyHighlightCollection.data?.collection?.products?.edges;
+  defaultProductImage =
+    defaultProductImage?.data?.defaultProductImage?.image?.url;
 
   useEffect(() => {
     setIsVisible(true);
