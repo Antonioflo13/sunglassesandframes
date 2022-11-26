@@ -16,7 +16,6 @@ import Layout from "../../components/layout";
 import Image from "next/image";
 
 const CollectionTemplate = ({ collection }) => {
-
   collection = collection.data.collection;
 
   //HOOKS
@@ -33,7 +32,9 @@ const CollectionTemplate = ({ collection }) => {
   const [loadMore, setLoadMore] = useState(false);
 
   // State of whether there is more to load
-  const [hasMore, setHasMore] = useState(collection.products.pageInfo.hasNextPage);
+  const [hasMore, setHasMore] = useState(
+    collection.products.pageInfo.hasNextPage
+  );
 
   // Cursor
   const [cursor, setCursor] = useState(collection.products.pageInfo.endCursor);
@@ -73,7 +74,7 @@ const CollectionTemplate = ({ collection }) => {
       getProductByCollection().then(response => {
         const newProducts = response.data.collection.products.edges;
         const isMore = response.data.collection.products.pageInfo.hasNextPage;
-        console.log(isMore)
+        console.log(isMore);
         const cursor = response.data.collection.products.pageInfo.endCursor;
         setCursor(cursor);
         setHasMore(isMore);
@@ -165,39 +166,10 @@ const CollectionTemplate = ({ collection }) => {
         <div className="mt-8 w-full">
           <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-12">
             {products.map((product, index) => (
-              <Product
-                key={index}
-                product={product}
-                collection={collection}
-              />
+              <Product key={index} product={product} collection={collection} />
             ))}
           </div>
         </div>
-        {!isDesktop && (
-          <div className="mt-10">
-            <PageTitle
-              breadcrumbs={[
-                ...(isBrand
-                  ? [
-                      {
-                        title: "breadcrumbs.designers",
-                        link: "/designers",
-                      },
-                      {
-                        title: collection.title,
-                      },
-                    ]
-                  : [
-                      {
-                        title: `collection.${collection.handle}_breadcrumbs`,
-                      },
-                    ]),
-              ]}
-              title=" "
-              subtitle=" "
-            />
-          </div>
-        )}
         <div ref={loadRef}></div>
       </AnimatedPage>
       <style jsx="true">
@@ -234,14 +206,17 @@ export async function getServerSideProps({ params }) {
 
 const Product = ({ product, collection }) => {
   return (
-    <Link href={{
-      pathname: `/designers/${collection.handle}/${product.node.handle}`,
-      query: {cursor: product.cursor},
-    }}>
+    <Link
+      href={{
+        pathname: `/designers/${collection.handle}/${product.node.handle}`,
+        query: { cursor: product.cursor },
+      }}
+    >
       <div className="w-full flex flex-col items-center">
         <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
           <div className="absolute top-0 w-full h-full">
-            {product.node.variants.edges[0].node.product.images.nodes.length > 0 && (
+            {product.node.variants.edges[0].node.product.images.nodes.length >
+              0 && (
               <img
                 className="w-full h-full"
                 src={
@@ -266,9 +241,12 @@ const Product = ({ product, collection }) => {
             <p className="text-2xs">
               <FormattedNumber
                 style="currency"
-                value={product.node.variants.edges[0].node.product.priceV2.amount}
+                value={
+                  product.node.variants.edges[0].node.product.priceV2.amount
+                }
                 currency={
-                  product.node.variants.edges[0].node.product.priceV2.currencyCode
+                  product.node.variants.edges[0].node.product.priceV2
+                    .currencyCode
                 }
                 minimumFractionDigits={0}
               />

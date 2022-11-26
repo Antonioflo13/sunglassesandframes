@@ -4,12 +4,12 @@ import React, { useState, useEffect, useRef } from "react";
 import useMediaQuery from "../../hooks/useMediaQuery";
 //COMPONENTS
 import AnimatedPage from "../../components/animated-page";
-import Breadcrumbs from "../../components/breadcrumbs";
 import Link from "next/link";
 import Layout from "../../components/layout";
 import getAllArticles from "../../api/articles";
 import Head from "next/head";
 import Image from "next/image";
+import PageTitle from "../../components/page-title";
 
 const Index = ({ articles }) => {
   const isDesktop = useMediaQuery(768);
@@ -77,7 +77,22 @@ const Index = ({ articles }) => {
           <meta name="description" content="Magazine" />
         </Head>
         <AnimatedPage margins={true}>
-          {isDesktop && <Breadcrumbs title="MAGAZINE" />}
+          {isDesktop && (
+            <div className="w-full md:w-1/2 my-8">
+              <PageTitle
+                breadcrumbs={[
+                  ...[
+                    { title: "breadcrumbs.magazine" },
+                    {
+                      title: "Archive",
+                    },
+                  ],
+                ]}
+                title=" "
+                subtitle=" "
+              />
+            </div>
+          )}
           <div className="container-articles">
             {list.map(item => (
               <Link
@@ -110,7 +125,6 @@ const Index = ({ articles }) => {
             ))}
             <div ref={loadRef}></div>
           </div>
-          {!isDesktop && <Breadcrumbs title="Index" />}
         </AnimatedPage>
       </Layout>
       <style jsx="true">

@@ -6,10 +6,10 @@ import Head from "next/head";
 import Image from "next/image";
 //HOOKS
 import useMediaQuery from "../../hooks/useMediaQuery";
+//FRAMER
+import { motion } from "framer-motion";
 //COMPONENTS
 import AnimatedPage from "../../components/animated-page";
-import Breadcrumbs from "../../components/breadcrumbs";
-import { motion } from "framer-motion";
 import Layout from "../../components/layout";
 //API
 import { getAllCollections } from "../../api/collections";
@@ -68,7 +68,6 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
         <meta name="description" content="Designers" />
       </Head>
       <AnimatedPage margins={true}>
-        {/* {isDesktop && <Breadcrumbs title="Designers" />} */}
         <div className="mt-20">
           <div className="container-alphabetic">
             {alphabeticList.map((letter, index) => (
@@ -168,7 +167,6 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
             )}
           </div>
         </div>
-        {/*{!isDesktop && <Breadcrumbs title="Boutiques" />}*/}
       </AnimatedPage>
       <style jsx="true">
         {`
@@ -201,7 +199,6 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
             width: 40%;
             background-color: black;
             height: 70vh;
-            border-radius: 20px;
             position: relative;
             overflow: hidden;
             border-radius: 10px;
