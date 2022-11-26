@@ -118,22 +118,6 @@ const Article = ({ article, collectionProducts }) => {
               />
             )}
             {/*<SliderArticleProducts productsinArticle={productsinArticle} />*/}
-            {!isDesktop && (
-              <div className="mt-10">
-                <PageTitle
-                  breadcrumbs={[
-                    ...[
-                      { title: "breadcrumbs.magazine", link: "/magazine" },
-                      {
-                        title: article.handle,
-                      },
-                    ],
-                  ]}
-                  title=" "
-                  subtitle=" "
-                />
-              </div>
-            )}
           </AnimatedPage>
           <style jsx="true">
             {`

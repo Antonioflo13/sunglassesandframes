@@ -93,24 +93,26 @@ const Product = ({
         {isDesktop && (
           <div className="flex">
             <div className="w-full md:w-1/ mt-8">
-              <PageTitle
-                breadcrumbs={[
-                  {
-                    title: "breadcrumbs.designers",
-                    link: "/designers",
-                  },
+              {isDesktop && (
+                <PageTitle
+                  breadcrumbs={[
+                    {
+                      title: "breadcrumbs.designers",
+                      link: "/designers",
+                    },
 
-                  {
-                    title: product.node.vendor,
-                    link: "/designers/" + collectionHandle,
-                  },
-                  {
-                    title: product.node.title,
-                    link: "/designers/" + productHandle,
-                  },
-                ]}
-                title=" "
-              />
+                    {
+                      title: product.node.vendor,
+                      link: "/designers/" + collectionHandle,
+                    },
+                    {
+                      title: product.node.title,
+                      link: "/designers/" + productHandle,
+                    },
+                  ]}
+                  title=" "
+                />
+              )}
             </div>
           </div>
         )}

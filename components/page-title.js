@@ -2,7 +2,6 @@ import Link from "next/link";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import { motion } from "framer-motion";
-import iconHome from "../assets/images/home.svg";
 
 const PageTitle = ({
   title,
@@ -15,24 +14,12 @@ const PageTitle = ({
   <div>
     {breadcrumbs && Array.isArray(breadcrumbs) && (
       <div className="mb-4 flex items-center">
-        <Link href="/">
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            className="flex items-center justify-center rounded-full text-2xs text-white"
-            style={{
-              width: "1rem",
-              height: "1rem",
-            }}
-          >
-            <img style={{ marginRight: "1px" }} src={iconHome.src} alt="" />
-          </motion.div>
-        </Link>
-        <div className="flex flex-wrap items-center mt-1 ml-2">
+        <div className="flex flex-wrap items-center mt-1 ml-2 text-sunglassesandframes-breadcrumbs-grey">
           {breadcrumbs.map((b, i) => (
             <div key={`${i}`} className="flex items-center">
-              {i !== 0 && <div className="ml-1">/</div>}
+              {i !== 0 && <div className="ml-1">&gt;</div>}
               <div
-                className={`ml-1 text-2xs uppercase ${
+                className={`ml-1 text-sm lowercase ${
                   i + 1 === breadcrumbs.length ? "font-bold" : ""
                 }`}
               >
