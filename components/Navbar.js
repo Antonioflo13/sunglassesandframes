@@ -32,19 +32,21 @@ import AlgoliaSearch from "../components/algolia-search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
+import { setMonthCollection } from "../store/modules/monthCollection";
 
-export const Navbar = ({ monthlyHighlight }) => {
+export const Navbar = () => {
   //ROUTER
   const pathName = useRouter().pathname;
   //STORE
+  const dispatch = useDispatch();
   const showDialogContact = useSelector(state => state.dialogContact.value);
   const showSideBar = useSelector(state => state.sideBar.value);
-  const language = useSelector(state => state.language.value);
-  const [isSearchActive, setIsSearchActive] = useState(false);
-
   const cart = useSelector(state => JSON.parse(state.cart.value));
-  const showCart = useSelector(state => state.cart.show);
-  const dispatch = useDispatch();
+
+  //STATE
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const [hasHover, setHasHover] = useState(false);
+  const [monthCollectionInfo, setMonthCollectionInfo] = useState({});
 
   //HOOKS
   const isDesktop = useMediaQuery(768);
@@ -60,6 +62,10 @@ export const Navbar = ({ monthlyHighlight }) => {
     if (cartContent) {
       dispatch(setCartContent(cartContent));
     }
+    setMonthCollectionInfo(
+      JSON.parse(localStorage.getItem("monthCollectionInfo")).data
+        ?.allMonthlyHighlights[0]
+    );
   }, []);
 
   const openSearchModal = () => {
@@ -71,14 +77,14 @@ export const Navbar = ({ monthlyHighlight }) => {
     setIsSearchActive(false);
     document.body.classList.remove("overflow-hidden");
   };
-  const [hasHover, setHasHover] = useState(false);
-  const itemMonthlyHighlight = monthlyHighlight?.data?.allMonthlyHighlights[0];
 
   return (
     <>
       <div className="px-5 md:px-5 left-0 top-0 w-full h-20 bg-white flex items-center justify-between z-30 customWidthHeader">
         {isDesktop ? (
-          <img src={homeIcon.src} width={15} alt="icon-home" />
+          <Link href={"/"}>
+            <img src={homeIcon.src} width={15} alt="icon-home" />
+          </Link>
         ) : (
           <div style={{ display: "flex", gap: "5px" }}>
             <button
@@ -203,7 +209,7 @@ export const Navbar = ({ monthlyHighlight }) => {
           />
         </div>
       )}
-      {isDesktop && hasHover && (
+      {isDesktop && !hasHover && (
         <div className="fullScrennBackground">
           <AnimatePresence>
             <motion.div
@@ -257,22 +263,22 @@ export const Navbar = ({ monthlyHighlight }) => {
                   </div>
                 </div>
                 <div className="containerAdv">
-                  <Link href={`designers/${itemMonthlyHighlight?.handle}`}>
+                  <Link href={`designers/${monthCollectionInfo?.handle}`}>
                     <div className="adv">
                       <Image
                         fill="true"
                         style={{ objectFit: "cover" }}
                         sizes="100%"
                         priority={true}
-                        src={itemMonthlyHighlight?.backgroundimage?.url}
+                        src={monthCollectionInfo?.backgroundimage?.url}
                         alt="advImage"
                       />
                       <div className="containerTextAdv">
                         <p className="textAdv">
-                          {itemMonthlyHighlight?.designer}
+                          {monthCollectionInfo?.designer}
                         </p>
                         <p className="textAdv centertext">
-                          {itemMonthlyHighlight?.text}
+                          {monthCollectionInfo?.text}
                         </p>
                       </div>
                     </div>

@@ -1,5 +1,16 @@
 //REACT
 import React, { useEffect, useState } from "react";
+//NEXT
+import Head from "next/head";
+import Script from "next/script";
+//STORE
+import { useDispatch, useSelector } from "react-redux";
+import { setLanguage } from "../store/modules/language";
+import {
+  setMonthCollectionInfo,
+  setMonthCollection,
+} from "../store/modules/monthCollection";
+import { setDefaultProductImage } from "../store/modules/defaultProductImage";
 //API
 import getAllArticles from "../api/articles";
 import getShopBy from "../api/shopBy";
@@ -13,16 +24,12 @@ import SliderHomeCollection from "../templates/slider-home-collection";
 import SliderArticles from "../components/slider-articles";
 import AnimatedPage from "../components/animated-page";
 import Layout from "../components/layout";
-import Head from "next/head";
-import Script from "next/script";
-import { useDispatch, useSelector } from "react-redux";
-import { setLanguage } from "../store/modules/language";
 
 const IndexPage = ({
   articles,
   shopBy,
-  monthlyHighlight,
-  monthlyHighlightCollection,
+  monthCollectionInfo,
+  monthCollection,
   defaultProductImage,
 }) => {
   //STORE
@@ -32,6 +39,8 @@ const IndexPage = ({
   //STATE
   const [show, setShown] = useState(false);
   articles = articles.data.allArticles;
+  defaultProductImage =
+    defaultProductImage?.data?.defaultProductImage?.image?.url;
   let selectSingleIcon;
   //FUNCTION
   const setLanguageByBrowser = () => {
@@ -50,6 +59,9 @@ const IndexPage = ({
   };
 
   useEffect(() => {
+    dispatch(setMonthCollectionInfo(JSON.stringify(monthCollectionInfo)));
+    dispatch(setMonthCollection(JSON.stringify(monthCollection)));
+    dispatch(setDefaultProductImage(defaultProductImage));
     handlerCookieScript();
     setLanguageByBrowser();
   }, []);
@@ -118,16 +130,12 @@ const IndexPage = ({
       </Script>
       <Head>
         <title>sunglassesandframes</title>
-
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
       </Head>
-      <Layout articles={articles} monthlyHighlight={monthlyHighlight}>
+      <Layout articles={articles}>
         <AnimatedPage fullHeight>
           <SliderArticles articles={articles} />
-          <SliderHomeCollection
-            monthlyHighlightCollection={monthlyHighlightCollection}
-            defaultProductImage={defaultProductImage}
-          />
+          <SliderHomeCollection />
           <SliderMenu allShopBy={allShopBy} />
           {show && (
             <ModalsIcons
@@ -144,21 +152,17 @@ const IndexPage = ({
 export async function getStaticProps() {
   const articles = await getAllArticles();
   const shopBy = await getShopBy();
-  const monthlyHighlight = await getMonthlyHighlight();
-  const shopifyCollectionHandle =
-    monthlyHighlight?.data?.allMonthlyHighlights[0]?.handle;
-
-  const monthlyHighlightCollection = await getCollection(
-    shopifyCollectionHandle,
-    30
-  );
+  const monthCollectionInfo = await getMonthlyHighlight();
+  const monthCollectionHandle =
+    monthCollectionInfo?.data?.allMonthlyHighlights[0]?.handle;
+  const monthCollection = await getCollection(monthCollectionHandle, 30);
   const defaultProductImage = await getDefaultProductImage();
   return {
     props: {
       articles,
       shopBy,
-      monthlyHighlight,
-      monthlyHighlightCollection,
+      monthCollectionInfo,
+      monthCollection,
       defaultProductImage,
     },
   };

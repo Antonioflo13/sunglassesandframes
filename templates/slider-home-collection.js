@@ -4,19 +4,24 @@ import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
 import Link from "next/link";
 import Image from "next/image";
 
-const SliderHomeCollection = ({
-  monthlyHighlightCollection,
-  defaultProductImage,
-}) => {
-  const collectionHandle = monthlyHighlightCollection?.data?.collection?.handle;
+const SliderHomeCollection = () => {
+  //STATE
   const [isVisible, setIsVisible] = useState(false);
-  monthlyHighlightCollection =
-    monthlyHighlightCollection.data?.collection?.products?.edges;
-  defaultProductImage =
-    defaultProductImage?.data?.defaultProductImage?.image?.url;
+  const [monthCollection, setMonthCollection] = useState({});
+  const [collectionHandle, setCollectionHandle] = useState({});
+  const [defaultProductImage, setDefaultProductImage] = useState("");
 
   useEffect(() => {
     setIsVisible(true);
+    setMonthCollection(
+      JSON.parse(localStorage.getItem("monthCollection")).data?.collection
+        ?.products?.edges
+    );
+    setCollectionHandle(
+      JSON.parse(localStorage.getItem("monthCollection")).data?.collection
+        ?.handle
+    );
+    setDefaultProductImage(localStorage.getItem("defaultProductImage"));
   }, []);
 
   return (
@@ -41,7 +46,7 @@ const SliderHomeCollection = ({
               },
             }}
           >
-            {monthlyHighlightCollection?.map((item, id) => (
+            {monthCollection?.map((item, id) => (
               <SwiperSlide key={id}>
                 <Link
                   href={{

@@ -10,7 +10,7 @@ import { setSideBarShow } from "../store/modules/sideBar";
 //MOTION
 import { AnimatePresence, motion } from "framer-motion";
 //INTL
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 //ICONS
 import Icons from "../data/Icons";
 import closeIcon from "../assets/images/cross.svg";
@@ -30,7 +30,6 @@ const sidebarVariants = {
 
 const Sidebar = () => {
   //STORE
-  const language = useSelector(state => state.language.value);
   const dispatch = useDispatch();
 
   //INTL

@@ -7,7 +7,7 @@ import { getCollection } from "../../api/collections";
 //STORE
 import { setDialogContactShow } from "../../store/modules/dialogContact";
 import { setDialogContactProduct } from "../../store/modules/dialogContact";
-import { setShowCart, setCartContent } from "../../store/modules/cart";
+import { setCartContent } from "../../store/modules/cart";
 import { useDispatch, useSelector } from "react-redux";
 //HOOKS
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -73,7 +73,6 @@ const Product = ({
     const cartContent = { lineItems, totalPrice };
 
     dispatch(setCartContent(JSON.stringify(cartContent)));
-    dispatch(setShowCart(true));
   };
 
   const askForPrice = () => {
