@@ -17,7 +17,6 @@ import { AnimatePresence, motion } from "framer-motion";
 //COMPONENTS
 import Sidebar from "../components/sidebar";
 import Contact from "../components/contact";
-import Drawer from "../components/drawer";
 //IMAGES
 import logo from "../assets/images/logo.png";
 import menuBurgher from "../assets/images/menu-burger.svg";
@@ -32,7 +31,6 @@ import AlgoliaSearch from "../components/algolia-search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
-import { setMonthCollection } from "../store/modules/monthCollection";
 
 export const Navbar = () => {
   //ROUTER
@@ -209,7 +207,7 @@ export const Navbar = () => {
           />
         </div>
       )}
-      {isDesktop && !hasHover && (
+      {isDesktop && hasHover && (
         <div className="fullScrennBackground">
           <AnimatePresence>
             <motion.div
