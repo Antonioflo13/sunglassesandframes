@@ -19,7 +19,7 @@ const PageTitle = ({
             <div key={`${i}`} className="flex items-center">
               {i !== 0 && <div className="ml-1">&gt;</div>}
               <div
-                className={`ml-1 text-sm lowercase ${
+                className={`ml-1 text-sm ${
                   i + 1 === breadcrumbs.length ? "font-bold" : ""
                 }`}
               >

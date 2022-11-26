@@ -92,7 +92,7 @@ const Product = ({
       <AnimatedPage margins={true} noAnimate={true} fullHeight={true}>
         {isDesktop && (
           <div className="flex">
-            <div className="w-full md:w-1/ mt-8">
+            <div className="w-full md:w-1/2 my-8">
               {isDesktop && (
                 <PageTitle
                   breadcrumbs={[
@@ -100,14 +100,12 @@ const Product = ({
                       title: "breadcrumbs.designers",
                       link: "/designers",
                     },
-
                     {
                       title: product.node.vendor,
                       link: "/designers/" + collectionHandle,
                     },
                     {
                       title: product.node.title,
-                      link: "/designers/" + productHandle,
                     },
                   ]}
                   title=" "

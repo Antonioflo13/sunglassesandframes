@@ -78,18 +78,20 @@ const Index = ({ articles }) => {
         </Head>
         <AnimatedPage margins={true}>
           {isDesktop && (
-            <PageTitle
-              breadcrumbs={[
-                ...[
-                  { title: "breadcrumbs.magazine" },
-                  {
-                    title: "Archive",
-                  },
-                ],
-              ]}
-              title=" "
-              subtitle=" "
-            />
+            <div className="w-full md:w-1/2 my-8">
+              <PageTitle
+                breadcrumbs={[
+                  ...[
+                    { title: "breadcrumbs.magazine" },
+                    {
+                      title: "Archive",
+                    },
+                  ],
+                ]}
+                title=" "
+                subtitle=" "
+              />
+            </div>
           )}
           <div className="container-articles">
             {list.map(item => (

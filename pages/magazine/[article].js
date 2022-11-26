@@ -44,8 +44,8 @@ const Article = ({ article, collectionProducts }) => {
           </Head>
           <AnimatedPage margins={true}>
             <div className="flex flex-col justify-center w-full">
-              <div className="w-full md:w-1/2 mt-8">
-                {isDesktop && (
+              {isDesktop && (
+                <div className="w-full md:w-1/2 mt-8">
                   <PageTitle
                     breadcrumbs={[
                       ...[
@@ -58,8 +58,8 @@ const Article = ({ article, collectionProducts }) => {
                     title=" "
                     subtitle=" "
                   />
-                )}
-              </div>
+                </div>
+              )}
               {/* Info */}
               <div className="flex container-collection mt-4">
                 {isDesktop ? (
