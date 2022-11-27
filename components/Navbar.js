@@ -43,7 +43,7 @@ export const Navbar = () => {
 
   //STATE
   const [isSearchActive, setIsSearchActive] = useState(false);
-  const [hasHover, setHasHover] = useState(false);
+  const [hasHover, setHasHover] = useState(true);
   const [monthCollectionInfo, setMonthCollectionInfo] = useState({});
 
   //HOOKS
@@ -356,7 +356,7 @@ export const Navbar = () => {
 
         .containerItems {
           display: flex;
-          gap: 10rem;
+          gap: 20%;
           width: 70%;
         }
 
@@ -400,6 +400,18 @@ export const Navbar = () => {
 
         .link {
           padding-right: 2.5rem;
+        }
+
+        @media screen (max-width: 1150px) {
+          .containerItems {
+            gap: 15%;
+          }
+        }
+
+        @media screen (max-width: 800px) {
+          .containerItems {
+            gap: 10%;
+          }
         }
 
         @media (max-width: 768px) {
