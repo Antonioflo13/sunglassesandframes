@@ -90,7 +90,7 @@ const SliderHomeCollection = () => {
             text-align: center;
             position: relative;
             overflow: hidden;
-            height: 300px;
+            height: 200px;
           }
           @media (max-width: 768px) {
             .container-slider {

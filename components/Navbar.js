@@ -43,7 +43,7 @@ export const Navbar = () => {
 
   //STATE
   const [isSearchActive, setIsSearchActive] = useState(false);
-  const [hasHover, setHasHover] = useState(true);
+  const [hasHover, setHasHover] = useState(false);
   const [monthCollectionInfo, setMonthCollectionInfo] = useState({});
 
   //HOOKS
