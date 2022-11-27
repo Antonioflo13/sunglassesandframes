@@ -1,7 +1,7 @@
 import request from "./request";
 
 async function getProduct(product) {
-  const sunglassesandframes = `
+  const QUERY = `
 {
   product(handle: "${product}"){
     id
@@ -40,13 +40,6 @@ async function getProduct(product) {
   }
 }
 `;
-
-  let QUERY = null;
-  switch (process.env.NEXT_QUERY) {
-    case "sunglassesandframes":
-      QUERY = sunglassesandframes;
-      break;
-  }
 
   return await request("shopify", QUERY);
 }
