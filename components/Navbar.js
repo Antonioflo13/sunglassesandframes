@@ -32,7 +32,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 
-export const Navbar = () => {
+export const Navbar = ({ itemsNavbar }) => {
   //ROUTER
   const pathName = useRouter().pathname;
   //STORE
@@ -75,6 +75,8 @@ export const Navbar = () => {
     setIsSearchActive(false);
     document.body.classList.remove("overflow-hidden");
   };
+
+  const items = itemsNavbar?.data?.shopByItem?.items;
 
   return (
     <>
@@ -224,41 +226,16 @@ export const Navbar = () => {
             >
               <div className="containerMenuTwo">
                 <div className="containerItems">
-                  <div className="flex flex-col items-center">
-                    <div className="first">TREND</div>
-                    <div>Round</div>
-                    <div>Squared</div>
-                    <div>Cat eve</div>
-                    <div>Aviator</div>
-                    <div>Mask</div>
-                  </div>
-
-                  <div className="flex flex-col items-center">
-                    <div className="first">OCCASIONE</div>
-                    <div>Round</div>
-                    <div>Squared</div>
-                    <div>Cat eve</div>
-                    <div>Aviator</div>
-                    <div>Mask</div>
-                  </div>
-
-                  <div className="flex flex-col items-center">
-                    <div className="first">STILE</div>
-                    <div>Round</div>
-                    <div>Squared</div>
-                    <div>Cat eve</div>
-                    <div>Aviator</div>
-                    <div>Mask</div>
-                  </div>
-
-                  <div className="flex flex-col  items-center">
-                    <div className="first">SHAPE</div>
-                    <div>Round</div>
-                    <div>Squared</div>
-                    <div>Cat eve</div>
-                    <div>Aviator</div>
-                    <div>Mask</div>
-                  </div>
+                  {items.map((first, index) => (
+                    <div key={index} className="flex flex-col items-center">
+                      <div className="first">{first?.title}</div>
+                      {first?.item?.map((item, index) => (
+                        <div className="second" key={index}>
+                          {item?.item}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
                 </div>
                 <div className="containerAdv">
                   <Link href={`designers/${monthCollectionInfo?.handle}`}>
@@ -302,7 +279,9 @@ export const Navbar = () => {
           />
         )}
       </AnimatePresence>
-      <AnimatePresence>{showSideBar && <Sidebar />}</AnimatePresence>
+      <AnimatePresence>
+        {showSideBar && <Sidebar items={items} />}
+      </AnimatePresence>
       <AnimatePresence>
         {showDialogContact && (
           <Contact setShown={dispatch(setDialogContactShow(true))} />
@@ -396,6 +375,10 @@ export const Navbar = () => {
 
         .first {
           margin-bottom: 10px;
+        }
+
+        .second {
+          place-self: flex-start;
         }
 
         .link {

@@ -27,7 +27,7 @@ const SliderHomeCollection = () => {
   return (
     isVisible && (
       <>
-        <div className="mt-20 mb-10 text-center uppercase">
+        <div className="titleSliderHome text-center uppercase">
           <FormattedMessage id="home.slider_monthly.title" />
         </div>
         <div className="sliderCollection">
@@ -131,6 +131,18 @@ const SliderHomeCollection = () => {
             width: 100%;
             height: 100%;
             object-fit: cover;
+          }
+
+          .titleSliderHome {
+            margin-top: 3rem;
+            margin-bottom: 2.5rem;
+          }
+
+          @media (max-width: 767px) {
+            .titleSliderHome {
+              margin-top: 2rem;
+              margin-bottom: 1rem;
+            }
           }
         `}</style>
       </>
