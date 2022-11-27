@@ -13,13 +13,16 @@
 }
 
 /*algolia*/
-.ais-Hits-list {
+.ais-Hits-list,
+.ais-InfiniteHits-list {
   @apply results-container-algolia;
 }
 
-.ais-Hits-item {
+.ais-Hits-item,
+.ais-InfiniteHits-item {
   justify-content: center;
   transition: 0.3s all ease-in-out;
+  box-shadow: none;
 }
 
 .ais-Hits-item:hover {

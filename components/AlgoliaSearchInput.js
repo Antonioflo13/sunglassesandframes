@@ -4,10 +4,15 @@ import { connectSearchBox } from "react-instantsearch-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => {
+const SearchBox = ({
+  currentRefinement,
+  isSearchStalled,
+  refine,
+  isSearchActive,
+}) => {
   const searchHandler = event => {
-    console.log("SEARCH DONE!");
     refine(event.currentTarget.value);
+    isSearchActive(event.currentTarget.value);
   };
   return (
     <label className="relative text-gray-400 focus-within:text-gray-600 block w-[100%] md:w-[70%] m-auto">
@@ -18,6 +23,7 @@ const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => {
 
       <input
         type="search"
+        autoFocus
         value={currentRefinement}
         onChange={searchHandler}
         placeholder="Search..."
