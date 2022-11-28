@@ -55,9 +55,12 @@ const AssistanceCenter = ({ assistanceCenterInfo }) => {
                   alt="assistance-center"
                 />
               </div>
-              <div className="header-description-container">
-                {assistanceCenterInfo.description}
-              </div>
+              <div
+                className="header-description-container"
+                dangerouslySetInnerHTML={{
+                  __html: assistanceCenterInfo.description,
+                }}
+              />
             </div>
             <div className="container-accordions">
               {assistanceCenterInfo.collapsableMenu.map(menu => (
@@ -89,7 +92,12 @@ const AssistanceCenter = ({ assistanceCenterInfo }) => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                       >
-                        <div className="text-xs mt-2">{menu.description}</div>
+                        <div
+                          className="text-xs mt-2"
+                          dangerouslySetInnerHTML={{
+                            __html: menu.description,
+                          }}
+                        />
                       </motion.div>
                     )}
                   </AnimatePresence>
