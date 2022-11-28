@@ -138,6 +138,9 @@ const AssistanceCenter = ({ assistanceCenterInfo }) => {
             flex-direction: row;
             gap: 10px;
           }
+          .header-image-container {
+            width: 50%;
+          }
           .header-description-container {
             width: 50%;
           }
