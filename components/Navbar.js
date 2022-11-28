@@ -29,7 +29,11 @@ import AlgoliaSearch from "../components/algolia-search";
 
 //Add FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faSearch,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 
 export const Navbar = ({ itemsNavbar }) => {
@@ -45,6 +49,10 @@ export const Navbar = ({ itemsNavbar }) => {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [hasHover, setHasHover] = useState(false);
   const [monthCollectionInfo, setMonthCollectionInfo] = useState({});
+  const [viewSecondSidebar, setViewSecondSidebar] = useState(false);
+  const [viewthirdSidebar, setViewthirdSidebar] = useState(false);
+
+  console.log("viewthirdSidebar", viewthirdSidebar);
 
   //HOOKS
   const isDesktop = useMediaQuery(768);
@@ -78,6 +86,8 @@ export const Navbar = ({ itemsNavbar }) => {
 
   const items = itemsNavbar?.data?.shopByItem?.items;
 
+  console.log("viewthirdSidebar", viewthirdSidebar);
+
   return (
     <>
       <div className="px-5 md:px-5 left-0 top-0 w-full h-20 bg-white flex items-center justify-between z-30 customWidthHeader">
@@ -86,18 +96,48 @@ export const Navbar = ({ itemsNavbar }) => {
             <img src={homeIcon.src} width={15} alt="icon-home" />
           </Link>
         ) : (
-          <div style={{ display: "flex", gap: "5px" }}>
-            <button
-              className="text-black font-semibold text-xs md:text-sm"
-              onClick={() => dispatch(setSideBarShow(!showSideBar))}
-            >
-              {!isDesktop && !showSideBar ? (
-                <img src={menuBurgher.src} width={15} alt="burger-icon" />
-              ) : (
-                <FontAwesomeIcon icon={faXmark} width={10} />
-              )}
-            </button>
-            <div>Q</div>
+          <div style={{ display: "flex", gap: "20px" }}>
+            {!isDesktop && (
+              <>
+                {!showSideBar && (
+                  <button
+                    className="text-black font-semibold text-xs md:text-sm"
+                    onClick={() => dispatch(setSideBarShow(!showSideBar))}
+                  >
+                    <img src={menuBurgher.src} width={15} alt="burger-icon" />
+                  </button>
+                )}
+
+                {!viewSecondSidebar && !viewthirdSidebar && showSideBar && (
+                  <button
+                    className="text-black font-semibold text-xs md:text-sm"
+                    onClick={() => dispatch(setSideBarShow(!showSideBar))}
+                  >
+                    <FontAwesomeIcon icon={faXmark} width={10} />
+                  </button>
+                )}
+
+                {viewSecondSidebar && !viewthirdSidebar && (
+                  <button
+                    className="text-black font-semibold text-xs md:text-sm"
+                    onClick={() => setViewSecondSidebar(false)}
+                  >
+                    <FontAwesomeIcon icon={faChevronLeft} width={10} />
+                  </button>
+                )}
+
+                {viewthirdSidebar && (
+                  <button
+                    className="text-black font-semibold text-xs md:text-sm"
+                    onClick={() => setViewthirdSidebar(false)}
+                  >
+                    <FontAwesomeIcon icon={faChevronLeft} width={10} />
+                  </button>
+                )}
+
+                <FontAwesomeIcon icon={faMagnifyingGlass} width={15} />
+              </>
+            )}
           </div>
         )}
 
@@ -280,7 +320,15 @@ export const Navbar = ({ itemsNavbar }) => {
         )}
       </AnimatePresence>
       <AnimatePresence>
-        {showSideBar && <Sidebar items={items} />}
+        {showSideBar && (
+          <Sidebar
+            items={items}
+            viewSecondSidebar={viewSecondSidebar}
+            setViewSecondSidebar={setViewSecondSidebar}
+            viewthirdSidebar={viewthirdSidebar}
+            setViewthirdSidebar={setViewthirdSidebar}
+          />
+        )}
       </AnimatePresence>
       <AnimatePresence>
         {showDialogContact && (

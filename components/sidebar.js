@@ -28,7 +28,13 @@ const sidebarVariants = {
   },
 };
 
-const Sidebar = ({ items }) => {
+const Sidebar = ({
+  items,
+  viewSecondSidebar,
+  setViewSecondSidebar,
+  viewthirdSidebar,
+  setViewthirdSidebar,
+}) => {
   //STORE
   const dispatch = useDispatch();
 
@@ -44,8 +50,6 @@ const Sidebar = ({ items }) => {
   };
 
   const pathName = useRouter().pathname;
-  const [viewSecondSidebar, setViewSecondSidebar] = useState(false);
-  const [viewthirdSidebar, setViewthirdSidebar] = useState(false);
 
   return (
     <>
@@ -139,9 +143,6 @@ const Sidebar = ({ items }) => {
             transition={{ type: "tween" }}
             style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
             className="fixed top-0 right-0 h-full w-full z-10"
-            onClick={() => {
-              setViewSecondSidebar(false);
-            }}
           />
         )}
       </AnimatePresence>
@@ -203,9 +204,6 @@ const Sidebar = ({ items }) => {
             transition={{ type: "tween" }}
             style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
             className="fixed top-0 right-0 h-full w-full z-10"
-            onClick={() => {
-              setViewSecondSidebar(false);
-            }}
           />
         )}
       </AnimatePresence>
@@ -240,7 +238,6 @@ const Sidebar = ({ items }) => {
                           style={{
                             display: "flex",
                           }}
-                          onClick={() => setViewthirdSidebar(true)}
                         >
                           <div className="mt-3 font-semibold text-l">
                             {first?.item?.map(item => item?.item)}
