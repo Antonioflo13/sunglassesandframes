@@ -7,10 +7,13 @@ export const sideBarSlice = createSlice({
   },
   reducers: {
     setSideBarShow: (state, action) => {
+      console.log(action.payload);
       state.value = action.payload;
-      document.body.classList.add(
-        action.payload ? "overflow-hidden" : "overflow-visible"
-      );
+      if (action.payload) {
+        document.body.classList.add("overflow-hidden");
+      } else {
+        document.body.classList.remove("overflow-hidden");
+      }
     },
   },
 });

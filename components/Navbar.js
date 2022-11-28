@@ -68,12 +68,14 @@ export const Navbar = () => {
 
   const openSearchModal = () => {
     setIsSearchActive(true);
+    document.body.classList.remove("overflow-auto");
     document.body.classList.add("overflow-hidden");
   };
 
   const closeSearchModal = () => {
     setIsSearchActive(false);
     document.body.classList.remove("overflow-hidden");
+    document.body.classList.add("overflow-auto");
   };
 
   return (
@@ -183,21 +185,31 @@ export const Navbar = () => {
                 </div>
               </button>
             </Link>
-            <div
-              id="search-overlay"
-              className={`absolute w-screen h-screen top-0 left-0 z-50 bg-slate-400/75 transition-all duration-300 ${
-                isSearchActive ? "visible opacity-100" : "invisible opacity-0"
-              }`}
-              onClick={closeSearchModal}
-            >
-              {/* className="absolute top-50/100 left-50/100 min-w-[80%] min-h-[80%] translate-x-[-50%] translate-y-[-50%] bg-white" */}
+            {isSearchActive && (
               <div
-                className="absolute top-[5%] left-[5%] w-[90%] h-[90%]  bg-white overflow-auto p-4"
-                onClick={e => e.stopPropagation()}
+                id="search-overlay"
+                className={`absolute w-screen h-screen top-0 left-0 z-50 bg-slate-400/75 transition-all duration-300 overflow-y-scroll ${
+                  isSearchActive ? "visible opacity-100" : "invisible opacity-0"
+                }`}
+                onClick={closeSearchModal}
               >
-                <AlgoliaSearch />
+                <div>
+                  <FontAwesomeIcon
+                    style={{ marginLeft: "2px", width: 15 }}
+                    className="cursor-pointer absolute right-10 top-10"
+                    icon={faXmark}
+                    onClick={closeSearchModal}
+                  />
+                </div>
+                {/* className="absolute top-50/100 left-50/100 min-w-[80%] min-h-[80%] translate-x-[-50%] translate-y-[-50%] bg-white" */}
+                <div
+                  className=" bg-white p-4"
+                  onClick={e => e.stopPropagation()}
+                >
+                  <AlgoliaSearch onClose={closeSearchModal} />
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <FontAwesomeIcon
             style={{ marginLeft: "2px", width: 12 }}
