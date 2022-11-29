@@ -86,8 +86,6 @@ export const Navbar = ({ itemsNavbar }) => {
 
   const items = itemsNavbar?.data?.shopByItem?.items;
 
-  console.log("viewthirdSidebar", viewthirdSidebar);
-
   return (
     <>
       <div className="px-5 md:px-5 left-0 top-0 w-full h-20 bg-white flex items-center justify-between z-30 customWidthHeader">

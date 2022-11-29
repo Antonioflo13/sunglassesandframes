@@ -11,11 +11,7 @@ import { setSideBarShow } from "../store/modules/sideBar";
 import { AnimatePresence, motion } from "framer-motion";
 //INTL
 import { useIntl } from "react-intl";
-//ICONS
-import Icons from "../data/Icons";
-import closeIcon from "../assets/images/cross.svg";
-import logo from "../assets/images/logo-black.png";
-import shoppingBag from "../assets/images/shopping-bag-red.svg";
+
 //COMPONENTS
 import ModalsIcons from "./modalsIcons";
 import LinkMenu from "./linkMenu";
@@ -38,11 +34,10 @@ const Sidebar = ({
   //STORE
   const dispatch = useDispatch();
 
-  //INTL
-  const intl = useIntl();
   //STATE
   const [show, setShown] = useState(false);
   const [selectSingleIcon, setSelectSingleIcon] = useState();
+  const [selectItem, setSelectItem] = useState();
 
   //FUNCTIONS
   const changeSidebar = () => {
@@ -50,6 +45,12 @@ const Sidebar = ({
   };
 
   const pathName = useRouter().pathname;
+
+  const hangleTitle = title => {
+    setSelectItem(title);
+  };
+
+  console.log("selectItem", selectItem);
 
   return (
     <>
@@ -66,7 +67,7 @@ const Sidebar = ({
           style={{ paddingLeft: "1.25rem", paddingRight: "1.25rem" }}
         >
           <div className="flex flex-col h-full" style={{ width: "100%" }}>
-            <div className="flex-1 flex flex-col items-start mt-10">
+            <div className="flex-1 flex flex-col items-start ">
               <div
                 className={`${
                   pathName === "/" &&
@@ -128,6 +129,7 @@ const Sidebar = ({
             </div>
           </div>
         </div>
+        <div style={{ height: "1px", width: "100%", background: "silver" }} />
       </motion.div>
       {show && (
         <ModalsIcons selectSingleIcon={selectSingleIcon} setShown={setShown} />
@@ -165,12 +167,13 @@ const Sidebar = ({
               style={{ paddingLeft: "1.25rem", paddingRight: "1.25rem" }}
             >
               <div className="flex flex-col h-full" style={{ width: "100%" }}>
-                <div className="flex-1 flex flex-col items-start mt-10">
+                <div className="flex-1 flex flex-col items-start ">
                   {items?.map((first, index) => (
                     <div key={index} className="flex flex-col items-center">
                       <div
                         className="text-sunglassesandframes-black flex flex-col justify-center items-center mt-4"
                         style={{ width: "100%" }}
+                        onClick={() => hangleTitle(first?.title)}
                       >
                         <div
                           style={{
@@ -227,25 +230,29 @@ const Sidebar = ({
               style={{ paddingLeft: "1.25rem", paddingRight: "1.25rem" }}
             >
               <div className="flex flex-col h-full" style={{ width: "100%" }}>
-                <div className="flex-1 flex flex-col items-start mt-10">
-                  {items?.map((first, index) => (
-                    <div key={index} className="flex flex-col items-center">
-                      <div
-                        className="text-sunglassesandframes-black flex flex-col justify-center items-center mt-4"
-                        style={{ width: "100%" }}
-                      >
-                        <div
-                          style={{
-                            display: "flex",
-                          }}
-                        >
-                          <div className="mt-3 font-semibold text-l">
-                            {first?.item?.map(item => item?.item)}
+                <div className="flex-1 flex flex-col items-start ">
+                  {items?.map(
+                    (first, index) =>
+                      first.title === selectItem &&
+                      first.item.map(item => (
+                        <div key={index} className="flex flex-col items-center">
+                          <div
+                            className="text-sunglassesandframes-black flex flex-col justify-center items-center mt-4"
+                            style={{ width: "100%" }}
+                          >
+                            <div
+                              style={{
+                                display: "flex",
+                              }}
+                            >
+                              <div className="mt-3 font-semibold text-l">
+                                {item.item}
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  ))}
+                      ))
+                  )}
                 </div>
               </div>
             </div>
