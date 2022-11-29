@@ -11,11 +11,7 @@ import { setSideBarShow } from "../store/modules/sideBar";
 import { AnimatePresence, motion } from "framer-motion";
 //INTL
 import { useIntl } from "react-intl";
-//ICONS
-import Icons from "../data/Icons";
-import closeIcon from "../assets/images/cross.svg";
-import logo from "../assets/images/logo-black.png";
-import shoppingBag from "../assets/images/shopping-bag-red.svg";
+
 //COMPONENTS
 import ModalsIcons from "./modalsIcons";
 import LinkMenu from "./linkMenu";
@@ -28,15 +24,20 @@ const sidebarVariants = {
   },
 };
 
-const Sidebar = () => {
+const Sidebar = ({
+  items,
+  viewSecondSidebar,
+  setViewSecondSidebar,
+  viewthirdSidebar,
+  setViewthirdSidebar,
+}) => {
   //STORE
   const dispatch = useDispatch();
 
-  //INTL
-  const intl = useIntl();
   //STATE
   const [show, setShown] = useState(false);
   const [selectSingleIcon, setSelectSingleIcon] = useState();
+  const [selectItem, setSelectItem] = useState();
 
   //FUNCTIONS
   const changeSidebar = () => {
@@ -44,7 +45,12 @@ const Sidebar = () => {
   };
 
   const pathName = useRouter().pathname;
-  const [viewSecondSidebar, setViewSecondSidebar] = useState(false);
+
+  const hangleTitle = title => {
+    setSelectItem(title);
+  };
+
+  console.log("selectItem", selectItem);
 
   return (
     <>
@@ -61,7 +67,7 @@ const Sidebar = () => {
           style={{ paddingLeft: "1.25rem", paddingRight: "1.25rem" }}
         >
           <div className="flex flex-col h-full" style={{ width: "100%" }}>
-            <div className="flex-1 flex flex-col items-start mt-10">
+            <div className="flex-1 flex flex-col items-start ">
               <div
                 className={`${
                   pathName === "/" &&
@@ -123,11 +129,13 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
+        <div style={{ height: "1px", width: "100%", background: "silver" }} />
       </motion.div>
       {show && (
         <ModalsIcons selectSingleIcon={selectSingleIcon} setShown={setShown} />
       )}
 
+      {/* LEVEL 2 */}
       <AnimatePresence>
         {viewSecondSidebar && (
           <motion.div
@@ -137,9 +145,6 @@ const Sidebar = () => {
             transition={{ type: "tween" }}
             style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
             className="fixed top-0 right-0 h-full w-full z-10"
-            onClick={() => {
-              setViewSecondSidebar(false);
-            }}
           />
         )}
       </AnimatePresence>
@@ -162,79 +167,92 @@ const Sidebar = () => {
               style={{ paddingLeft: "1.25rem", paddingRight: "1.25rem" }}
             >
               <div className="flex flex-col h-full" style={{ width: "100%" }}>
-                <div className="flex-1 flex flex-col items-start mt-10">
-                  <div
-                    className="text-sunglassesandframes-black flex flex-col justify-center items-center mt-4"
-                    style={{ width: "100%" }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        width: "100%",
-                        justifyContent: "space-between",
-                      }}
-                      onClick={() => setViewSecondSidebar(true)}
-                    >
-                      <div className="mt-3 font-semibold text-l">TREND</div>
-                      <div className="mt-4">
-                        <FontAwesomeIcon icon={faAngleRight} width={10} />
+                <div className="flex-1 flex flex-col items-start ">
+                  {items?.map((first, index) => (
+                    <div key={index} className="flex flex-col items-center">
+                      <div
+                        className="text-sunglassesandframes-black flex flex-col justify-center items-center mt-4"
+                        style={{ width: "100%" }}
+                        onClick={() => hangleTitle(first?.title)}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                          }}
+                          onClick={() => setViewthirdSidebar(true)}
+                        >
+                          <div className="mt-3 font-semibold text-l">
+                            {first?.title}
+                          </div>
+                          <div className="mt-4 iconback">
+                            <FontAwesomeIcon icon={faAngleRight} width={10} />
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    className="text-sunglassesandframes-black flex flex-col justify-center items-center mt-4"
-                    style={{ width: "100%" }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        width: "100%",
-                        justifyContent: "space-between",
-                      }}
-                      onClick={() => setViewSecondSidebar(true)}
-                    >
-                      <div className="mt-3 font-semibold text-l">OCCASIONE</div>
-                      <div className="mt-4">
-                        <FontAwesomeIcon icon={faAngleRight} width={10} />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="text-sunglassesandframes-black flex flex-col justify-center items-center mt-4"
-                    style={{ width: "100%" }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        width: "100%",
-                        justifyContent: "space-between",
-                      }}
-                      onClick={() => setViewSecondSidebar(true)}
-                    >
-                      <div className="mt-3 font-semibold text-l">STILE</div>
-                      <div className="mt-4">
-                        <FontAwesomeIcon icon={faAngleRight} width={10} />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="text-sunglassesandframes-black flex flex-col justify-center items-center mt-4"
-                    style={{ width: "100%" }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        width: "100%",
-                        justifyContent: "space-between",
-                      }}
-                      onClick={() => setViewSecondSidebar(true)}
-                    >
-                      <div className="mt-3 font-semibold text-l">SHAPE</div>
-                      <div className="mt-4">
-                        <FontAwesomeIcon icon={faAngleRight} width={10} />
-                      </div>
-                    </div>
-                  </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {viewthirdSidebar && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ type: "tween" }}
+            style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+            className="fixed top-0 right-0 h-full w-full z-10"
+          />
+        )}
+      </AnimatePresence>
+      {/* LEVEL 3 */}
+      <AnimatePresence>
+        {viewthirdSidebar && (
+          <motion.div
+            variants={sidebarVariants}
+            initial={"hidden"}
+            animate={"shown"}
+            exit={"hidden"}
+            className="fixed top-0 left-0 h-full w-full md:w-1/2 bg-sunglassesandframes-grey z-50"
+            style={{
+              height: "100vh",
+              marginTop: "70px",
+              backgroundColor: "white",
+            }}
+          >
+            <div
+              className="flex w-full h-full items-center"
+              style={{ paddingLeft: "1.25rem", paddingRight: "1.25rem" }}
+            >
+              <div className="flex flex-col h-full" style={{ width: "100%" }}>
+                <div className="flex-1 flex flex-col items-start ">
+                  {items?.map(
+                    (first, index) =>
+                      first.title === selectItem &&
+                      first.item.map(item => (
+                        <div key={index} className="flex flex-col items-center">
+                          <div
+                            className="text-sunglassesandframes-black flex flex-col justify-center items-center mt-4"
+                            style={{ width: "100%" }}
+                          >
+                            <div
+                              style={{
+                                display: "flex",
+                              }}
+                            >
+                              <div className="mt-3 font-semibold text-l">
+                                {item.item}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                  )}
                 </div>
               </div>
             </div>
@@ -274,6 +292,10 @@ const Sidebar = () => {
           .separator {
             margin-right: 20px;
             margin-left: 20px;
+          }
+          .iconback {
+            position: absolute;
+            right: 1.5rem;
           }
         `}
       </style>

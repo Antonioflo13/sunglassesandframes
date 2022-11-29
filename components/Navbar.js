@@ -29,10 +29,14 @@ import AlgoliaSearch from "../components/algolia-search";
 
 //Add FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faSearch,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 
-export const Navbar = () => {
+export const Navbar = ({ itemsNavbar }) => {
   //ROUTER
   const pathName = useRouter().pathname;
   //STORE
@@ -45,6 +49,10 @@ export const Navbar = () => {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [hasHover, setHasHover] = useState(false);
   const [monthCollectionInfo, setMonthCollectionInfo] = useState({});
+  const [viewSecondSidebar, setViewSecondSidebar] = useState(false);
+  const [viewthirdSidebar, setViewthirdSidebar] = useState(false);
+
+  console.log("viewthirdSidebar", viewthirdSidebar);
 
   //HOOKS
   const isDesktop = useMediaQuery(768);
@@ -78,6 +86,8 @@ export const Navbar = () => {
     document.body.classList.add("overflow-auto");
   };
 
+  const items = itemsNavbar?.data?.shopByItem?.items;
+
   return (
     <>
       <div className="px-5 md:px-5 left-0 top-0 w-full h-20 bg-white flex items-center justify-between z-30 customWidthHeader">
@@ -86,18 +96,48 @@ export const Navbar = () => {
             <img src={homeIcon.src} width={15} alt="icon-home" />
           </Link>
         ) : (
-          <div style={{ display: "flex", gap: "5px" }}>
-            <button
-              className="text-black font-semibold text-xs md:text-sm"
-              onClick={() => dispatch(setSideBarShow(!showSideBar))}
-            >
-              {!isDesktop && !showSideBar ? (
-                <img src={menuBurgher.src} width={15} alt="burger-icon" />
-              ) : (
-                <FontAwesomeIcon icon={faXmark} width={10} />
-              )}
-            </button>
-            <div>Q</div>
+          <div style={{ display: "flex", gap: "20px" }}>
+            {!isDesktop && (
+              <>
+                {!showSideBar && (
+                  <button
+                    className="text-black font-semibold text-xs md:text-sm"
+                    onClick={() => dispatch(setSideBarShow(!showSideBar))}
+                  >
+                    <img src={menuBurgher.src} width={15} alt="burger-icon" />
+                  </button>
+                )}
+
+                {!viewSecondSidebar && !viewthirdSidebar && showSideBar && (
+                  <button
+                    className="text-black font-semibold text-xs md:text-sm"
+                    onClick={() => dispatch(setSideBarShow(!showSideBar))}
+                  >
+                    <FontAwesomeIcon icon={faXmark} width={10} />
+                  </button>
+                )}
+
+                {viewSecondSidebar && !viewthirdSidebar && (
+                  <button
+                    className="text-black font-semibold text-xs md:text-sm"
+                    onClick={() => setViewSecondSidebar(false)}
+                  >
+                    <FontAwesomeIcon icon={faChevronLeft} width={10} />
+                  </button>
+                )}
+
+                {viewthirdSidebar && (
+                  <button
+                    className="text-black font-semibold text-xs md:text-sm"
+                    onClick={() => setViewthirdSidebar(false)}
+                  >
+                    <FontAwesomeIcon icon={faChevronLeft} width={10} />
+                  </button>
+                )}
+
+                <FontAwesomeIcon icon={faMagnifyingGlass} width={15} />
+              </>
+            )}
           </div>
         )}
 
@@ -236,41 +276,16 @@ export const Navbar = () => {
             >
               <div className="containerMenuTwo">
                 <div className="containerItems">
-                  <div className="flex flex-col items-center">
-                    <div className="first">TREND</div>
-                    <div>Round</div>
-                    <div>Squared</div>
-                    <div>Cat eve</div>
-                    <div>Aviator</div>
-                    <div>Mask</div>
-                  </div>
-
-                  <div className="flex flex-col items-center">
-                    <div className="first">OCCASIONE</div>
-                    <div>Round</div>
-                    <div>Squared</div>
-                    <div>Cat eve</div>
-                    <div>Aviator</div>
-                    <div>Mask</div>
-                  </div>
-
-                  <div className="flex flex-col items-center">
-                    <div className="first">STILE</div>
-                    <div>Round</div>
-                    <div>Squared</div>
-                    <div>Cat eve</div>
-                    <div>Aviator</div>
-                    <div>Mask</div>
-                  </div>
-
-                  <div className="flex flex-col  items-center">
-                    <div className="first">SHAPE</div>
-                    <div>Round</div>
-                    <div>Squared</div>
-                    <div>Cat eve</div>
-                    <div>Aviator</div>
-                    <div>Mask</div>
-                  </div>
+                  {items.map((first, index) => (
+                    <div key={index} className="flex flex-col items-center">
+                      <div className="first">{first?.title}</div>
+                      {first?.item?.map((item, index) => (
+                        <div className="second" key={index}>
+                          {item?.item}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
                 </div>
                 <div className="containerAdv">
                   <Link href={`designers/${monthCollectionInfo?.handle}`}>
@@ -314,7 +329,17 @@ export const Navbar = () => {
           />
         )}
       </AnimatePresence>
-      <AnimatePresence>{showSideBar && <Sidebar />}</AnimatePresence>
+      <AnimatePresence>
+        {showSideBar && (
+          <Sidebar
+            items={items}
+            viewSecondSidebar={viewSecondSidebar}
+            setViewSecondSidebar={setViewSecondSidebar}
+            viewthirdSidebar={viewthirdSidebar}
+            setViewthirdSidebar={setViewthirdSidebar}
+          />
+        )}
+      </AnimatePresence>
       <AnimatePresence>
         {showDialogContact && (
           <Contact setShown={dispatch(setDialogContactShow(true))} />
@@ -368,7 +393,7 @@ export const Navbar = () => {
 
         .containerItems {
           display: flex;
-          gap: 10rem;
+          gap: 20%;
           width: 70%;
         }
 
@@ -410,8 +435,24 @@ export const Navbar = () => {
           margin-bottom: 10px;
         }
 
+        .second {
+          place-self: flex-start;
+        }
+
         .link {
           padding-right: 2.5rem;
+        }
+
+        @media screen (max-width: 1150px) {
+          .containerItems {
+            gap: 15%;
+          }
+        }
+
+        @media screen (max-width: 800px) {
+          .containerItems {
+            gap: 10%;
+          }
         }
 
         @media (max-width: 768px) {

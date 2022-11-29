@@ -8,7 +8,7 @@ const SliderMenu = ({ allShopBy }) => {
 
   return (
     <>
-      <div className="mt-20 mb-10" style={{ textAlign: "center" }}>
+      <div className="titleSliderMenu" style={{ textAlign: "center" }}>
         SHOP BY
       </div>
       {isDesktop ? (
@@ -91,6 +91,18 @@ const SliderMenu = ({ allShopBy }) => {
           width: 100%;
           height: 100%;
           object-fit: cover;
+        }
+
+        .titleSliderMenu {
+          margin-top: 4rem;
+          margin-bottom: 2.5rem;
+        }
+
+        @media (max-width: 767px) {
+          .titleSliderMenu {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+          }
         }
       `}</style>
     </>

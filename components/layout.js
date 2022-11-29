@@ -16,7 +16,7 @@ import en from "../intl/en.json";
 import { Navbar } from "./Navbar";
 import Footer from "./footer";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, itemsNavbar }) => {
   //STORE
   const language = useSelector(state => state.language.value);
   //ROUTER
@@ -56,7 +56,7 @@ const Layout = ({ children }) => {
       messages={messages[language]}
       onError={errorMissingTranslation}
     >
-      <Navbar />
+      <Navbar itemsNavbar={itemsNavbar} />
       {children}
       {router.pathname !== "/designers/[...product]" && <Footer />}
     </IntlProvider>
