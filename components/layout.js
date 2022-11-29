@@ -32,9 +32,11 @@ const Layout = ({ children, itemsNavbar }) => {
   const setBodyOverflow = () => {
     let body = document.querySelector("body");
     if (body && router.pathname === "/designers/[...product]" && !isDesktop) {
+      document.body.classList.remove("overflow-auto");
       document.body.classList.add("overflow-hidden");
     }
     if (body && router.pathname !== "/collections/[...product]") {
+      document.body.classList.remove("overflow-hidden");
       document.body.classList.add("overflow-auto");
     }
   };
