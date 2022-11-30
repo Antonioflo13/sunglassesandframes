@@ -16,7 +16,7 @@ import en from "../intl/en.json";
 import { Navbar } from "./Navbar";
 import Footer from "./footer";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, itemsNavbar }) => {
   //STORE
   const language = useSelector(state => state.language.value);
   //ROUTER
@@ -32,9 +32,11 @@ const Layout = ({ children }) => {
   const setBodyOverflow = () => {
     let body = document.querySelector("body");
     if (body && router.pathname === "/designers/[...product]" && !isDesktop) {
+      document.body.classList.remove("overflow-auto");
       document.body.classList.add("overflow-hidden");
     }
     if (body && router.pathname !== "/collections/[...product]") {
+      document.body.classList.remove("overflow-hidden");
       document.body.classList.add("overflow-auto");
     }
   };
@@ -54,7 +56,7 @@ const Layout = ({ children }) => {
       messages={messages[language]}
       onError={errorMissingTranslation}
     >
-      <Navbar />
+      <Navbar itemsNavbar={itemsNavbar} />
       {children}
       {router.pathname !== "/designers/[...product]" && <Footer />}
     </IntlProvider>

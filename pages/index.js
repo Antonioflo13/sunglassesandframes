@@ -15,6 +15,7 @@ import { setDefaultProductImage } from "../store/modules/defaultProductImage";
 import getAllArticles from "../api/articles";
 import getShopBy from "../api/shopBy";
 import getMonthlyHighlight from "../api/monthlyHighlight";
+import getShopByItems from "../api/ShopByItems";
 import { getCollection } from "../api/collections";
 import getDefaultProductImage from "../api/defaultProductImage";
 //COMPONENTS
@@ -31,6 +32,7 @@ const IndexPage = ({
   monthCollectionInfo,
   monthCollection,
   defaultProductImage,
+  itemsNavbar,
 }) => {
   //STORE
   const dispatch = useDispatch();
@@ -132,7 +134,7 @@ const IndexPage = ({
         <title>sunglassesandframes</title>
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
       </Head>
-      <Layout articles={articles}>
+      <Layout articles={articles} itemsNavbar={itemsNavbar}>
         <AnimatedPage fullHeight>
           <SliderArticles articles={articles} />
           <SliderHomeCollection />
@@ -157,6 +159,7 @@ export async function getStaticProps() {
     monthCollectionInfo?.data?.allMonthlyHighlights[0]?.handle;
   const monthCollection = await getCollection(monthCollectionHandle, 30);
   const defaultProductImage = await getDefaultProductImage();
+  const itemsNavbar = await getShopByItems();
   return {
     props: {
       articles,
@@ -164,6 +167,7 @@ export async function getStaticProps() {
       monthCollectionInfo,
       monthCollection,
       defaultProductImage,
+      itemsNavbar,
     },
   };
 }
