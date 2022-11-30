@@ -116,6 +116,7 @@ const AssistanceCenter = ({ assistanceCenterInfo }) => {
           display: flex;
           flex-direction: column;
         }
+
         .header-image-container {
           position: relative;
           width: 100%;
