@@ -20,11 +20,10 @@ const Article = ({ article, collectionProducts }) => {
   const isDesktop = useMediaQuery(768);
   const productsInArticle = [];
   article = article?.data?.article;
-  console.log(article);
-  const collectionHandle = collectionProducts
+  const collectionHandle = collectionProducts.data.collection
     ? collectionProducts?.data?.collection.handle
     : null;
-  collectionProducts = collectionProducts
+  collectionProducts = collectionProducts.data.collection
     ? collectionProducts?.data?.collection.products.edges
     : null;
 
@@ -49,7 +48,6 @@ const Article = ({ article, collectionProducts }) => {
           <Head>
             <title>{title}</title>
             <meta name="description" content={article?.seo.description} />
-            <meta name="image" content={article?.seo.image.url} />
             <meta name="title" content={article?.seo.title} />
           </Head>
           <AnimatedPage margins={true}>
