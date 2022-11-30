@@ -52,8 +52,6 @@ export const Navbar = ({ itemsNavbar }) => {
   const [viewSecondSidebar, setViewSecondSidebar] = useState(false);
   const [viewthirdSidebar, setViewthirdSidebar] = useState(false);
 
-  console.log("viewthirdSidebar", viewthirdSidebar);
-
   //HOOKS
   const isDesktop = useMediaQuery(768);
 
@@ -443,19 +441,19 @@ export const Navbar = ({ itemsNavbar }) => {
           padding-right: 2.5rem;
         }
 
-        @media screen (max-width: 1150px) {
+        @media screen and (max-width: 1150px) {
           .containerItems {
             gap: 15%;
           }
         }
 
-        @media screen (max-width: 800px) {
+        @media screen and (max-width: 800px) {
           .containerItems {
             gap: 10%;
           }
         }
 
-        @media (max-width: 768px) {
+        @media screen and (max-width: 768px) {
           .subtitle-logo {
             font-size: 10px;
           }

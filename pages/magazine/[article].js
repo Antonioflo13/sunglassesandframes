@@ -1,5 +1,8 @@
 //REACT
 import React from "react";
+//NEXT
+import Head from "next/head";
+import Image from "next/image";
 //API
 import getAllArticles from "../../api/articles";
 import getArticle from "../../api/article";
@@ -11,15 +14,20 @@ import AnimatedPage from "../../components/animated-page";
 import PageTitle from "../../components/page-title";
 import { getCollection } from "../../api/collections";
 import SliderArticleCollection from "../../templates/slider-article-collection";
-import Head from "next/head";
-import Image from "next/image";
 // import SliderArticleProducts from "../templates/slider-article-products";
 
 const Article = ({ article, collectionProducts }) => {
   const isDesktop = useMediaQuery(768);
   const productsInArticle = [];
   article = article?.data?.article;
-  collectionProducts = collectionProducts?.data?.collection;
+  console.log(article);
+  const collectionHandle = collectionProducts
+    ? collectionProducts?.data?.collection.handle
+    : null;
+  collectionProducts = collectionProducts
+    ? collectionProducts?.data?.collection.products.edges
+    : null;
+
   const title = `Indice - ${article?.handle}`;
 
   // Object.entries(article).forEach(item => {
@@ -40,12 +48,14 @@ const Article = ({ article, collectionProducts }) => {
         <Layout>
           <Head>
             <title>{title}</title>
-            <meta name="description" content={article?.handle} />
+            <meta name="description" content={article?.seo.description} />
+            <meta name="image" content={article?.seo.image.url} />
+            <meta name="title" content={article?.seo.title} />
           </Head>
           <AnimatedPage margins={true}>
-            <div className="flex flex-col justify-center w-full">
+            <div className="page-container">
               {isDesktop && (
-                <div className="w-full md:w-1/2 mt-8">
+                <div className="w-full md:w-1/2 my-8">
                   <PageTitle
                     breadcrumbs={[
                       ...[
@@ -60,81 +70,115 @@ const Article = ({ article, collectionProducts }) => {
                   />
                 </div>
               )}
-              {/* Info */}
-              <div className="flex container-collection mt-4">
-                {isDesktop ? (
-                  <div className="img-header-container">
-                    <Image
-                      fill="true"
-                      priority={true}
-                      style={{ objectFit: "cover" }}
-                      sizes="100%"
-                      placeholder="blur"
-                      blurDataURL={article.imageheader.url}
-                      src={article.imageheader.url}
-                      alt={article.imageheader.url}
-                    />
-                  </div>
-                ) : (
-                  <div className="img-header-container">
-                    <Image
-                      fill="true"
-                      priority={true}
-                      style={{ objectFit: "cover" }}
-                      sizes="100%"
-                      placeholder="blur"
-                      blurDataURL={article.imageheader.url}
-                      src={article.imageheader.url}
-                      alt={article.imageheader.url}
-                    />
-                  </div>
-                )}
-
-                <div>
-                  <h1 className="uppercase font-bold my-10 text-center">
-                    {article.title}
-                  </h1>
+              <div className="header-container">
+                <div className="header-image-container">
+                  {isDesktop ? (
+                    <div className="img-header-container">
+                      <Image
+                        fill="true"
+                        priority={true}
+                        style={{ objectFit: "cover" }}
+                        sizes="100%"
+                        placeholder="blur"
+                        blurDataURL={article.imageheader.blurUpThumb}
+                        src={article.imageheader.url}
+                        alt={article.imageheader.url}
+                      />
+                    </div>
+                  ) : (
+                    <div className="img-header-container">
+                      <Image
+                        fill="true"
+                        priority={true}
+                        style={{ objectFit: "cover" }}
+                        sizes="100%"
+                        placeholder="blur"
+                        blurDataURL={article.imageheader.blurUpThumb}
+                        src={article.imageheader.url}
+                        alt={article.imageheader.url}
+                      />
+                    </div>
+                  )}
                 </div>
-                <div className="text-center">
-                  <div>
-                    <img
-                      className="float-left mr-5 mb-5"
-                      src={article.image.url}
-                      alt={""}
-                      width={"200vw"}
-                    />
+                <div className="header-description-container">
+                  <div className="title-container">
+                    <h1 className="uppercase font-bold">{article.title}</h1>
+                    <p className="text-xs">{article.subtitle}</p>
                   </div>
-                  <p className="text-justify">
-                    {article.description.length > 0
-                      ? article.description
-                      : null}
-                  </p>
+                  <div>
+                    <p>
+                      {article.description.length > 0
+                        ? article.description
+                        : null}
+                    </p>
+                  </div>
                 </div>
               </div>
+              <div className="mt-10">
+                {collectionProducts !== null && (
+                  <SliderArticleCollection
+                    products={collectionProducts}
+                    collectionHandle={collectionHandle}
+                  />
+                )}
+              </div>
             </div>
-            {collectionProducts !== null && (
-              <SliderArticleCollection
-                collectionProducts={collectionProducts}
-              />
-            )}
             {/*<SliderArticleProducts productsinArticle={productsinArticle} />*/}
           </AnimatedPage>
           <style jsx="true">
             {`
-              .container-collection {
+              .page-container {
+                margin-top: 50px;
+                margin-bottom: 20px;
+              }
+              .header-container {
+                display: flex;
                 flex-direction: column;
               }
-
-              .img-header-container {
+              .header-image-container {
                 position: relative;
-                height: 250px;
-                border-radius: 15px;
+                width: 100%;
+                height: 200px;
+                border-radius: 10px;
                 overflow: hidden;
               }
-
-              @media (max-width: 768px) {
-                .img-headerCollection {
-                  height: 200px;
+              .header-description-container {
+                margin-top: 20px;
+              }
+              .title-container {
+                margin-bottom: 20px;
+                text-align: center;
+              }
+              .container-accordions {
+                margin-top: 40px;
+              }
+              .container-accordion {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+              }
+              .icon {
+                cursor: pointer;
+              }
+              @media (min-width: 768px) {
+                .page-container {
+                  margin-top: 20px;
+                }
+                .header-container {
+                  display: flex;
+                  flex-direction: row;
+                  gap: 10px;
+                }
+                .header-image-container {
+                  width: 50%;
+                }
+                .header-description-container {
+                  width: 50%;
+                  margin-top: unset;
+                }
+                .title-container {
+                  margin-bottom: 20px;
+                  text-align: unset;
                 }
               }
             `}

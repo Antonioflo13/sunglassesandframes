@@ -3,14 +3,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons/faAngleRight";
-//STORE
-import { useSelector, useDispatch } from "react-redux";
-import { setLanguage } from "../store/modules/language";
-import { setSideBarShow } from "../store/modules/sideBar";
 //MOTION
 import { AnimatePresence, motion } from "framer-motion";
-//INTL
-import { useIntl } from "react-intl";
 
 //COMPONENTS
 import ModalsIcons from "./modalsIcons";
@@ -31,26 +25,17 @@ const Sidebar = ({
   viewthirdSidebar,
   setViewthirdSidebar,
 }) => {
-  //STORE
-  const dispatch = useDispatch();
+  //ROUTER
+  const pathName = useRouter().pathname;
 
   //STATE
   const [show, setShown] = useState(false);
   const [selectSingleIcon, setSelectSingleIcon] = useState();
   const [selectItem, setSelectItem] = useState();
 
-  //FUNCTIONS
-  const changeSidebar = () => {
-    dispatch(setSideBarShow(false));
-  };
-
-  const pathName = useRouter().pathname;
-
   const hangleTitle = title => {
     setSelectItem(title);
   };
-
-  console.log("selectItem", selectItem);
 
   return (
     <>
