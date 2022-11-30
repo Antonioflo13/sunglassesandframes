@@ -16,6 +16,7 @@ import AnimatedPage from "../components/animated-page";
 const AssistanceCenter = ({ assistanceCenterInfo }) => {
   //STATE
   const [accordion, setAccordion] = useState({});
+
   assistanceCenterInfo = assistanceCenterInfo.data.allAssistanceCenters[0];
 
   //FUNCTIONS
