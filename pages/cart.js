@@ -37,7 +37,7 @@ const Cart = () => {
   const language = useSelector(state => state.language.value);
   const dispatch = useDispatch();
 
-  //HOOKS
+  //HOOKSs
   const isDesktop = useMediaQuery(768);
 
   //FUNCTIONS
