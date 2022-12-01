@@ -2,19 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
 import Image from "next/image";
+import { FormattedNumber } from "react-intl";
 
 const SliderArticleCollection = ({ products, collectionHandle }) => {
   //STATE
   const [defaultProductImage, setDefaultProductImage] = useState("");
+  const [showSwiper, setShowSwiper] = useState(false);
 
   //EFFECT
   useEffect(() => {
     setDefaultProductImage(localStorage.getItem("defaultProductImage"));
+    setShowSwiper(true);
   }, []);
 
   return (
     <>
-      <div className="sliderCollection">
+      {showSwiper && (
         <Swiper
           slidesPerView={3}
           spaceBetween={30}
@@ -29,7 +32,7 @@ const SliderArticleCollection = ({ products, collectionHandle }) => {
         >
           {products &&
             products?.map(item => (
-              <SwiperSlide key={item.id}>
+              <SwiperSlide key={item.node.id}>
                 <Link
                   href={{
                     pathname: `/designers/${collectionHandle}/${item?.node?.handle}`,
@@ -58,12 +61,29 @@ const SliderArticleCollection = ({ products, collectionHandle }) => {
                     <div className="text-sunglassesandframes-black text-xs font-bold mackay noToHead">
                       {item?.node?.title}
                     </div>
+                    {item.node.availableForSale &&
+                      !item.node.tags.includes("nfs") &&
+                      item.node.totalInventory > 0 && (
+                        <p className="text-2xs">
+                          <FormattedNumber
+                            style="currency"
+                            value={
+                              item.node.variants.edges[0].node.priceV2.amount
+                            }
+                            currency={
+                              item.node.variants.edges[0].node.priceV2
+                                .currencyCode
+                            }
+                            minimumFractionDigits={0}
+                          />
+                        </p>
+                      )}
                   </div>
                 </Link>
               </SwiperSlide>
             ))}
         </Swiper>
-      </div>
+      )}
       <style jsx="true">
         {`
           .container-slider {

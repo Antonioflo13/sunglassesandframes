@@ -27,7 +27,7 @@ const Article = ({ article, collectionProducts }) => {
     ? collectionProducts?.data?.collection.products.edges
     : null;
 
-  const title = `Indice - ${article?.handle}`;
+  const title = `Sunglassesandframes - ${article?.handle}`;
 
   // Object.entries(article).forEach(item => {
   //   if (item[0].includes("product")) {
