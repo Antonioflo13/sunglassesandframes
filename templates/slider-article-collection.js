@@ -36,6 +36,7 @@ const SliderArticleCollection = ({ products, collectionHandle }) => {
                 <Link
                   href={{
                     pathname: `/designers/${collectionHandle}/${item?.node?.handle}`,
+                    query: { cursor: item?.cursor },
                   }}
                 >
                   <div className="container-slider">

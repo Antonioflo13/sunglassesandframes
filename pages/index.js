@@ -11,6 +11,7 @@ import {
   setMonthCollection,
 } from "../store/modules/monthCollection";
 import { setDefaultProductImage } from "../store/modules/defaultProductImage";
+import { setItemsNavBar } from "../store/modules/itemsNavBar";
 //API
 import getAllArticles from "../api/articles";
 import getShopBy from "../api/shopBy";
@@ -64,6 +65,8 @@ const IndexPage = ({
     dispatch(setMonthCollectionInfo(JSON.stringify(monthCollectionInfo)));
     dispatch(setMonthCollection(JSON.stringify(monthCollection)));
     dispatch(setDefaultProductImage(defaultProductImage));
+    dispatch(setItemsNavBar(JSON.stringify(itemsNavbar)));
+
     handlerCookieScript();
     setLanguageByBrowser();
   }, []);

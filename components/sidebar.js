@@ -22,8 +22,8 @@ const Sidebar = ({
   items,
   viewSecondSidebar,
   setViewSecondSidebar,
-  viewthirdSidebar,
-  setViewthirdSidebar,
+  viewThirdSidebar,
+  setViewThirdSidebar,
 }) => {
   //ROUTER
   const pathName = useRouter().pathname;
@@ -164,7 +164,7 @@ const Sidebar = ({
                           style={{
                             display: "flex",
                           }}
-                          onClick={() => setViewthirdSidebar(true)}
+                          onClick={() => setViewThirdSidebar(true)}
                         >
                           <div className="mt-3 font-semibold text-l">
                             {first?.title}
@@ -184,7 +184,7 @@ const Sidebar = ({
       </AnimatePresence>
 
       <AnimatePresence>
-        {viewthirdSidebar && (
+        {viewThirdSidebar && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -197,7 +197,7 @@ const Sidebar = ({
       </AnimatePresence>
       {/* LEVEL 3 */}
       <AnimatePresence>
-        {viewthirdSidebar && (
+        {viewThirdSidebar && (
           <motion.div
             variants={sidebarVariants}
             initial={"hidden"}

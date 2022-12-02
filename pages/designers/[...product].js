@@ -143,7 +143,7 @@ const Product = ({
 export async function getServerSideProps({ query }) {
   const collectionHandle = query.product[0];
   const productHandle = query.product[1];
-  const cursor = query.cursor;
+  const cursor = query.cursor || null;
   const resProduct = await getProduct(productHandle);
   let CollectionProducts = await getCollection(collectionHandle, 20, cursor);
   const hasMore =
