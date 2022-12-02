@@ -59,6 +59,7 @@ async function getCollection(collection, first, cursor) {
           vendor
           availableForSale
           tags
+          totalInventory
           variants(first: 250) {
             edges {
               node {

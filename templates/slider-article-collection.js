@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
 import Link from "next/link";
+import Image from "next/image";
+import { FormattedNumber } from "react-intl";
 
-const SliderArticleCollection = ({ collectionProducts }) => {
-  const products = collectionProducts.products.nodes;
+const SliderArticleCollection = ({ products, collectionHandle }) => {
+  //STATE
+  const [defaultProductImage, setDefaultProductImage] = useState("");
+  const [showSwiper, setShowSwiper] = useState(false);
+
+  //EFFECT
+  useEffect(() => {
+    setDefaultProductImage(localStorage.getItem("defaultProductImage"));
+    setShowSwiper(true);
+  }, []);
 
   return (
     <>
-      <div className="sliderCollection">
+      {showSwiper && (
         <Swiper
           slidesPerView={3}
           spaceBetween={30}
@@ -21,77 +30,75 @@ const SliderArticleCollection = ({ collectionProducts }) => {
             },
           }}
         >
-          {products?.map(item => (
-            <SwiperSlide key={item.id}>
-              <Link
-                href={{
-                  pathname: `/designers/${item.vendor}/${item.handle}`,
-                }}
-              >
-                <div style={{ cursor: "pointer" }}>
-                  <img
-                    className="img-product"
-                    src={
-                      item.variants.edges[0].node.product.images.nodes[0]
-                        .originalSrc
-                    }
-                    alt="product"
-                  />
-                  <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
-                    {item.vendor}
+          {products &&
+            products?.map(item => (
+              <SwiperSlide key={item.node.id}>
+                <Link
+                  href={{
+                    pathname: `/designers/${collectionHandle}/${item?.node?.handle}`,
+                    query: { cursor: item?.cursor },
+                  }}
+                >
+                  <div className="container-slider">
+                    <Image
+                      fill="true"
+                      sizes="100%"
+                      priority={true}
+                      style={{ objectFit: "cover" }}
+                      src={
+                        item?.node?.variants?.edges[0]?.node?.product?.images
+                          ?.nodes.length > 0
+                          ? item?.node?.variants?.edges[0]?.node?.product
+                              ?.images?.nodes[0].originalSrc
+                          : defaultProductImage
+                      }
+                      alt="product"
+                    />
                   </div>
-                  <div className="ml-1 text-xs uppercase font-bold mt-2">
-                    {item.title}
+                  <div className="text-center">
+                    <div className="text-xs uppercase font-bold">
+                      {item?.node?.vendor}
+                    </div>
+                    <div className="text-sunglassesandframes-black text-xs font-bold mackay noToHead">
+                      {item?.node?.title}
+                    </div>
+                    {item.node.availableForSale &&
+                      !item.node.tags.includes("nfs") &&
+                      item.node.totalInventory > 0 && (
+                        <p className="text-2xs">
+                          <FormattedNumber
+                            style="currency"
+                            value={
+                              item.node.variants.edges[0].node.priceV2.amount
+                            }
+                            currency={
+                              item.node.variants.edges[0].node.priceV2
+                                .currencyCode
+                            }
+                            minimumFractionDigits={0}
+                          />
+                        </p>
+                      )}
                   </div>
-                </div>
-              </Link>
-            </SwiperSlide>
-          ))}
+                </Link>
+              </SwiperSlide>
+            ))}
         </Swiper>
-      </div>
-      <style jsx="true">{`
-        .swiper-wrapper {
-          transform: translate3d(-1328.28px, 0px, 0px);
-        }
-
-        .swiper-slide {
-          text-align: center;
-          font-size: 18px;
-          background: #fff;
-          display: -webkit-box;
-          display: -ms-flexbox;
-          display: -webkit-flex;
-          display: flex;
-          -webkit-box-pack: center;
-          -ms-flex-pack: center;
-          -webkit-justify-content: center;
-          justify-content: center;
-          -webkit-box-align: center;
-          -ms-flex-align: center;
-          -webkit-align-items: center;
-          align-items: center;
-        }
-
-        .swiper-slide img {
-          display: block;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      `}</style>
+      )}
+      <style jsx="true">
+        {`
+          .container-slider {
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            height: 150px;
+          }
+        `}
+      </style>
     </>
   );
 };
 
 export default SliderArticleCollection;
-
-const FormattedMessage = ({ values, ...props }) => (
-  <OriginalFormattedMessage
-    values={{
-      b: chunk => <b>{chunk}</b>,
-      r: chunk => <b className="text-sunglassesandframes-black">{chunk}</b>,
-      ...values,
-    }}
-    {...props}
-  />
-);

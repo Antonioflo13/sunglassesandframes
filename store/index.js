@@ -6,6 +6,8 @@ import sidebarReducer from "./modules/sideBar";
 import cartReducer from "./modules/cart";
 import monthCollectionReducer from "./modules/monthCollection";
 import defaultProductImageReducer from "./modules/defaultProductImage";
+import itemsNavBarReducer from "./modules/itemsNavBar";
+
 
 export const store = configureStore({
   reducer: {
@@ -15,5 +17,6 @@ export const store = configureStore({
     cart: cartReducer,
     monthCollection: monthCollectionReducer,
     defaultProduct: defaultProductImageReducer,
+    itemsNavBar: itemsNavBarReducer,
   },
 });

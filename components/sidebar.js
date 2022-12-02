@@ -3,14 +3,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons/faAngleRight";
-//STORE
-import { useSelector, useDispatch } from "react-redux";
-import { setLanguage } from "../store/modules/language";
-import { setSideBarShow } from "../store/modules/sideBar";
 //MOTION
 import { AnimatePresence, motion } from "framer-motion";
-//INTL
-import { useIntl } from "react-intl";
 
 //COMPONENTS
 import ModalsIcons from "./modalsIcons";
@@ -28,29 +22,20 @@ const Sidebar = ({
   items,
   viewSecondSidebar,
   setViewSecondSidebar,
-  viewthirdSidebar,
-  setViewthirdSidebar,
+  viewThirdSidebar,
+  setViewThirdSidebar,
 }) => {
-  //STORE
-  const dispatch = useDispatch();
+  //ROUTER
+  const pathName = useRouter().pathname;
 
   //STATE
   const [show, setShown] = useState(false);
   const [selectSingleIcon, setSelectSingleIcon] = useState();
   const [selectItem, setSelectItem] = useState();
 
-  //FUNCTIONS
-  const changeSidebar = () => {
-    dispatch(setSideBarShow(false));
-  };
-
-  const pathName = useRouter().pathname;
-
   const hangleTitle = title => {
     setSelectItem(title);
   };
-
-  console.log("selectItem", selectItem);
 
   return (
     <>
@@ -179,7 +164,7 @@ const Sidebar = ({
                           style={{
                             display: "flex",
                           }}
-                          onClick={() => setViewthirdSidebar(true)}
+                          onClick={() => setViewThirdSidebar(true)}
                         >
                           <div className="mt-3 font-semibold text-l">
                             {first?.title}
@@ -199,7 +184,7 @@ const Sidebar = ({
       </AnimatePresence>
 
       <AnimatePresence>
-        {viewthirdSidebar && (
+        {viewThirdSidebar && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -212,7 +197,7 @@ const Sidebar = ({
       </AnimatePresence>
       {/* LEVEL 3 */}
       <AnimatePresence>
-        {viewthirdSidebar && (
+        {viewThirdSidebar && (
           <motion.div
             variants={sidebarVariants}
             initial={"hidden"}

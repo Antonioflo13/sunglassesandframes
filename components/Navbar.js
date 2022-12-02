@@ -36,7 +36,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 
-export const Navbar = ({ itemsNavbar }) => {
+export const Navbar = () => {
   //ROUTER
   const pathName = useRouter().pathname;
   //STORE
@@ -49,10 +49,9 @@ export const Navbar = ({ itemsNavbar }) => {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [hasHover, setHasHover] = useState(false);
   const [monthCollectionInfo, setMonthCollectionInfo] = useState({});
+  const [itemsNavbar, setItemsNavbar] = useState([]);
   const [viewSecondSidebar, setViewSecondSidebar] = useState(false);
-  const [viewthirdSidebar, setViewthirdSidebar] = useState(false);
-
-  console.log("viewthirdSidebar", viewthirdSidebar);
+  const [viewThirdSidebar, setViewThirdSidebar] = useState(false);
 
   //HOOKS
   const isDesktop = useMediaQuery(768);
@@ -71,6 +70,9 @@ export const Navbar = ({ itemsNavbar }) => {
     setMonthCollectionInfo(
       JSON.parse(localStorage.getItem("monthCollectionInfo")).data
         ?.allMonthlyHighlights[0]
+    );
+    setItemsNavbar(
+      JSON.parse(localStorage.getItem("itemNavBar"))
     );
   }, []);
 
@@ -108,7 +110,7 @@ export const Navbar = ({ itemsNavbar }) => {
                   </button>
                 )}
 
-                {!viewSecondSidebar && !viewthirdSidebar && showSideBar && (
+                {!viewSecondSidebar && !viewThirdSidebar && showSideBar && (
                   <button
                     className="text-black font-semibold text-xs md:text-sm"
                     onClick={() => dispatch(setSideBarShow(!showSideBar))}
@@ -117,7 +119,7 @@ export const Navbar = ({ itemsNavbar }) => {
                   </button>
                 )}
 
-                {viewSecondSidebar && !viewthirdSidebar && (
+                {viewSecondSidebar && !viewThirdSidebar && (
                   <button
                     className="text-black font-semibold text-xs md:text-sm"
                     onClick={() => setViewSecondSidebar(false)}
@@ -126,10 +128,10 @@ export const Navbar = ({ itemsNavbar }) => {
                   </button>
                 )}
 
-                {viewthirdSidebar && (
+                {viewThirdSidebar && (
                   <button
                     className="text-black font-semibold text-xs md:text-sm"
-                    onClick={() => setViewthirdSidebar(false)}
+                    onClick={() => setViewThirdSidebar(false)}
                   >
                     <FontAwesomeIcon icon={faChevronLeft} width={10} />
                   </button>
@@ -335,8 +337,8 @@ export const Navbar = ({ itemsNavbar }) => {
             items={items}
             viewSecondSidebar={viewSecondSidebar}
             setViewSecondSidebar={setViewSecondSidebar}
-            viewthirdSidebar={viewthirdSidebar}
-            setViewthirdSidebar={setViewthirdSidebar}
+            viewThirdSidebar={viewThirdSidebar}
+            setViewThirdSidebar={setViewThirdSidebar}
           />
         )}
       </AnimatePresence>
@@ -443,19 +445,19 @@ export const Navbar = ({ itemsNavbar }) => {
           padding-right: 2.5rem;
         }
 
-        @media screen (max-width: 1150px) {
+        @media screen and (max-width: 1150px) {
           .containerItems {
             gap: 15%;
           }
         }
 
-        @media screen (max-width: 800px) {
+        @media screen and (max-width: 800px) {
           .containerItems {
             gap: 10%;
           }
         }
 
-        @media (max-width: 768px) {
+        @media screen and (max-width: 768px) {
           .subtitle-logo {
             font-size: 10px;
           }
