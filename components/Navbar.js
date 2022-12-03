@@ -261,7 +261,7 @@ export const Navbar = () => {
       )}
       <AnimatePresence>
         {isDesktop && hasHover && (
-          <div className="fullScrenBackground">
+          <div className="fullScreenBackground">
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "max-content" }}
@@ -373,7 +373,7 @@ export const Navbar = () => {
           justify-content: space-between;
         }
 
-        .fullScrenBackground {
+        .fullScreenBackground {
           height: 100%;
           background-color: rgb(0 0 0/25%);
           z-index: 99;

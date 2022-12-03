@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       {process.env.NEXT_PUBLIC_NODE !== "development" && <Analytics />}
       <Provider store={store}>
         <IntlProvider locale={"it"}>
-          {!loadingPage ? <Component {...pageProps} /> : <LoadingPage />}
+          {<Component {...pageProps} />}
         </IntlProvider>
       </Provider>
     </>

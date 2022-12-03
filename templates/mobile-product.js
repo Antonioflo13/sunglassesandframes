@@ -25,6 +25,7 @@ const MobileProductTemplate = props => {
     productHandle,
     hasMore,
     cursor,
+    product,
     buy,
     askForPrice,
     relatedProducts,
@@ -63,7 +64,9 @@ const MobileProductTemplate = props => {
         console.log(swiper?.activeIndex);
         setSwiperIndex(0);
         router.push(
-          `/designers/${collectionHandle}/${products[0].node.handle}?cursor=${newCursor}`,
+          `/designers/${collectionHandle}/${products[0].node.handle}${
+            cursor && `?cursor=${newCursor}`
+          }`,
           undefined,
           { shallow: true }
         );
@@ -72,7 +75,7 @@ const MobileProductTemplate = props => {
         router.push(
           `/designers/${collectionHandle}/${
             products[swiper?.activeIndex - 1].node.handle
-          }?cursor=${newCursor}`,
+          }${cursor && `?cursor=${newCursor}`}`,
           undefined,
           { shallow: true }
         );
@@ -84,6 +87,12 @@ const MobileProductTemplate = props => {
     await getCollection(collectionHandle, first, cursor);
 
   //EFFECT
+  useEffect(() => {
+    if (!cursor) {
+      setProducts([product]);
+    }
+  }, [cursor]);
+
   useEffect(() => {
     if (swiperIndex === products.length - 2 && hasNextPage) {
       getProductByCollection(collectionHandle, 20, newCursor).then(response => {
@@ -108,7 +117,6 @@ const MobileProductTemplate = props => {
   useEffect(() => {
     setHeightPage(window.innerHeight);
   }, [window.innerHeight]);
-
 
   useEffect(() => {
     if (!isExpanded) {

@@ -1,7 +1,7 @@
 import request from "./request";
 
 async function getAllProducts() {
-  const sunglassesandframes = `
+  const QUERY = `
 {
     products(first: 250) {
         edges {
@@ -12,13 +12,6 @@ async function getAllProducts() {
     }
  }
 `;
-
-  let QUERY = null;
-  switch (process.env.NEXT_QUERY) {
-    case "sunglassesandframes":
-      QUERY = sunglassesandframes;
-      break;
-  }
 
   return await request("shopify", QUERY);
 }
