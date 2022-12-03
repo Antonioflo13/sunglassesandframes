@@ -11,9 +11,11 @@ async function getAllArticles() {
           handle
           imageheader {
             url
+            blurUpThumb
           }
           imageheadermobile {
             url
+            blurUpThumb
           }
     }
 }

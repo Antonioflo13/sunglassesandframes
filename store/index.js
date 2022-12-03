@@ -8,7 +8,6 @@ import monthCollectionReducer from "./modules/monthCollection";
 import defaultProductImageReducer from "./modules/defaultProductImage";
 import itemsNavBarReducer from "./modules/itemsNavBar";
 
-
 export const store = configureStore({
   reducer: {
     language: languageReducer,

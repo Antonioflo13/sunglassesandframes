@@ -5,8 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 //HOOKS
 import useMediaQuery from "../hooks/useMediaQuery";
-//INTL
-import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
 //SWIPER
 import { Swiper, SwiperSlide } from "swiper/react";
 import EffectCarousel from "../utils/effect-carousel.esm";
@@ -51,7 +49,7 @@ const SliderArticles = ({ articles }) => {
                           fill="true"
                           style={{ objectFit: "cover" }}
                           placeholder="blur"
-                          blurDataURL={article.imageheader.url}
+                          blurDataURL={article.imageheader.blurUpThumb}
                           sizes="100%"
                           priority={true}
                           src={
@@ -91,13 +89,3 @@ const SliderArticles = ({ articles }) => {
 };
 
 export default SliderArticles;
-
-const FormattedMessage = ({ values, ...props }) => (
-  <OriginalFormattedMessage
-    values={{
-      b: chunk => <b>{chunk}</b>,
-      ...values,
-    }}
-    {...props}
-  />
-);

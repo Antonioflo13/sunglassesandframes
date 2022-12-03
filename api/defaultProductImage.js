@@ -5,6 +5,7 @@ async function getDefaultProductImage() {
     defaultProductImage {
         image {
           url
+          blurUpThumb
         }
     }
 }`;
