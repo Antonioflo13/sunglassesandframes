@@ -25,8 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   //EFFECT
   useEffect(() => {
-    router.events.on("routeChangeStart", (url, { shallow }) => {
-      console.log(url, shallow);
+    router.events.on("routeChangeStart", () => {
       setLoadingPage(true);
     });
 
