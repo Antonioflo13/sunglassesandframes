@@ -71,9 +71,7 @@ export const Navbar = () => {
       JSON.parse(localStorage.getItem("monthCollectionInfo")).data
         ?.allMonthlyHighlights[0]
     );
-    setItemsNavbar(
-      JSON.parse(localStorage.getItem("itemNavBar"))
-    );
+    setItemsNavbar(JSON.parse(localStorage.getItem("itemNavBar")));
   }, []);
 
   const openSearchModal = () => {
@@ -261,14 +259,14 @@ export const Navbar = () => {
           />
         </div>
       )}
-      {isDesktop && hasHover && (
-        <div className="fullScrennBackground">
-          <AnimatePresence>
+      <AnimatePresence>
+        {isDesktop && hasHover && (
+          <div className="fullScrenBackground">
             <motion.div
-              initial={{ opacity: 0, height: "0px" }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: "auto" }}
-              transition={{ type: "tween" }}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "max-content" }}
+              exit={{ opacity: 0, height: "min-content" }}
+              transition={{ type: "tween", duration: 0.3 }}
               style={{
                 backgroundColor: "white",
                 paddingBottom: "40px",
@@ -297,7 +295,11 @@ export const Navbar = () => {
                         style={{ objectFit: "cover" }}
                         sizes="100%"
                         priority={true}
+                        placeholder="blur"
                         src={monthCollectionInfo?.backgroundimage?.url}
+                        blurDataURL={
+                          monthCollectionInfo?.backgroundimage?.blurUpThumb
+                        }
                         alt="advImage"
                       />
                       <div className="containerTextAdv">
@@ -313,9 +315,9 @@ export const Navbar = () => {
                 </div>
               </div>
             </motion.div>
-          </AnimatePresence>
-        </div>
-      )}
+          </div>
+        )}
+      </AnimatePresence>
       <AnimatePresence>
         {showSideBar && (
           <motion.div
@@ -371,7 +373,7 @@ export const Navbar = () => {
           justify-content: space-between;
         }
 
-        .fullScrennBackground {
+        .fullScrenBackground {
           height: 100%;
           background-color: rgb(0 0 0/25%);
           z-index: 99;

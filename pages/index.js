@@ -38,9 +38,9 @@ const IndexPage = ({
   //STORE
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.value);
-  const allShopBy = shopBy?.data?.allShopBies;
   //STATE
   const [show, setShown] = useState(false);
+  const allShopBy = shopBy?.data?.allShopBies;
   articles = articles.data.allArticles;
   defaultProductImage =
     defaultProductImage?.data?.defaultProductImage?.image?.url;

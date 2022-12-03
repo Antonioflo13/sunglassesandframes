@@ -8,6 +8,7 @@ async function getMonthlyHighlight() {
         designer
         backgroundimage {
           url
+          blurUpThumb
         }
     }
 }`;

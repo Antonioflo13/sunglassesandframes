@@ -151,6 +151,10 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
                       sizes="100%"
                       priority={true}
                       src={itemMonthlyHighlight?.backgroundimage?.url}
+                      placeholder="blur"
+                      blurDataURL={
+                        itemMonthlyHighlight?.backgroundimage?.blurUpThumb
+                      }
                       alt="advImage"
                     />
                     <div className="containerTextAdv">
