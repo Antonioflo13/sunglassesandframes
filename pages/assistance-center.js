@@ -19,7 +19,7 @@ const AssistanceCenter = ({ assistanceCenterInfo }) => {
 
   assistanceCenterInfo = assistanceCenterInfo.data.allAssistanceCenters[0];
 
-  //FUNCTIONS
+  //FUNCTIONSS
   const toggleAccordion = menuTitle => {
     menuTitle = menuTitle.toLowerCase().replaceAll(" ", "-");
     setAccordion({ ...accordion, [menuTitle]: !accordion[menuTitle] });
