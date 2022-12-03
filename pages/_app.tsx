@@ -25,7 +25,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   //EFFECT
   useEffect(() => {
-    router.events.on("routeChangeStart", () => {
+    router.events.on("routeChangeStart", (url, { shallow }) => {
+      console.log(url, shallow);
       setLoadingPage(true);
     });
 
@@ -42,7 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       {process.env.NEXT_PUBLIC_NODE !== "development" && <Analytics />}
       <Provider store={store}>
         <IntlProvider locale={"it"}>
-          {!loadingPage ? <Component {...pageProps} /> : <LoadingPage />}
+          {<Component {...pageProps} />}
         </IntlProvider>
       </Provider>
     </>
