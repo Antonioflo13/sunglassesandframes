@@ -9,7 +9,8 @@
 
 /*classes*/
 .results-container-algolia {
-  @apply mt-8 grid grid-cols-2 md:grid-cols-4 gap-x-3 md:gap-x-12 gap-y-8 md:gap-y-12;
+  /* @apply mt-8 grid grid-cols-2 md:grid-cols-4 gap-x-3 md:gap-x-12 gap-y-8 md:gap-y-12; */
+  @apply mt-8 flex flex-wrap justify-center gap-7;
 }
 
 /*algolia*/
@@ -23,6 +24,13 @@
   justify-content: center;
   transition: 0.3s all ease-in-out;
   box-shadow: none;
+  @apply w-1/3 md:w-1/5;
+  box-shadow: none !important;
+  padding: 1 !important;
+}
+
+.ais-InfiniteHits-item div {
+  width: 100%;
 }
 
 .ais-Hits-item:hover {
@@ -78,7 +86,8 @@
 
 body {
   font-family: "Artegra Sans", sans-serif;
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
 
   /* max-width: 1280px;
     margin-left: auto;

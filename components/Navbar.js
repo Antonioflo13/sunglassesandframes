@@ -228,7 +228,7 @@ export const Navbar = () => {
             {isSearchActive && (
               <div
                 id="search-overlay"
-                className={`absolute w-screen h-screen top-0 left-0 z-50 bg-slate-400/75 transition-all duration-300 overflow-y-scroll ${
+                className={`absolute w-screen h-screen top-0 left-0 z-50 fullScreenBackground transition-all duration-300 overflow-y-scroll ${
                   isSearchActive ? "visible opacity-100" : "invisible opacity-0"
                 }`}
                 onClick={closeSearchModal}
