@@ -75,6 +75,8 @@
 
 body {
   font-family: "Artegra Sans", sans-serif;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+
   /* max-width: 1280px;
     margin-left: auto;
     margin-right: auto; */
