@@ -133,6 +133,7 @@ const AlgoliaSearch = props => {
           <Index indexName="shopify_collections">
             <h2 className="text-center uppercase text-gray-400">
               <Stats
+                className="mb-5"
                 translations={{
                   stats(nbHits, processingTimeMS, nbSortedHits, areHitsSorted) {
                     return areHitsSorted && nbHits !== nbSortedHits
@@ -152,6 +153,7 @@ const AlgoliaSearch = props => {
           <Index indexName="shopify_products">
             <h2 className="text-center uppercase text-gray-400">
               <Stats
+                className="mb-5"
                 translations={{
                   stats(nbHits, processingTimeMS, nbSortedHits, areHitsSorted) {
                     return areHitsSorted && nbHits !== nbSortedHits
