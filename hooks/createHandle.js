@@ -4,7 +4,7 @@ const createHandle = title => {
     .toLowerCase()
     .replaceAll(specialCharacter && specialCharacter[0], "")
     .replaceAll(" ", "-")
-    .replace("-", "")
+    .replaceAll("--", "-")
     .trim();
 };
 
