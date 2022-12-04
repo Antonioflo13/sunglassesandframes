@@ -26,7 +26,6 @@ const SearchBox = ({
         autoFocus
         value={currentRefinement}
         onChange={searchHandler}
-        placeholder="Search..."
         className="border-2 border-black rounded-xl py-1 px-4 bg-white placeholder-gray-400 text-black appearance-none w-full block pl-12 focus:outline-none"
       />
     </label>
