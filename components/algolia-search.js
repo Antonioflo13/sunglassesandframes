@@ -16,6 +16,7 @@ import {
 import { FormattedNumber } from "react-intl";
 import Link from "next/link";
 import AlgoliaSearchInput from "./AlgoliaSearchInput";
+import { CustomInfiniteHits } from "./custom-infinite-hits";
 
 import logo from "../assets/images/logo.png";
 import Image from "next/image";
@@ -26,89 +27,6 @@ const AlgoliaSearch = props => {
     process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
     process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ADMIN_KEY
   );
-
-  const HitProduct = props => {
-    return (
-      <div onClick={props.onClose}>
-        <Link
-          href={`/designers/${createHandle(props.hit.vendor)}/${
-            props.hit.handle
-          }`}
-        >
-          <div className="w-full flex flex-col items-center text-center">
-            <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
-              <div className="absolute top-0 w-full h-full">
-                <img
-                  className="w-full h-full"
-                  src={props.hit.image}
-                  align="left"
-                  alt={props.hit.name}
-                  style={{ objectFit: "cover" }}
-                />
-              </div>
-            </div>
-            <div className="hit-name">
-              <Highlight
-                attribute="vendor"
-                hit={props.hit}
-                // className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead mt-2"
-              />
-            </div>
-            {/* {props.hit.vendor} */}
-            {/* </Highlight> */}
-            <div className="hit-name">
-              <Highlight
-                attribute="title"
-                hit={props.hit}
-                // className="ml-1 text-xs uppercase font-bold mt-2"
-              />
-            </div>
-            {/* {props.hit.title} */}
-            {/* </Highlight> */}
-            <p className="mt-1">
-              <FormattedNumber
-                style="currency"
-                value={props.hit.price}
-                minimumFractionDigits={2}
-              />
-              {" €"}
-            </p>
-          </div>
-        </Link>
-      </div>
-    );
-  };
-
-  const HitCollection = props => {
-    return (
-      <div onClick={props.onClose}>
-        <Link href={`/designers/${props.hit.handle}`}>
-          <div className="w-full flex flex-col items-center text-center">
-            <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
-              <div className="absolute top-0 w-full h-full">
-                <img
-                  className="w-full h-full"
-                  src={props.hit.image}
-                  align="left"
-                  alt={props.hit.name}
-                  style={{ objectFit: "cover" }}
-                />
-              </div>
-            </div>
-            {/* {props.hit.vendor} */}
-            {/* </Highlight> */}
-            <div className="hit-name">
-              <Highlight
-                attribute="title"
-                hit={props.hit}
-                // className="ml-1 text-xs uppercase font-bold mt-2"
-              />
-            </div>
-          </div>
-        </Link>
-      </div>
-    );
-  };
 
   const [activeSearch, setActiveSearch] = useState(false);
 
@@ -143,11 +61,11 @@ const AlgoliaSearch = props => {
                 }}
               />
             </h2>
-            <InfiniteHits
+            <CustomInfiniteHits
               hasMore={false}
-              hitComponent={({ hit }) => (
-                <HitCollection hit={hit} onClose={props.onClose} />
-              )}
+              hits={props.hits}
+              type="designer"
+              onClose={props.onClose}
             />
           </Index>
           <Index indexName="shopify_products">
@@ -163,10 +81,11 @@ const AlgoliaSearch = props => {
                 }}
               />
             </h2>
-            <InfiniteHits
-              hitComponent={({ hit }) => (
-                <HitProduct hit={hit} onClose={props.onClose} />
-              )}
+            <CustomInfiniteHits
+              hasMore={false}
+              hits={props.hits}
+              type="product"
+              onClose={props.onClose}
             />
           </Index>
         </div>
