@@ -19,6 +19,7 @@ import AlgoliaSearchInput from "./AlgoliaSearchInput";
 
 import logo from "../assets/images/logo.png";
 import Image from "next/image";
+import createHandle from "../hooks/createHandle";
 
 const AlgoliaSearch = props => {
   const searchClient = algoliasearch(
@@ -27,10 +28,13 @@ const AlgoliaSearch = props => {
   );
 
   const HitProduct = props => {
-    console.log(props.hit);
     return (
       <div onClick={props.onClose}>
-        <Link href={`/designers/${props.hit.vendor}/${props.hit.handle}`}>
+        <Link
+          href={`/designers/${createHandle(props.hit.vendor)}/${
+            props.hit.handle
+          }`}
+        >
           <div className="w-full flex flex-col items-center text-center">
             <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
               <div className="absolute top-0 w-full h-full">
