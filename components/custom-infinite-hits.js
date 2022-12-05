@@ -1,6 +1,6 @@
 import { connectInfiniteHits } from "react-instantsearch-dom";
 import Link from "next/link";
-import { Highlight } from "react-instantsearch-dom";
+// import { Highlight } from "react-instantsearch-dom";
 import createHandle from "../hooks/createHandle";
 import { FormattedNumber } from "react-intl";
 
@@ -23,11 +23,9 @@ const HitCollection = props => {
           {/* {props.hit.vendor} */}
           {/* </Highlight> */}
           <div className="hit-name">
-            <Highlight
-              attribute="title"
-              hit={props.hit}
-              // className="ml-1 text-xs uppercase font-bold mt-2"
-            />
+            <div className="ml-1 text-xs uppercase font-bold mt-2">
+              {props.hit.title}
+            </div>
           </div>
         </div>
       </Link>
@@ -56,20 +54,14 @@ const HitProduct = props => {
             </div>
           </div>
           <div className="hit-name">
-            <Highlight
-              attribute="vendor"
-              hit={props.hit}
-              // className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead mt-2"
-            />
+            <div className="text-sunglassesandframes-red text-xs font-bold mackay noToHead mt-2">
+              {props.hit.vendor}
+            </div>
           </div>
-          {/* {props.hit.vendor} */}
-          {/* </Highlight> */}
           <div className="hit-name">
-            <Highlight
-              attribute="title"
-              hit={props.hit}
-              // className="ml-1 text-xs uppercase font-bold mt-2"
-            />
+            <div className="ml-1 uppercase font-bold mt-1">
+              {props.hit.title}
+            </div>
           </div>
           {/* {props.hit.title} */}
           {/* </Highlight> */}
@@ -79,7 +71,7 @@ const HitProduct = props => {
               value={props.hit.price}
               minimumFractionDigits={2}
             />
-            {" €"}
+            {"€"}
           </p>
         </div>
       </Link>

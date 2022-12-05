@@ -20,7 +20,6 @@ import { CustomInfiniteHits } from "./custom-infinite-hits";
 
 import logo from "../assets/images/logo.png";
 import Image from "next/image";
-import createHandle from "../hooks/createHandle";
 
 const AlgoliaSearch = props => {
   const searchClient = algoliasearch(
