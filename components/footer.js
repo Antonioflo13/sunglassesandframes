@@ -300,7 +300,7 @@ const Footer = () => {
             }
 
             .customWidthFooter {
-              max-width: 90rem;
+              max-width: 83rem;
               margin-left: auto;
               margin-right: auto;
               display: flex;

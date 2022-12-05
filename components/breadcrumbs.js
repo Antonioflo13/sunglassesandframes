@@ -18,7 +18,7 @@ const Breadcrumbs = ({ title }) => {
       <style jsx="true">
         {`
           .breadcrumbs {
-            max-width: 90rem;
+            max-width: 83rem;
             margin-left: auto;
             margin-right: auto;
           }

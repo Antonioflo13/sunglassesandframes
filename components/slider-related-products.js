@@ -75,7 +75,7 @@ const sliderRelatedProducts = props => {
         }
         #swiper-related-products .sliderCollection {
           padding-bottom: 40px;
-          max-width: 90rem;
+          max-width: 83rem;
           margin-left: auto;
           margin-right: auto;
         }

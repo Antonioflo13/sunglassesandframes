@@ -355,7 +355,7 @@ export const Navbar = () => {
         }
 
         .customWidthHeader {
-          max-width: 90rem;
+          max-width: 83rem;
           margin-left: auto;
           margin-right: auto;
           padding-left: 1.25rem;
@@ -364,7 +364,7 @@ export const Navbar = () => {
         }
 
         .customWidthHeaderTwo {
-          max-width: 90rem;
+          max-width: 83rem;
           display: flex;
           margin-left: auto;
           margin-right: auto;
@@ -384,7 +384,7 @@ export const Navbar = () => {
         }
 
         .containerMenuTwo {
-          max-width: 90rem;
+          max-width: 83rem;
           margin-left: auto;
           padding-top: 30px;
           margin-right: auto;
