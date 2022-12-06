@@ -288,7 +288,7 @@ export const Navbar = () => {
                   ))}
                 </div>
                 <div className="containerAdv">
-                  <Link href={`designers/${monthCollectionInfo?.handle}`}>
+                  <Link href={`/designers/${monthCollectionInfo?.handle}`}>
                     <div className="adv">
                       <Image
                         fill="true"
