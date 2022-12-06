@@ -174,8 +174,8 @@ const MobileProductTemplate = props => {
                                 objectPosition: "center",
                               }}
                               placeholder="blur"
-                              blurDataURL={image.originalSrc}
-                              src={image.originalSrc}
+                              blurDataURL={image.transformedSrc}
+                              src={image.transformedSrc}
                               alt={image.originalSrc}
                             />
                           </div>

@@ -17,6 +17,7 @@ import Image from "next/image";
 
 const CollectionTemplate = ({ collection }) => {
   collection = collection.data.collection;
+  console.log(collection);
 
   //HOOKS
   const isDesktop = useMediaQuery(768);
@@ -127,10 +128,10 @@ const CollectionTemplate = ({ collection }) => {
                 fill="true"
                 style={{ objectFit: "cover" }}
                 placeholder="blur"
-                blurDataURL={collection.image.src}
+                blurDataURL={collection.image.transformedSrc}
                 sizes="100%"
                 priority={true}
-                src={collection.image.src}
+                src={collection.image.transformedSrc}
                 alt="header-collection"
               />
             )}

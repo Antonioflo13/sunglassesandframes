@@ -41,7 +41,11 @@ async function getCollection(collection, first, cursor) {
     description
     descriptionHtml
     image {
-        src
+        transformedSrc(preferredContentType: WEBP)
+    }
+    seo {
+      description
+      title
     }
     products(first: ${first}, ${cursor ? `after: "${cursor}"` : ""}) {
       pageInfo {
@@ -72,9 +76,14 @@ async function getCollection(collection, first, cursor) {
                 product {
                   images(first: 250) {
                     nodes {
+                      transformedSrc(preferredContentType: WEBP)
                       originalSrc
                       id
                     }
+                  }
+                  seo {
+                    description
+                    title
                   }
                   variants(first: 250) {
                     nodes {

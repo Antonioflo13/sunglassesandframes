@@ -13,7 +13,7 @@ const Product = ({ product, collectionHandle }) => {
                 alt={product.title}
                 className="w-full h-full"
                 style={{ objectFit: "cover" }}
-                src={product.images[0].originalSrc}
+                src={product.images[0].transformedSrc}
               />
             )}
           </div>

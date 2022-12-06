@@ -6,7 +6,7 @@ const GalleryProducts = ({ images }) => {
   const changeView = item => {
     let imageListChange = [...images];
     const index = imageListChange.findIndex(
-      image => image.originalSrc === item.originalSrc
+      image => image.transformedSrc === item.transformedSrc
     );
     imageListChange.unshift(imageListChange.splice(index, 1)[0]);
     setImageList(imageListChange);
@@ -22,9 +22,9 @@ const GalleryProducts = ({ images }) => {
               sizes="100%"
               priority={true}
               style={{ objectFit: "contain", transform: "scale(1.5)" }}
-              src={imageList[0].originalSrc}
+              src={imageList[0].transformedSrc}
               placeholder="blur"
-              blurDataURL={imageList[0].originalSrc}
+              blurDataURL={imageList[0].transformedSrc}
               alt="main-image"
             />
           </div>
@@ -42,7 +42,7 @@ const GalleryProducts = ({ images }) => {
                   key={item.id}
                   style={{ objectFit: "contain" }}
                   className="imageTumblr"
-                  src={item.originalSrc}
+                  src={item.transformedSrc}
                   alt="image-carousel"
                 />
               </div>
