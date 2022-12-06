@@ -48,7 +48,7 @@ const AnimatedPage = ({ children, margins, fullHeight, grey, noAnimate }) => {
             padding-left: 1.25rem;
             padding-right: 1.25rem;
             background-color: white;
-            max-width: 90rem;
+            max-width: 83rem;
             margin-left: auto;
             margin-right: auto;
             padding-bottom: 2.25rem;
