@@ -101,7 +101,7 @@ async function getCollection(collection, first, cursor) {
 }
 `;
 
-  return await request("shopify", QUERY);
+  return await request("shopify", QUERY, "collections");
 }
 
 export { getAllCollections, getCollection };

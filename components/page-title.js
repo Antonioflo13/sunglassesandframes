@@ -25,7 +25,7 @@ const PageTitle = ({
               >
                 {b.link ? (
                   <Link href={b.link}>
-                    <motion.div whileHover={{ scale: 1.1 }}>
+                    <motion.div whileHover={{ scale: 1.03 }}>
                       <FormattedMessage id={b.title} />
                     </motion.div>
                   </Link>

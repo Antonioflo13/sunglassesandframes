@@ -1,33 +1,105 @@
 //REACT
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 //NEXT
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 //API
 import getAllArticles from "../../api/articles";
 import getArticle from "../../api/article";
+import { getCollection } from "../../api/collections";
+//INTL
+import { FormattedNumber } from "react-intl";
 //HOOKS
 import useMediaQuery from "../../hooks/useMediaQuery";
 //COMPONENTS
 import Layout from "../../components/layout";
 import AnimatedPage from "../../components/animated-page";
 import PageTitle from "../../components/page-title";
-import { getCollection } from "../../api/collections";
-import SliderArticleCollection from "../../templates/slider-article-collection";
-// import SliderArticleProducts from "../templates/slider-article-products";
 
-const Article = ({ article, collectionProducts }) => {
+const Article = ({ article, collection }) => {
   const isDesktop = useMediaQuery(768);
-  const productsInArticle = [];
+  // const productsInArticle = [];
   article = article?.data?.article;
-  const collectionHandle = collectionProducts.data.collection
-    ? collectionProducts?.data?.collection.handle
+  const collectionHandle = collection.data.collection
+    ? collection?.data?.collection.handle
     : null;
-  collectionProducts = collectionProducts.data.collection
-    ? collectionProducts?.data?.collection.products.edges
-    : null;
+  collection = collection.data.collection ? collection?.data?.collection : null;
 
   const title = `Sunglassesandframes - ${article?.handle}`;
+
+  //STATE
+  const [products, setProducts] = useState(collection.products.edges);
+
+  // State to trigger oad more
+  const [loadMore, setLoadMore] = useState(false);
+
+  // State of whether there is more to load
+  const [hasMore, setHasMore] = useState(
+    collection.products.pageInfo.hasNextPage
+  );
+
+  // Cursor
+  const [cursor, setCursor] = useState(collection.products.pageInfo.endCursor);
+
+  //Set a ref for the loading div
+  const loadRef = useRef();
+
+  //FUNCTIONS
+  const getProductByCollection = async () =>
+    await getCollection(collection.handle, 20, cursor);
+
+  // Handle intersection with load more div
+  const handleObserver = entities => {
+    const target = entities[0];
+    if (target.isIntersecting) {
+      setLoadMore(true);
+    }
+  };
+
+  //EFFECT
+  //Initialize the intersection observer API
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 1.0,
+    };
+    const observer = new IntersectionObserver(handleObserver, options);
+    if (loadRef.current) {
+      observer.observe(loadRef.current);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (products.length) {
+      setProducts(
+        products.filter(
+          product =>
+            product.node.variants.edges[0].node.product.images.nodes.length > 0
+        )
+      );
+    }
+  }, []);
+
+  // Handle loading more articles
+  useEffect(() => {
+    if (loadMore && hasMore) {
+      getProductByCollection().then(response => {
+        const newProducts = response.data.collection.products.edges.filter(
+          newProduct =>
+            newProduct.node.variants.edges[0].node.product.images.nodes.length >
+            0
+        );
+        const isMore = response.data.collection.products.pageInfo.hasNextPage;
+        const cursor = response.data.collection.products.pageInfo.endCursor;
+        setCursor(cursor);
+        setHasMore(isMore);
+        setProducts(oldProducts => [...oldProducts, ...newProducts]);
+        setLoadMore(false);
+      });
+    }
+  }, [loadMore, hasMore]); //eslint-disable-line
 
   // Object.entries(article).forEach(item => {
   //   if (item[0].includes("product")) {
@@ -112,16 +184,20 @@ const Article = ({ article, collectionProducts }) => {
                   </div>
                 </div>
               </div>
-              <div className="mt-10">
-                {collectionProducts !== null && (
-                  <SliderArticleCollection
-                    products={collectionProducts}
-                    collectionHandle={collectionHandle}
-                  />
-                )}
+              {/* Products */}
+              <div className="mt-8 w-full">
+                <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-12">
+                  {products.map((product, index) => (
+                    <Product
+                      key={index}
+                      product={product}
+                      collection={collection}
+                    />
+                  ))}
+                </div>
               </div>
+              <div ref={loadRef}></div>
             </div>
-            {/*<SliderArticleProducts productsinArticle={productsinArticle} />*/}
           </AnimatedPage>
           <style jsx="true">
             {`
@@ -206,10 +282,63 @@ export async function getStaticProps(context) {
   const handle = context.params.article;
   const article = await getArticle(handle);
   const shopifyCollection = article?.data?.article?.shopifyCollection;
-  const collectionProducts = await getCollection(shopifyCollection, 20);
+  const collection = await getCollection(shopifyCollection, 20);
   return {
-    props: { article, collectionProducts },
+    props: { article, collection },
   };
 }
 
 export default Article;
+
+const Product = ({ product, collection }) => {
+  return (
+    <Link
+      href={{
+        pathname: `/designers/${collection.handle}/${product.node.handle}`,
+        query: { cursor: product.cursor },
+      }}
+    >
+      <div className="w-full flex flex-col items-center">
+        <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
+          <div className="absolute top-0 w-full h-full">
+            {product.node.variants.edges[0].node.product.images.nodes.length >
+              0 && (
+              <img
+                className="w-full h-full"
+                src={
+                  product.node.variants.edges[0].node.product.images.nodes[0]
+                    .originalSrc
+                }
+                alt="product-image"
+                style={{ objectFit: "cover" }}
+              />
+            )}
+          </div>
+        </div>
+        <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
+          {product.node.vendor}
+        </div>
+        <div className="ml-1 text-xs uppercase font-bold mt-2">
+          {product.node.title}
+        </div>
+        {product.node.availableForSale &&
+          !product.node.tags.includes("nfs") &&
+          product.node.variants.edges[0].node.product.quantityAvailable > 0 && (
+            <p className="text-2xs">
+              <FormattedNumber
+                style="currency"
+                value={
+                  product.node.variants.edges[0].node.product.priceV2.amount
+                }
+                currency={
+                  product.node.variants.edges[0].node.product.priceV2
+                    .currencyCode
+                }
+                minimumFractionDigits={0}
+              />
+            </p>
+          )}
+      </div>
+    </Link>
+  );
+};

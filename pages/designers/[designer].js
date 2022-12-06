@@ -17,14 +17,15 @@ import Image from "next/image";
 
 const CollectionTemplate = ({ collection }) => {
   collection = collection.data.collection;
-  console.log(collection);
 
   //HOOKS
   const isDesktop = useMediaQuery(768);
 
   const isBrand =
     collection.handle !== "optical" && collection.handle !== "sunglasses";
-  const title = `Indice - ${isBrand ? collection.title : collection.handle}`;
+  const title = `Sunglassesandframes - ${
+    isBrand ? collection.title : collection.handle
+  }`;
 
   //STATE
   const [products, setProducts] = useState(collection.products.edges);
@@ -55,7 +56,7 @@ const CollectionTemplate = ({ collection }) => {
     }
   };
 
-  //USEEFFECT
+  //EFFECT
   //Initialize the intersection observer API
   useEffect(() => {
     const options = {
@@ -75,7 +76,6 @@ const CollectionTemplate = ({ collection }) => {
       getProductByCollection().then(response => {
         const newProducts = response.data.collection.products.edges;
         const isMore = response.data.collection.products.pageInfo.hasNextPage;
-        console.log(isMore);
         const cursor = response.data.collection.products.pageInfo.endCursor;
         setCursor(cursor);
         setHasMore(isMore);
@@ -95,7 +95,7 @@ const CollectionTemplate = ({ collection }) => {
         />
       </Head>
       <AnimatedPage margins={true} grey={true}>
-        <div className="customMarginTop">
+        <div className="my-8">
           {isDesktop && (
             <PageTitle
               breadcrumbs={[
@@ -182,9 +182,6 @@ const CollectionTemplate = ({ collection }) => {
             overflow: hidden;
           }
           @media (max-width: 768px) {
-            .customMarginTop {
-              margin-top: 3rem;
-            }
             .img-headerCollection {
               height: 200px;
             }
@@ -200,6 +197,7 @@ export default CollectionTemplate;
 export async function getServerSideProps({ params }) {
   const collectionHandle = params.designer;
   const collection = await getCollection(collectionHandle, 20);
+  console.log(collection);
   return {
     props: { collection },
   };

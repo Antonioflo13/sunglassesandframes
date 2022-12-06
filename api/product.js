@@ -25,7 +25,7 @@ async function getProduct(product) {
             images(first: 250) {
               nodes {
                 id
-                originalSrc
+                transformedSrc(preferredContentType: WEBP)
               }
             }
             variants(first: 250) {

@@ -1,4 +1,4 @@
-async function request(requestTo, query) {
+async function request(requestTo, query, requestType) {
   let URL = null;
   let headers = null;
   switch (requestTo) {
@@ -28,7 +28,20 @@ async function request(requestTo, query) {
 
   try {
     return await fetch(URL, options).then(response => {
-      return response.json();
+      switch (requestType) {
+        case "collections":
+          return response.json().then(response => {
+            response.data.collection.products.edges =
+              response.data.collection.products.edges.filter(
+                product =>
+                  product.node.variants.edges[0].node.product.images.nodes
+                    .length > 0 && product.node.totalInventory > 0
+              );
+            return response;
+          });
+        default:
+          return response.json();
+      }
     });
   } catch (error) {
     throw new Error("Products not fetched");
