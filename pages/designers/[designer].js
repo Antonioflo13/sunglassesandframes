@@ -197,7 +197,6 @@ export default CollectionTemplate;
 export async function getServerSideProps({ params }) {
   const collectionHandle = params.designer;
   const collection = await getCollection(collectionHandle, 20);
-  console.log(collection);
   return {
     props: { collection },
   };

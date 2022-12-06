@@ -9,7 +9,6 @@ async function getShopBy() {
     item
     backgroundImage {
       url
-      
       blurUpThumb
     }
   }
