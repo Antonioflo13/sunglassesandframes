@@ -31,12 +31,14 @@ async function request(requestTo, query, requestType) {
       switch (requestType) {
         case "collections":
           return response.json().then(response => {
-            response.data.collection.products.edges =
-              response.data.collection.products.edges.filter(
-                product =>
-                  product.node.variants.edges[0].node.product.images.nodes
-                    .length > 0 && product.node.totalInventory > 0
-              );
+            if (response.data.collection) {
+              response.data.collection.products.edges =
+                response.data.collection.products.edges.filter(
+                  product =>
+                    product.node.variants.edges[0].node.product.images.nodes
+                      .length > 0 && product.node.totalInventory > 0
+                );
+            }
             return response;
           });
         default:
