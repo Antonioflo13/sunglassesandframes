@@ -114,7 +114,7 @@ const Sidebar = ({
             </div>
           </div>
         </div>
-        <div style={{ height: "1px", width: "100%", background: "silver" }} />
+        <div className="line" />
       </motion.div>
       {show && (
         <ModalsIcons selectSingleIcon={selectSingleIcon} setShown={setShown} />
@@ -271,9 +271,6 @@ const Sidebar = ({
             cursor: pointer;
           }
 
-          .button-en {
-          }
-
           .separator {
             margin-right: 20px;
             margin-left: 20px;
@@ -281,6 +278,14 @@ const Sidebar = ({
           .iconback {
             position: absolute;
             right: 1.5rem;
+          }
+
+          .line {
+            width: 100%;
+            height: 1px;
+            position: absolute;
+            top: 40%;
+            background: #c0c0c0;
           }
         `}
       </style>

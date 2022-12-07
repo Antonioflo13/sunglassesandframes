@@ -446,6 +446,7 @@ export const Navbar = () => {
 
         .second {
           place-self: flex-start;
+          cursor: pointer;
         }
 
         .link {
