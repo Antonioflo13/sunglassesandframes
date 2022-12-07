@@ -277,7 +277,11 @@ export const Navbar = () => {
               <div className="containerMenuTwo">
                 <div className="containerItems">
                   {items.map((first, index) => (
-                    <div key={index} className="flex flex-col items-center">
+                    <div
+                      key={index}
+                      className="flex flex-col items-center"
+                      style={{ alignItems: "start" }}
+                    >
                       <div className="first">{first?.title}</div>
                       {first?.item?.map((item, index) => (
                         <div className="second" key={index}>
@@ -399,6 +403,7 @@ export const Navbar = () => {
           display: flex;
           gap: 20%;
           width: 70%;
+          margin-left: 10px;
         }
 
         .containerAdv {
