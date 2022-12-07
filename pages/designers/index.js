@@ -69,23 +69,28 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
       </Head>
       <AnimatedPage margins={true}>
         <div className="mt-10">
-          <h1 className="text-center mb-5">DESIGNER A - Z</h1>
+          {isDesktop && <h1 className="text-center mb-5">DESIGNER A - Z</h1>}
           <div className="container-alphabetic">
             {alphabeticList.map((letter, index) => (
               <span
+                className="topLetter"
                 style={
                   letterIndex === letter
                     ? {
-                        marginLeft: "1rem",
                         borderBottom: "solid 1px black",
                       }
-                    : { marginLeft: "1.5rem", cursor: "pointer" }
+                    : {}
                 }
                 key={index}
                 onClick={() => setLetterIndex(letter)}
               >
                 <span
-                  style={letterIndex === letter ? { fontWeight: "bold" } : {}}
+                  className="text-sunglassesandframes text-l"
+                  style={
+                    letterIndex === letter
+                      ? { fontWeight: "bold", fontFamily: "ui-monospace" }
+                      : {}
+                  }
                   onClick={() => executeScroll(letter)}
                 >
                   {letter}
@@ -101,10 +106,9 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
                     {letter.collectionsList.map((collection, index) => (
                       <li key={index}>
                         {collection.viewLetter && (
-                          <div ref={myRef} style={{ marginBottom: "-64px" }}>
+                          <div ref={myRef} className="marginCustomDesigner">
                             <section
-                              className="font-semibold text-2xl"
-                              style={{ fontSize: "40px", lineHeight: "8rem" }}
+                              className="font-semibold text-2xl bigLetter"
                               id={letter.letter}
                             >
                               {letter.letter}
@@ -252,8 +256,32 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
             text-transform: uppercase;
           }
 
+          .topLetter {
+            cursor: pointer;
+            margin-right: 1.5rem;
+          }
+
+          .bigLetter {
+            fontsize: 40px;
+            line-height: 8rem;
+          }
+
+          .marginCustomDesigner {
+            margin-bottom: -64px;
+          }
+
           @media (max-width: 768px) {
-            .containerDesigner {
+            .marginCustomDesigner {
+              margin-bottom: 0px;
+            }
+            .bigLetter {
+              font-size: 13px;
+              line-height: 2rem;
+              margin-bottom: 5px;
+            }
+            .collectionTitle {
+              margin-left: 0px;
+              font-size: 16px;
             }
           }
         `}
