@@ -251,12 +251,21 @@ export const Navbar = () => {
               </div>
             )}
           </div>
-          <FontAwesomeIcon
-            style={{ marginLeft: "2px", width: 12 }}
-            className="cursor-pointer"
-            icon={faSearch}
-            onClick={openSearchModal}
-          />
+
+          <div style={{ position: "relative" }} onClick={openSearchModal}>
+            <FontAwesomeIcon
+              style={{
+                marginLeft: "2px",
+                width: 12,
+                position: "absolute",
+                top: "6px",
+                left: "6px",
+              }}
+              className="cursor-pointer"
+              icon={faSearch}
+            />
+            <input className="searchInput" />
+          </div>
         </div>
       )}
       <AnimatePresence>
@@ -451,6 +460,12 @@ export const Navbar = () => {
 
         .link {
           padding-right: 2.5rem;
+        }
+
+        .searchInput {
+          border: solid 1px;
+          border-radius: 10px;
+          height: 23px;
         }
 
         @media screen and (max-width: 1150px) {

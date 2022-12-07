@@ -262,7 +262,7 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
           }
 
           .bigLetter {
-            fontsize: 40px;
+            font-size: 40px;
             line-height: 8rem;
           }
 
