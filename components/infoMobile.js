@@ -6,19 +6,27 @@ const InfoMobile = () => {
       <div className="containerLineInfo">
         <div className="line" />
         <div className="containerInfo mt-5">
-          <p>Need help?</p>
+          <div>Need help?</div>
           <div className="info">
-            <p>Whatsapp</p>
-            <p>+39 339 46 44 407</p>
-            <p>Available Monday to Friday, 09:00 - 18:00 EST</p>
+            <div className="text-sunglassesandframes-black font-bold mackay">
+              Whatsapp us
+            </div>
+            <div>+39 339 46 44 407</div>
+            <div style={{ fontSize: "13px" }}>
+              Available Monday to Friday, 09:00 - 18:00 EST
+            </div>
           </div>
           <div className="info">
-            <p>E-mail us</p>
-            <p>info@sunglassesandframes.com</p>
+            <div className="text-sunglassesandframes-black font-bold mackay">
+              E-mail us
+            </div>
+            <div>info@sunglassesandframes.com</div>
           </div>
           <div className="info">
-            <p>Assistance Center</p>
-            <p>Anything you need to know is here</p>
+            <div className="text-sunglassesandframes-black font-bold mackay">
+              Assistance Center
+            </div>
+            <div>Anything you need to know is here</div>
           </div>
         </div>
       </div>
