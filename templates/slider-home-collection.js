@@ -99,7 +99,7 @@ const SliderHomeCollection = () => {
           }
           .sliderCollection {
             padding-bottom: 40px;
-            max-width: 83rem;
+            max-width: 65rem;
             margin-left: auto;
             margin-right: auto;
           }

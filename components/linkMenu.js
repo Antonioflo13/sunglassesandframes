@@ -64,8 +64,8 @@ const LinkMenu = ({ children, to, sidebar, image }) => {
           .containerItemMenu {
             position: relative;
             border-radius: 20px;
-            height: 135px;
-            width: 350px;
+            height: 120px;
+            width: 300px;
             overflow: hidden;
           }
 

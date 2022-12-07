@@ -47,7 +47,7 @@ const SliderMenu = ({ allShopBy }) => {
         .sliderMenu {
           display: flex;
           justify-content: center;
-          gap: 70px;
+          gap: 60px;
           padding-bottom: 40px;
           margin-left: auto;
           margin-right: auto;
