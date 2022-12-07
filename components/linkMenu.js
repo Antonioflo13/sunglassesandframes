@@ -45,18 +45,20 @@ const LinkMenu = ({ children, to, sidebar, image }) => {
       <>
         <Link href={to}>
           <motion.button>
-            <div className="containerItemMenu">
-              <Image
-                fill="true"
-                priority={true}
-                style={{ objectFit: "cover" }}
-                sizes="100%"
-                placeholder="blur"
-                blurDataURL={image}
-                src={image}
-                alt="imageMenu"
-              />
-              <div className="textMenu">{children}</div>
+            <div>
+              <div className="containerItemMenu">
+                <Image
+                  fill="true"
+                  priority={true}
+                  style={{ objectFit: "cover", borderRadius: "20px" }}
+                  sizes="100%"
+                  placeholder="blur"
+                  blurDataURL={image}
+                  src={image}
+                  alt="imageMenu"
+                />
+                <div className="textMenu">{children}</div>
+              </div>
             </div>
           </motion.button>
         </Link>
@@ -88,14 +90,18 @@ const LinkMenu = ({ children, to, sidebar, image }) => {
             }
 
             .containerItemMenu {
-              height: 110px;
-              width: 150px;
+              position: unset;
             }
-            @media (max-width: 375px) {
-              .containerItemMenu {
-                width: 120px;
-              }
-            }
+
+            // .containerItemMenu {
+            //   height: 110px;
+            //   width: 150px;
+            // }
+            // @media (max-width: 375px) {
+            //   .containerItemMenu {
+            //     width: 120px;
+            //   }
+            // }
           }
         `}</style>
       </>

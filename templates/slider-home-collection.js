@@ -71,10 +71,10 @@ const SliderHomeCollection = () => {
                     />
                   </div>
                   <div className="text-center">
-                    <div className="text-xs uppercase font-bold">
+                    <div className="text-xs font-bold vendor">
                       {item?.node?.vendor}
                     </div>
-                    <div className="text-sunglassesandframes-black text-xs font-bold mackay noToHead">
+                    <div className="text-sunglassesandframes-black text-xs font-bold">
                       {item?.node?.title}
                     </div>
                   </div>
@@ -99,7 +99,7 @@ const SliderHomeCollection = () => {
           }
           .sliderCollection {
             padding-bottom: 40px;
-            max-width: 65rem;
+            max-width: 62rem;
             margin-left: auto;
             margin-right: auto;
           }
@@ -136,6 +136,14 @@ const SliderHomeCollection = () => {
           .titleSliderHome {
             margin-top: 3rem;
             margin-bottom: 2.5rem;
+          }
+
+          .vendor {
+            text-transform: lowercase;
+          }
+
+          .vendor:first-letter {
+            text-transform: uppercase;
           }
 
           @media (max-width: 767px) {
