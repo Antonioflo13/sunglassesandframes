@@ -18,8 +18,6 @@ import Image from "next/image";
 const CollectionTemplate = ({ collection }) => {
   collection = collection.data.collection;
 
-  console.log("collection", collection);
-
   //HOOKS
   const isDesktop = useMediaQuery(768);
 
@@ -206,7 +204,7 @@ const Product = ({ product, collection }) => {
               <img
                 className="w-full h-full"
                 src={
-                  product.node.variants.edges[0].node.product.images.nodes[0]
+                  product.node.variants.edges[0].node.product.images.nodes[1]
                     .originalSrc
                 }
                 alt="product-image"

@@ -32,7 +32,7 @@ const SliderArticleProducts = ({ productsinArticle }) => {
                 <div style={{ cursor: "pointer" }}>
                   <img
                     className="img-product"
-                    src={item.node.images[0].originalSrc}
+                    src={item.node.images[1].originalSrc}
                     alt="product"
                   />
                   <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">

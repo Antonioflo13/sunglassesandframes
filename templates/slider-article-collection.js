@@ -49,7 +49,7 @@ const SliderArticleCollection = ({ products, collectionHandle }) => {
                         item?.node?.variants?.edges[0]?.node?.product?.images
                           ?.nodes.length > 0
                           ? item?.node?.variants?.edges[0]?.node?.product
-                              ?.images?.nodes[0].originalSrc
+                              ?.images?.nodes[1].originalSrc
                           : defaultProductImage
                       }
                       alt="product"
