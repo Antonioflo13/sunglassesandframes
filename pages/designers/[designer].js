@@ -18,6 +18,8 @@ import Image from "next/image";
 const CollectionTemplate = ({ collection }) => {
   collection = collection.data.collection;
 
+  console.log("collection", collection);
+
   //HOOKS
   const isDesktop = useMediaQuery(768);
 
@@ -121,7 +123,7 @@ const CollectionTemplate = ({ collection }) => {
           )}
         </div>
         {/* Info */}
-        <div>
+        <div className="container-plp">
           <div className="img-header-container">
             {collection.image && (
               <Image
@@ -136,36 +138,13 @@ const CollectionTemplate = ({ collection }) => {
               />
             )}
           </div>
-          <div>
-            <h1 className="text-center">
-              {isBrand ? (
-                <div className="mt-10 text-sunglassesandframes text-xl font-bold uppercase">
-                  {collection.title}
-                </div>
-              ) : (
-                <FormattedMessage
-                  id={`collection.${collection.handle}_title`}
-                  values={{
-                    b: chunk => {
-                      chunk;
-                    },
-                    title: (
-                      <div className="mt-10 text-sunglassesandframes text-xl font-bold uppercase">
-                        collection.title
-                      </div>
-                    ),
-                  }}
-                />
-              )}
-            </h1>
-            <p className="mt-10">
-              {collection.description ? collection.description : null}
-            </p>
+          <div className="container-textfilter">
+            <p>{collection.description ? collection.description : null}</p>
           </div>
         </div>
         {/* Products */}
         <div className="mt-8 w-full">
-          <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-12">
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-12">
             {products.map((product, index) => (
               <Product key={index} product={product} collection={collection} />
             ))}
@@ -176,10 +155,19 @@ const CollectionTemplate = ({ collection }) => {
       <style jsx="true">
         {`
           .img-header-container {
+            width: 50%;
             position: relative;
             height: 250px;
-            border-radius: 15px;
+            border-radius: 10px;
             overflow: hidden;
+          }
+
+          .container-plp {
+            display: flex;
+            gap: 3rem;
+          }
+          .container-textfilter {
+            width: 50%;
           }
           @media (max-width: 768px) {
             .img-headerCollection {

@@ -47,6 +47,9 @@ async function getCollection(collection, first, cursor) {
       description
       title
     }
+    metafield(namespace: "logo", key: "custom.logo") {
+      value
+    }
     products(first: ${first}, ${cursor ? `after: "${cursor}"` : ""}) {
       pageInfo {
         endCursor

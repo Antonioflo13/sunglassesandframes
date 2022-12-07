@@ -197,7 +197,7 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
           }
 
           .available:hover {
-            color: #800001;
+            font-size: 25px;
             transition: color 0.2s ease-in-out;
           }
 
