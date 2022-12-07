@@ -68,7 +68,8 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
         <meta name="description" content="Designers" />
       </Head>
       <AnimatedPage margins={true}>
-        <div className="mt-20">
+        <div className="mt-10">
+          <h1 className="text-center mb-5">DESIGNER A - Z</h1>
           <div className="container-alphabetic">
             {alphabeticList.map((letter, index) => (
               <span
@@ -78,12 +79,17 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
                         marginLeft: "1rem",
                         borderBottom: "solid 1px black",
                       }
-                    : { marginLeft: "1rem", cursor: "pointer" }
+                    : { marginLeft: "1.5rem", cursor: "pointer" }
                 }
                 key={index}
                 onClick={() => setLetterIndex(letter)}
               >
-                <span onClick={() => executeScroll(letter)}>{letter}</span>
+                <span
+                  style={letterIndex === letter ? { fontWeight: "bold" } : {}}
+                  onClick={() => executeScroll(letter)}
+                >
+                  {letter}
+                </span>
               </span>
             ))}
           </div>
@@ -95,11 +101,12 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
                     {letter.collectionsList.map((collection, index) => (
                       <li key={index}>
                         {collection.viewLetter && (
-                          <div
-                            ref={myRef}
-                            className="font-semibold text-2xl font-serif mb-3"
-                          >
-                            <section id={letter.letter}>
+                          <div ref={myRef} style={{ marginBottom: "-24px" }}>
+                            <section
+                              className="font-semibold text-2xl"
+                              style={{ fontSize: "40px" }}
+                              id={letter.letter}
+                            >
                               {letter.letter}
                             </section>
                           </div>
@@ -109,7 +116,8 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
                             collection.products?.nodes?.length > 0
                               ? "available"
                               : "unavailable"
-                          } mb-6`}
+                          }`}
+                          style={{ marginBottom: "0.8rem" }}
                         >
                           <Link
                             style={{
@@ -128,10 +136,11 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
                             }}
                           >
                             <span>
-                              <motion.h2 className=" sunglassesandframes text-xs md:text-xl font-bold uppercase">
-                                {collection.title}
+                              <motion.h2 className=" sunglassesandframes text-xs md:text-xl font-bold">
+                                <div className="collectionTitle">
+                                  {collection.title}
+                                </div>
                               </motion.h2>
-                              {/*<p className="text-xs mt-2">{collection.description}</p>*/}
                             </span>
                           </Link>
                         </div>
@@ -232,6 +241,15 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
 
           .collection {
             margin-top: 20px;
+          }
+
+          .collectionTitle {
+            text-transform: lowercase;
+            margin-left: 4rem;
+          }
+
+          .collectionTitle:first-letter {
+            text-transform: uppercase;
           }
 
           @media (max-width: 768px) {
