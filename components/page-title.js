@@ -14,7 +14,7 @@ const PageTitle = ({
   <div>
     {breadcrumbs && Array.isArray(breadcrumbs) && (
       <div className="mb-4 flex items-center">
-        <div className="flex flex-wrap items-center mt-1 ml-2 text-sunglassesandframes-breadcrumbs-grey">
+        <div className="flex flex-wrap items-center mt-1 text-sunglassesandframes-breadcrumbs-grey">
           {breadcrumbs.map((b, i) => (
             <div key={`${i}`} className="flex items-center">
               {i !== 0 && <div className="ml-1">&gt;</div>}
