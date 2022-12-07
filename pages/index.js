@@ -10,7 +10,6 @@ import {
   setMonthCollectionInfo,
   setMonthCollection,
 } from "../store/modules/monthCollection";
-import { setDefaultProductImage } from "../store/modules/defaultProductImage";
 import { setItemsNavBar } from "../store/modules/itemsNavBar";
 //API
 import getAllArticles from "../api/articles";
@@ -18,7 +17,6 @@ import getShopBy from "../api/shopBy";
 import getMonthlyHighlight from "../api/monthlyHighlight";
 import getShopByItems from "../api/ShopByItems";
 import { getCollection } from "../api/collections";
-import getDefaultProductImage from "../api/defaultProductImage";
 //COMPONENTS
 import ModalsIcons from "../components/modalsIcons";
 import SliderMenu from "../components/slider-menu";
@@ -32,7 +30,6 @@ const IndexPage = ({
   shopBy,
   monthCollectionInfo,
   monthCollection,
-  defaultProductImage,
   itemsNavbar,
 }) => {
   //STORE
@@ -42,8 +39,6 @@ const IndexPage = ({
   const [show, setShown] = useState(false);
   const allShopBy = shopBy?.data?.allShopBies;
   articles = articles.data.allArticles;
-  defaultProductImage =
-    defaultProductImage?.data?.defaultProductImage?.image?.url;
   let selectSingleIcon;
   //FUNCTION
   const setLanguageByBrowser = () => {
@@ -64,7 +59,6 @@ const IndexPage = ({
   useEffect(() => {
     dispatch(setMonthCollectionInfo(JSON.stringify(monthCollectionInfo)));
     dispatch(setMonthCollection(JSON.stringify(monthCollection)));
-    dispatch(setDefaultProductImage(defaultProductImage));
     dispatch(setItemsNavBar(JSON.stringify(itemsNavbar)));
 
     handlerCookieScript();
@@ -161,7 +155,6 @@ export async function getStaticProps() {
   const monthCollectionHandle =
     monthCollectionInfo?.data?.allMonthlyHighlights[0]?.handle;
   const monthCollection = await getCollection(monthCollectionHandle, 30);
-  const defaultProductImage = await getDefaultProductImage();
   const itemsNavbar = await getShopByItems();
   return {
     props: {
@@ -169,7 +162,6 @@ export async function getStaticProps() {
       shopBy,
       monthCollectionInfo,
       monthCollection,
-      defaultProductImage,
       itemsNavbar,
     },
   };
