@@ -92,16 +92,6 @@ const LinkMenu = ({ children, to, sidebar, image }) => {
             .containerItemMenu {
               position: unset;
             }
-
-            // .containerItemMenu {
-            //   height: 110px;
-            //   width: 150px;
-            // }
-            // @media (max-width: 375px) {
-            //   .containerItemMenu {
-            //     width: 120px;
-            //   }
-            // }
           }
         `}</style>
       </>
