@@ -101,10 +101,10 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
                     {letter.collectionsList.map((collection, index) => (
                       <li key={index}>
                         {collection.viewLetter && (
-                          <div ref={myRef} style={{ marginBottom: "-24px" }}>
+                          <div ref={myRef} style={{ marginBottom: "-64px" }}>
                             <section
                               className="font-semibold text-2xl"
-                              style={{ fontSize: "40px" }}
+                              style={{ fontSize: "40px", lineHeight: "8rem" }}
                               id={letter.letter}
                             >
                               {letter.letter}
@@ -117,7 +117,7 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
                               ? "available"
                               : "unavailable"
                           }`}
-                          style={{ marginBottom: "0.8rem" }}
+                          style={{ marginBottom: "0.3rem" }}
                         >
                           <Link
                             style={{
