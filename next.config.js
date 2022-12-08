@@ -5,7 +5,8 @@ module.exports = {
     domains: [
       "www.datocms-assets.com",
       "cdn.shopify.com",
-      "via.placeholder.com",
+      "www.google.com",
+      "logoeps.com",
     ],
   },
 };

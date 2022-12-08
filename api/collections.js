@@ -1,7 +1,7 @@
 import request from "./request";
 
 async function getAllCollections() {
-  const sunglassesandframes = `
+  const QUERY = `
 {
     collections(
       sortKey: TITLE, first: 250
@@ -20,13 +20,6 @@ async function getAllCollections() {
     }
  }
 `;
-
-  let QUERY = null;
-  switch (process.env.NEXT_QUERY) {
-    case "sunglassesandframes":
-      QUERY = sunglassesandframes;
-      break;
-  }
 
   return await request("shopify", QUERY);
 }
@@ -47,7 +40,7 @@ async function getCollection(collection, first, cursor) {
       description
       title
     }
-    metafield(namespace: "logo", key: "custom.logo") {
+    metafield(namespace: "custom", key: "logo") {
       value
     }
     products(first: ${first}, ${cursor ? `after: "${cursor}"` : ""}) {

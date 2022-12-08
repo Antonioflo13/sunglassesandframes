@@ -137,6 +137,18 @@ const CollectionTemplate = ({ collection }) => {
             )}
           </div>
           <div className="container-textfilter">
+            {collection.metafield && (
+              <div className="collection-logo-container">
+                <Image
+                  fill
+                  priority={true}
+                  style={{ objectFit: "cover" }}
+                  sizes="100%"
+                  src={collection.metafield.value}
+                  alt="logo-collection"
+                />
+              </div>
+            )}
             <p>{collection.description ? collection.description : null}</p>
           </div>
         </div>
@@ -162,10 +174,16 @@ const CollectionTemplate = ({ collection }) => {
 
           .container-plp {
             display: flex;
-            gap: 3rem;
+            gap: 2rem;
           }
           .container-textfilter {
             width: 50%;
+          }
+
+          .collection-logo-container {
+            position: relative;
+            width: 100px;
+            height: 30px;
           }
           @media (max-width: 768px) {
             .img-headerCollection {
