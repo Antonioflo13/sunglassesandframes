@@ -16,17 +16,16 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 import Layout from "../../components/layout";
 import AnimatedPage from "../../components/animated-page";
 import PageTitle from "../../components/page-title";
+import { getProduct } from "../../api/product";
 
 const Article = ({ article, collection }) => {
-  const isDesktop = useMediaQuery(768);
-  // const productsInArticle = [];
   article = article?.data?.article;
-  const collectionHandle = collection.data.collection
-    ? collection?.data?.collection.handle
-    : null;
   collection = collection.data.collection ? collection?.data?.collection : null;
-
+  //SEO
   const title = `Sunglassesandframes - ${article?.handle}`;
+
+  //HOOKS
+  const isDesktop = useMediaQuery(768);
 
   //STATE
   const [products, setProducts] = useState(collection.products.edges);
@@ -71,17 +70,6 @@ const Article = ({ article, collection }) => {
     }
   }, []);
 
-  useEffect(() => {
-    if (products.length) {
-      setProducts(
-        products.filter(
-          product =>
-            product.node.variants.edges[0].node.product.images.nodes.length > 0
-        )
-      );
-    }
-  }, []);
-
   // Handle loading more articles
   useEffect(() => {
     if (loadMore && hasMore) {
@@ -100,18 +88,6 @@ const Article = ({ article, collection }) => {
       });
     }
   }, [loadMore, hasMore]); //eslint-disable-line
-
-  // Object.entries(article).forEach(item => {
-  //   if (item[0].includes("product")) {
-  //     if (item[1] !== "") {
-  //       const titleItem = item[1].toUpperCase();
-  //       const filterResultSlider = data.allShopifyProduct.edges.find(
-  //         item => item.node.title === titleItem
-  //       );
-  //       productsInArticle.push(filterResultSlider);
-  //     }
-  //   }
-  // });
 
   return (
     <>
@@ -281,8 +257,21 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const handle = context.params.article;
   const article = await getArticle(handle);
+  const shopifyProducts = article?.data?.article.shopifyProduct.map(
+    product => product.product
+  );
+
+  let products = [];
+  for (const shopifyProduct of shopifyProducts) {
+    const product = await getProduct(shopifyProduct);
+    products.push({ node: product.data.product });
+  }
   const shopifyCollection = article?.data?.article?.shopifyCollection;
   const collection = await getCollection(shopifyCollection, 20);
+  collection.data.collection.products.edges = [
+    ...products,
+    ...collection.data.collection.products.edges,
+  ];
   return {
     props: { article, collection },
   };
@@ -295,24 +284,21 @@ const Product = ({ product, collection }) => {
     <Link
       href={{
         pathname: `/designers/${collection.handle}/${product.node.handle}`,
-        query: { cursor: product.cursor },
+        query: product.cursor ? { cursor: product.cursor } : null,
       }}
     >
       <div className="w-full flex flex-col items-center">
         <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
           <div className="absolute top-0 w-full h-full">
-            {product.node.variants.edges[0].node.product.images.nodes.length >
-              0 && (
-              <img
-                className="w-full h-full"
-                src={
-                  product.node.variants.edges[0].node.product.images.nodes[0]
-                    .originalSrc
-                }
-                alt="product-image"
-                style={{ objectFit: "cover" }}
-              />
-            )}
+            <img
+              className="w-full h-full"
+              src={
+                product.node.variants.edges[0].node.product.images.nodes[0]
+                  .transformedSrc
+              }
+              alt="product-image"
+              style={{ objectFit: "cover" }}
+            />
           </div>
         </div>
         <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">

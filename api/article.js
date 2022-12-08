@@ -30,7 +30,7 @@ async function getArticle(handle) {
     }
     shopifyCollection
     shopifyProduct {
-      id
+      product
     }
   }
 }
