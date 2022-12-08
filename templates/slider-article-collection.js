@@ -6,12 +6,10 @@ import { FormattedNumber } from "react-intl";
 
 const SliderArticleCollection = ({ products, collectionHandle }) => {
   //STATE
-  const [defaultProductImage, setDefaultProductImage] = useState("");
   const [showSwiper, setShowSwiper] = useState(false);
 
   //EFFECT
   useEffect(() => {
-    setDefaultProductImage(localStorage.getItem("defaultProductImage"));
     setShowSwiper(true);
   }, []);
 
@@ -47,10 +45,7 @@ const SliderArticleCollection = ({ products, collectionHandle }) => {
                       style={{ objectFit: "cover" }}
                       src={
                         item?.node?.variants?.edges[0]?.node?.product?.images
-                          ?.nodes.length > 0
-                          ? item?.node?.variants?.edges[0]?.node?.product
-                              ?.images?.nodes[1].originalSrc
-                          : defaultProductImage
+                          ?.nodes[1].transformedSrc
                       }
                       alt="product"
                     />

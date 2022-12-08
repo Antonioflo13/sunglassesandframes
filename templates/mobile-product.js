@@ -176,7 +176,7 @@ const MobileProductTemplate = props => {
                               placeholder="blur"
                               blurDataURL={image.transformedSrc}
                               src={image.transformedSrc}
-                              alt={image.originalSrc}
+                              alt={image.transformedSrc}
                             />
                           </div>
                         </SwiperSlide>

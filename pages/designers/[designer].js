@@ -8,7 +8,7 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 //API
 import { getCollection } from "../../api/collections";
 //INTL
-import { FormattedMessage, FormattedNumber } from "react-intl";
+import { FormattedNumber } from "react-intl";
 //COMPONENTS
 import AnimatedPage from "../../components/animated-page";
 import PageTitle from "../../components/page-title";
@@ -205,7 +205,7 @@ const Product = ({ product, collection }) => {
                 className="w-full h-full"
                 src={
                   product.node.variants.edges[0].node.product.images.nodes[1]
-                    .originalSrc
+                    .transformedSrc
                 }
                 alt="product-image"
                 style={{ objectFit: "cover" }}

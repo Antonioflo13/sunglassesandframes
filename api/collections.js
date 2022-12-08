@@ -80,7 +80,6 @@ async function getCollection(collection, first, cursor) {
                   images(first: 250) {
                     nodes {
                       transformedSrc(preferredContentType: WEBP)
-                      originalSrc
                       id
                     }
                   }

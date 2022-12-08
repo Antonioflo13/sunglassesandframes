@@ -9,7 +9,6 @@ const SliderHomeCollection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [monthCollection, setMonthCollection] = useState({});
   const [collectionHandle, setCollectionHandle] = useState({});
-  const [defaultProductImage, setDefaultProductImage] = useState("");
 
   useEffect(() => {
     setIsVisible(true);
@@ -21,7 +20,6 @@ const SliderHomeCollection = () => {
       JSON.parse(localStorage.getItem("monthCollection")).data?.collection
         ?.handle
     );
-    setDefaultProductImage(localStorage.getItem("defaultProductImage"));
   }, []);
 
   return (
@@ -62,10 +60,7 @@ const SliderHomeCollection = () => {
                       style={{ objectFit: "cover" }}
                       src={
                         item?.node?.variants?.edges[0]?.node?.product?.images
-                          ?.nodes.length > 0
-                          ? item?.node?.variants?.edges[0]?.node?.product
-                              ?.images?.nodes[1].originalSrc
-                          : defaultProductImage
+                          ?.nodes[1].transformedSrc
                       }
                       alt="product"
                     />

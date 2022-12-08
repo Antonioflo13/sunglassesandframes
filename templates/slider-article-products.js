@@ -32,7 +32,7 @@ const SliderArticleProducts = ({ productsinArticle }) => {
                 <div style={{ cursor: "pointer" }}>
                   <img
                     className="img-product"
-                    src={item.node.images[1].originalSrc}
+                    src={item.node.images[1].transformedSrc}
                     alt="product"
                   />
                   <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
@@ -82,14 +82,3 @@ const SliderArticleProducts = ({ productsinArticle }) => {
 };
 
 export default SliderArticleProducts;
-
-const FormattedMessage = ({ values, ...props }) => (
-  <OriginalFormattedMessage
-    values={{
-      b: chunk => <b>{chunk}</b>,
-      r: chunk => <b className="text-sunglassesandframes-black">{chunk}</b>,
-      ...values,
-    }}
-    {...props}
-  />
-);
