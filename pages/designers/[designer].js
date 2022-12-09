@@ -207,6 +207,7 @@ export async function getServerSideProps({ params }) {
 }
 
 const Product = ({ product, collection }) => {
+  console.log("product", product);
   return (
     <Link
       href={{
@@ -237,23 +238,11 @@ const Product = ({ product, collection }) => {
         <div className="ml-1 text-xs uppercase font-bold mt-2">
           {product.node.title}
         </div>
-        {product.node.availableForSale &&
-          !product.node.tags.includes("nfs") &&
-          product.node.variants.edges[0].node.product.quantityAvailable > 0 && (
-            <p className="text-2xs">
-              <FormattedNumber
-                style="currency"
-                value={
-                  product.node.variants.edges[0].node.product.priceV2.amount
-                }
-                currency={
-                  product.node.variants.edges[0].node.product.priceV2
-                    .currencyCode
-                }
-                minimumFractionDigits={0}
-              />
-            </p>
-          )}
+        {/* {product.node.variants.edges[0].node.product.quantityAvailable > 0 && ( */}
+        <p className="text-2xs">
+          {Number(product.node.variants.edges[0].node.priceV2.amount)} €
+        </p>
+        {/* )} */}
       </div>
     </Link>
   );
