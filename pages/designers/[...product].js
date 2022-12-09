@@ -54,7 +54,7 @@ const Product = ({
 
   const title = `Sunglassesandframes - ${productHandle}`;
 
-  //FUNCTIONS
+  //FUNCTIONSS
   const buy = async productId => {
     let checkoutId = getCookie("checkoutId");
 
