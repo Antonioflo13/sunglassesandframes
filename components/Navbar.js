@@ -305,10 +305,6 @@ export const Navbar = () => {
         {isDesktop && hasHover && (
           <div className="fullScreenBackground">
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "max-content" }}
-              exit={{ opacity: 0, height: "min-content" }}
-              transition={{ type: "tween", duration: 0.3 }}
               style={{
                 backgroundColor: "white",
                 paddingBottom: "40px",
