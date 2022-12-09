@@ -67,10 +67,12 @@ export const Navbar = () => {
     if (cartContent) {
       dispatch(setCartContent(cartContent));
     }
-    setMonthCollectionInfo(
-      JSON.parse(localStorage.getItem("monthCollectionInfo")).data
-        ?.allMonthlyHighlights[0]
-    );
+    if (localStorage.getItem("monthCollectionInfo")) {
+      setMonthCollectionInfo(
+        JSON.parse(localStorage.getItem("monthCollectionInfo")).data
+          ?.allMonthlyHighlights[0]
+      );
+    }
     setItemsNavbar(JSON.parse(localStorage.getItem("itemNavBar")));
   }, []);
 
@@ -90,7 +92,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className="px-5 md:px-5 left-0 top-0 w-full h-20 bg-white flex items-center justify-between z-30 customWidthHeader">
+      <div className="px-5 md:px-5 left-0 top-0 w-full min-h-20 bg-white flex items-center justify-between z-30 customWidthHeader">
         {isDesktop ? (
           <Link href={"/"}>
             <img src={homeIcon.src} width={15} alt="icon-home" />
@@ -135,7 +137,38 @@ export const Navbar = () => {
                   </button>
                 )}
 
-                <FontAwesomeIcon icon={faMagnifyingGlass} width={15} />
+                <FontAwesomeIcon
+                  icon={faMagnifyingGlass}
+                  width={15}
+                  onClick={openSearchModal}
+                />
+                {isSearchActive && (
+                  <div
+                    id="search-overlay"
+                    className={`fullScreenBackgroundSearch absolute w-screen h-screen top-0 left-0 z-50  transition-all duration-300 overflow-y-scroll ${
+                      isSearchActive
+                        ? "visible opacity-100"
+                        : "invisible opacity-0"
+                    }`}
+                    onClick={closeSearchModal}
+                  >
+                    <div>
+                      <FontAwesomeIcon
+                        style={{ marginLeft: "2px", width: 15 }}
+                        className="cursor-pointer absolute right-10 top-10"
+                        icon={faXmark}
+                        onClick={closeSearchModal}
+                      />
+                    </div>
+                    {/* className="absolute top-50/100 left-50/100 min-w-[80%] min-h-[80%] translate-x-[-50%] translate-y-[-50%] bg-white" */}
+                    <div
+                      className=" bg-white p-4"
+                      onClick={e => e.stopPropagation()}
+                    >
+                      <AlgoliaSearch onClose={closeSearchModal} />
+                    </div>
+                  </div>
+                )}
               </>
             )}
           </div>
@@ -387,7 +420,16 @@ export const Navbar = () => {
         }
 
         .fullScreenBackground {
-          height: 150vh;
+          height: 100%;
+          background-color: rgb(0 0 0/25%);
+          z-index: 99;
+          width: 100%;
+          margin-left: auto;
+          margin-right: auto;
+          position: absolute;
+        }
+
+        .fullScreenBackgroundSearch {
           background-color: rgb(0 0 0/25%);
           z-index: 99;
           width: 100%;

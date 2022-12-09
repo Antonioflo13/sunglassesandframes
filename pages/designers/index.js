@@ -1,5 +1,5 @@
 //REACT
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 //NEXT
 import Link from "next/link";
 import Head from "next/head";
@@ -15,7 +15,16 @@ import Layout from "../../components/layout";
 import { getAllCollections } from "../../api/collections";
 import getMonthlyHighlight from "../../api/monthlyHighlight";
 
+//Add FontAwesome
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
 const CollectionsPage = ({ collections, monthlyHighlight }) => {
+  const [searchInput, setSearchInput] = useState("");
+  const [collectionsListByAlphabet, setcollectionsListByAlphabet] = useState(
+    []
+  );
+  const [filteredCollectionsList, setFilteredCollectionsList] = useState([]);
   collections = collections.data.collections.nodes;
 
   //HOOKS
@@ -24,26 +33,12 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
   const myRef = useRef(null);
 
   //generates alphabetical order products
-  let collectionsListByAlphabet = [];
+  // let collectionsListByAlphabet = [];
   let alphabeticList = [];
   for (const product of collections) {
     alphabeticList.push(product.title[0].toUpperCase());
   }
   alphabeticList = [...new Set(alphabeticList)];
-  for (const letter of alphabeticList) {
-    collectionsListByAlphabet.push({ letter: letter, collectionsList: [] });
-  }
-  for (const product of collections) {
-    for (const collectionListByAlphabet of collectionsListByAlphabet) {
-      if (product.title[0].toUpperCase() === collectionListByAlphabet.letter) {
-        collectionListByAlphabet.collectionsList.push(product);
-      }
-    }
-  }
-
-  collectionsListByAlphabet.map(
-    collectionsList => (collectionsList.collectionsList[0].viewLetter = true)
-  );
 
   //STATE
   const [letterIndex, setLetterIndex] = useState(alphabeticList[0]);
@@ -60,6 +55,57 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
   };
 
   const itemMonthlyHighlight = monthlyHighlight?.data?.allMonthlyHighlights[0];
+
+  useEffect(() => {
+    let arr = [];
+    let id = 0;
+    for (const letter of alphabeticList) {
+      arr.push({ id: ++id, letter: letter, collectionsList: [] });
+    }
+    for (const product of collections) {
+      for (const collectionListByAlphabet of arr) {
+        if (
+          product.title[0].toUpperCase() === collectionListByAlphabet.letter
+        ) {
+          collectionListByAlphabet.collectionsList.push(product);
+        }
+      }
+    }
+    arr.map(
+      collectionList => (collectionList.collectionsList[0].viewLetter = true)
+    );
+    setcollectionsListByAlphabet(arr);
+    setFilteredCollectionsList(arr);
+  }, []);
+
+  //SearchInput
+  const changeInputHandler = e => {
+    setSearchInput(e.target.value);
+    let arr = [...collectionsListByAlphabet];
+    let newArr = [];
+    let newItem = {};
+    for (let item of arr) {
+      let newCollectionsList = [];
+      for (let collection of item.collectionsList) {
+        if (collection.handle.includes(e.target.value)) {
+          newCollectionsList.push(collection);
+        }
+      }
+      if (newCollectionsList.length) {
+        newItem = { ...item, collectionsList: [...newCollectionsList] };
+        newArr.push(newItem);
+      }
+    }
+    newArr.map(collection => {
+      if (collection.collectionsList.length) {
+        collection.collectionsList.map(
+          collection => (collection.viewLetter = false)
+        );
+        collection.collectionsList[0].viewLetter = true;
+      }
+    });
+    setFilteredCollectionsList(newArr);
+  };
 
   return (
     <Layout>
@@ -97,62 +143,86 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
                 </span>
               </span>
             ))}
+            {!isDesktop && (
+              <label className="relative block w-[100%] md:w-[50%] m-auto mt-5">
+                <FontAwesomeIcon
+                  className="pointer-events-none absolute top-1/2 transform -translate-y-1/2 left-3 w-[1rem] h-[1rem]"
+                  icon={faSearch}
+                />
+
+                <input
+                  autoFocus
+                  value={searchInput}
+                  onChange={changeInputHandler}
+                  className="border-2 border-black rounded-xl py-1 px-4 bg-white placeholder-gray-400 text-black appearance-none w-full block pl-12 focus:outline-none"
+                />
+              </label>
+            )}
           </div>
           <div className="containerCollections mt-10">
             <div id="container" className="containerDesigner">
-              <ul>
-                {collectionsListByAlphabet.map((letter, index) => (
-                  <React.Fragment key={index}>
-                    {letter.collectionsList.map((collection, index) => (
-                      <li key={index}>
-                        {collection.viewLetter && (
-                          <div ref={myRef} className="marginCustomDesigner">
-                            <section
-                              className="font-semibold text-2xl bigLetter"
-                              id={letter.letter}
-                            >
-                              {letter.letter}
-                            </section>
-                          </div>
-                        )}
-                        <div
-                          className={`${
-                            collection.products?.nodes?.length > 0
-                              ? "available"
-                              : "unavailable"
-                          }`}
-                          style={{ marginBottom: "0.3rem" }}
-                        >
-                          <Link
-                            style={{
-                              pointerEvents:
-                                !collection.products?.nodes?.length && "none",
-                              touchAction:
-                                !collection.products?.nodes?.length && "none",
-                            }}
-                            href={{
-                              pathname:
-                                collection.handle ===
-                                "sunglassesandframes-capsule-collection"
-                                  ? "/designers/[designer]"
-                                  : "/designers/[designer]",
-                              query: { designer: collection.handle },
-                            }}
+              {filteredCollectionsList.length > 0 ? (
+                <ul>
+                  {filteredCollectionsList.map((letter, index) => (
+                    <React.Fragment key={letter.id}>
+                      {letter.collectionsList.map((collection, index) => (
+                        <li key={collection.id}>
+                          {collection.viewLetter && (
+                            <div ref={myRef} className="marginCustomDesigner">
+                              <section
+                                className="font-semibold text-2xl bigLetter"
+                                id={letter.letter}
+                              >
+                                {letter.letter}
+                              </section>
+                            </div>
+                          )}
+                          <div
+                            className={`${
+                              collection.products?.nodes?.length > 0
+                                ? "available"
+                                : "unavailable"
+                            }`}
+                            style={{ marginBottom: "0.3rem" }}
                           >
-                            <span>
-                              <motion.h2 className=" sunglassesandframes text-xs md:text-xl font-bold">
-                                <div className="collectionTitle">
-                                  {collection.title}
-                                </div>
-                              </motion.h2>
-                            </span>
-                          </Link>
-                        </div>
-                      </li>
-                    ))}
-                  </React.Fragment>
-                ))}
-              </ul>
+                            <Link
+                              style={{
+                                pointerEvents:
+                                  !collection.products?.nodes?.length && "none",
+                                touchAction:
+                                  !collection.products?.nodes?.length && "none",
+                              }}
+                              href={{
+                                pathname:
+                                  collection.handle ===
+                                  "sunglassesandframes-capsule-collection"
+                                    ? "/designers/[designer]"
+                                    : "/designers/[designer]",
+                                query: { designer: collection.handle },
+                              }}
+                            >
+                              <span>
+                                <motion.h2 className=" sunglassesandframes text-xs md:text-xl font-bold">
+                                  <div className="collectionTitle">
+                                    {collection.title}
+                                  </div>
+                                </motion.h2>
+                              </span>
+                            </Link>
+                          </div>
+                        </li>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-xl text-center overflow-wrap">
+                  Didn't find any designer with name: <br />
+                  <span className="font-bold search-not-found">
+                    {searchInput}
+                  </span>
+                </p>
+              )}
             </div>
             {isDesktop && (
               <div className="containerCollectionPromo">
@@ -187,6 +257,10 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
       </AnimatedPage>
       <style jsx="true">
         {`
+          .search-not-found {
+            font-weight: bold;
+            overflow-wrap: break-word;
+          }
           .container-alphabetic {
             text-align: center;
             overflow-x: scroll;
@@ -282,6 +356,9 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
             .collectionTitle {
               margin-left: 0px;
               font-size: 16px;
+            }
+            .containerDesigner {
+              width: 100%;
             }
           }
         `}
