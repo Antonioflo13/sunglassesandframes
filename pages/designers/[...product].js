@@ -95,7 +95,7 @@ const Product = ({
       <AnimatedPage margins={true} noAnimate={true} fullHeight={true}>
         {isDesktop && (
           <div className="flex">
-            <div className="w-full md:w-1/2 my-8">
+            <div className="w-full md:w-1/2 my-8" style={{ zIndex: "9" }}>
               {isDesktop && (
                 <PageTitle
                   breadcrumbs={[

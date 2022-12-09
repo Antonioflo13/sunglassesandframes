@@ -28,6 +28,12 @@ const DesktopProduct = props => {
         </div>
         <div className="flex flex-col buyContainer">
           <div className="flex flex-col items-center">
+            <div
+              className="text-m uppercase font-bold"
+              style={{ fontSize: "18px" }}
+            >
+              {shopifyProduct.node.title}
+            </div>
             {collectionImage && (
               <div className="collection-logo-container">
                 <Image
@@ -40,11 +46,8 @@ const DesktopProduct = props => {
                 />
               </div>
             )}
-            <div className="ml-1 text-xs uppercase font-bold my-2">
-              {shopifyProduct.node.title}
-            </div>
             <div className="mb-2">
-              <FormattedNumber
+              {/* <FormattedNumber
                 style="currency" // eslint-disable-line
                 value={
                   shopifyProduct.node.variants.edges[0].node.priceV2.amount
@@ -54,7 +57,11 @@ const DesktopProduct = props => {
                     .currencyCode
                 }
                 minimumFractionDigits={0}
-              />
+              /> */}
+              {Number(
+                shopifyProduct.node.variants.edges[0].node.priceV2.amount
+              )}
+              €
             </div>
           </div>
           <div className="flex text-sm flex-col mb-5 text-center">
@@ -63,7 +70,7 @@ const DesktopProduct = props => {
             shopifyProduct.node.variants.edges[0].node.quantityAvailable > 0 ? (
               <>
                 <div>
-                  <Label style={{ width: "60%" }} onClick={buy}>
+                  <Label style={{ width: "50%" }} onClick={buy}>
                     <FormattedMessage id="product.buy" />
                   </Label>
                 </div>
@@ -122,7 +129,7 @@ const DesktopProduct = props => {
 
           .collection-logo-container {
             position: relative;
-            width: 100px;
+            width: 90px;
             height: 30px;
           }
 

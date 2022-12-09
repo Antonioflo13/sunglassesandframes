@@ -24,13 +24,15 @@ const Product = ({ product, collectionHandle }) => {
         </p>
         {product.availableForSale && product.variants[0].quantityAvailable > 0 && (
           <p className="text-2xs">
-            <FormattedNumber
+            {product.variants[0].priceV2.amount}
+            {product.variants[0].priceV2.currencyCode}
+            {/* <FormattedNumber
               // eslint-disable-next-line react/style-prop-object
               style="currency"
               value={product.variants[0].priceV2.amount}
               currency={product.variants[0].priceV2.currencyCode}
               minimumFractionDigits={2}
-            />
+            /> */}
           </p>
         )}
       </div>

@@ -43,7 +43,7 @@ const ProductIcon = ({ fontSize }) => {
   ];
   return (
     <>
-      <div className="flex justify-between items-center w-full mt-4 mb-4">
+      <div className="flex justify-between items-center w-full mt-4 mb-4 compatto">
         {icons.map((icon, index) => (
           <div
             key={index}
@@ -72,6 +72,11 @@ const ProductIcon = ({ fontSize }) => {
           text-align: center;
         }
 
+        .compatto {
+          width: 66%;
+          display: flex;
+          align-self: center;
+        }
         @media (min-width: 768px) {
           .icon {
             width: 30px;
