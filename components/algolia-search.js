@@ -30,13 +30,12 @@ const AlgoliaSearch = props => {
   const [activeSearch, setActiveSearch] = useState(false);
 
   const showProducts = value => {
-    setActiveSearch(value && value.trim() !== "");
-    //&& value.length >= 3
+    setActiveSearch(value && value.trim() !== "" && value.length >= 3);
   };
 
   return (
     <InstantSearch indexName="shopify_products" searchClient={searchClient}>
-      <Configure hitsPerPage={50} />
+      <Configure hitsPerPage={300} />
       <div className="flex justify-center items-center mb-3">
         <Link href="/">
           <Image src={logo.src} width={150} height={100} alt="logo" />
