@@ -22,14 +22,14 @@ const GalleryProducts = ({ images }) => {
               sizes="100%"
               priority={true}
               style={{ objectFit: "contain", transform: "scale(1.5)" }}
-              src={imageList[0].transformedSrc}
+              src={imageList[1].transformedSrc}
               placeholder="blur"
-              blurDataURL={imageList[0].transformedSrc}
+              blurDataURL={imageList[1].transformedSrc}
               alt="main-image"
             />
           </div>
           <div className="containerImageTubler">
-            {imageList.slice(1, 4).map((item, index) => (
+            {imageList.map((item, index) => (
               <div
                 className="carousel-image-container cursor-pointer w-7/12 flex justify-center bg-white"
                 onClick={() => changeView(item)}
@@ -53,18 +53,17 @@ const GalleryProducts = ({ images }) => {
       <style jsx="true">{`
         .carousel-image-container {
           position: relative;
-          height: 200px;
+          height: 150px;
           width: 100%;
         }
         .containerMainImage {
           position: relative;
           width: 100%;
-          height: 200px;
+          height: 450px;
         }
         .containerImageTubler {
           display: flex;
           justify-content: space-between;
-          gap: 2vw;
         }
         .imageTumblr {
           width: 50%;
