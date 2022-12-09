@@ -275,7 +275,12 @@ export async function getStaticProps(context) {
     );
     for (const shopifyProduct of shopifyProducts) {
       const product = await getProduct(shopifyProduct);
-      products.push({ node: product.data.product });
+      const images = product.data
+        ? product.data.product.variants.edges[0].node.product.images.nodes
+        : null;
+      if (images.length) {
+        products.push({ node: product.data.product });
+      }
     }
   }
   if (collection && collection.data.collection && products) {
@@ -307,17 +312,15 @@ const Product = ({ product, collection }) => {
       <div className="w-full flex flex-col items-center">
         <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
           <div className="absolute top-0 w-full h-full">
-            {product.node.variants.edges[0].node.product.images.nodes[0] && (
-              <img
-                className="w-full h-full"
-                src={
-                  product.node.variants.edges[0].node.product.images.nodes[0]
-                    .transformedSrc
-                }
-                alt="product-image"
-                style={{ objectFit: "cover" }}
-              />
-            )}
+            <img
+              className="w-full h-full"
+              src={
+                product.node.variants.edges[0].node.product.images.nodes[0]
+                  .transformedSrc
+              }
+              alt="product-image"
+              style={{ objectFit: "cover" }}
+            />
           </div>
         </div>
         <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
