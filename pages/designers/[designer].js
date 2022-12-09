@@ -142,7 +142,7 @@ const CollectionTemplate = ({ collection }) => {
                 <Image
                   fill
                   priority={true}
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: "contain" }}
                   sizes="100%"
                   src={collection.metafield.value}
                   alt="logo-collection"
@@ -167,7 +167,7 @@ const CollectionTemplate = ({ collection }) => {
           .img-header-container {
             width: 50%;
             position: relative;
-            height: 250px;
+            height: 230px;
             border-radius: 10px;
             overflow: hidden;
           }

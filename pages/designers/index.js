@@ -114,7 +114,7 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
         <meta name="description" content="Designers" />
       </Head>
       <AnimatedPage margins={true}>
-        <div className="mt-10">
+        <div style={{ marginTop: "3rem" }}>
           {isDesktop && <h1 className="text-center mb-5">DESIGNER A - Z</h1>}
           <div className="container-alphabetic">
             {alphabeticList.map((letter, index) => (
@@ -163,14 +163,16 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
             <div id="container" className="containerDesigner">
               {filteredCollectionsList.length > 0 ? (
                 <ul>
-                  {filteredCollectionsList.map((letter, index) => (
+                  {filteredCollectionsList.map((letter, indexLetter) => (
                     <React.Fragment key={letter.id}>
                       {letter.collectionsList.map((collection, index) => (
                         <li key={collection.id}>
                           {collection.viewLetter && (
                             <div ref={myRef} className="marginCustomDesigner">
                               <section
-                                className="font-semibold text-2xl bigLetter"
+                                className={`font-semibold bigLetter ${
+                                  indexLetter === 0 ? "noMarginTop" : ""
+                                }`}
                                 id={letter.letter}
                               >
                                 {letter.letter}
@@ -335,13 +337,18 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
             margin-right: 1.5rem;
           }
 
+          .noMarginTop {
+            margin-top: -15px !important;
+          }
+
           .bigLetter {
             font-size: 40px;
-            line-height: 8rem;
+            margin-bottom: 50px;
+            margin-top: 50px;
           }
 
           .marginCustomDesigner {
-            margin-bottom: -64px;
+            margin-bottom: -88px;
           }
 
           @media (max-width: 768px) {
