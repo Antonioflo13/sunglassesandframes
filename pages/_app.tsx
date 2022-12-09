@@ -16,7 +16,6 @@ import { Provider } from "react-redux";
 import { useRouter } from "next/router";
 //COMPONENTS
 import LoadingPage from "../components/loadingPage";
-
 function MyApp({ Component, pageProps }: AppProps) {
   //ROUTER
   const router = useRouter();

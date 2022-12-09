@@ -24,6 +24,7 @@ import SliderHomeCollection from "../templates/slider-home-collection";
 import SliderArticles from "../components/slider-articles";
 import AnimatedPage from "../components/animated-page";
 import Layout from "../components/layout";
+import Zendesk from "../components/zendesk";
 
 const IndexPage = ({
   articles,
@@ -136,6 +137,7 @@ const IndexPage = ({
           <SliderArticles articles={articles} />
           <SliderHomeCollection />
           <SliderMenu allShopBy={allShopBy} />
+          <Zendesk />
           {show && (
             <ModalsIcons
               selectSingleIcon={selectSingleIcon}

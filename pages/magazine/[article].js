@@ -20,7 +20,7 @@ import { getProduct } from "../../api/product";
 
 const Article = ({ article, collection }) => {
   article = article?.data?.article;
-  collection = collection.data.collection ? collection?.data?.collection : null;
+  collection = collection ? collection?.data?.collection : null;
   //SEO
   const title = `Sunglassesandframes - ${article?.handle}`;
 
@@ -28,18 +28,16 @@ const Article = ({ article, collection }) => {
   const isDesktop = useMediaQuery(768);
 
   //STATE
-  const [products, setProducts] = useState(collection.products.edges);
+  const [products, setProducts] = useState([]);
 
   // State to trigger oad more
   const [loadMore, setLoadMore] = useState(false);
 
   // State of whether there is more to load
-  const [hasMore, setHasMore] = useState(
-    collection.products.pageInfo.hasNextPage
-  );
+  const [hasMore, setHasMore] = useState(false);
 
   // Cursor
-  const [cursor, setCursor] = useState(collection.products.pageInfo.endCursor);
+  const [cursor, setCursor] = useState("");
 
   //Set a ref for the loading div
   const loadRef = useRef();
@@ -57,6 +55,13 @@ const Article = ({ article, collection }) => {
   };
 
   //EFFECT
+  useEffect(() => {
+    if (collection) {
+      setProducts(collection.products.edges);
+      setHasMore(collection.products.pageInfo.hasNextPage);
+      setCursor(collection.products.pageInfo.endCursor);
+    }
+  }, [collection]);
   //Initialize the intersection observer API
   useEffect(() => {
     const options = {
@@ -257,21 +262,33 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const handle = context.params.article;
   const article = await getArticle(handle);
-  const shopifyProducts = article?.data?.article.shopifyProduct.map(
-    product => product.product
-  );
-
-  let products = [];
-  for (const shopifyProduct of shopifyProducts) {
-    const product = await getProduct(shopifyProduct);
-    products.push({ node: product.data.product });
-  }
+  const shopifyArticleProducts = article?.data?.article.shopifyProduct;
   const shopifyCollection = article?.data?.article?.shopifyCollection;
-  const collection = await getCollection(shopifyCollection, 20);
-  collection.data.collection.products.edges = [
-    ...products,
-    ...collection.data.collection.products.edges,
-  ];
+  let collection = null;
+  let products = [];
+  if (shopifyCollection) {
+    collection = await getCollection(shopifyCollection, 20);
+  }
+  if (shopifyArticleProducts) {
+    const shopifyProducts = shopifyArticleProducts.map(
+      product => product.product
+    );
+    for (const shopifyProduct of shopifyProducts) {
+      const product = await getProduct(shopifyProduct);
+      products.push({ node: product.data.product });
+    }
+  }
+  if (collection && collection.data.collection && products) {
+    collection.data.collection.products.edges = [
+      ...products,
+      ...collection.data.collection.products.edges,
+    ];
+  }
+
+  if (!collection && products.length > 0) {
+    collection = products;
+  }
+
   return {
     props: { article, collection },
   };
@@ -290,15 +307,17 @@ const Product = ({ product, collection }) => {
       <div className="w-full flex flex-col items-center">
         <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
           <div className="absolute top-0 w-full h-full">
-            <img
-              className="w-full h-full"
-              src={
-                product.node.variants.edges[0].node.product.images.nodes[0]
-                  .transformedSrc
-              }
-              alt="product-image"
-              style={{ objectFit: "cover" }}
-            />
+            {product.node.variants.edges[0].node.product.images.nodes[0] && (
+              <img
+                className="w-full h-full"
+                src={
+                  product.node.variants.edges[0].node.product.images.nodes[0]
+                    .transformedSrc
+                }
+                alt="product-image"
+                style={{ objectFit: "cover" }}
+              />
+            )}
           </div>
         </div>
         <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">

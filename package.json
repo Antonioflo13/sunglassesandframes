@@ -36,6 +36,7 @@
     "react-spring": "^8.0.25",
     "react-transition-group": "^4.4.5",
     "react-use-gesture": "^5.1.2",
+    "react-zendesk": "^0.1.13",
     "sass": "^1.55.0",
     "shopify-buy": "^2.11.0",
     "swiper": "^8.4.2"
