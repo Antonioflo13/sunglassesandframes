@@ -22,9 +22,9 @@ const GalleryProducts = ({ images }) => {
               sizes="100%"
               priority={true}
               style={{ objectFit: "contain", transform: "scale(1.5)" }}
-              src={imageList[1].transformedSrc}
+              src={imageList[0].transformedSrc}
               placeholder="blur"
-              blurDataURL={imageList[1].transformedSrc}
+              blurDataURL={imageList[0].transformedSrc}
               alt="main-image"
             />
           </div>
