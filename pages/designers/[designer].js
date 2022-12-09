@@ -153,8 +153,8 @@ const CollectionTemplate = ({ collection }) => {
           </div>
         </div>
         {/* Products */}
-        <div className="mt-8 w-full">
-          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-12">
+        <div className="w-full" style={{ marginTop: "5rem" }}>
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20">
             {products.map((product, index) => (
               <Product key={index} product={product} collection={collection} />
             ))}
@@ -216,8 +216,11 @@ const Product = ({ product, collection }) => {
       }}
     >
       <div className="w-full flex flex-col items-center">
-        <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
-          <div className="absolute top-0 w-full h-full">
+        <div className="relative w-full" style={{ paddingTop: "57.6%" }}>
+          <div
+            className="absolute top-0 w-full h-full"
+            style={{ height: "150px" }}
+          >
             {product.node.variants.edges[0].node.product.images.nodes.length >
               0 && (
               <img
