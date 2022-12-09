@@ -279,7 +279,7 @@ const Drawer = ({ handleClose }) => {
           align-items: center;
           width: 100%;
           height: 5vh;
-          margin-top: 30px;
+          margin-top: 3rem;
         }
         .drawer-product-description {
           font-size: 12px;

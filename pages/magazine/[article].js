@@ -200,7 +200,7 @@ const Article = ({ article, collection }) => {
                 text-align: center;
               }
               .container-accordions {
-                margin-top: 40px;
+                margin-top: 3rem;
               }
               .container-accordion {
                 display: flex;

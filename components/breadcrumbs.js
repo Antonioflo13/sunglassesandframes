@@ -25,7 +25,7 @@ const Breadcrumbs = ({ title }) => {
 
           @media (max-width: 768px) {
             .breadcrumbs {
-              margin-top: 40px;
+              margin-top: 3rem;
             }
           }
         `}

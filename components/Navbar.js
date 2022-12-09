@@ -18,7 +18,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Sidebar from "../components/sidebar";
 import Contact from "../components/contact";
 //IMAGES
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/logo.svg";
 import menuBurgher from "../assets/images/menu-burger.svg";
 import cartIcon from "../assets/images/shopping-bag.svg";
 import homeIcon from "../assets/images/home.svg";
@@ -95,7 +95,7 @@ export const Navbar = () => {
       <div className="px-5 md:px-5 left-0 top-0 w-full min-h-20 bg-white flex items-center justify-between z-30 customWidthHeader">
         {isDesktop ? (
           <Link href={"/"}>
-            <img src={homeIcon.src} width={15} alt="icon-home" />
+            <img src={homeIcon.src} width={20} alt="icon-home" />
           </Link>
         ) : (
           <div style={{ display: "flex", gap: "20px" }}>
@@ -177,7 +177,7 @@ export const Navbar = () => {
         <Link href="/">
           <button>
             <div className="flex flex-col justify-center items-center">
-              <img src={logo.src} width={150} alt="logo" />
+              <img src={logo.src} width={110} alt="logo" />
             </div>
           </button>
         </Link>
@@ -186,7 +186,7 @@ export const Navbar = () => {
           className="text-black font-semibold text-xs md:text-sm"
           style={{ fontSize: "10px" }}
         >
-          <img src={cartIcon.src} width={15} alt="cart-icon" />
+          <img src={cartIcon.src} width={20} alt="cart-icon" />
           {/* <div>({totalQuantity})</div> */}
         </Link>
       </div>

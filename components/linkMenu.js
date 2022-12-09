@@ -8,7 +8,6 @@ import { setSideBarShow } from "../store/modules/sideBar";
 //COMPONENTS
 import { motion } from "framer-motion";
 //ICONS
-import imageMenu from "../assets/images/menu.jpg";
 import Image from "next/image";
 
 const LinkMenu = ({ children, to, sidebar, image }) => {
