@@ -269,16 +269,16 @@ export async function getStaticProps(context) {
   if (shopifyCollection) {
     collection = await getCollection(shopifyCollection, 20);
   }
-  if (shopifyArticleProducts) {
+  if (shopifyArticleProducts.length) {
     const shopifyProducts = shopifyArticleProducts.map(
       product => product.product
     );
     for (const shopifyProduct of shopifyProducts) {
       const product = await getProduct(shopifyProduct);
-      const images = product.data
+      const images = product.data.product
         ? product.data.product.variants.edges[0].node.product.images.nodes
         : null;
-      if (images.length) {
+      if (images && images.length) {
         products.push({ node: product.data.product });
       }
     }
