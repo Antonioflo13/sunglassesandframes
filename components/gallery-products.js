@@ -2,17 +2,11 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 const GalleryProducts = ({ images }) => {
-  const [imageList, setImageList] = useState([...images]);
+  const imageList = [...images];
+  const [fisrtImage, setFirstImage] = useState(imageList[1].transformedSrc);
   const changeView = item => {
-    let imageListChange = [...images];
-    const index = imageListChange.findIndex(
-      image => image.transformedSrc === item.transformedSrc
-    );
-    imageListChange.unshift(imageListChange.splice(index, 1)[0]);
-    setImageList(imageListChange);
+    setFirstImage(item.transformedSrc);
   };
-
-  console.log("imageList", imageList);
 
   return (
     <>
@@ -24,9 +18,9 @@ const GalleryProducts = ({ images }) => {
               sizes="100%"
               priority={true}
               style={{ objectFit: "contain", transform: "scale(1.5)" }}
-              src={imageList[1]?.transformedSrc}
+              src={fisrtImage}
               placeholder="blur"
-              blurDataURL={imageList[1]?.transformedSrc}
+              blurDataURL={fisrtImage}
               alt="main-image"
             />
           </div>
@@ -34,7 +28,7 @@ const GalleryProducts = ({ images }) => {
             {imageList.splice(0, imageList.length - 1).map((item, index) => (
               <div
                 className="carousel-image-container cursor-pointer w-7/12 flex justify-center bg-white"
-                //onClick={() => changeView(item)}
+                onClick={() => changeView(item)}
                 key={index}
               >
                 <Image
