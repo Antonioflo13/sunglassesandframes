@@ -147,8 +147,8 @@ const MobileProductTemplate = props => {
         loop={true}
       >
         {products &&
-          products.map((product, index) => (
-            <SwiperSlide key={index}>
+          products.map(product => (
+            <SwiperSlide key={product.id}>
               <div className="sliderWrapper">
                 <Swiper
                   id="swiper-image-pdp"
@@ -161,22 +161,34 @@ const MobileProductTemplate = props => {
                   modules={[Pagination]}
                 >
                   {product.node.variants.edges[0].node.product.images.nodes.map(
-                    (image, product) => (
-                      <SwiperSlide key={product}>
+                    image => (
+                      <SwiperSlide
+                        style={{ display: "flex", justifyContent: "center" }}
+                        key={image.id}
+                      >
                         <div className="image-container">
                           <Image
-                            fill="true"
+                            width={100}
+                            height={100}
                             sizes="100%"
                             priority={true}
                             style={{
                               objectFit: "contain",
                               objectPosition: "center",
+                              width: "100%",
+                              height: "88%",
                             }}
                             placeholder="blur"
                             blurDataURL={image.transformedSrc}
                             src={image.transformedSrc}
                             alt={image.transformedSrc}
                           />
+                          <div className="title-product">
+                            <span>{product.node.vendor}</span>
+                            <span className="font-bold">
+                              {product.node.title}
+                            </span>
+                          </div>
                         </div>
                       </SwiperSlide>
                     )
@@ -326,7 +338,7 @@ const MobileProductTemplate = props => {
         .image-container {
           position: relative;
           height: 100%;
-          width: 95%;
+          width: 80%;
         }
 
         .collection-logo-container {
@@ -335,48 +347,18 @@ const MobileProductTemplate = props => {
           height: 30px;
         }
 
+        .title-product {
+          position: absolute;
+          bottom: 55%;
+          left: -70px;
+          font-size: 12px;
+          transform: rotate(270deg);
+        }
+
         .slide-icon {
           border: 2px solid grey;
           width: 30px;
           border-radius: 10px;
-        }
-
-        .rowLeft {
-          position: absolute;
-          bottom: 35%;
-          left: 20px;
-          z-index: 2;
-        }
-
-        .rowRight {
-          position: absolute;
-          bottom: 35%;
-          right: 20px;
-          z-index: 2;
-        }
-
-        .textStores {
-          width: 100px;
-          margin: 0 auto;
-        }
-
-        .available-store-img {
-          border-radius: 20px;
-          height: 55px;
-          margin: 0 auto;
-          width: 100px;
-          object-fit: fill;
-        }
-
-        .containerAccordion {
-          display: flex;
-          justify-content: space-between;
-        }
-        .available-store-container {
-          display: flex;
-          width: 100%;
-          text-align: center;
-          gap: 1rem;
         }
       `}</style>
     </div>

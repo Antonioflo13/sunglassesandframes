@@ -34,6 +34,7 @@ async function getCollection(collection, first, cursor) {
     description
     descriptionHtml
     image {
+        id
         transformedSrc(preferredContentType: WEBP)
     }
     seo {
