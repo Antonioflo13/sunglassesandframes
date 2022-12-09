@@ -69,6 +69,8 @@ const Index = ({ articles }) => {
     setHasMore(isMore);
   }, [list]); //eslint-disable-line
 
+  console.log("list", list);
+
   return (
     <>
       <Layout>
@@ -112,14 +114,17 @@ const Index = ({ articles }) => {
                       priority={true}
                       placeholder="blur"
                       blurDataURL={item.imageheader.blurUpThumb}
-                      style={{ objectFit: "cover" }}
+                      style={{ objectFit: "fill" }}
                       src={item.imageheader.url}
                       alt="image-header"
                     />
                   </div>
-                  <h1 className="article-title text-xl font-bold p-4">
+                  <div className="article-title text-xs">
                     {item.titlemagazine}
-                  </h1>
+                  </div>
+                  <div className="article-subtitle text-xs">
+                    {item.subtitle}
+                  </div>
                 </div>
               </Link>
             ))}
@@ -141,26 +146,29 @@ const Index = ({ articles }) => {
             display: flex;
             flex-direction: column;
             align-content: center;
-            align-items: center;
+            align-items: start;
             cursor: pointer;
-            background-color: #f8f8f8;
+            background-color: white;
             border-radius: 25px;
           }
 
           .article-title {
-            margin-top: 10px;
-            margin-bottom: 5px;
+            margin-top: 15px;
+            margin-left: 20px;
             text-transform: uppercase;
             text-align: center;
-            font-size: 18px;
+            font-size: 14px;
+          }
+
+          .article-subtitle {
+            margin-left: 20px;
           }
 
           .image-container {
             position: relative;
             width: 100%;
-            height: 200px;
-            border-top-left-radius: 25px;
-            border-top-right-radius: 25px;
+            height: 230px;
+            border-radius: 15px;
             overflow: hidden;
           }
 

@@ -7,6 +7,7 @@ async function getAllArticles() {
           id
           title
           titlemagazine
+          subtitle
           description
           handle
           imageheader {
