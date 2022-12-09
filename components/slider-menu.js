@@ -94,7 +94,7 @@ const SliderMenu = ({ allShopBy }) => {
         }
 
         .titleSliderMenu {
-          margin-top: 4rem;
+          margin-top: 3rem;
           margin-bottom: 2.5rem;
         }
 
