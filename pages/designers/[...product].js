@@ -42,7 +42,9 @@ const Product = ({
 
   const relatedProducts = collectionProducts.data.collection.products.edges;
 
-  const collectionImage = collectionProducts.data.collection.metafield.value;
+  const collectionImage = collectionProducts.data.collection.metafield
+    ? collectionProducts.data.collection.metafield.value
+    : null;
 
   const mainImage = (
     <GalleryProducts
