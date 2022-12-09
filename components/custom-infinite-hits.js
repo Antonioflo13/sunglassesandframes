@@ -4,13 +4,17 @@ import Link from "next/link";
 import createHandle from "../hooks/createHandle";
 import { FormattedNumber } from "react-intl";
 
-const HitCollection = props => {
+export const HitCollection = props => {
+  console.log(props.hit);
   return (
-    <div onClick={props.onClose}>
+    <div
+      onClick={props.onClose}
+      style={{ display: props.hit.image ? "block" : "none" }}
+    >
       <Link href={`/designers/${props.hit.handle}`}>
         <div className="w-full flex flex-col items-center text-center">
           <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
-            <div className="absolute top-0 w-full h-full">
+            <div className="absolute top-0 w-full h-full rounded-xl overflow-hidden">
               <img
                 className="w-full h-full"
                 src={props.hit.image}
@@ -33,7 +37,7 @@ const HitCollection = props => {
   );
 };
 
-const HitProduct = props => {
+export const HitProduct = props => {
   return (
     <div onClick={props.onClose}>
       <Link
@@ -83,7 +87,16 @@ const InfiniteHits = ({ hits, hasMore, refineNext, type, onClose }) => (
   <div className="ais-InfiniteHits">
     <ol className="ais-InfiniteHits-list">
       {hits.map(hit => (
-        <div className="ais-InfiniteHits-item" key={hit.id}>
+        <div
+          className="ais-InfiniteHits-item"
+          key={hit.id}
+          style={{
+            display:
+              !hit.image || hit.variants_inventory_count === 0
+                ? "none"
+                : "block",
+          }}
+        >
           {type === "designer" && <HitCollection hit={hit} onClose={onClose} />}
           {type === "product" && <HitProduct hit={hit} onClose={onClose} />}
         </div>

@@ -13,10 +13,10 @@ import {
   InfiniteHits,
   Index,
 } from "react-instantsearch-dom";
-import { FormattedNumber } from "react-intl";
 import Link from "next/link";
 import AlgoliaSearchInput from "./AlgoliaSearchInput";
 import { CustomInfiniteHits } from "./custom-infinite-hits";
+import CustomStats from "./algolia-status-custom";
 
 import logo from "../assets/images/logo.png";
 import Image from "next/image";
@@ -31,11 +31,12 @@ const AlgoliaSearch = props => {
 
   const showProducts = value => {
     setActiveSearch(value && value.trim() !== "");
+    //&& value.length >= 3
   };
 
   return (
     <InstantSearch indexName="shopify_products" searchClient={searchClient}>
-      <Configure hitsPerPage={40} />
+      <Configure hitsPerPage={50} />
       <div className="flex justify-center items-center mb-3">
         <Link href="/">
           <Image src={logo.src} width={150} height={100} alt="logo" />
@@ -49,16 +50,7 @@ const AlgoliaSearch = props => {
         <div className="mt-8 w-full">
           <Index indexName="shopify_collections">
             <h2 className="text-center uppercase text-gray-400">
-              <Stats
-                className="mb-5"
-                translations={{
-                  stats(nbHits, processingTimeMS, nbSortedHits, areHitsSorted) {
-                    return areHitsSorted && nbHits !== nbSortedHits
-                      ? `${nbSortedHits.toLocaleString()} relevant results sorted out of ${nbHits.toLocaleString()} found in ${processingTimeMS.toLocaleString()}ms`
-                      : ` Designer (${nbHits.toLocaleString()})`;
-                  },
-                }}
-              />
+              <CustomStats type="Designer" className="mb-3" />
             </h2>
             <CustomInfiniteHits
               hasMore={false}
@@ -69,16 +61,7 @@ const AlgoliaSearch = props => {
           </Index>
           <Index indexName="shopify_products">
             <h2 className="text-center uppercase text-gray-400">
-              <Stats
-                className="mb-5"
-                translations={{
-                  stats(nbHits, processingTimeMS, nbSortedHits, areHitsSorted) {
-                    return areHitsSorted && nbHits !== nbSortedHits
-                      ? `${nbSortedHits.toLocaleString()} relevant results sorted out of ${nbHits.toLocaleString()} found in ${processingTimeMS.toLocaleString()}ms`
-                      : ` Prodotti (${nbHits.toLocaleString()})`;
-                  },
-                }}
-              />
+              <CustomStats type="Prodotti" className="mb-3" />
             </h2>
             <CustomInfiniteHits
               hasMore={false}
