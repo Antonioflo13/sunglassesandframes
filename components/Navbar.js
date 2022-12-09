@@ -308,6 +308,8 @@ export const Navbar = () => {
               style={{
                 backgroundColor: "white",
                 paddingBottom: "40px",
+                borderBottomRightRadius: "15px",
+                borderBottomLeftRadius: "15px",
               }}
               onMouseEnter={() => setHasHover(true)}
               onMouseLeave={() => setHasHover(false)}
