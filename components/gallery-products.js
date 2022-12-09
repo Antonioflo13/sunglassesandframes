@@ -12,6 +12,8 @@ const GalleryProducts = ({ images }) => {
     setImageList(imageListChange);
   };
 
+  console.log("imageList", imageList);
+
   return (
     <>
       {imageList.length > 0 && (
@@ -29,10 +31,10 @@ const GalleryProducts = ({ images }) => {
             />
           </div>
           <div className="containerImageTubler">
-            {imageList.map((item, index) => (
+            {imageList.splice(1, imageList.length - 1).map((item, index) => (
               <div
                 className="carousel-image-container cursor-pointer w-7/12 flex justify-center bg-white"
-                onClick={() => changeView(item)}
+                //onClick={() => changeView(item)}
                 key={index}
               >
                 <Image
@@ -53,7 +55,7 @@ const GalleryProducts = ({ images }) => {
       <style jsx="true">{`
         .carousel-image-container {
           position: relative;
-          height: 150px;
+          height: 220px;
           width: 100%;
         }
         .containerMainImage {
