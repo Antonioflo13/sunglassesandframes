@@ -3,11 +3,11 @@ import {
   FormattedNumber,
 } from "react-intl";
 import Label from "../components/label";
-import SliderRelatedProducts from "../components/slider-related-products";
 import React from "react";
 //COMPONENTS
 import ProductIcon from "../components/product-icon";
 import Image from "next/image";
+import Product from "../components/product";
 
 const DesktopProduct = props => {
   const {
@@ -19,7 +19,6 @@ const DesktopProduct = props => {
     collectionHandle,
     collectionImage,
   } = props;
-
   return (
     <>
       <div className="customTemplate">
@@ -111,15 +110,22 @@ const DesktopProduct = props => {
           __html: shopifyProduct.node.descriptionHtml,
         }}
       />
-      {/*<div className="my-20 text-xs text-center px-5">*/}
-      {/*  <FormattedMessage id="home.slider_monthly.text" />*/}
-      {/*</div>*/}
-      {/*{relatedProducts.length > 0 && (*/}
-      {/*  <SliderRelatedProducts*/}
-      {/*    relatedProducts={relatedProducts}*/}
-      {/*    collectionHandle={collectionHandle}*/}
-      {/*  />*/}
-      {/*)}*/}
+      <div className="my-20 text-xs text-center px-5">
+        <FormattedMessage id="home.slider_monthly.text" />
+      </div>
+      {relatedProducts.length > 0 && (
+        <div className="overflow-x-scroll" style={{ marginTop: "5rem" }}>
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20">
+            {relatedProducts.map(product => (
+              <Product
+                key={product.node.id}
+                product={product}
+                collectionHandle={collectionHandle}
+              />
+            ))}
+          </div>
+        </div>
+      )}
       <style jsx="true">
         {`
           .button-price button {

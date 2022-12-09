@@ -218,18 +218,15 @@ const Product = ({ product, collection }) => {
             className="absolute top-0 w-full h-full"
             style={{ height: "150px" }}
           >
-            {product.node.variants.edges[0].node.product.images.nodes.length >
-              0 && (
-              <img
-                className="w-full h-full"
-                src={
-                  product.node.variants.edges[0].node.product.images.nodes[1]
-                    .transformedSrc
-                }
-                alt="product-image"
-                style={{ objectFit: "cover" }}
-              />
-            )}
+            <img
+              className="w-full h-full"
+              src={
+                product.node.variants.edges[0].node.product.images.nodes[1]
+                  .transformedSrc
+              }
+              alt="product-image"
+              style={{ objectFit: "cover" }}
+            />
           </div>
         </div>
         <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">

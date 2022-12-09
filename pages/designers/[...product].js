@@ -1,5 +1,5 @@
 //REACT
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 //API
 import { getProduct } from "../../api/product";
@@ -31,6 +31,8 @@ const Product = ({
   cursor,
   hasMore,
 }) => {
+  //STATE
+  const [relatedProducts, setRelatedProducts] = useState([]);
   const product = { node: resProduct.data.product };
 
   //STORE
@@ -39,8 +41,6 @@ const Product = ({
 
   //HOOKS
   const isDesktop = useMediaQuery(768);
-
-  const relatedProducts = collectionProducts.data.collection.products.edges;
 
   const collectionImage = collectionProducts.data.collection.metafield
     ? collectionProducts.data.collection.metafield.value
@@ -54,7 +54,7 @@ const Product = ({
 
   const title = `Sunglassesandframes - ${productHandle}`;
 
-  //FUNCTIONSS
+  //FUNCTIONS
   const buy = async productId => {
     let checkoutId = getCookie("checkoutId");
 
@@ -86,6 +86,12 @@ const Product = ({
     );
   };
 
+  //EFFECT
+  useEffect(() => {
+    setRelatedProducts(
+      collectionProducts.data.collection.products.edges.splice(0, 4)
+    );
+  }, []);
   return (
     <Layout>
       <Head>
@@ -125,6 +131,7 @@ const Product = ({
             mainImage={mainImage}
             relatedProducts={relatedProducts}
             collectionImage={collectionImage}
+            collectionProducts={collectionProducts}
             collectionHandle={collectionHandle}
           />
         ) : (

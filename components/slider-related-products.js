@@ -29,36 +29,36 @@ const sliderRelatedProducts = props => {
             }}
           >
             <div></div>
-            {/*{relatedProducts?.map(item => (*/}
-            {/*  <SwiperSlide key={item.id}>*/}
-            {/*    <Link*/}
-            {/*      href={{*/}
-            {/*        pathname: `/designers/[designer]/[product]`,*/}
-            {/*        query: {*/}
-            {/*          designer: collectionHandle,*/}
-            {/*          product: item.handle,*/}
-            {/*        },*/}
-            {/*      }}*/}
-            {/*    >*/}
-            {/*      <div className="container-slider">*/}
-            {/*        <img*/}
-            {/*          className="img-product"*/}
-            {/*          src={*/}
-            {/*            item.variants.edges[0].node.product.images.nodes[0]*/}
-            {/*              .originalSrc*/}
-            {/*          }*/}
-            {/*          alt="product"*/}
-            {/*        />*/}
-            {/*        <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead">*/}
-            {/*          {item.vendor}*/}
-            {/*        </div>*/}
-            {/*        <div className="text-xs uppercase font-bold">*/}
-            {/*          {item.title}*/}
-            {/*        </div>*/}
-            {/*      </div>*/}
-            {/*    </Link>*/}
-            {/*  </SwiperSlide>*/}
-            {/*))}*/}
+            {relatedProducts?.map(item => (
+              <SwiperSlide key={item.id}>
+                <Link
+                  href={{
+                    pathname: `/designers/[designer]/[product]`,
+                    query: {
+                      designer: collectionHandle,
+                      product: item.handle,
+                    },
+                  }}
+                >
+                  <div className="container-slider">
+                    <img
+                      className="img-product"
+                      src={
+                        item.variants.edges[0].node.product.images.nodes[0]
+                          .originalSrc
+                      }
+                      alt="product"
+                    />
+                    <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead">
+                      {item.vendor}
+                    </div>
+                    <div className="text-xs uppercase font-bold">
+                      {item.title}
+                    </div>
+                  </div>
+                </Link>
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
       </div>

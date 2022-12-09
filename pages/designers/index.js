@@ -1,5 +1,5 @@
 //REACT
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 //NEXT
 import Link from "next/link";
 import Head from "next/head";
@@ -21,27 +21,17 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const CollectionsPage = ({ collections, monthlyHighlight }) => {
   const [searchInput, setSearchInput] = useState("");
-  const [collectionsListByAlphabet, setcollectionsListByAlphabet] = useState(
+  const [collectionsListByAlphabet, setCollectionsListByAlphabet] = useState(
     []
   );
   const [filteredCollectionsList, setFilteredCollectionsList] = useState([]);
   collections = collections.data.collections.nodes;
-
   //HOOKS
   const isDesktop = useMediaQuery("768");
 
-  const myRef = useRef(null);
-
-  //generates alphabetical order products
-  // let collectionsListByAlphabet = [];
-  let alphabeticList = [];
-  for (const product of collections) {
-    alphabeticList.push(product.title[0].toUpperCase());
-  }
-  alphabeticList = [...new Set(alphabeticList)];
-
   //STATE
-  const [letterIndex, setLetterIndex] = useState(alphabeticList[0]);
+  const [letterIndex, setLetterIndex] = useState("");
+  const [alphabeticList, setAlphabeticList] = useState([]);
 
   //FUNCTIONS
   const executeScroll = letter => {
@@ -57,6 +47,32 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
   const itemMonthlyHighlight = monthlyHighlight?.data?.allMonthlyHighlights[0];
 
   useEffect(() => {
+    //Get by SHOPBY menu collections
+    const itemsNavBar = JSON.parse(localStorage.getItem("itemNavBar")).data
+      .shopByItem.items;
+    let items = [];
+    for (const item of itemsNavBar) {
+      for (const itemElement of item.item) {
+        items.push(itemElement.item.toLowerCase());
+      }
+    }
+    items = [...new Set(items)];
+
+    // Filter designers by SHOPBY collections
+    collections = collections.filter(
+      collection => !items.includes(collection.title.toLowerCase())
+    );
+
+    // Set alphabeticList by collections
+    let alphabeticList = [];
+    for (const product of collections) {
+      alphabeticList.push(product.title[0].toUpperCase());
+    }
+
+    alphabeticList = [...new Set(alphabeticList)];
+    setAlphabeticList(alphabeticList);
+    setLetterIndex(alphabeticList[0]);
+
     let arr = [];
     let id = 0;
     for (const letter of alphabeticList) {
@@ -74,7 +90,7 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
     arr.map(
       collectionList => (collectionList.collectionsList[0].viewLetter = true)
     );
-    setcollectionsListByAlphabet(arr);
+    setCollectionsListByAlphabet(arr);
     setFilteredCollectionsList(arr);
   }, []);
 
@@ -104,13 +120,14 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
         collection.collectionsList[0].viewLetter = true;
       }
     });
+
     setFilteredCollectionsList(newArr);
   };
 
   return (
     <Layout>
       <Head>
-        <title>sunglassesandframes - Collections</title>
+        <title>sunglassesandframes - Designers</title>
         <meta name="description" content="Designers" />
       </Head>
       <AnimatedPage margins={true}>
@@ -165,10 +182,10 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
                 <ul>
                   {filteredCollectionsList.map((letter, indexLetter) => (
                     <React.Fragment key={letter.id}>
-                      {letter.collectionsList.map((collection, index) => (
+                      {letter.collectionsList.map(collection => (
                         <li key={collection.id}>
                           {collection.viewLetter && (
-                            <div ref={myRef} className="marginCustomDesigner">
+                            <div className="marginCustomDesigner">
                               <section
                                 className={`font-semibold bigLetter ${
                                   indexLetter === 0 ? "noMarginTop" : ""
@@ -353,7 +370,7 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
 
           @media (max-width: 768px) {
             .marginCustomDesigner {
-              margin-bottom: 0px;
+              margin-bottom: 0;
             }
             .bigLetter {
               font-size: 13px;
@@ -361,7 +378,7 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
               margin-bottom: 5px;
             }
             .collectionTitle {
-              margin-left: 0px;
+              margin-left: 0;
               font-size: 16px;
             }
             .containerDesigner {
