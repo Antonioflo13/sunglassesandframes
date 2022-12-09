@@ -25,7 +25,7 @@ import Head from "next/head";
 
 const Product = ({
   resProduct,
-  CollectionProducts,
+  collectionProducts,
   collectionHandle,
   productHandle,
   cursor,
@@ -40,7 +40,9 @@ const Product = ({
   //HOOKS
   const isDesktop = useMediaQuery(768);
 
-  const relatedProducts = CollectionProducts.data.collection.products.edges;
+  const relatedProducts = collectionProducts.data.collection.products.edges;
+
+  const collectionImage = collectionProducts.data.collection.metafield.value;
 
   const mainImage = (
     <GalleryProducts
@@ -120,6 +122,7 @@ const Product = ({
             askForPrice={askForPrice}
             mainImage={mainImage}
             relatedProducts={relatedProducts}
+            collectionImage={collectionImage}
             collectionHandle={collectionHandle}
           />
         ) : (
@@ -132,6 +135,7 @@ const Product = ({
             askForPrice={askForPrice}
             mainImage={mainImage}
             relatedProducts={relatedProducts}
+            collectionImage={collectionImage}
             collectionHandle={collectionHandle}
           />
         )}
@@ -145,16 +149,16 @@ export async function getServerSideProps({ query }) {
   const productHandle = query.product[1];
   const cursor = query.cursor || null;
   const resProduct = await getProduct(productHandle);
-  let CollectionProducts = await getCollection(collectionHandle, 20, cursor);
+  let collectionProducts = await getCollection(collectionHandle, 20, cursor);
   const hasMore =
-    CollectionProducts.data.collection.products.pageInfo.hasNextPage;
+    collectionProducts.data.collection.products.pageInfo.hasNextPage;
   const productNode = { node: resProduct.data.product };
-  CollectionProducts.data.collection.products.edges.unshift(productNode);
+  collectionProducts.data.collection.products.edges.unshift(productNode);
 
   return {
     props: {
       resProduct,
-      CollectionProducts,
+      collectionProducts,
       collectionHandle,
       productHandle,
       hasMore,

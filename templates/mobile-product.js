@@ -30,6 +30,7 @@ const MobileProductTemplate = props => {
     askForPrice,
     relatedProducts,
     collectionHandle,
+    collectionImage,
   } = props;
 
   //ROUTER
@@ -159,29 +160,27 @@ const MobileProductTemplate = props => {
                   slidesPerView={1}
                   modules={[Pagination]}
                 >
-                  {product.node.variants.edges[0].node.product.images.nodes
-                    .length > 0 &&
-                    product.node.variants.edges[0].node.product.images.nodes.map(
-                      (image, product) => (
-                        <SwiperSlide key={product}>
-                          <div className="image-container">
-                            <Image
-                              fill="true"
-                              sizes="100%"
-                              priority={true}
-                              style={{
-                                objectFit: "contain",
-                                objectPosition: "center",
-                              }}
-                              placeholder="blur"
-                              blurDataURL={image.transformedSrc}
-                              src={image.transformedSrc}
-                              alt={image.transformedSrc}
-                            />
-                          </div>
-                        </SwiperSlide>
-                      )
-                    )}
+                  {product.node.variants.edges[0].node.product.images.nodes.map(
+                    (image, product) => (
+                      <SwiperSlide key={product}>
+                        <div className="image-container">
+                          <Image
+                            fill="true"
+                            sizes="100%"
+                            priority={true}
+                            style={{
+                              objectFit: "contain",
+                              objectPosition: "center",
+                            }}
+                            placeholder="blur"
+                            blurDataURL={image.transformedSrc}
+                            src={image.transformedSrc}
+                            alt={image.transformedSrc}
+                          />
+                        </div>
+                      </SwiperSlide>
+                    )
+                  )}
                 </Swiper>
               </div>
               <div
@@ -225,9 +224,18 @@ const MobileProductTemplate = props => {
                         <div className="slide-icon"></div>
                       </div>
                       <div className="w-full flex flex-col justify-start items-center">
-                        <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead">
-                          {product.node.vendor}
-                        </div>
+                        {collectionImage && (
+                          <div className="collection-logo-container">
+                            <Image
+                              fill
+                              priority={true}
+                              style={{ objectFit: "contain" }}
+                              sizes="100%"
+                              src={collectionImage}
+                              alt="logo-collection"
+                            />
+                          </div>
+                        )}
                         <div className="ml-1 text-xs uppercase font-bold mt-2">
                           {product.node.title}
                         </div>
@@ -319,6 +327,12 @@ const MobileProductTemplate = props => {
           position: relative;
           height: 100%;
           width: 95%;
+        }
+
+        .collection-logo-container {
+          position: relative;
+          width: 100px;
+          height: 30px;
         }
 
         .slide-icon {

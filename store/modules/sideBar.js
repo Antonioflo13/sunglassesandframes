@@ -7,7 +7,6 @@ export const sideBarSlice = createSlice({
   },
   reducers: {
     setSideBarShow: (state, action) => {
-      console.log(action.payload);
       state.value = action.payload;
       if (action.payload) {
         document.body.classList.add("overflow-hidden");

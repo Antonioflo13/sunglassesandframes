@@ -7,6 +7,7 @@ import SliderRelatedProducts from "../components/slider-related-products";
 import React from "react";
 //COMPONENTS
 import ProductIcon from "../components/product-icon";
+import Image from "next/image";
 
 const DesktopProduct = props => {
   const {
@@ -16,6 +17,7 @@ const DesktopProduct = props => {
     mainImage,
     relatedProducts,
     collectionHandle,
+    collectionImage,
   } = props;
 
   return (
@@ -26,9 +28,18 @@ const DesktopProduct = props => {
         </div>
         <div className="flex flex-col buyContainer">
           <div className="flex flex-col items-center">
-            <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
-              {shopifyProduct.node.vendor}
-            </div>
+            {collectionImage && (
+              <div className="collection-logo-container">
+                <Image
+                  fill
+                  priority={true}
+                  style={{ objectFit: "contain" }}
+                  sizes="100%"
+                  src={collectionImage}
+                  alt="logo-collection"
+                />
+              </div>
+            )}
             <div className="ml-1 text-xs uppercase font-bold my-2">
               {shopifyProduct.node.title}
             </div>
@@ -107,6 +118,12 @@ const DesktopProduct = props => {
           .button-price button {
             width: 100vw !important;
             height: 40px !important;
+          }
+
+          .collection-logo-container {
+            position: relative;
+            width: 100px;
+            height: 30px;
           }
 
           @media (max-width: 768px) {

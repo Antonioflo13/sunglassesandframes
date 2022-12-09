@@ -5,7 +5,6 @@ import createHandle from "../hooks/createHandle";
 import { FormattedNumber } from "react-intl";
 
 export const HitCollection = props => {
-  console.log(props.hit);
   return (
     <div
       onClick={props.onClose}

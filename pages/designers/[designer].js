@@ -7,8 +7,6 @@ import Head from "next/head";
 import useMediaQuery from "../../hooks/useMediaQuery";
 //API
 import { getCollection } from "../../api/collections";
-//INTL
-import { FormattedNumber } from "react-intl";
 //COMPONENTS
 import AnimatedPage from "../../components/animated-page";
 import PageTitle from "../../components/page-title";
@@ -136,7 +134,7 @@ const CollectionTemplate = ({ collection }) => {
               />
             )}
           </div>
-          <div className="container-textfilter">
+          <div className="container-text-filter">
             {collection.metafield && (
               <div className="collection-logo-container">
                 <Image
@@ -176,7 +174,7 @@ const CollectionTemplate = ({ collection }) => {
             display: flex;
             gap: 2rem;
           }
-          .container-textfilter {
+          .container-text-filter {
             width: 50%;
           }
 
@@ -207,7 +205,6 @@ export async function getServerSideProps({ params }) {
 }
 
 const Product = ({ product, collection }) => {
-  console.log("product", product);
   return (
     <Link
       href={{

@@ -7,8 +7,8 @@ import Image from "next/image";
 const SliderHomeCollection = () => {
   //STATE
   const [isVisible, setIsVisible] = useState(false);
-  const [monthCollection, setMonthCollection] = useState({});
-  const [collectionHandle, setCollectionHandle] = useState({});
+  const [monthCollection, setMonthCollection] = useState([]);
+  const [collectionHandle, setCollectionHandle] = useState("");
 
   useEffect(() => {
     setIsVisible(true);

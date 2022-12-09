@@ -69,8 +69,6 @@ const Index = ({ articles }) => {
     setHasMore(isMore);
   }, [list]); //eslint-disable-line
 
-  console.log("list", list);
-
   return (
     <>
       <Layout>
