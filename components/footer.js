@@ -8,7 +8,7 @@ import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import Link from "./LanguagesLink";
 import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/logo.svg";
 import { stores } from "../data/stores";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { AnimatePresence, motion } from "framer-motion";
@@ -33,7 +33,7 @@ const Footer = () => {
             }`}
           >
             <div className="flex justify-center noDesktop">
-              <img src={logo.src} alt="logo" width={150} />
+              <img src={logo.src} alt="logo" width={110} />
             </div>
             <div className="flex flex-col accordionDesktop mt-20">
               <div className="font-bold uppercase text-sm">
@@ -143,7 +143,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="flex flex-col noMobile">
-              <img src={logo.src} alt="logo" width={150} />
+              <img src={logo.src} alt="logo" width={110} />
             </div>
             <div className="flex flex-col accordionDesktop mt-20">
               <div className="font-bold uppercase text-sm">
