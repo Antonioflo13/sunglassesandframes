@@ -152,7 +152,9 @@ const CollectionTemplate = ({ collection }) => {
                 />
               </div>
             )}
-            <p>{collection.description ? collection.description : null}</p>
+            <p style={{ textAlign: "justify" }}>
+              {collection.description ? collection.description : null}
+            </p>
           </div>
         </div>
         {/* Products */}
