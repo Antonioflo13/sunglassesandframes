@@ -197,12 +197,7 @@ export const Navbar = () => {
           <div>
             <Link href="/magazine">
               <button className="link">
-                <div
-                  className={`${
-                    pathName === "/magazine" &&
-                    "text-sunglassesandframes-black font-bold mackay"
-                  } flex flex-col justify-center items-center hover:font-bold mackay`}
-                >
+                <div className="flex flex-col justify-center items-center hover:font-bold mackay">
                   Magazine
                 </div>
               </button>
@@ -213,25 +208,14 @@ export const Navbar = () => {
               onMouseEnter={() => setHasHover(true)}
               onMouseLeave={() => setHasHover(false)}
             >
-              <div
-                className={`${
-                  pathName === "/shop" ||
-                  (hasHover &&
-                    "text-sunglassesandframes-black font-bold mackay")
-                } flex flex-col justify-center items-center hover:font-bold mackay`}
-              >
+              <div className="flex flex-col justify-center items-center hover:font-bold mackay">
                 Shop By
               </div>
             </button>
 
             <Link href="/designers">
               <button className="link">
-                <div
-                  className={`${
-                    pathName === "/designers" &&
-                    "text-sunglassesandframes-black font-bold mackay"
-                  } flex flex-col justify-center items-center hover:font-bold mackay`}
-                >
+                <div className="flex flex-col justify-center items-center hover:font-bold mackay">
                   Our Designer
                 </div>
               </button>
@@ -243,12 +227,7 @@ export const Navbar = () => {
               }}
             >
               <button className="link">
-                <div
-                  className={`${
-                    pathName === "/newIn" &&
-                    "text-sunglassesandframes-black font-bold mackay"
-                  } flex flex-col justify-center items-center hover:font-bold mackay`}
-                >
+                <div className="flex flex-col justify-center items-center hover:font-bold mackay">
                   New in
                 </div>
               </button>
@@ -260,12 +239,7 @@ export const Navbar = () => {
               }}
             >
               <button className="link">
-                <div
-                  className={`${
-                    pathName === "/promotions" &&
-                    "text-sunglassesandframes-black font-bold mackay"
-                  } flex flex-col justify-center items-center text-sunglassesandframes-red hover:font-bold mackay`}
-                >
+                <div className="flex flex-col justify-center items-center text-sunglassesandframes-red hover:font-bold mackay">
                   Promotions
                 </div>
               </button>
