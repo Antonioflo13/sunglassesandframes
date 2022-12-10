@@ -10,6 +10,8 @@ import getAllArticles from "../../api/articles";
 import Head from "next/head";
 import Image from "next/image";
 import PageTitle from "../../components/page-title";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons/faAngleRight";
 
 const Index = ({ articles }) => {
   const isDesktop = useMediaQuery(768);
@@ -119,11 +121,18 @@ const Index = ({ articles }) => {
                       alt="image-header"
                     />
                   </div>
-                  <div className="article-title text-xs">
-                    {item.titlemagazine}
-                  </div>
-                  <div className="article-subtitle text-xs">
-                    {item.subtitle}
+                  <div className="description-container">
+                    <div>
+                      <div className="article-title text-xs">
+                        {item.titlemagazine}
+                      </div>
+                      <div className="article-subtitle text-xs">
+                        {item.subtitle}
+                      </div>
+                    </div>
+                    <div>
+                      <FontAwesomeIcon icon={faAngleRight} width={10} />
+                    </div>
                   </div>
                 </div>
               </Link>
@@ -152,16 +161,19 @@ const Index = ({ articles }) => {
             border-radius: 25px;
           }
 
-          .article-title {
+          .description-container {
+            width: 92%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-top: 15px;
             margin-left: 20px;
+          }
+
+          .article-title {
             text-transform: uppercase;
             text-align: center;
             font-size: 14px;
-          }
-
-          .article-subtitle {
-            margin-left: 20px;
           }
 
           .image-container {
