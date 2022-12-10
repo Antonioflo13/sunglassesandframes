@@ -159,7 +159,7 @@ const Article = ({ article, collection }) => {
                     <p className="text-xs">{article.subtitle}</p>
                   </div>
                   <div>
-                    <p>
+                    <p style={{ textAlign: "justify" }}>
                       {article.description.length > 0
                         ? article.description
                         : null}
@@ -203,7 +203,7 @@ const Article = ({ article, collection }) => {
                 margin-top: 20px;
               }
               .title-container {
-                margin-bottom: 20px;
+                margin-bottom: 10px;
                 text-align: center;
               }
               .container-accordions {
@@ -224,17 +224,17 @@ const Article = ({ article, collection }) => {
                 .header-container {
                   display: flex;
                   flex-direction: row;
-                  gap: 10px;
+                  gap: 2rem;
                 }
                 .header-image-container {
                   width: 50%;
                 }
                 .header-description-container {
                   width: 50%;
-                  margin-top: unset;
+                  margin-top: 10px;
                 }
                 .title-container {
-                  margin-bottom: 20px;
+                  margin-bottom: 10px;
                   text-align: unset;
                 }
               }
