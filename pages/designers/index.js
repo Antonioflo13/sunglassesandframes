@@ -48,7 +48,7 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
 
   useEffect(() => {
     //Get by SHOPBY menu collections
-    let items = [];
+    let items = ["month"];
     let itemsNavBar = [];
     let itemsShopBy = [];
 
@@ -72,6 +72,7 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
       }
     }
     items = [...new Set(items)];
+    console.log(items);
 
     // Filter designers by SHOPBY collections
     collections = collections.filter(
