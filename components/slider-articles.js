@@ -50,7 +50,9 @@ const SliderArticles = ({ articles }) => {
                           style={{ objectFit: "cover" }}
                           placeholder="blur"
                           blurDataURL={article.imageheader.blurUpThumb}
-                          sizes="100%"
+                          sizes="(max-width: 768px) 100vw,
+                                  (max-width: 1200px) 50vw,
+                                  33vw"
                           priority={true}
                           src={
                             isDesktop
