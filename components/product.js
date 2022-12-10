@@ -38,11 +38,9 @@ const Product = ({ product, collectionHandle }) => {
           <div className="ml-1 text-xs uppercase font-bold mt-2">
             {product.node.title}
           </div>
-          {/* {product.node.variants.edges[0].node.product.quantityAvailable > 0 && ( */}
           <p className="text-2xs">
             {Number(product.node.variants.edges[0].node.priceV2.amount)} €
           </p>
-          {/* )} */}
         </div>
       </Link>
       <style jsx="true">

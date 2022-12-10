@@ -157,9 +157,7 @@ export async function getStaticProps() {
   const articles = await getAllArticles();
   const shopBy = await getShopBy();
   const monthCollectionInfo = await getMonthlyHighlight();
-  const monthCollectionHandle =
-    monthCollectionInfo?.data?.allMonthlyHighlights[0]?.handle;
-  const monthCollection = await getCollection(monthCollectionHandle, 30);
+  const monthCollection = await getCollection("month", 30);
   const itemsNavbar = await getShopByItems();
   return {
     props: {
@@ -169,6 +167,7 @@ export async function getStaticProps() {
       monthCollection,
       itemsNavbar,
     },
+    revalidate: 10,
   };
 }
 

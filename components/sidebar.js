@@ -10,6 +10,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import ModalsIcons from "./modalsIcons";
 import LinkMenu from "./linkMenu";
 import InfoMobile from "./infoMobile";
+import Link from "next/link";
 
 const sidebarVariants = {
   hidden: { x: "-100%", transition: { type: "tween" } },
@@ -218,28 +219,41 @@ const Sidebar = ({
             >
               <div className="flex flex-col h-full" style={{ width: "100%" }}>
                 <div className="flex-1 flex flex-col items-start ">
-                  {items?.map(
-                    (first, index) =>
-                      first.title === selectItem &&
-                      first.item.map(item => (
-                        <div key={index} className="flex flex-col items-center">
+                  {items?.map(first => (
+                    <span key={first.id}>
+                      {first.title === selectItem &&
+                        first.item.map(item => (
                           <div
-                            className="text-sunglassesandframes-black flex flex-col justify-center items-center mt-4"
-                            style={{ width: "100%" }}
+                            key={item.id}
+                            className="flex flex-col items-center"
                           >
                             <div
-                              style={{
-                                display: "flex",
-                              }}
+                              className="text-sunglassesandframes-black flex flex-col justify-center items-center mt-4"
+                              style={{ width: "100%" }}
                             >
-                              <div className="mt-3 font-semibold text-l">
-                                {item.item}
+                              <div
+                                style={{
+                                  display: "flex",
+                                }}
+                              >
+                                <div className="mt-3 font-semibold text-l">
+                                  <Link
+                                    href={{
+                                      pathname: "/designers/[designer]",
+                                      query: {
+                                        designer: item?.handle.toLowerCase(),
+                                      },
+                                    }}
+                                  >
+                                    {item.item}
+                                  </Link>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      ))
-                  )}
+                        ))}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>

@@ -31,7 +31,10 @@ const SliderMenu = () => {
           {itemShopBy?.map((item, key) => (
             <LinkMenu
               key={key}
-              to={item.handle}
+              to={{
+                pathname: "/designers/[designer]",
+                query: { designer: item.handle.toLowerCase() },
+              }}
               image={item.backgroundImage.url}
             >
               <div className="uppercase">{item.item}</div>

@@ -327,7 +327,14 @@ export const Navbar = () => {
                       <div className="first">{first?.title}</div>
                       {first?.item?.map((item, index) => (
                         <div className="second" key={index}>
-                          {item?.item}
+                          <Link
+                            href={{
+                              pathname: "/designers/[designer]",
+                              query: { designer: item?.handle.toLowerCase() },
+                            }}
+                          >
+                            {item?.item}
+                          </Link>
                         </div>
                       ))}
                     </div>
