@@ -54,7 +54,7 @@ const Sidebar = ({
           style={{ paddingLeft: "1.25rem", paddingRight: "1.25rem" }}
         >
           <div className="flex flex-col h-full" style={{ width: "100%" }}>
-            <div className="flex-1 flex flex-col items-start ">
+            <div className="flex flex-col items-start ">
               <div
                 className={`${
                   pathName === "/" &&
@@ -114,9 +114,9 @@ const Sidebar = ({
                 </LinkMenu>
               </div>
             </div>
+            <InfoMobile />
           </div>
         </div>
-        <InfoMobile />
       </motion.div>
       {show && (
         <ModalsIcons selectSingleIcon={selectSingleIcon} setShown={setShown} />

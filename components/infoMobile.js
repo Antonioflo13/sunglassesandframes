@@ -33,19 +33,12 @@ const InfoMobile = () => {
       <style jsx="true">
         {`
           .containerLineInfo {
-            position: absolute;
-            top: 35%;
-            width: 100%;
+            margin-top: 20px;
           }
           .line {
             width: 100%;
             height: 1px;
             background: #c0c0c0;
-          }
-
-          .containerInfo {
-            padding-left: 1.25rem;
-            padding-right: 1.25rem;
           }
 
           .info {
