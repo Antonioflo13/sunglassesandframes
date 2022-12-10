@@ -169,7 +169,7 @@ const Article = ({ article, collection }) => {
               </div>
               {/* Products */}
               {products && (
-                <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-12">
+                <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20">
                   {products.map(product => (
                     <Product
                       key={product.node.id}
