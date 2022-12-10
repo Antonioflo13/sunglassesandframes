@@ -20,11 +20,6 @@ const Product = ({ product, collectionHandle }) => {
               style={{ objectFit: "cover" }}
               sizes="100%"
               priority={true}
-              placeholder="blur"
-              blurDataURL={
-                product.node.variants.edges[0].node.product.images.nodes[1]
-                  .transformedSrc
-              }
               src={
                 product.node.variants.edges[0].node.product.images.nodes[1]
                   .transformedSrc

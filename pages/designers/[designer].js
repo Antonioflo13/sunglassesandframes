@@ -27,7 +27,7 @@ const CollectionTemplate = ({ collection }) => {
   }`;
 
   //STATE
-  const [products, setProducts] = useState(collection.products.edges);
+  const [products, setProducts] = useState([]);
 
   // State to trigger oad more
   const [loadMore, setLoadMore] = useState(false);
@@ -56,6 +56,10 @@ const CollectionTemplate = ({ collection }) => {
   };
 
   //EFFECT
+  useEffect(() => {
+    setProducts(collection.products.edges);
+  }, [collection]);
+
   //Initialize the intersection observer API
   useEffect(() => {
     const options = {
