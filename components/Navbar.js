@@ -236,7 +236,12 @@ export const Navbar = () => {
                 </div>
               </button>
             </Link>
-            <Link href="/">
+            <Link
+              href={{
+                pathname: "/designers/[designer]",
+                query: { designer: "new" },
+              }}
+            >
               <button className="link">
                 <div
                   className={`${
@@ -248,7 +253,12 @@ export const Navbar = () => {
                 </div>
               </button>
             </Link>
-            <Link href="/">
+            <Link
+              href={{
+                pathname: "/designers/[designer]",
+                query: { designer: "promo" },
+              }}
+            >
               <button className="link">
                 <div
                   className={`${
