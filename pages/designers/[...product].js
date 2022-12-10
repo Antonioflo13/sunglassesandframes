@@ -131,7 +131,6 @@ const Product = ({
             mainImage={mainImage}
             relatedProducts={relatedProducts}
             collectionImage={collectionImage}
-            collectionProducts={collectionProducts}
             collectionHandle={collectionHandle}
           />
         ) : (

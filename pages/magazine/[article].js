@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 //NEXT
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 //API
 import getAllArticles from "../../api/articles";
 import getArticle from "../../api/article";
@@ -17,10 +16,13 @@ import Layout from "../../components/layout";
 import AnimatedPage from "../../components/animated-page";
 import PageTitle from "../../components/page-title";
 import { getProduct } from "../../api/product";
+import Product from "../../components/product";
 
 const Article = ({ article, collection }) => {
   article = article?.data?.article;
   collection = collection ? collection?.data?.collection : null;
+  const collectionHandle = collection ? collection.handle : null;
+
   //SEO
   const title = `Sunglassesandframes - ${article?.handle}`;
 
@@ -166,17 +168,17 @@ const Article = ({ article, collection }) => {
                 </div>
               </div>
               {/* Products */}
-              <div className="mt-8 w-full">
-                <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-12">
-                  {products.map((product, index) => (
+              {products && (
+                <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-12">
+                  {products.map(product => (
                     <Product
-                      key={index}
+                      key={product.node.id}
                       product={product}
-                      collection={collection}
+                      collectionHandle={collectionHandle}
                     />
                   ))}
                 </div>
-              </div>
+              )}
               <div ref={loadRef}></div>
             </div>
           </AnimatedPage>
@@ -300,53 +302,3 @@ export async function getStaticProps(context) {
 }
 
 export default Article;
-
-const Product = ({ product, collection }) => {
-  return (
-    <Link
-      href={{
-        pathname: `/designers/${collection.handle}/${product.node.handle}`,
-        query: product.cursor ? { cursor: product.cursor } : null,
-      }}
-    >
-      <div className="w-full flex flex-col items-center">
-        <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
-          <div className="absolute top-0 w-full h-full">
-            <img
-              className="w-full h-full"
-              src={
-                product.node.variants.edges[0].node.product.images.nodes[0]
-                  .transformedSrc
-              }
-              alt="product-image"
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-        </div>
-        <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
-          {product.node.vendor}
-        </div>
-        <div className="ml-1 text-xs uppercase font-bold mt-2">
-          {product.node.title}
-        </div>
-        {product.node.availableForSale &&
-          !product.node.tags.includes("nfs") &&
-          product.node.variants.edges[0].node.product.quantityAvailable > 0 && (
-            <p className="text-2xs">
-              <FormattedNumber
-                style="currency"
-                value={
-                  product.node.variants.edges[0].node.product.priceV2.amount
-                }
-                currency={
-                  product.node.variants.edges[0].node.product.priceV2
-                    .currencyCode
-                }
-                minimumFractionDigits={0}
-              />
-            </p>
-          )}
-      </div>
-    </Link>
-  );
-};
