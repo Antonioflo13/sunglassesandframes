@@ -9,7 +9,6 @@ import React from "react";
 import Link from "./LanguagesLink";
 import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
 import logo from "../assets/images/logo.svg";
-import { stores } from "../data/stores";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -105,12 +104,6 @@ const Footer = () => {
                     <div className="text-xs mt-2 ">
                       <FormattedMessage id="footer.contacts.email" />
                     </div>
-                    {stores.map(store => (
-                      <div key={store.id} style={{ marginTop: "10px" }}>
-                        <div className="font-bold text-sm">{store.name}</div>
-                        <div className="text-xs mt-2 ">{store.linkCall}</div>
-                      </div>
-                    ))}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -254,19 +247,7 @@ const Footer = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                  >
-                    <div className="text-xs mt-2 ">
-                      {stores.map(store => (
-                        <div key={store.id} style={{ marginTop: "10px" }}>
-                          <div className="font-bold text-sm">{store.name}</div>
-                          <div className="text-xs mt-2 ">{store.address}</div>
-                          <div className="text-xs mt-2 ">
-                            {store.otheraddress}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
+                  ></motion.div>
                 )}
               </AnimatePresence>
             </div>

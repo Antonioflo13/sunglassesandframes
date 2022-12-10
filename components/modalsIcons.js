@@ -1,6 +1,5 @@
 import React from "react";
 import Modal from "./modal";
-import Store from "./store";
 import closeIcon from "../assets/images/cross.svg";
 import { motion } from "framer-motion";
 import { FormattedMessage } from "react-intl";
@@ -42,7 +41,6 @@ const ModalsIcons = ({ selectSingleIcon, setShown }) => {
               />
             </motion.div>
           </div>
-          <Store isModal={true} selectSingleIcon={selectSingleIcon} />
         </div>
       </Modal>
       <style jsx="true">

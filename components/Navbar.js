@@ -16,7 +16,6 @@ import { getCookie } from "../utils/cookie";
 import { AnimatePresence, motion } from "framer-motion";
 //COMPONENTS
 import Sidebar from "../components/sidebar";
-import Contact from "../components/contact";
 //IMAGES
 import logo from "../assets/images/logo.svg";
 import menuBurgher from "../assets/images/menu-burger.svg";
@@ -379,11 +378,6 @@ export const Navbar = () => {
             viewThirdSidebar={viewThirdSidebar}
             setViewThirdSidebar={setViewThirdSidebar}
           />
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {showDialogContact && (
-          <Contact setShown={dispatch(setDialogContactShow(true))} />
         )}
       </AnimatePresence>
       <style jsx="true">{`
