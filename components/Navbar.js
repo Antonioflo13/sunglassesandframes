@@ -73,7 +73,9 @@ export const Navbar = () => {
           ?.allMonthlyHighlights[0]
       );
     }
-    setItemsNavbar(JSON.parse(localStorage.getItem("itemNavBar")));
+    if (localStorage.getItem("itemsNavBar")) {
+      setItemsNavbar(JSON.parse(localStorage.getItem("itemsNavBar")));
+    }
   }, []);
 
   const openSearchModal = () => {

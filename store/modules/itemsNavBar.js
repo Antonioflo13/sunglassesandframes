@@ -1,19 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const itemsNavBarSlice = createSlice({
-  name: "itemNavBar",
+  name: "itemsNavBar",
   initialState: {
-    itemNavBar: [],
+    itemsNavBar: [],
   },
   reducers: {
     setItemsNavBar: (state, action) => {
-      localStorage.setItem("itemNavBar", action.payload);
-      state.itemNavBar = action.payload;
+      localStorage.setItem("itemsNavBar", action.payload);
+      state.itemsNavBar = action.payload;
     },
   },
 });
 
-export const { setItemsNavBar } =
-  itemsNavBarSlice.actions;
+export const { setItemsNavBar } = itemsNavBarSlice.actions;
 
 export default itemsNavBarSlice.reducer;

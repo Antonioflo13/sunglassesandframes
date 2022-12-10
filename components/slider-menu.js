@@ -1,10 +1,25 @@
-import React from "react";
+//REACT
+import React, { useEffect, useState } from "react";
+//SWIPER
 import { Swiper, SwiperSlide } from "swiper/react";
-import LinkMenu from "../components/linkMenu";
+//HOOKS
 import useMediaQuery from "../hooks/useMediaQuery";
+//COMPONENTS
+import LinkMenu from "../components/linkMenu";
 
-const SliderMenu = ({ allShopBy }) => {
+const SliderMenu = () => {
+  //HOOKS
   const isDesktop = useMediaQuery(1024);
+  //STATE
+  const [itemShopBy, setItemShopBy] = useState([]);
+  //EFFECT
+  useEffect(() => {
+    if (localStorage.getItem("itemsShopBy")) {
+      setItemShopBy(
+        JSON.parse(localStorage.getItem("itemsShopBy")).data.allShopBies
+      );
+    }
+  }, []);
 
   return (
     <>
@@ -13,7 +28,7 @@ const SliderMenu = ({ allShopBy }) => {
       </div>
       {isDesktop ? (
         <div className="sliderMenu">
-          {allShopBy?.map((item, key) => (
+          {itemShopBy?.map((item, key) => (
             <LinkMenu
               key={key}
               to={item.handle}
@@ -32,7 +47,7 @@ const SliderMenu = ({ allShopBy }) => {
             loop={true}
           >
             <div style={{ cursor: "pointer" }}>
-              {allShopBy?.map((item, key) => (
+              {itemShopBy?.map((item, key) => (
                 <SwiperSlide key={key}>
                   <LinkMenu to={item.handle} image={item.backgroundImage.url}>
                     <div className="uppercase">{item.item}</div>

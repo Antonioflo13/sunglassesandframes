@@ -26,7 +26,7 @@ const ZenDesk = () => {
       defer
       zendeskKey={ZENDESK_KEY}
       {...setting}
-      onLoaded={() => console.log("is loaded")}
+      onLoaded={() => console.log("zendesk is loaded")}
     />
   );
 };

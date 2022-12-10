@@ -11,6 +11,8 @@ import {
   setMonthCollection,
 } from "../store/modules/monthCollection";
 import { setItemsNavBar } from "../store/modules/itemsNavBar";
+import { setItemsShopBy } from "../store/modules/itemsShopBy";
+
 //API
 import getAllArticles from "../api/articles";
 import getShopBy from "../api/shopBy";
@@ -61,6 +63,7 @@ const IndexPage = ({
     dispatch(setMonthCollectionInfo(JSON.stringify(monthCollectionInfo)));
     dispatch(setMonthCollection(JSON.stringify(monthCollection)));
     dispatch(setItemsNavBar(JSON.stringify(itemsNavbar)));
+    dispatch(setItemsShopBy(JSON.stringify(shopBy)));
 
     handlerCookieScript();
     setLanguageByBrowser();

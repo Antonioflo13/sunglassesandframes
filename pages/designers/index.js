@@ -48,9 +48,24 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
 
   useEffect(() => {
     //Get by SHOPBY menu collections
-    const itemsNavBar = JSON.parse(localStorage.getItem("itemNavBar")).data
-      .shopByItem.items;
     let items = [];
+    let itemsNavBar = [];
+    let itemsShopBy = [];
+
+    if (localStorage.getItem("itemsShopBy")) {
+      itemsNavBar = JSON.parse(localStorage.getItem("itemsNavBar")).data
+        .shopByItem.items;
+    }
+
+    if (localStorage.getItem("itemsShopBy")) {
+      itemsShopBy = JSON.parse(localStorage.getItem("itemsShopBy")).data
+        .allShopBies;
+    }
+
+    for (const item of itemsShopBy) {
+      items.push(item.item.toLowerCase());
+    }
+
     for (const item of itemsNavBar) {
       for (const itemElement of item.item) {
         items.push(itemElement.item.toLowerCase());

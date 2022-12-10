@@ -6,6 +6,7 @@ import sidebarReducer from "./modules/sideBar";
 import cartReducer from "./modules/cart";
 import monthCollectionReducer from "./modules/monthCollection";
 import itemsNavBarReducer from "./modules/itemsNavBar";
+import itemsShopByReducer from "./modules/itemsShopBy";
 
 export const store = configureStore({
   reducer: {
@@ -15,5 +16,6 @@ export const store = configureStore({
     cart: cartReducer,
     monthCollection: monthCollectionReducer,
     itemsNavBar: itemsNavBarReducer,
+    itemsShopByReducer: itemsShopByReducer,
   },
 });
