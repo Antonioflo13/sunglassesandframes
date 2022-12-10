@@ -126,9 +126,7 @@ const Index = ({ articles }) => {
                       <div className="article-title text-xs">
                         {item.titlemagazine}
                       </div>
-                      <div className="article-subtitle text-xs">
-                        {item.subtitle}
-                      </div>
+                      <div className="text-xs">{item.subtitle}</div>
                     </div>
                     <div>
                       <FontAwesomeIcon icon={faAngleRight} width={10} />
