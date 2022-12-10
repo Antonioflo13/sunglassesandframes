@@ -167,7 +167,7 @@ export async function getStaticProps() {
       monthCollection,
       itemsNavbar,
     },
-    revalidate: 10,
+    revalidate: 1000,
   };
 }
 
