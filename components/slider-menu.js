@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 //HOOKS
 import useMediaQuery from "../hooks/useMediaQuery";
-//COMPONENTS
+//COMPONENTSS
 import LinkMenu from "../components/linkMenu";
 
 const SliderMenu = () => {
