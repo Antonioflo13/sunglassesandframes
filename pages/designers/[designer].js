@@ -29,6 +29,8 @@ const CollectionTemplate = ({ collection }) => {
   //STATE
   const [products, setProducts] = useState([]);
 
+  const [isLoadingImage, setIsLoadingImage] = useState(true);
+
   // State to trigger oad more
   const [loadMore, setLoadMore] = useState(false);
 
@@ -87,7 +89,6 @@ const CollectionTemplate = ({ collection }) => {
       });
     }
   }, [loadMore, hasMore]); //eslint-disable-line
-
   return (
     <Layout>
       <Head>
@@ -127,14 +128,18 @@ const CollectionTemplate = ({ collection }) => {
         <div className="container-plp">
           <div className="img-header-container">
             {collection.image && (
-              <Image
-                fill="true"
-                style={{ objectFit: "cover" }}
-                src={collection.image.transformedSrc}
-                sizes="100%"
-                priority={true}
-                alt="header-collection"
-              />
+              <>
+                {isLoadingImage && <div>loading</div>}
+                <Image
+                  fill="true"
+                  style={{ objectFit: "cover" }}
+                  src={collection.image.transformedSrc}
+                  sizes="100%"
+                  onLoadingComplete={() => setIsLoadingImage(false)}
+                  priority={true}
+                  alt="header-collection"
+                />
+              </>
             )}
           </div>
           <div className="container-text-filter">
