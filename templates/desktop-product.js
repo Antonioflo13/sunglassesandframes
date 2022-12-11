@@ -23,7 +23,7 @@ const DesktopProduct = props => {
     <>
       <div className="customTemplate">
         <div className="w-full flex flex-col-reverse md:flex-col imageContainer">
-          <div className="hidden md:block">{mainImage}</div>
+          <div>{mainImage}</div>
         </div>
         <div className="flex flex-col buyContainer">
           <div className="flex flex-col items-center">

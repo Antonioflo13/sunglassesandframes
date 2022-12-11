@@ -51,10 +51,8 @@ const LinkMenu = ({ children, to, sidebar, image }) => {
                   priority={true}
                   style={{ objectFit: "cover", borderRadius: "20px" }}
                   sizes="100%"
-                  placeholder="blur"
-                  blurDataURL={image}
                   src={image}
-                  alt="imageMenu"
+                  alt="image-menu"
                 />
                 <div className="textMenu">{children}</div>
               </div>

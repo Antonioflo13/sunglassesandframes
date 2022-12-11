@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const GalleryProducts = ({ images }) => {
   const imageList = [...images];
-  const [fisrtImage, setFirstImage] = useState(imageList[1].transformedSrc);
+  const [firstImage, setFirstImage] = useState(imageList[1].transformedSrc);
   const changeView = item => {
     setFirstImage(item.transformedSrc);
   };
@@ -18,9 +18,7 @@ const GalleryProducts = ({ images }) => {
               sizes="100%"
               priority={true}
               style={{ objectFit: "contain", transform: "scale(1.5)" }}
-              src={fisrtImage}
-              placeholder="blur"
-              blurDataURL={fisrtImage}
+              src={firstImage}
               alt="main-image"
             />
           </div>
@@ -55,7 +53,7 @@ const GalleryProducts = ({ images }) => {
         .containerMainImage {
           position: relative;
           width: 100%;
-          height: 450px;
+          height: 400px;
         }
         .containerImageTubler {
           display: flex;
@@ -63,7 +61,6 @@ const GalleryProducts = ({ images }) => {
         }
         .imageTumblr {
           width: 50%;
-          object-fit: contain;
         }
       `}</style>
     </>

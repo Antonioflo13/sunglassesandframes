@@ -146,9 +146,9 @@ const MobileProductTemplate = props => {
         modules={[Navigation]}
         loop={true}
       >
-        {products &&
+        {products.length > 0 &&
           products.map(product => (
-            <SwiperSlide key={product.id}>
+            <SwiperSlide key={product.node.id}>
               <div className="sliderWrapper">
                 <Swiper
                   id="swiper-image-pdp"
@@ -178,17 +178,15 @@ const MobileProductTemplate = props => {
                               width: "100%",
                               height: "88%",
                             }}
-                            placeholder="blur"
-                            blurDataURL={image.transformedSrc}
                             src={image.transformedSrc}
                             alt={image.transformedSrc}
                           />
-                          <div className="title-product">
-                            <span>{product.node.vendor}</span>
-                            <span className="font-bold">
-                              {product.node.title}
-                            </span>
-                          </div>
+                        </div>
+                        <div className="title-product">
+                          <span>{product.node.vendor}</span>
+                          <span className="font-bold">
+                            {product.node.title}
+                          </span>
                         </div>
                       </SwiperSlide>
                     )
@@ -350,7 +348,7 @@ const MobileProductTemplate = props => {
         .title-product {
           position: absolute;
           bottom: 55%;
-          left: -70px;
+          left: -45px;
           font-size: 12px;
           transform: rotate(270deg);
         }

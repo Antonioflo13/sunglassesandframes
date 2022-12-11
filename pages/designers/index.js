@@ -72,7 +72,6 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
       }
     }
     items = [...new Set(items)];
-    console.log(items);
 
     // Filter designers by SHOPBY collections
     collections = collections.filter(

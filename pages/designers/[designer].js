@@ -130,11 +130,9 @@ const CollectionTemplate = ({ collection }) => {
               <Image
                 fill="true"
                 style={{ objectFit: "cover" }}
-                placeholder="blur"
-                blurDataURL={collection.image.transformedSrc}
+                src={collection.image.transformedSrc}
                 sizes="100%"
                 priority={true}
-                src={collection.image.transformedSrc}
                 alt="header-collection"
               />
             )}
