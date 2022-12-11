@@ -12,6 +12,7 @@ import PageTitle from "../../components/page-title";
 import Layout from "../../components/layout";
 import Image from "next/image";
 import Product from "../../components/product";
+import LoadingImage from "../../components/loading-image";
 
 const CollectionTemplate = ({ collection }) => {
   collection = collection.data.collection;
@@ -129,7 +130,7 @@ const CollectionTemplate = ({ collection }) => {
           <div className="img-header-container">
             {collection.image && (
               <>
-                {isLoadingImage && <div>loading</div>}
+                {isLoadingImage && <LoadingImage />}
                 <Image
                   fill="true"
                   style={{ objectFit: "cover" }}

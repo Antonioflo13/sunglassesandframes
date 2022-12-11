@@ -1,10 +1,13 @@
 //REACT
-import React from "react";
+import React, { useState } from "react";
 //NEXT
 import Link from "next/link";
 import Image from "next/image";
+import LoadingImage from "./loading-image";
 
 const Product = ({ product, collectionHandle }) => {
+  const [isLoadingImage, setIsLoadingImage] = useState(true);
+
   return (
     <>
       <Link
@@ -15,17 +18,21 @@ const Product = ({ product, collectionHandle }) => {
       >
         <div className="w-full flex flex-col items-center">
           <div className="image-container">
-            <Image
-              fill="true"
-              style={{ objectFit: "cover" }}
-              sizes="100%"
-              priority={true}
-              src={
-                product.node.variants.edges[0].node.product.images.nodes[1]
-                  .transformedSrc
-              }
-              alt="product-image"
-            />
+            <>
+              {isLoadingImage && <LoadingImage />}
+              <Image
+                fill="true"
+                style={{ objectFit: "cover" }}
+                sizes="100%"
+                priority={true}
+                src={
+                  product.node.variants.edges[0].node.product.images.nodes[1]
+                    .transformedSrc
+                }
+                onLoadingComplete={() => setIsLoadingImage(false)}
+                alt="product-image"
+              />
+            </>
           </div>
           <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
             {product.node.vendor}
@@ -45,6 +52,15 @@ const Product = ({ product, collectionHandle }) => {
             position: relative;
             height: 150px;
             overflow: hidden;
+            animation: fadeIn 0.2s linear;
+          }
+          @keyframes fadeIn {
+            0% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
           }
         `}
       </style>
