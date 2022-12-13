@@ -52,7 +52,7 @@ const LinkMenu = ({ children, to, sidebar, image }) => {
                   style={{ objectFit: "cover", borderRadius: "20px" }}
                   sizes="(max-width: 768px) 100vw,
                         (max-width: 1200px) 50vw,
-                        33vw"
+                        100vw"
                   src={image}
                   alt="image-menu"
                 />
