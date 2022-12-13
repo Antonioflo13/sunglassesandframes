@@ -14,7 +14,7 @@ module.exports = {
       colors: {
         "sunglassesandframes-black": "#000000",
         "sunglassesandframes-grey": "#f0f0f0",
-        "sunglassesandframes-breadcrumbs-grey": "#999999",
+        "sunglassesandframes-breadcrumbs-grey": "#7c7c7c",
         "sunglassesandframes-red": "#ae0000",
       },
       fontSize: {
