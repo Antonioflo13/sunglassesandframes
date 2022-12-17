@@ -1,19 +1,32 @@
 import request from "./request";
 
-async function getAllProducts() {
+async function getProductsByHandle(handle) {
   const QUERY = `
 {
-    products(first: 250) {
-        edges {
-          node {
-            handle
+  products(query: "${handle}", first: 10) {
+    edges {
+      node {
+        id
+        handle
+        vendor
+        title
+        totalInventory
+        images(first: 10) {
+          nodes {
+            transformedSrc(preferredContentType: WEBP)
           }
         }
+        options(first: 10) {
+          name
+          values
+        }
+      }
     }
- }
+  }
+}
 `;
 
-  return await request("shopify", QUERY);
+  return await request("shopify", QUERY, "products");
 }
 
-export { getAllProducts };
+export { getProductsByHandle };

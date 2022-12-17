@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 //API
 import { getProduct } from "../../api/product";
+import { getProductsByHandle } from "../../api/products";
 import { getCollection } from "../../api/collections";
 //STORE
 import { setDialogContactShow } from "../../store/modules/dialogContact";
@@ -26,6 +27,7 @@ import Head from "next/head";
 const Product = ({
   resProduct,
   collectionProducts,
+  relatedProductsColor,
   collectionHandle,
   productHandle,
   cursor,
@@ -33,6 +35,7 @@ const Product = ({
 }) => {
   //STATE
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [colorProducts, setColorProducts] = useState([]);
   const [mobileProducts, setMobileProducts] = useState([]);
   const singleProduct = { node: resProduct.data.product };
 
@@ -95,6 +98,28 @@ const Product = ({
     setMobileProducts([...collectionProducts.data.collection.products.edges]);
   }, []);
 
+  useEffect(() => {
+    setRelatedProducts(
+      [...collectionProducts.data.collection.products.edges]
+        .filter(
+          product => product.node.handle !== resProduct.data.product.handle
+        )
+        .splice(0, 4)
+    );
+  }, [collectionProducts]);
+
+  useEffect(() => {
+    if (relatedProductsColor.data) {
+      setColorProducts(
+        relatedProductsColor.data.products.edges
+          .filter(
+            product => product.node.handle !== resProduct.data.product.handle
+          )
+          .splice(0, 2)
+      );
+    }
+  }, [resProduct]);
+
   return (
     <Layout>
       <Head>
@@ -133,6 +158,7 @@ const Product = ({
             askForPrice={askForPrice}
             mainImage={mainImage}
             relatedProducts={relatedProducts}
+            colorProducts={colorProducts}
             collectionImage={collectionImage}
             collectionHandle={collectionHandle}
           />
@@ -162,6 +188,7 @@ export async function getServerSideProps({ query }) {
   const cursor = query.cursor || null;
   const resProduct = await getProduct(productHandle);
   let collectionProducts = await getCollection(collectionHandle, 20, cursor);
+  const relatedProductsColor = await getProductsByHandle(productHandle);
   const hasMore =
     collectionProducts.data.collection.products.pageInfo.hasNextPage;
   const productNode = { node: resProduct.data.product };
@@ -171,6 +198,7 @@ export async function getServerSideProps({ query }) {
     props: {
       resProduct,
       collectionProducts,
+      relatedProductsColor,
       collectionHandle,
       productHandle,
       productNode,

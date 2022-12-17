@@ -16,7 +16,7 @@ const GalleryProducts = ({ images }) => {
 
   return (
     <>
-      {imageList.length > 0 && (
+      {imageList.length > 0 && firstImage && (
         <div>
           <div className="containerMainImage bg-white">
             <Image

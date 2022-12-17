@@ -61,6 +61,10 @@ async function getCollection(collection, first, cursor) {
           availableForSale
           tags
           totalInventory
+          options {
+            name
+            values
+          }
           variants(first: 250) {
             edges {
               node {

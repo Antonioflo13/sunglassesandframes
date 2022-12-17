@@ -16,8 +16,12 @@ const Product = ({ product, collectionHandle }) => {
     <>
       <Link
         href={{
-          pathname: `/designers/${collectionHandle}/${product.node.handle}`,
-          query: !isDesktop && { cursor: product.cursor },
+          pathname: `/designers/${collectionHandle}/${
+            product.node.handle
+          }/color=${
+            product.node?.options?.find(option => option.name === "Color")
+              ?.values
+          }/${!isDesktop ? `cursor=${product.cursor}` : ""}`,
         }}
       >
         <div className="w-full flex flex-col items-center">

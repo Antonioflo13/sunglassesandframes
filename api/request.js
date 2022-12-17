@@ -41,6 +41,18 @@ async function request(requestTo, query, requestType) {
             }
             return response;
           });
+        case "products":
+          return response.json().then(response => {
+            if (response.data.products) {
+              response.data.products.edges =
+                response.data.products.edges.filter(
+                  product =>
+                    product.node.images.nodes.length > 0 &&
+                    product.node.totalInventory > 0
+                );
+            }
+            return response;
+          });
         default:
           return response.json();
       }

@@ -1,12 +1,16 @@
+//REACT
+import React from "react";
+//NEXT
+import Link from "next/link";
+import Image from "next/image";
+//INTL
 import {
   FormattedMessage as OriginalFormattedMessage,
   FormattedNumber,
 } from "react-intl";
-import Label from "../components/label";
-import React from "react";
 //COMPONENTS
+import Label from "../components/label";
 import ProductIcon from "../components/product-icon";
-import Image from "next/image";
 import Product from "../components/product";
 
 const DesktopProduct = props => {
@@ -16,9 +20,11 @@ const DesktopProduct = props => {
     askForPrice,
     mainImage,
     relatedProducts,
+    colorProducts,
     collectionHandle,
     collectionImage,
   } = props;
+
   return (
     <>
       <div className="customTemplate">
@@ -89,6 +95,43 @@ const DesktopProduct = props => {
             )}
           </div>
           <ProductIcon />
+          <div className="grid grid-cols-2 gap-x-2">
+            {colorProducts.map(product => (
+              <Link
+                key={product.node.id}
+                href={{
+                  pathname: `/designers/${collectionHandle}/${
+                    product.node.handle
+                  }/color=${
+                    product.node?.options?.find(
+                      option => option.name === "Color"
+                    )?.values
+                  }`,
+                }}
+              >
+                <div className="w-full flex flex-col items-center">
+                  <div className="image-container">
+                    <>
+                      <Image
+                        fill="true"
+                        style={{ objectFit: "cover" }}
+                        sizes="100%"
+                        priority={true}
+                        src={product.node.images.nodes[1].transformedSrc}
+                        alt="product-image"
+                      />
+                    </>
+                  </div>
+                  <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
+                    {product.node.vendor}
+                  </div>
+                  <div className="ml-1 text-xs uppercase font-bold mt-2">
+                    {product.node.title}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
         {/* Other info and main image */}
       </div>
@@ -117,9 +160,9 @@ const DesktopProduct = props => {
           </div>
           <div className="overflow-x-scroll" style={{ marginTop: "5rem" }}>
             <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20">
-              {relatedProducts.map(product => (
+              {relatedProducts.map((product, index) => (
                 <Product
-                  key={product.node.id}
+                  key={index}
                   product={product}
                   collectionHandle={collectionHandle}
                 />
@@ -139,6 +182,14 @@ const DesktopProduct = props => {
             position: relative;
             width: 90px;
             height: 30px;
+          }
+
+          .image-container {
+            width: 68%;
+            position: relative;
+            height: 100px;
+            overflow: hidden;
+            animation: fadeIn 0.2s linear;
           }
 
           @media (max-width: 768px) {
