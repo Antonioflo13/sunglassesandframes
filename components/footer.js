@@ -197,7 +197,7 @@ const Footer = () => {
             </div>
             <div className="flex flex-col accordionDesktop ">
               <div className="font-bold uppercase text-sm">
-                <FormattedMessage id="footer.location.title" />
+                <FormattedMessage id="footer.whyus.title" />
               </div>
               <div className="text-xs mt-2 ">
                 <FormattedMessage id="footer.about.title" />
