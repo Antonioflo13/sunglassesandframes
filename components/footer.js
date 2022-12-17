@@ -1,7 +1,8 @@
 import {
   faFacebook,
   faInstagram,
-  faLinkedin,
+  faTiktok,
+  faPinterest,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +12,11 @@ import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
 import logo from "../assets/images/logo.svg";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { AnimatePresence, motion } from "framer-motion";
+import amex from "../assets/images/amex.svg";
+import applepay from "../assets/images/applepay.svg";
+import mastercard from "../assets/images/mastercard.svg";
+import visa from "../assets/images/visa.svg";
+import paypal from "../assets/images/paypal.svg";
 
 const Footer = () => {
   const [accordion, setAccordion] = React.useState({
@@ -34,41 +40,30 @@ const Footer = () => {
             <div className="flex justify-center noDesktop">
               <img src={logo.src} alt="logo" width={110} />
             </div>
-            <div className="flex flex-col accordionDesktop mt-20">
+            <div className="flex flex-col accordionDesktop ">
               <div className="font-bold uppercase text-sm">
-                <FormattedMessage id="footer.contacts.title" />
+                <FormattedMessage id="footer.payments.title" />
               </div>
-              <div className="text-xs mt-2 ">
-                <FormattedMessage id="footer.contacts.email" />
+              <div style={{ display: "flex", gap: "10px", marginTop: "5px" }}>
+                <img src={amex.src} width={40} alt="icon" />
+                <img src={applepay.src} width={40} alt="icon" />
+                <img src={visa.src} width={40} alt="icon" />
+                <img src={mastercard.src} width={40} alt="icon" />
+                <img src={paypal.src} width={40} alt="icon" />
               </div>
-              <div className="text-xs mt-2 ">
-                <FormattedMessage id="footer.contacts.phone" />
+
+              <div className="font-bold uppercase text-sm mt-10">
+                <FormattedMessage id="footer.social.title" />
+              </div>
+              <div style={{ display: "flex", gap: "15px", marginTop: "15px" }}>
+                <FontAwesomeIcon icon={faInstagram} width={22} />
+                <FontAwesomeIcon icon={faFacebook} width={22} />
+                <FontAwesomeIcon icon={faTiktok} width={22} />
+                <FontAwesomeIcon icon={faPinterest} width={22} />
               </div>
             </div>
-            <div className="flex flex-col accordionMobile mobileCenterSocial">
-              <>
-                <a
-                  href="https://www.facebook.com/sunglassesandframes.vision"
-                  target="_blank"
-                >
-                  <FontAwesomeIcon icon={faFacebook} />
-                </a>
-                <a
-                  className="ml-2"
-                  href="https://www.instagram.com/sunglassesandframes.vision"
-                  target="_blank"
-                >
-                  <FontAwesomeIcon icon={faInstagram} />
-                </a>
-                <a
-                  className="ml-2"
-                  href="https://www.linkedin.com/company/sunglassesandframesvision"
-                  target="_blank"
-                >
-                  <FontAwesomeIcon icon={faLinkedin} />
-                </a>
-              </>
-            </div>
+
+            <div className="flex flex-col accordionMobile mobileCenterSocial"></div>
             <div className="flex flex-col accordionMobile">
               <div
                 className="containerAccordion"
@@ -108,42 +103,31 @@ const Footer = () => {
                 )}
               </AnimatePresence>
             </div>
-            <div className="flex flex-col accordionDesktop mt-20">
-              <div className="font-bold uppercase text-sm">
-                <FormattedMessage id="footer.social.title" />
-              </div>
-              <div className="flex">
-                <a
-                  href="https://www.facebook.com/sunglassesandframes.vision"
-                  target="_blank"
-                >
-                  <FontAwesomeIcon icon={faFacebook} />
-                </a>
-                <a
-                  className="ml-2"
-                  href="https://www.instagram.com/sunglassesandframes.vision"
-                  target="_blank"
-                >
-                  <FontAwesomeIcon icon={faInstagram} />
-                </a>
-                <a
-                  className="ml-2"
-                  href="https://www.linkedin.com/company/sunglassesandframesvision"
-                  target="_blank"
-                >
-                  <FontAwesomeIcon icon={faLinkedin} />
-                </a>
-              </div>
-            </div>
+            <div className="flex flex-col accordionDesktop "></div>
             <div className="flex flex-col noMobile">
               <img src={logo.src} alt="logo" width={110} />
             </div>
-            <div className="flex flex-col accordionDesktop mt-20">
+            <div className="flex flex-col accordionDesktop ">
               <div className="font-bold uppercase text-sm">
                 <FormattedMessage id="footer.support.title" />
               </div>
               <div className="text-xs mt-2 ">
-                <FormattedMessage id="footer.contacts.email" />
+                <FormattedMessage id="footer.order.title" />
+              </div>
+              <div className="text-xs mt-2 ">
+                <FormattedMessage id="footer.payment.title" />
+              </div>
+              <div className="text-xs mt-2 ">
+                <FormattedMessage id="footer.return.title" />
+              </div>
+              <div className="text-xs mt-2 ">
+                <FormattedMessage id="footer.faq.title" />
+              </div>
+              <div className="text-xs mt-2 ">
+                <FormattedMessage id="footer.terms.title" />
+              </div>
+              <div className="text-xs mt-2 ">
+                <FormattedMessage id="footer.privacy.title" />
               </div>
             </div>
             <div className="flex flex-col accordionMobile">
@@ -211,9 +195,18 @@ const Footer = () => {
                 )}
               </AnimatePresence>
             </div>
-            <div className="flex flex-col accordionDesktop mt-20">
+            <div className="flex flex-col accordionDesktop ">
               <div className="font-bold uppercase text-sm">
                 <FormattedMessage id="footer.location.title" />
+              </div>
+              <div className="text-xs mt-2 ">
+                <FormattedMessage id="footer.about.title" />
+              </div>
+              <div className="text-xs mt-2 ">
+                <FormattedMessage id="footer.licensed.title" />
+              </div>
+              <div className="text-xs mt-2 ">
+                <FormattedMessage id="footer.promise.title" />
               </div>
             </div>
             <div className="flex flex-col accordionMobile">
@@ -253,13 +246,13 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="w-full flex items-center justify-center pt-20 pb-4 text-black">
-          <div className="w-10/12 grid gap-y-16 md:grid-cols-1  whitespace-pre-line  justify-center">
-            <div className="w-full lg:col-span-2  justify-center">
-              <div className="text-3xs textCenterDesktop  justify-center">
-                <FormattedMessage id="footer.legal" />
-              </div>
-            </div>
+
+        <div className="customWidthFooter">
+          <div
+            className="text-3xs textCenterDesktop justify-center mt-20 mb-8"
+            style={{ maxWidth: "83rem", width: "37%" }}
+          >
+            <FormattedMessage id="footer.legal" />
           </div>
         </div>
         <style jsx="true">
@@ -298,7 +291,7 @@ const Footer = () => {
               }
 
               .textCenterDesktop {
-                text-align: center;
+                text-align: start;
               }
 
               .noDesktop {
