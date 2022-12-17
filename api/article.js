@@ -5,15 +5,7 @@ async function getArticle(handle) {
   {
   article(filter: {handle: {eq: "${handle}"}}) {
     id
-    image {
-      blurUpThumb
-      url
-    }
-    imageheader {
-      blurUpThumb
-      url
-    }
-    imageheadermobile {
+    imageArticleDetail {
       blurUpThumb
       url
     }
@@ -23,9 +15,6 @@ async function getArticle(handle) {
     handle
     seo {
       description
-      image {
-        url
-      }
       title
     }
     shopifyCollection

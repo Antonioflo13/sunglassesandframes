@@ -7,8 +7,6 @@ import Image from "next/image";
 import getAllArticles from "../../api/articles";
 import getArticle from "../../api/article";
 import { getCollection } from "../../api/collections";
-//INTL
-import { FormattedNumber } from "react-intl";
 //HOOKS
 import useMediaQuery from "../../hooks/useMediaQuery";
 //COMPONENTS
@@ -133,9 +131,9 @@ const Article = ({ article, collection }) => {
                         style={{ objectFit: "cover" }}
                         sizes="100%"
                         placeholder="blur"
-                        blurDataURL={article.imageheader.blurUpThumb}
-                        src={article.imageheader.url}
-                        alt={article.imageheader.url}
+                        blurDataURL={article.imageArticleDetail.blurUpThumb}
+                        src={article.imageArticleDetail.url}
+                        alt={article.imageArticleDetail.alt}
                       />
                     </div>
                   ) : (
@@ -146,9 +144,9 @@ const Article = ({ article, collection }) => {
                         style={{ objectFit: "cover" }}
                         sizes="100%"
                         placeholder="blur"
-                        blurDataURL={article.imageheader.blurUpThumb}
-                        src={article.imageheader.url}
-                        alt={article.imageheader.url}
+                        blurDataURL={article.imageArticleDetail.blurUpThumb}
+                        src={article.imageArticleDetail.url}
+                        alt={article.imageArticleDetail.alt}
                       />
                     </div>
                   )}

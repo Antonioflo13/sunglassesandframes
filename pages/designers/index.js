@@ -269,10 +269,10 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
                       style={{ objectFit: "cover" }}
                       sizes="100%"
                       priority={true}
-                      src={itemMonthlyHighlight?.backgroundimage?.url}
+                      src={itemMonthlyHighlight?.designerPageImage?.url}
                       placeholder="blur"
                       blurDataURL={
-                        itemMonthlyHighlight?.backgroundimage?.blurUpThumb
+                        itemMonthlyHighlight?.designerPageImage?.blurUpThumb
                       }
                       alt="advImage"
                     />

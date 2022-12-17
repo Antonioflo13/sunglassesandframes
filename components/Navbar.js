@@ -332,9 +332,9 @@ export const Navbar = () => {
                         sizes="100%"
                         priority={true}
                         placeholder="blur"
-                        src={monthCollectionInfo?.backgroundimage?.url}
+                        src={monthCollectionInfo?.navbarImage?.url}
                         blurDataURL={
-                          monthCollectionInfo?.backgroundimage?.blurUpThumb
+                          monthCollectionInfo?.navbarImage?.blurUpThumb
                         }
                         alt="advImage"
                       />

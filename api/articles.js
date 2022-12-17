@@ -10,13 +10,13 @@ async function getAllArticles() {
           subtitle
           description
           handle
-          imageheader {
-            url
+          imageArticlesList {
             blurUpThumb
+            url
           }
-          imageheadermobile {
-            url
+          imageArticleSlider {
             blurUpThumb
+            url
           }
     }
 }

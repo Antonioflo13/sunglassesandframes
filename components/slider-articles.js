@@ -49,17 +49,17 @@ const SliderArticles = ({ articles }) => {
                           fill="true"
                           style={{ objectFit: "cover" }}
                           placeholder="blur"
-                          blurDataURL={article.imageheader.blurUpThumb}
+                          blurDataURL={article.imageArticleSlider.blurUpThumb}
                           sizes="(max-width: 768px) 100vw,
                                   (max-width: 1200px) 50vw,
                                   33vw"
                           priority={true}
                           src={
                             isDesktop
-                              ? article.imageheader.url
-                              : article.imageheadermobile?.url
+                              ? article.imageArticleSlider.url
+                              : article.imageArticleSlider.url
                           }
-                          alt="magazine-image"
+                          alt={article.imageArticleSlider.alt}
                         />
                       </div>
                       <div className={mainClasses["slide-content"]}>

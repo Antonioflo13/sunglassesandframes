@@ -113,11 +113,11 @@ const Index = ({ articles }) => {
                       sizes="100%"
                       priority={true}
                       placeholder="blur"
-                      blurDataURL={item.imageheader.blurUpThumb}
+                      blurDataURL={item.imageArticlesList.blurUpThumb}
                       style={{
                         objectFit: "cover",
                       }}
-                      src={item.imageheader.url}
+                      src={item.imageArticlesList.url}
                       alt="image-header"
                     />
                   </div>

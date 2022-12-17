@@ -6,7 +6,11 @@ async function getMonthlyHighlight() {
         text
         handle
         designer
-        backgroundimage {
+        navbarImage {
+          url
+          blurUpThumb
+        }
+        designerPageImage {
           url
           blurUpThumb
         }
