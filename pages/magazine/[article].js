@@ -68,7 +68,7 @@ const Article = ({ article, collection }) => {
   useEffect(() => {
     const options = {
       root: null,
-      rootMargin: "20px",
+      rootMargin: "500px",
       threshold: 1.0,
     };
     const observer = new IntersectionObserver(handleObserver, options);
