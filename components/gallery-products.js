@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 const GalleryProducts = ({ images }) => {
   const imageList = [...images];
-  const [firstImage, setFirstImage] = useState(imageList[1].transformedSrc);
+  const [firstImage, setFirstImage] = useState("");
+
+  useEffect(() => {
+    if (images) {
+      setFirstImage(images[1].transformedSrc);
+    }
+  }, [images]);
   const changeView = item => {
     setFirstImage(item.transformedSrc);
   };

@@ -52,7 +52,13 @@ const SliderMenu = () => {
             <div style={{ cursor: "pointer" }}>
               {itemShopBy?.map((item, key) => (
                 <SwiperSlide key={key}>
-                  <LinkMenu to={item.handle} image={item.backgroundImage.url}>
+                  <LinkMenu
+                    to={{
+                      pathname: "/designers/[designer]",
+                      query: { designer: item.handle.toLowerCase() },
+                    }}
+                    image={item.backgroundImage.url}
+                  >
                     <div className="uppercase">{item.item}</div>
                   </LinkMenu>
                 </SwiperSlide>

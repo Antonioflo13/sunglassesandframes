@@ -29,6 +29,7 @@ const MobileProductTemplate = props => {
     buy,
     askForPrice,
     relatedProducts,
+    mobileProducts,
     collectionHandle,
     collectionImage,
   } = props;
@@ -42,16 +43,14 @@ const MobileProductTemplate = props => {
   //STATE
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const [products, setProducts] = useState(relatedProducts);
+  const [products, setProducts] = useState(mobileProducts);
 
   const [hasNextPage, setHasNextPage] = useState(hasMore);
 
   const [newCursor, setNewCursor] = useState(cursor);
 
   const [swiperIndex, setSwiperIndex] = useState(
-    products.findIndex(
-      relatedProduct => relatedProduct.node.handle === productHandle
-    )
+    mobileProducts.findIndex(product => product.node.handle === productHandle)
   );
 
   const bottomSheetRef = useRef();
@@ -66,17 +65,18 @@ const MobileProductTemplate = props => {
         setSwiperIndex(0);
         router.push(
           `/designers/${collectionHandle}/${products[0].node.handle}${
-            cursor && `?cursor=${newCursor}`
+            newCursor && `?cursor=${newCursor}`
           }`,
           undefined,
           { shallow: true }
         );
       } else {
         setSwiperIndex(swiper?.activeIndex - 1);
+        setNewCursor(products[swiper?.activeIndex - 1].cursor);
         router.push(
           `/designers/${collectionHandle}/${
             products[swiper?.activeIndex - 1].node.handle
-          }${cursor && `?cursor=${newCursor}`}`,
+          }${newCursor && `?cursor=${newCursor}`}`,
           undefined,
           { shallow: true }
         );
@@ -96,8 +96,10 @@ const MobileProductTemplate = props => {
 
   useEffect(() => {
     if (swiperIndex === products.length - 2 && hasNextPage) {
+      console.log(swiperIndex);
       getProductByCollection(collectionHandle, 20, newCursor).then(response => {
         const newProducts = response.data.collection.products.edges;
+        console.log(newProducts);
         const isMore = response.data.collection.products.pageInfo.hasNextPage;
         setHasNextPage(isMore);
         setProducts(oldProducts => [...oldProducts, ...newProducts]);
@@ -147,8 +149,8 @@ const MobileProductTemplate = props => {
         loop={true}
       >
         {products.length > 0 &&
-          products.map(product => (
-            <SwiperSlide key={product.node.id}>
+          products.map((product, index) => (
+            <SwiperSlide key={index}>
               <div className="sliderWrapper">
                 <Swiper
                   id="swiper-image-pdp"

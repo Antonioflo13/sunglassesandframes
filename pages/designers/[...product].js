@@ -33,7 +33,8 @@ const Product = ({
 }) => {
   //STATE
   const [relatedProducts, setRelatedProducts] = useState([]);
-  const product = { node: resProduct.data.product };
+  const [mobileProducts, setMobileProducts] = useState([]);
+  const singleProduct = { node: resProduct.data.product };
 
   //STORE
   const language = useSelector(state => state.language.value);
@@ -48,7 +49,7 @@ const Product = ({
 
   const mainImage = (
     <GalleryProducts
-      images={product.node.variants.edges[0].node.product.images.nodes}
+      images={singleProduct.node.variants.edges[0].node.product.images.nodes}
     />
   );
 
@@ -89,9 +90,11 @@ const Product = ({
   //EFFECT
   useEffect(() => {
     setRelatedProducts(
-      collectionProducts.data.collection.products.edges.splice(0, 4)
+      [...collectionProducts.data.collection.products.edges].splice(0, 4)
     );
+    setMobileProducts([...collectionProducts.data.collection.products.edges]);
   }, []);
+
   return (
     <Layout>
       <Head>
@@ -110,11 +113,11 @@ const Product = ({
                       link: "/designers",
                     },
                     {
-                      title: product.node.vendor,
+                      title: singleProduct.node.vendor,
                       link: "/designers/" + collectionHandle,
                     },
                     {
-                      title: product.node.title,
+                      title: singleProduct.node.title,
                     },
                   ]}
                   title=" "
@@ -125,7 +128,7 @@ const Product = ({
         )}
         {isDesktop ? (
           <DesktopProduct
-            shopifyProduct={product}
+            shopifyProduct={singleProduct}
             buy={buy}
             askForPrice={askForPrice}
             mainImage={mainImage}
@@ -136,13 +139,14 @@ const Product = ({
         ) : (
           <MobileProduct
             productHandle={productHandle}
-            product={product}
+            product={singleProduct}
             hasMore={hasMore}
             cursor={cursor}
             buy={buy}
             askForPrice={askForPrice}
             mainImage={mainImage}
             relatedProducts={relatedProducts}
+            mobileProducts={mobileProducts}
             collectionImage={collectionImage}
             collectionHandle={collectionHandle}
           />
@@ -169,6 +173,7 @@ export async function getServerSideProps({ query }) {
       collectionProducts,
       collectionHandle,
       productHandle,
+      productNode,
       hasMore,
       cursor,
     },

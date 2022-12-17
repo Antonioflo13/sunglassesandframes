@@ -35,7 +35,7 @@ const Layout = ({ children, itemsNavbar }) => {
       document.body.classList.remove("overflow-auto");
       document.body.classList.add("overflow-hidden");
     }
-    if (body && router.pathname !== "/collections/[...product]") {
+    if (body && router.pathname !== "/designers/[...product]") {
       document.body.classList.remove("overflow-hidden");
       document.body.classList.add("overflow-auto");
     }

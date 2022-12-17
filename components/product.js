@@ -4,16 +4,20 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import LoadingImage from "./loading-image";
+import useMediaQuery from "../hooks/useMediaQuery";
 
 const Product = ({ product, collectionHandle }) => {
+  //STATE
   const [isLoadingImage, setIsLoadingImage] = useState(true);
+  //HOOKS
+  const isDesktop = useMediaQuery(768);
 
   return (
     <>
       <Link
         href={{
           pathname: `/designers/${collectionHandle}/${product.node.handle}`,
-          query: { cursor: product.cursor },
+          query: !isDesktop && { cursor: product.cursor },
         }}
       >
         <div className="w-full flex flex-col items-center">
