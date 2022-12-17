@@ -11,6 +11,11 @@ async function getAllCollections() {
         handle
         title
         description
+        products(first: 1) {
+          nodes {
+            handle
+          }
+        }
       }
     }
  }

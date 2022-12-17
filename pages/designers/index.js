@@ -213,8 +213,21 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
                               </section>
                             </div>
                           )}
-                          <div style={{ marginBottom: "0.3rem" }}>
+                          <div
+                            className={`${
+                              collection.products?.nodes?.length > 0
+                                ? "available"
+                                : "unavailable"
+                            }`}
+                            style={{ marginBottom: "0.3rem" }}
+                          >
                             <Link
+                              style={{
+                                pointerEvents:
+                                  !collection.products?.nodes?.length && "none",
+                                touchAction:
+                                  !collection.products?.nodes?.length && "none",
+                              }}
                               href={{
                                 pathname:
                                   collection.handle ===
