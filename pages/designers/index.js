@@ -175,6 +175,8 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
                 </span>
               </span>
             ))}
+          </div>
+          <div>
             {!isDesktop && (
               <label className="relative block w-[100%] md:w-[50%] m-auto mt-5">
                 <FontAwesomeIcon
@@ -211,21 +213,8 @@ const CollectionsPage = ({ collections, monthlyHighlight }) => {
                               </section>
                             </div>
                           )}
-                          <div
-                            className={`${
-                              collection.products?.nodes?.length > 0
-                                ? "available"
-                                : "unavailable"
-                            }`}
-                            style={{ marginBottom: "0.3rem" }}
-                          >
+                          <div style={{ marginBottom: "0.3rem" }}>
                             <Link
-                              style={{
-                                pointerEvents:
-                                  !collection.products?.nodes?.length && "none",
-                                touchAction:
-                                  !collection.products?.nodes?.length && "none",
-                              }}
                               href={{
                                 pathname:
                                   collection.handle ===

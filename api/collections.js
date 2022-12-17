@@ -11,11 +11,6 @@ async function getAllCollections() {
         handle
         title
         description
-        products(first: 250) {
-          nodes {
-            handle
-          }
-        }
       }
     }
  }
