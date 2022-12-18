@@ -183,5 +183,9 @@
   "product.money.back": "Money back guaranteed",
   "product.secure.payment": "Secure payment",
   "product.trackable.orders": "Trackable orders",
-  "product.delivery.and.returns": "DELIVERY & RETURNS"
+  "product.delivery.and.returns": "DELIVERY & RETURNS",
+
+  "subscribe.signup": "Sign up",
+  "subscribe.title": "join our club and get 10% off",
+  "subscribe.description": "Sign up for promotions, new arrivals alert and style advice directly in your inbox"
 }

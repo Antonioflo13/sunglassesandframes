@@ -8,6 +8,7 @@ async function getArticle(handle) {
     imageArticleDetail {
       blurUpThumb
       url
+      alt
     }
     title
     subtitle

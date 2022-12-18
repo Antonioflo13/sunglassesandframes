@@ -13,10 +13,12 @@ async function getAllArticles() {
           imageArticlesList {
             blurUpThumb
             url
+            alt
           }
           imageArticleSlider {
             blurUpThumb
             url
+            alt
           }
     }
 }

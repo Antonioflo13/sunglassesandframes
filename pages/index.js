@@ -12,7 +12,6 @@ import {
 } from "../store/modules/monthCollection";
 import { setItemsNavBar } from "../store/modules/itemsNavBar";
 import { setItemsShopBy } from "../store/modules/itemsShopBy";
-
 //API
 import getAllArticles from "../api/articles";
 import getShopBy from "../api/shopBy";
@@ -27,6 +26,8 @@ import SliderArticles from "../components/slider-articles";
 import AnimatedPage from "../components/animated-page";
 import Layout from "../components/layout";
 import Zendesk from "../components/zendesk";
+import SubscribeForm from "../components/subscribe-form";
+import useMediaQuery from "../hooks/useMediaQuery";
 
 const IndexPage = ({
   articles,
@@ -35,6 +36,8 @@ const IndexPage = ({
   monthCollection,
   itemsNavbar,
 }) => {
+  //HOOKS
+  const isDesktop = useMediaQuery(768);
   //STORE
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.value);
@@ -140,6 +143,7 @@ const IndexPage = ({
           <SliderArticles articles={articles} />
           <SliderHomeCollection />
           <SliderMenu allShopBy={allShopBy} />
+          {!isDesktop && <SubscribeForm />}
           <Zendesk />
           {show && (
             <ModalsIcons
