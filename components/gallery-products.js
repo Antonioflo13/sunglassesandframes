@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import LoadingImage from "./loading-image";
 
 const GalleryProducts = ({ images }) => {
   const imageList = [...images];
+  //STATE
   const [firstImage, setFirstImage] = useState("");
+  const [isLoadingImage, setIsLoadingImage] = useState(true);
 
+  //EFFECT
   useEffect(() => {
     if (images) {
       setFirstImage(images[1].transformedSrc);
     }
   }, [images]);
+
+  //FUNCTIONS
   const changeView = item => {
     setFirstImage(item.transformedSrc);
   };
@@ -18,11 +24,13 @@ const GalleryProducts = ({ images }) => {
     <>
       {imageList.length > 0 && firstImage && (
         <div>
+          {isLoadingImage && <LoadingImage />}
           <div className="containerMainImage bg-white">
             <Image
               fill="true"
               sizes="100%"
               priority={true}
+              onLoadingComplete={() => setIsLoadingImage(false)}
               style={{ objectFit: "contain", transform: "scale(1.5)" }}
               src={firstImage}
               alt="main-image"
@@ -35,12 +43,14 @@ const GalleryProducts = ({ images }) => {
                 onClick={() => changeView(item)}
                 key={index}
               >
+                {isLoadingImage && <LoadingImage />}
                 <Image
                   fill="true"
                   sizes="100%"
                   priority={true}
                   key={item.id}
                   style={{ objectFit: "contain" }}
+                  onLoadingComplete={() => setIsLoadingImage(false)}
                   className="imageTumblr"
                   src={item.transformedSrc}
                   alt="image-carousel"
