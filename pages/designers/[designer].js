@@ -180,7 +180,7 @@ const CollectionTemplate = ({ collection }) => {
           .img-header-container {
             width: 50%;
             position: relative;
-            height: 230px;
+            height: 400px;
             border-radius: 10px;
             overflow: hidden;
           }
