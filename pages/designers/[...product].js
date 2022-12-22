@@ -31,6 +31,7 @@ const Product = ({
   collectionHandle,
   productHandle,
   cursor,
+  color,
   hasMore,
 }) => {
   //STATE
@@ -168,6 +169,7 @@ const Product = ({
             product={singleProduct}
             hasMore={hasMore}
             cursor={cursor}
+            color={color}
             buy={buy}
             askForPrice={askForPrice}
             mainImage={mainImage}
@@ -186,6 +188,7 @@ export async function getServerSideProps({ query }) {
   const collectionHandle = query.product[0];
   const productHandle = query.product[1];
   const cursor = query.cursor || null;
+  const color = query.color || null;
   const resProduct = await getProduct(productHandle);
   let collectionProducts = await getCollection(collectionHandle, 20, cursor);
   const relatedProductsColor = await getProductsByHandle(productHandle);
@@ -204,6 +207,7 @@ export async function getServerSideProps({ query }) {
       productNode,
       hasMore,
       cursor,
+      color,
     },
   };
 }

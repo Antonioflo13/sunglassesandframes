@@ -25,6 +25,7 @@ const MobileProductTemplate = props => {
     productHandle,
     hasMore,
     cursor,
+    color,
     product,
     buy,
     askForPrice,
@@ -49,6 +50,8 @@ const MobileProductTemplate = props => {
 
   const [newCursor, setNewCursor] = useState(cursor);
 
+  const [newColor, setNewColor] = useState(color);
+
   const [swiperIndex, setSwiperIndex] = useState(
     mobileProducts.findIndex(product => product.node.handle === productHandle)
   );
@@ -65,18 +68,25 @@ const MobileProductTemplate = props => {
         setSwiperIndex(0);
         router.push(
           `/designers/${collectionHandle}/${products[0].node.handle}${
-            newCursor && `?cursor=${newCursor}`
-          }`,
+            newColor && `?color=${newColor}`
+          }${newCursor && `&cursor=${newCursor}`}`,
           undefined,
           { shallow: true }
         );
       } else {
-        setSwiperIndex(swiper?.activeIndex - 1);
-        setNewCursor(products[swiper?.activeIndex - 1].cursor);
+        setSwiperIndex(swiper?.activeIndex);
+        setNewCursor(products[swiper?.activeIndex].cursor);
+        setNewColor(
+          products[swiper?.activeIndex].node?.options?.find(
+            option => option.name === "Color"
+          )?.values[0]
+        );
         router.push(
           `/designers/${collectionHandle}/${
             products[swiper?.activeIndex - 1].node.handle
-          }${newCursor && `?cursor=${newCursor}`}`,
+          }/${newColor && `?color=${newColor}`}${
+            newCursor && `&cursor=${newCursor}`
+          }`,
           undefined,
           { shallow: true }
         );
@@ -90,6 +100,7 @@ const MobileProductTemplate = props => {
   //EFFECT
   useEffect(() => {
     if (!cursor) {
+      console.log(cursor);
       setProducts([product]);
     }
   }, [cursor]);
@@ -139,6 +150,10 @@ const MobileProductTemplate = props => {
 
   return (
     <div>
+      <div className="title-product">
+        <span>{products[swiperIndex].node.vendor}</span>
+        <span className="font-bold">{products[swiperIndex].node.title}</span>
+      </div>
       <Swiper
         initialSlide={swiperIndex}
         allowSlideNext={isExpanded}
@@ -183,12 +198,6 @@ const MobileProductTemplate = props => {
                             src={image.transformedSrc}
                             alt={image.transformedSrc}
                           />
-                        </div>
-                        <div className="title-product">
-                          <span>{product.node.vendor}</span>
-                          <span className="font-bold">
-                            {product.node.title}
-                          </span>
                         </div>
                       </SwiperSlide>
                     )
@@ -350,8 +359,9 @@ const MobileProductTemplate = props => {
         .title-product {
           position: absolute;
           bottom: 55%;
-          left: -45px;
+          left: -12%;
           font-size: 12px;
+          z-index: 2;
           transform: rotate(270deg);
         }
 

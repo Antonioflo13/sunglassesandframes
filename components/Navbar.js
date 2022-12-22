@@ -405,7 +405,7 @@ export const Navbar = () => {
         }
 
         .fullScreenBackground {
-          height: 143%;
+          height: 100%;
           background-color: rgb(0 0 0/25%);
           z-index: 99;
           width: 100%;
