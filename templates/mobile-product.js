@@ -359,7 +359,7 @@ const MobileProductTemplate = props => {
         .title-product {
           position: absolute;
           bottom: 55%;
-          left: -12%;
+          left: -10%;
           font-size: 12px;
           z-index: 2;
           transform: rotate(270deg);
