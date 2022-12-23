@@ -12,6 +12,10 @@ async function getProduct(product) {
     vendor
     availableForSale
     tags
+    options(first: 10) {
+      name
+      values
+    }
     variants(first: 250) {
       edges {
         node {

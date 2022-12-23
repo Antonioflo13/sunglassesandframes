@@ -68,8 +68,8 @@ const MobileProductTemplate = props => {
         setSwiperIndex(0);
         router.push(
           `/designers/${collectionHandle}/${products[0].node.handle}${
-            newColor && `?color=${newColor}`
-          }${newCursor && `&cursor=${newCursor}`}`,
+            newColor ? `?color=${newColor}` : ""
+          }${newCursor ? `&cursor=${newCursor}` : ""}`,
           undefined,
           { shallow: true }
         );
@@ -84,8 +84,8 @@ const MobileProductTemplate = props => {
         router.push(
           `/designers/${collectionHandle}/${
             products[swiper?.activeIndex - 1].node.handle
-          }/${newColor && `?color=${newColor}`}${
-            newCursor && `&cursor=${newCursor}`
+          }/${newColor ? `?color=${newColor}` : ""}${
+            newCursor ? `&cursor=${newCursor}` : ""
           }`,
           undefined,
           { shallow: true }
@@ -98,12 +98,12 @@ const MobileProductTemplate = props => {
     await getCollection(collectionHandle, first, cursor);
 
   //EFFECT
-  useEffect(() => {
-    if (!cursor) {
-      console.log(cursor);
-      setProducts([product]);
-    }
-  }, [cursor]);
+  // useEffect(() => {
+  //   if (!cursor) {
+  //     console.log(cursor);
+  //     setProducts([product]);
+  //   }
+  // }, [cursor]);
 
   useEffect(() => {
     if (swiperIndex === products.length - 2 && hasNextPage) {
