@@ -13,6 +13,8 @@ import Layout from "../../components/layout";
 import Image from "next/image";
 import Product from "../../components/product";
 import LoadingImage from "../../components/loading-image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons/faAngleRight";
 
 const CollectionTemplate = ({ collection }) => {
   collection = collection.data.collection;
@@ -161,18 +163,79 @@ const CollectionTemplate = ({ collection }) => {
             </p>
           </div>
         </div>
-        {/* Products */}
-        {products && (
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20">
-            {products.map(product => (
-              <Product
-                key={product.node.id}
-                product={product}
-                collectionHandle={collectionHandle}
+        <div className="containerAll">
+          <div className="containerFilter mt-20">
+            <div className="title-filter mb-5">FILTERS</div>
+            <div className="containerFilterArrow mt-8">
+              <div>Design</div>
+              <FontAwesomeIcon
+                icon={faAngleRight}
+                width={10}
+                style={{ cursor: "pointer" }}
               />
-            ))}
+            </div>
+            <div className="containerFilterArrow mt-8">
+              <div>Colors</div>
+              <FontAwesomeIcon
+                icon={faAngleRight}
+                width={10}
+                style={{ cursor: "pointer" }}
+              />
+            </div>
+            <div className="containerFilterArrow mt-8">
+              <div>Size</div>
+              <FontAwesomeIcon
+                icon={faAngleRight}
+                width={10}
+                style={{ cursor: "pointer" }}
+              />
+            </div>
+            <div className="containerFilterArrow mt-8">
+              <div>Shape</div>
+              <FontAwesomeIcon
+                icon={faAngleRight}
+                width={10}
+                style={{ cursor: "pointer" }}
+              />
+            </div>
+            <div className="containerFilterArrow mt-8">
+              <div>Category</div>
+              <FontAwesomeIcon
+                icon={faAngleRight}
+                width={10}
+                style={{ cursor: "pointer" }}
+              />
+            </div>
+            <div className="containerFilterArrow mt-8">
+              <div>Gender</div>
+              <FontAwesomeIcon
+                icon={faAngleRight}
+                width={10}
+                style={{ cursor: "pointer" }}
+              />
+            </div>
+            <div className="containerFilterArrow mt-8">
+              <div>Material</div>
+              <FontAwesomeIcon
+                icon={faAngleRight}
+                width={10}
+                style={{ cursor: "pointer" }}
+              />
+            </div>
           </div>
-        )}
+          {/* Products */}
+          {products && (
+            <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
+              {products.map(product => (
+                <Product
+                  key={product.node.id}
+                  product={product}
+                  collectionHandle={collectionHandle}
+                />
+              ))}
+            </div>
+          )}
+        </div>
         <div ref={loadRef}></div>
       </AnimatedPage>
       <style jsx="true">
@@ -183,6 +246,27 @@ const CollectionTemplate = ({ collection }) => {
             height: 300px;
             border-radius: 10px;
             overflow: hidden;
+          }
+
+          .containerFilterArrow {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: solid 1px #bebebe;
+            padding-bottom: 10px;
+          }
+
+          .containerAll {
+            display: flex;
+            flex-direction: row;
+            column-gap: 5rem;
+          }
+
+          .containerProduct {
+            width: 100%;
+          }
+
+          .containerFilter {
+            width: 30%;
           }
 
           .container-plp {
