@@ -163,68 +163,81 @@ const CollectionTemplate = ({ collection }) => {
             </p>
           </div>
         </div>
-        <div className="containerAll">
-          <div className="containerFilter mt-20">
-            <div className="title-filter mb-5">FILTERS</div>
-            <div className="containerFilterArrow mt-8">
-              <div>Design</div>
-              <FontAwesomeIcon
-                icon={faAngleRight}
-                width={10}
-                style={{ cursor: "pointer" }}
-              />
+        {isDesktop ? (
+          <div className="containerAll">
+            <div className="containerFilter mt-20">
+              <div className="title-filter mb-5">FILTERS</div>
+              <div className="containerFilterArrow mt-8">
+                <div>Design</div>
+                <FontAwesomeIcon
+                  icon={faAngleRight}
+                  width={10}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <div className="containerFilterArrow mt-8">
+                <div>Colors</div>
+                <FontAwesomeIcon
+                  icon={faAngleRight}
+                  width={10}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <div className="containerFilterArrow mt-8">
+                <div>Size</div>
+                <FontAwesomeIcon
+                  icon={faAngleRight}
+                  width={10}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <div className="containerFilterArrow mt-8">
+                <div>Shape</div>
+                <FontAwesomeIcon
+                  icon={faAngleRight}
+                  width={10}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <div className="containerFilterArrow mt-8">
+                <div>Category</div>
+                <FontAwesomeIcon
+                  icon={faAngleRight}
+                  width={10}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <div className="containerFilterArrow mt-8">
+                <div>Gender</div>
+                <FontAwesomeIcon
+                  icon={faAngleRight}
+                  width={10}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <div className="containerFilterArrow mt-8">
+                <div>Material</div>
+                <FontAwesomeIcon
+                  icon={faAngleRight}
+                  width={10}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
             </div>
-            <div className="containerFilterArrow mt-8">
-              <div>Colors</div>
-              <FontAwesomeIcon
-                icon={faAngleRight}
-                width={10}
-                style={{ cursor: "pointer" }}
-              />
-            </div>
-            <div className="containerFilterArrow mt-8">
-              <div>Size</div>
-              <FontAwesomeIcon
-                icon={faAngleRight}
-                width={10}
-                style={{ cursor: "pointer" }}
-              />
-            </div>
-            <div className="containerFilterArrow mt-8">
-              <div>Shape</div>
-              <FontAwesomeIcon
-                icon={faAngleRight}
-                width={10}
-                style={{ cursor: "pointer" }}
-              />
-            </div>
-            <div className="containerFilterArrow mt-8">
-              <div>Category</div>
-              <FontAwesomeIcon
-                icon={faAngleRight}
-                width={10}
-                style={{ cursor: "pointer" }}
-              />
-            </div>
-            <div className="containerFilterArrow mt-8">
-              <div>Gender</div>
-              <FontAwesomeIcon
-                icon={faAngleRight}
-                width={10}
-                style={{ cursor: "pointer" }}
-              />
-            </div>
-            <div className="containerFilterArrow mt-8">
-              <div>Material</div>
-              <FontAwesomeIcon
-                icon={faAngleRight}
-                width={10}
-                style={{ cursor: "pointer" }}
-              />
-            </div>
+            {products && (
+              <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
+                {products.map(product => (
+                  <Product
+                    key={product.node.id}
+                    product={product}
+                    collectionHandle={collectionHandle}
+                  />
+                ))}
+              </div>
+            )}
           </div>
-          {/* Products */}
-          {products && (
+        ) : (
+          products && (
             <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
               {products.map(product => (
                 <Product
@@ -234,8 +247,8 @@ const CollectionTemplate = ({ collection }) => {
                 />
               ))}
             </div>
-          )}
-        </div>
+          )
+        )}
         <div ref={loadRef}></div>
       </AnimatedPage>
       <style jsx="true">
