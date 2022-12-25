@@ -1,9 +1,11 @@
 //REACT
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons/faAngleRight";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
 
 const FilterDesktop = () => {
+  const [colors, setColors] = useState(false);
   return (
     <>
       <div className="containerFilter mt-20">
@@ -18,12 +20,58 @@ const FilterDesktop = () => {
         </div>
         <div className="containerFilterArrow mt-8">
           <div>Colors</div>
-          <FontAwesomeIcon
-            icon={faAngleRight}
-            width={10}
-            style={{ cursor: "pointer" }}
-          />
+          {colors === false ? (
+            <FontAwesomeIcon
+              icon={faAngleRight}
+              width={10}
+              style={{ cursor: "pointer" }}
+              onClick={() => setColors(true)}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faChevronDown}
+              width={15}
+              style={{ cursor: "pointer" }}
+              onClick={() => setColors(false)}
+            />
+          )}
         </div>
+        {colors && (
+          <div className="mt-5">
+            <div>
+              <input type="checkbox" />
+              <label className="ml-2">Black</label>
+            </div>
+            <div>
+              <input type="checkbox" />
+              <label className="ml-2">Brown</label>
+            </div>
+            <div>
+              <input type="checkbox" />
+              <label className="ml-2">Red</label>
+            </div>
+            <div>
+              <input type="checkbox" />
+              <label className="ml-2">Blue</label>
+            </div>
+            <div>
+              <input type="checkbox" />
+              <label className="ml-2">Yellow</label>
+            </div>
+            <div>
+              <input type="checkbox" />
+              <label className="ml-2">Green</label>
+            </div>
+            <div>
+              <input type="checkbox" />
+              <label className="ml-2">Gold</label>
+            </div>
+            <div>
+              <input type="checkbox" />
+              <label className="ml-2">Silver</label>
+            </div>
+          </div>
+        )}
         <div className="containerFilterArrow mt-8">
           <div>Size</div>
           <FontAwesomeIcon
