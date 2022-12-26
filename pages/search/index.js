@@ -18,8 +18,8 @@ import createHandle from "../../hooks/createHandle";
 import { FormattedNumber } from "react-intl";
 
 const searchClient = algoliasearch(
-  process.env.NEXT_PUBLIC_ALGOLIA_APP_ID!,
-  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ADMIN_KEY!
+  process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ADMIN_KEY
 );
 
 const SearchPage = () => {
@@ -29,7 +29,7 @@ const SearchPage = () => {
   console.log(textSearch);
 
   useEffect(() => {
-    setTextSearch(text as string);
+    setTextSearch(text);
   }, [text]);
 
   // const queryHook = (query: any, search: any) => {
@@ -42,7 +42,7 @@ const SearchPage = () => {
       <div className="mt-20">
         <InstantSearch indexName="shopify_products" searchClient={searchClient}>
           {/* <SearchBox queryHook={queryHook} /> */}
-          <Configure hitsPerPage={8} query={textSearch as string} />
+          <Configure hitsPerPage={8} query={textSearch} />
           <InfiniteHits hitComponent={Hit} key={textSearch} />
         </InstantSearch>
       </div>
