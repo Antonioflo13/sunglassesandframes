@@ -3,12 +3,16 @@ import Link from "next/link";
 // import { Highlight } from "react-instantsearch-dom";
 import createHandle from "../hooks/createHandle";
 import { FormattedNumber } from "react-intl";
+import { InfiniteHits } from "./infiniteHits";
+import { useRouter } from "next/router";
 
 export const HitCollection = props => {
+  console.log(props.hit);
+  // if (props.hit.image) {
   return (
     <div
       onClick={props.onClose}
-      style={{ display: props.hit.image ? "block" : "none" }}
+      // style={{ display: props.hit.image ? "block" : "none" }}
     >
       <Link href={`/designers/${props.hit.handle}`}>
         <div className="w-full flex flex-col items-center text-center">
@@ -34,9 +38,12 @@ export const HitCollection = props => {
       </Link>
     </div>
   );
+  // }
 };
 
 export const HitProduct = props => {
+  console.log(props.hit);
+  // if (props.hit.variants_inventory_count > 0 || props.hit.image) {
   return (
     <div onClick={props.onClose}>
       <Link
@@ -80,36 +87,72 @@ export const HitProduct = props => {
       </Link>
     </div>
   );
+  // }
 };
 
-const InfiniteHits = ({ hits, hasMore, refineNext, type, onClose }) => (
-  <div className="ais-InfiniteHits">
-    <ol className="ais-InfiniteHits-list">
-      {hits.map(hit => (
-        <div
-          className="ais-InfiniteHits-item"
-          key={hit.id}
-          style={{
-            display:
-              !hit.image || hit.variants_inventory_count === 0
-                ? "none"
-                : "block",
-          }}
-        >
-          {type === "designer" && <HitCollection hit={hit} onClose={onClose} />}
-          {type === "product" && <HitProduct hit={hit} onClose={onClose} />}
-        </div>
-      ))}
-    </ol>
-    <button
-      className="ais-InfiniteHits-loadMore"
-      disabled={!hasMore}
-      style={{ display: hasMore ? "block" : "none" }}
-      onClick={refineNext}
-    >
-      Show more
-    </button>
-  </div>
-);
+const InfiniteHitsParent = ({
+  hits,
+  hasMore,
+  refineNext,
+  type,
+  onClose,
+  searchText,
+}) => {
+  const router = useRouter();
+  const goToSearchPage = link => {
+    refineNext();
+    onClose();
+    router.push(link);
+  };
 
-export const CustomInfiniteHits = connectInfiniteHits(InfiniteHits);
+  return (
+    <div className="ais-InfiniteHits">
+      <ol className="ais-InfiniteHits-list">
+        {hits.map(hit => (
+          <div
+            className="ais-InfiniteHits-item"
+            key={hit.id}
+            // style={{
+            //   display:
+            //     !hit.image || hit.variants_inventory_count === 0
+            //       ? "none"
+            //       : "block",
+            // }}
+          >
+            {type === "designer" && (
+              <HitCollection hit={hit} onClose={onClose} />
+            )}
+            {type === "product" && <HitProduct hit={hit} onClose={onClose} />}
+          </div>
+        ))}
+      </ol>
+      <div className="flex justify-center mt-2 mb-4">
+        {type === "designer" && (
+          <button
+            className="ais-InfiniteHits-loadMore"
+            disabled={!hasMore}
+            // style={{ display: hasMore ? "block" : "none" }}
+            onClick={refineNext}
+          >
+            Show More
+          </button>
+        )}
+        {type === "product" && (
+          <button
+            className="uppercase font-sans font-bold"
+            disabled={!hasMore}
+            style={{ display: hasMore ? "block" : "none" }}
+            onClick={() => goToSearchPage(`/search?text=${searchText}`)}
+          >
+            <p className="relative font-bold pb-0">
+              Show all results
+              <p className="absolute top-[50%] translate-y-[-25%] left-[-5%] bg-yellow-300 w-[110%] h-[20%] rounded opacity-40"></p>
+            </p>
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export const CustomInfiniteHits = connectInfiniteHits(InfiniteHitsParent);

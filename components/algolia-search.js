@@ -12,6 +12,7 @@ import {
   Pagination,
   InfiniteHits,
   Index,
+  // RefinementList,
 } from "react-instantsearch-dom";
 import Link from "next/link";
 import AlgoliaSearchInput from "./AlgoliaSearchInput";
@@ -28,14 +29,22 @@ const AlgoliaSearch = props => {
   );
 
   const [activeSearch, setActiveSearch] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   const showProducts = value => {
+    // setActiveSearch(true);
+    setSearchText(value);
     setActiveSearch(value && value.trim() !== "" && value.length >= 3);
   };
 
   return (
     <InstantSearch indexName="shopify_products" searchClient={searchClient}>
-      <Configure hitsPerPage={300} />
+      <Configure hitsPerPage={4} />
+      {/* <CurrentRefinements
+        transformItems={items =>
+          items.filter(item => item.inventory_quantity > 0)
+        }
+      /> */}
       <div className="flex justify-center items-center mb-3">
         <Link href="/">
           <Image src={logo.src} width={150} height={100} alt="logo" />
@@ -66,6 +75,7 @@ const AlgoliaSearch = props => {
               hasMore={false}
               hits={props.hits}
               type="product"
+              searchText={searchText}
               onClose={props.onClose}
             />
           </Index>
