@@ -234,3 +234,14 @@ body {
     display: block;
   }
 }
+
+.ais-InfiniteHits-loadMore {
+  background-color: #000;
+  color: #fff;
+  padding: 0.5rem 0.5rem;
+  border-radius: 2rem;
+}
+
+.ais-InfiniteHits-loadMore:disabled {
+  display: none;
+}
