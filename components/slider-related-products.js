@@ -6,9 +6,10 @@ import Link from "next/link";
 
 const sliderRelatedProducts = props => {
   const { relatedProducts, collectionHandle } = props;
+  console.log(relatedProducts);
   return (
     <>
-      <div>
+      <div className="mb-16">
         <div className="mt-16 text-2xs font-bold">
           <FormattedMessage id="product.related_products_title" />
         </div>
@@ -28,7 +29,6 @@ const sliderRelatedProducts = props => {
               },
             }}
           >
-            <div></div>
             {relatedProducts?.map(item => (
               <SwiperSlide key={item.id}>
                 <Link
@@ -44,16 +44,16 @@ const sliderRelatedProducts = props => {
                     <img
                       className="img-product"
                       src={
-                        item.variants.edges[0].node.product.images.nodes[0]
-                          .originalSrc
+                        item.node.variants.edges[0].node.product.images.nodes[1]
+                          .transformedSrc
                       }
                       alt="product"
                     />
                     <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead">
-                      {item.vendor}
+                      {item.node.vendor}
                     </div>
                     <div className="text-xs uppercase font-bold">
-                      {item.title}
+                      {item.node.title}
                     </div>
                   </div>
                 </Link>
@@ -65,6 +65,7 @@ const sliderRelatedProducts = props => {
       <style jsx="true">{`
         .container-slider {
           cursor: pointer;
+          text-align: center;
           width: 100%;
         }
         @media (max-width: 768px) {
@@ -72,41 +73,6 @@ const sliderRelatedProducts = props => {
             cursor: pointer;
             width: 160px;
           }
-        }
-        #swiper-related-products .sliderCollection {
-          padding-bottom: 40px;
-          max-width: 83rem;
-          margin-left: auto;
-          margin-right: auto;
-        }
-
-        #swiper-related-products .swiper-wrapper {
-          transform: translate3d(-1328.28px, 0px, 0px);
-        }
-
-        #swiper-related-products .swiper-slide {
-          text-align: center;
-          font-size: 18px;
-          background: #fff;
-          display: -webkit-box;
-          display: -ms-flexbox;
-          display: -webkit-flex;
-          display: flex;
-          -webkit-box-pack: center;
-          -ms-flex-pack: center;
-          -webkit-justify-content: center;
-          justify-content: center;
-          -webkit-box-align: center;
-          -ms-flex-align: center;
-          -webkit-align-items: center;
-          align-items: center;
-        }
-
-        #swiper-related-products .swiper-slide img {
-          display: block;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
         }
       `}</style>
     </>

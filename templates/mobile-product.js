@@ -19,6 +19,7 @@ import Footer from "../components/footer";
 import { css } from "emotion";
 import Image from "next/image";
 import { getCollection } from "../api/collections";
+import InfoMobile from "../components/infoMobile";
 
 const MobileProductTemplate = props => {
   const {
@@ -317,24 +318,13 @@ const MobileProductTemplate = props => {
                           __html: product.node.descriptionHtml,
                         }}
                       />
-                      <div
-                        className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
-                        dangerouslySetInnerHTML={{
-                          __html: product.node.descriptionHtml,
-                        }}
-                      />
-                      <div
-                        className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
-                        dangerouslySetInnerHTML={{
-                          __html: product.node.descriptionHtml,
-                        }}
-                      />
-                      {/*{relatedProducts.length > 0 && (*/}
-                      {/*  <SliderRelatedProducts*/}
-                      {/*    relatedProducts={relatedProducts}*/}
-                      {/*    collectionHandle={collectionHandle}*/}
-                      {/*  />*/}
-                      {/*)}*/}
+                      {relatedProducts.length > 0 && (
+                        <SliderRelatedProducts
+                          relatedProducts={relatedProducts}
+                          collectionHandle={collectionHandle}
+                        />
+                      )}
+                      <InfoMobile />
                     </div>
                     <Footer />
                   </div>
@@ -345,7 +335,7 @@ const MobileProductTemplate = props => {
       </Swiper>
       <style jsx="true">{`
         .image-container {
-          position: relative;
+          display: flex;
           height: 100%;
           width: 80%;
         }
@@ -359,9 +349,8 @@ const MobileProductTemplate = props => {
         .title-product {
           position: absolute;
           bottom: 55%;
-          left: -10%;
           font-size: 12px;
-          z-index: 2;
+          z-index: 1;
           transform: rotate(270deg);
         }
 
