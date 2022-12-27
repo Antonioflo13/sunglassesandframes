@@ -6,7 +6,6 @@ import Link from "next/link";
 
 const sliderRelatedProducts = props => {
   const { relatedProducts, collectionHandle } = props;
-  console.log(relatedProducts);
   return (
     <>
       <div className="mb-16">
