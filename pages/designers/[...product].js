@@ -68,7 +68,7 @@ const Product = ({
     }
 
     const items = {
-      variantId: product.node.variants.edges[0].node.id,
+      variantId: singleProduct.node.variants.edges[0].node.id,
       quantity: 1,
     };
 
