@@ -31,7 +31,7 @@ const GalleryProducts = ({ images }) => {
               sizes="100%"
               priority={true}
               onLoadingComplete={() => setIsLoadingImage(false)}
-              style={{ objectFit: "contain", transform: "scale(1.5)" }}
+              style={{ objectFit: "cover" }}
               src={firstImage}
               alt="main-image"
             />
@@ -68,8 +68,9 @@ const GalleryProducts = ({ images }) => {
         }
         .containerMainImage {
           position: relative;
-          width: 100%;
-          height: 400px;
+          width: 75%;
+          height: 350px;
+          margin: 0 auto;
         }
         .containerImageTubler {
           display: flex;

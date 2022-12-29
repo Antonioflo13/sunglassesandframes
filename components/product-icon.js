@@ -82,7 +82,8 @@ const ProductIcon = ({ fontSize }) => {
             width: 30px;
           }
           .text-container {
-            font-size: 0.65rem;
+            font-size: 0.55rem;
+            color: #0a0a0a;
           }
         }
       `}</style>
