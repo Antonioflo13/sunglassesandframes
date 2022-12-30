@@ -245,3 +245,17 @@ body {
 .ais-InfiniteHits-loadMore:disabled {
   display: none;
 }
+
+.swiper-pagination-vertical.swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-vertical > .swiper-pagination-bullets .swiper-pagination-bullet {
+  border: 1px solid black;
+  background: white;
+  opacity: 1;
+  margin-bottom: 15px;
+  width: 6px;
+  height: 6px;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #000 !important;
+}

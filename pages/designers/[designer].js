@@ -246,7 +246,7 @@ const CollectionTemplate = ({ collection }) => {
               </>
             )}
           </div>
-          <div className="container-text-filter">
+          <div className="container-text">
             {collection.metafield && (
               <div className="collection-logo-container">
                 <Image
@@ -324,6 +324,11 @@ const CollectionTemplate = ({ collection }) => {
             width: 100px;
             height: 30px;
           }
+
+          .container-text {
+            width: 50%;
+          }
+
           @media (max-width: 768px) {
             .img-headerCollection {
               height: 200px;

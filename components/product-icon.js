@@ -44,7 +44,7 @@ const ProductIcon = ({ fontSize }) => {
   return (
     <>
       <div className="flex justify-between items-center w-full mt-4 mb-4 compatto">
-        {/* {icons.map((icon, index) => (
+        {icons.map((icon, index) => (
           <div
             key={index}
             className={`"flex flex-col justify-center items-center mx-2 order-${icon.position}`}
@@ -61,7 +61,7 @@ const ProductIcon = ({ fontSize }) => {
               <FormattedMessage id={icon.description} />
             </div>
           </div>
-        ))} */}
+        ))}
       </div>
       <style jsx="true">{`
         .icon {
@@ -82,7 +82,8 @@ const ProductIcon = ({ fontSize }) => {
             width: 30px;
           }
           .text-container {
-            font-size: 0.65rem;
+            font-size: 0.55rem;
+            color: #0a0a0a;
           }
         }
       `}</style>

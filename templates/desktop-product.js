@@ -12,6 +12,7 @@ import {
 import Label from "../components/label";
 import ProductIcon from "../components/product-icon";
 import Product from "../components/product";
+import Footer from "../components/footer";
 
 const DesktopProduct = props => {
   const {
@@ -95,7 +96,7 @@ const DesktopProduct = props => {
             )}
           </div>
           <ProductIcon />
-          <div className="grid grid-cols-2 gap-x-2">
+          <div className="grid grid-cols-2 gap-x-2 customColorPDP">
             {colorProducts.map(product => (
               <Link
                 key={product.node.id}
@@ -158,7 +159,10 @@ const DesktopProduct = props => {
           <div className="my-20 text-xs text-center px-5">
             <FormattedMessage id="home.slider_monthly.text" />
           </div>
-          <div className="overflow-x-scroll" style={{ marginTop: "5rem" }}>
+          <div
+            className="overflow-x-scroll"
+            style={{ marginTop: "5rem", marginBottom: "5rem" }}
+          >
             <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20">
               {relatedProducts.map((product, index) => (
                 <Product
@@ -192,18 +196,6 @@ const DesktopProduct = props => {
             animation: fadeIn 0.2s linear;
           }
 
-          @media (max-width: 768px) {
-            .button-price button {
-              width: 90% !important;
-              height: 45px !important;
-            }
-          }
-
-          @media (min-width: 1440px) {
-            .button-price button {
-              width: 20vw !important;
-            }
-          }
           .buyContainer {
             width: 40%;
           }
@@ -232,6 +224,25 @@ const DesktopProduct = props => {
           .customTemplate {
             display: flex;
             justify-content: center;
+          }
+
+          .customColorPDP {
+            width: 70%;
+            align-self: center;
+            margin-top: 15px;
+          }
+
+          @media (max-width: 768px) {
+            .button-price button {
+              width: 90% !important;
+              height: 45px !important;
+            }
+          }
+
+          @media (min-width: 1440px) {
+            .button-price button {
+              width: 20vw !important;
+            }
           }
         `}
       </style>

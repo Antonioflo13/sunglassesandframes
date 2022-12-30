@@ -23,6 +23,7 @@ import DesktopProduct from "../../templates/desktop-product";
 import MobileProduct from "../../templates/mobile-product";
 import Layout from "../../components/layout";
 import Head from "next/head";
+import Footer from "../../components/footer";
 
 const Product = ({
   resProduct,
@@ -68,7 +69,7 @@ const Product = ({
     }
 
     const items = {
-      variantId: product.node.variants.edges[0].node.id,
+      variantId: singleProduct.node.variants.edges[0].node.id,
       quantity: 1,
     };
 
@@ -180,6 +181,7 @@ const Product = ({
           />
         )}
       </AnimatedPage>
+      {isDesktop && <Footer />}
     </Layout>
   );
 };
