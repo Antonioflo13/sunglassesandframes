@@ -14,6 +14,7 @@ import Image from "next/image";
 import Product from "../../components/product";
 import LoadingImage from "../../components/loading-image";
 import FilterDesktop from "../../components/filterDesktop";
+import { filter } from "lodash-es";
 
 const CollectionTemplate = ({ collection }) => {
   collection = collection.data.collection;
@@ -30,6 +31,7 @@ const CollectionTemplate = ({ collection }) => {
 
   //STATE
   const [products, setProducts] = useState([]);
+  const [filterObj, setFilterObj] = useState({});
 
   const [isLoadingImage, setIsLoadingImage] = useState(true);
 
@@ -91,6 +93,106 @@ const CollectionTemplate = ({ collection }) => {
       });
     }
   }, [loadMore, hasMore]); //eslint-disable-line
+
+  const mapArray = ({
+    arrProducts,
+    OptionsOrTags,
+    type,
+    key,
+    logic,
+    tagArray,
+  }) => {
+    let filtered = [];
+    if (OptionsOrTags) {
+      if (type === "options") {
+        arrProducts.map(product => {
+          const option = product.node[type].find(el => el.name === key);
+          if (option) {
+            for (let element of option.values) {
+              filtered.push(element);
+            }
+          }
+        });
+      } else {
+        arrProducts.map(product => {
+          const tags = product.node.tags;
+          if (tags) {
+            for (let element of tags) {
+              if (tagArray.includes(element)) {
+                filtered.push(element);
+              }
+            }
+          }
+        });
+      }
+    } else {
+      filtered = arrProducts.map(logic);
+    }
+    let setFiltered = [...new Set(filtered)];
+    return setFiltered;
+  };
+
+  // Filter Products
+  useEffect(() => {
+    let color = mapArray({
+      arrProducts: products,
+      OptionsOrTags: true,
+      type: "options",
+      key: "Color",
+    });
+    let design = mapArray({
+      arrProducts: products,
+      OptionsOrTags: false,
+      logic: product => product.node.vendor,
+    });
+    let size = mapArray({
+      arrProducts: products,
+      OptionsOrTags: true,
+      type: "options",
+      key: "Taglia",
+    });
+    let shape = mapArray({
+      arrProducts: products,
+      OptionsOrTags: true,
+      type: "options",
+      key: "Stile",
+    });
+    let gender = mapArray({
+      arrProducts: products,
+      OptionsOrTags: true,
+      type: "tags",
+      tagArray: ["Man", "Woman", "Unisex"],
+    });
+    let category = mapArray({
+      arrProducts: products,
+      OptionsOrTags: true,
+      type: "tags",
+      tagArray: ["SUNGLASSES", "FRAMES"],
+    });
+    let material = mapArray({
+      arrProducts: products,
+      OptionsOrTags: true,
+      type: "options",
+      key: "Materiale",
+    });
+
+    // console.log(products);
+    setFilterObj({
+      ...filterObj,
+      design,
+      color,
+      size,
+      shape,
+      category,
+      gender,
+      material,
+    });
+  }, [products]);
+
+  // useEffect(() => {
+  //   console.log(filterObj);
+  // }, [filterObj]);
+
   return (
     <Layout>
       <Head>
@@ -164,7 +266,7 @@ const CollectionTemplate = ({ collection }) => {
         </div>
         {isDesktop ? (
           <div className="containerAll">
-            <FilterDesktop />
+            <FilterDesktop filterObj={filterObj} />
             {products && (
               <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
                 {products.map(product => (

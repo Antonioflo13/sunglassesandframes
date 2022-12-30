@@ -1,117 +1,82 @@
 //REACT
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons/faAngleRight";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
+import Image from "next/image";
+import FilterIcon from "../assets/images/filter-icon.png";
 
-const FilterDesktop = () => {
-  const [colors, setColors] = useState(false);
+const FilterDesktop = ({ filterObj }) => {
+  const [activeFilters, setActiveFilters] = useState([]);
+  const [filters, setFilters] = useState([]);
+
+  useEffect(() => {
+    let arr = [];
+    for (let obj in filterObj) {
+      arr.push({ label: obj, value: filterObj[obj] });
+    }
+    setFilters(arr);
+  }, [filterObj]);
+
+  useEffect(() => {
+    console.log({ activeFilters, filters });
+  }, [activeFilters]);
+
+  const toggleActiveFilters = value => {
+    if (activeFilters.length > 0 && activeFilters.includes(value)) {
+      setActiveFilters(prevState => prevState.filter(el => el !== value));
+    } else {
+      setActiveFilters([...activeFilters, value]);
+    }
+  };
   return (
     <>
       <div className="containerFilter mt-20">
-        <div className="title-filter mb-5">FILTERS</div>
-        <div className="containerFilterArrow mt-8">
-          <div>Design</div>
-          <FontAwesomeIcon
-            icon={faAngleRight}
-            width={10}
-            style={{ cursor: "pointer" }}
+        <div className="title-filter mb-5">
+          <Image
+            src={FilterIcon}
+            alt="filter-icon"
+            width={24}
+            height={24}
+            className="inline mr-5"
           />
+          FILTERS
         </div>
-        <div className="containerFilterArrow mt-8">
-          <div>Colors</div>
-          {colors === false ? (
-            <FontAwesomeIcon
-              icon={faAngleRight}
-              width={10}
-              style={{ cursor: "pointer" }}
-              onClick={() => setColors(true)}
-            />
-          ) : (
-            <FontAwesomeIcon
-              icon={faChevronDown}
-              width={15}
-              style={{ cursor: "pointer" }}
-              onClick={() => setColors(false)}
-            />
-          )}
-        </div>
-        {colors && (
-          <div className="mt-5">
-            <div>
-              <input type="checkbox" />
-              <label className="ml-2">Black</label>
+        {filters.length > 0 &&
+          filters.map(filter => (
+            <div key={filter.label}>
+              <div className="containerFilterArrow mt-8">
+                <div>
+                  {filter.label.charAt(0).toUpperCase() + filter.label.slice(1)}
+                </div>
+                {!activeFilters.includes(filter.label) ? (
+                  <FontAwesomeIcon
+                    icon={faAngleRight}
+                    width={10}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => toggleActiveFilters(filter.label)}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faChevronDown}
+                    width={15}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => toggleActiveFilters(filter.label)}
+                  />
+                )}
+              </div>
+              {activeFilters.includes(filter.label) && filter.value.length > 0 && (
+                <div className="mt-5">
+                  {filter.value.map(val => (
+                    <div key={val}>
+                      <input type="checkbox" />
+                      <label className="ml-2">{val}</label>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-            <div>
-              <input type="checkbox" />
-              <label className="ml-2">Brown</label>
-            </div>
-            <div>
-              <input type="checkbox" />
-              <label className="ml-2">Red</label>
-            </div>
-            <div>
-              <input type="checkbox" />
-              <label className="ml-2">Blue</label>
-            </div>
-            <div>
-              <input type="checkbox" />
-              <label className="ml-2">Yellow</label>
-            </div>
-            <div>
-              <input type="checkbox" />
-              <label className="ml-2">Green</label>
-            </div>
-            <div>
-              <input type="checkbox" />
-              <label className="ml-2">Gold</label>
-            </div>
-            <div>
-              <input type="checkbox" />
-              <label className="ml-2">Silver</label>
-            </div>
-          </div>
-        )}
-        <div className="containerFilterArrow mt-8">
-          <div>Size</div>
-          <FontAwesomeIcon
-            icon={faAngleRight}
-            width={10}
-            style={{ cursor: "pointer" }}
-          />
-        </div>
-        <div className="containerFilterArrow mt-8">
-          <div>Shape</div>
-          <FontAwesomeIcon
-            icon={faAngleRight}
-            width={10}
-            style={{ cursor: "pointer" }}
-          />
-        </div>
-        <div className="containerFilterArrow mt-8">
-          <div>Category</div>
-          <FontAwesomeIcon
-            icon={faAngleRight}
-            width={10}
-            style={{ cursor: "pointer" }}
-          />
-        </div>
-        <div className="containerFilterArrow mt-8">
-          <div>Gender</div>
-          <FontAwesomeIcon
-            icon={faAngleRight}
-            width={10}
-            style={{ cursor: "pointer" }}
-          />
-        </div>
-        <div className="containerFilterArrow mt-8">
-          <div>Material</div>
-          <FontAwesomeIcon
-            icon={faAngleRight}
-            width={10}
-            style={{ cursor: "pointer" }}
-          />
-        </div>
+          ))}
       </div>
 
       <style jsx="true">
