@@ -7,26 +7,35 @@ import Image from "next/image";
 import FilterIcon from "../assets/images/filter-icon.png";
 
 const FilterDesktop = ({ filterObj }) => {
-  const [activeFilters, setActiveFilters] = useState([]);
   const [filters, setFilters] = useState([]);
 
   useEffect(() => {
     let arr = [];
     for (let obj in filterObj) {
-      arr.push({ label: obj, value: filterObj[obj] });
+      arr.push({
+        label: obj,
+        value: filterObj[obj],
+        isActive: false,
+        active: [],
+      });
     }
+    arr = arr.filter(obj => obj.value.length > 1);
+
     setFilters(arr);
   }, [filterObj]);
 
-  useEffect(() => {
-    console.log({ activeFilters, filters });
-  }, [activeFilters]);
-
   const toggleActiveFilters = value => {
-    if (activeFilters.length > 0 && activeFilters.includes(value)) {
-      setActiveFilters(prevState => prevState.filter(el => el !== value));
+    const newFilters = [...filters];
+    let activeFilter = newFilters.find(filter => filter.label === value.label);
+    if (
+      newFilters.length > 0 &&
+      newFilters.find(filter => filter.label === value.label).isActive === false
+    ) {
+      activeFilter.isActive = true;
+      setFilters(newFilters);
     } else {
-      setActiveFilters([...activeFilters, value]);
+      activeFilter.isActive = false;
+      setFilters(newFilters);
     }
   };
   return (
@@ -49,23 +58,23 @@ const FilterDesktop = ({ filterObj }) => {
                 <div>
                   {filter.label.charAt(0).toUpperCase() + filter.label.slice(1)}
                 </div>
-                {!activeFilters.includes(filter.label) ? (
+                {!filter.isActive ? (
                   <FontAwesomeIcon
                     icon={faAngleRight}
                     width={10}
                     style={{ cursor: "pointer" }}
-                    onClick={() => toggleActiveFilters(filter.label)}
+                    onClick={() => toggleActiveFilters(filter)}
                   />
                 ) : (
                   <FontAwesomeIcon
                     icon={faChevronDown}
                     width={15}
                     style={{ cursor: "pointer" }}
-                    onClick={() => toggleActiveFilters(filter.label)}
+                    onClick={() => toggleActiveFilters(filter)}
                   />
                 )}
               </div>
-              {activeFilters.includes(filter.label) && filter.value.length > 0 && (
+              {filter.isActive && filter.value.length > 0 && (
                 <div className="mt-5">
                   {filter.value.map(val => (
                     <div key={val}>
