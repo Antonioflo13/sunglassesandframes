@@ -3,13 +3,17 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons/faAngleRight";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
+import iconFilters from "../assets/images/icon-filter.png";
 
 const FilterDesktop = () => {
   const [colors, setColors] = useState(false);
   return (
     <>
       <div className="containerFilter mt-20">
-        <div className="title-filter mb-5">FILTERS</div>
+        <div style={{ display: "flex", gap: "0.5rem", height: "15px" }}>
+          <img className="iconFilter" src={iconFilters.src} alt="iconFilters" />
+          <div className="title-filter mb-5">FILTERS</div>
+        </div>
         <div className="containerFilterArrow mt-8">
           <div>Design</div>
           <FontAwesomeIcon
@@ -116,6 +120,11 @@ const FilterDesktop = () => {
 
       <style jsx="true">
         {`
+          .iconFilter {
+            width: 15px;
+            margin-top: 5px;
+            height: 15px;
+          }
           .containerFilterArrow {
             display: flex;
             justify-content: space-between;
