@@ -14,7 +14,6 @@ import Image from "next/image";
 import Product from "../../components/product";
 import LoadingImage from "../../components/loading-image";
 import FilterDesktop from "../../components/filterDesktop";
-import { filter } from "lodash-es";
 
 const CollectionTemplate = ({ collection }) => {
   collection = collection.data.collection;
@@ -32,6 +31,7 @@ const CollectionTemplate = ({ collection }) => {
   //STATE
   const [products, setProducts] = useState([]);
   const [filterObj, setFilterObj] = useState({});
+  const [filters, setFilters] = useState([]);
 
   const [isLoadingImage, setIsLoadingImage] = useState(true);
 
@@ -61,7 +61,56 @@ const CollectionTemplate = ({ collection }) => {
     }
   };
 
+  const onFilterHandler = filtersArray => {
+    let arr = [];
+    for (let filter of filtersArray) {
+      if (filter.active.length) {
+        arr.push({ filterLabel: filter.label, filterValue: filter.active });
+      }
+    }
+    setFilters(arr);
+    // setFilters(filters);
+  };
+
+  const filterProducts = () => {
+    let productsArray = [...products];
+    let arr = [];
+    for (let filter of filters) {
+      console.log(filter);
+      switch (filter.filterLabel) {
+        case "Color":
+        case "Material":
+        case "Size":
+        case "Shape":
+          for (let value of filter.filterValue) {
+            let filtered = productsArray.filter(product => {
+              const options = product.node.options.find(
+                el => el.name === filter.filterLabel
+              );
+              if (options) {
+                return options.values.includes(value);
+              } else {
+                return false;
+              }
+            });
+
+            arr.push(filtered);
+          }
+      }
+    }
+    setFilters(arr);
+  };
   //EFFECT
+  useEffect(() => {
+    filterProducts();
+  }, [filters]);
+
+  // useEffect(() => {
+  //   if (filters.length) {
+  //     setProducts(filters);
+  //   }
+  // }, [filters]);
+
   useEffect(() => {
     setProducts(collection.products.edges);
   }, [collection]);
@@ -189,10 +238,6 @@ const CollectionTemplate = ({ collection }) => {
     });
   }, [products]);
 
-  // useEffect(() => {
-  //   console.log(filterObj);
-  // }, [filterObj]);
-
   return (
     <Layout>
       <Head>
@@ -266,7 +311,10 @@ const CollectionTemplate = ({ collection }) => {
         </div>
         {isDesktop ? (
           <div className="containerAll">
-            <FilterDesktop filterObj={filterObj} />
+            <FilterDesktop
+              filterObj={filterObj}
+              filterHandler={onFilterHandler}
+            />
             {products && (
               <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
                 {products.map(product => (

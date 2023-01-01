@@ -6,14 +6,14 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
 import Image from "next/image";
 import FilterIcon from "../assets/images/filter-icon.png";
 
-const FilterDesktop = ({ filterObj }) => {
+const FilterDesktop = ({ filterObj, filterHandler }) => {
   const [filters, setFilters] = useState([]);
 
   useEffect(() => {
     let arr = [];
     for (let obj in filterObj) {
       arr.push({
-        label: obj,
+        label: obj.charAt(0).toUpperCase() + obj.slice(1),
         value: filterObj[obj],
         isActive: false,
         active: [],
@@ -38,6 +38,21 @@ const FilterDesktop = ({ filterObj }) => {
       setFilters(newFilters);
     }
   };
+
+  const toggleStringArrayToFilters = (event, obj, string) => {
+    let filtersArray = [...filters];
+    let filterObj = filtersArray.find(filter => filter.label === obj.label);
+    if (!event.target.checked) {
+      filterObj.active = filterObj.active.filter(act => act !== string);
+    } else {
+      filterObj.active.push(string);
+    }
+    setFilters(filtersArray);
+  };
+
+  useEffect(() => {
+    filterHandler(filters);
+  }, [filters]);
   return (
     <>
       <div className="containerFilter mt-20">
@@ -78,8 +93,20 @@ const FilterDesktop = ({ filterObj }) => {
                 <div className="mt-5">
                   {filter.value.map(val => (
                     <div key={val}>
-                      <input type="checkbox" />
-                      <label className="ml-2">{val}</label>
+                      <label
+                        htmlFor={val}
+                        onClick={e =>
+                          toggleStringArrayToFilters(event, filter, val)
+                        }
+                      >
+                        <input
+                          type="checkbox"
+                          id={val}
+                          name={val}
+                          className="mr-1"
+                        />
+                        {val}
+                      </label>
                     </div>
                   ))}
                 </div>
