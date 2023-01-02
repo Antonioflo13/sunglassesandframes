@@ -187,8 +187,14 @@ export const Navbar = () => {
           className="text-black font-semibold text-xs md:text-sm"
           style={{ fontSize: "10px" }}
         >
-          <img src={cartIcon.src} width={20} alt="cart-icon" />
-          {/* <div>({totalQuantity})</div> */}
+          <div className="relative">
+            <img src={cartIcon.src} width={20} alt="cart-icon" />
+            {totalQuantity > 0 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <div className="badge">{totalQuantity}</div>
+              </motion.div>
+            )}
+          </div>
         </Link>
       </div>
       {isDesktop && (
@@ -383,6 +389,22 @@ export const Navbar = () => {
       <style jsx="true">{`
         .logo {
           width: 10em;
+        }
+
+        .badge {
+          position: absolute;
+          bottom: -7px;
+          left: 12px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 15px;
+          height: 15px;
+          border-radius: 100%;
+          border: 1px solid white;
+          background: black;
+          font-size: 8px;
+          color: white;
         }
 
         .customWidthHeader {

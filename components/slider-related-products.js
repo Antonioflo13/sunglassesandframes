@@ -9,7 +9,7 @@ const sliderRelatedProducts = props => {
   return (
     <>
       <div className="mb-16">
-        <div className="mt-16 text-2xs font-bold">
+        <div className="mt-16 text-2xs font-bold customStyle">
           <FormattedMessage id="product.related_products_title" />
         </div>
         <div>

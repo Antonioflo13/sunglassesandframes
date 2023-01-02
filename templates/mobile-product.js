@@ -309,21 +309,21 @@ const MobileProductTemplate = props => {
                           </>
                         )}
                       </div>
-                      <div className="mt-10">
-                        <ProductIcon />
-                      </div>
+                      <ProductIcon />
                       <div
                         className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
                         dangerouslySetInnerHTML={{
                           __html: product.node.descriptionHtml,
                         }}
                       />
-                      {relatedProducts.length > 0 && (
-                        <SliderRelatedProducts
-                          relatedProducts={relatedProducts}
-                          collectionHandle={collectionHandle}
-                        />
-                      )}
+                    </div>
+                    {relatedProducts.length > 0 && (
+                      <SliderRelatedProducts
+                        relatedProducts={relatedProducts}
+                        collectionHandle={collectionHandle}
+                      />
+                    )}
+                    <div className="customStyle">
                       <InfoMobile />
                     </div>
                     <Footer />
@@ -347,9 +347,10 @@ const MobileProductTemplate = props => {
         }
 
         .title-product {
-          position: absolute;
+          position: fixed;
           bottom: 55%;
           font-size: 12px;
+          left: -40px;
           z-index: 1;
           transform: rotate(270deg);
         }
