@@ -12,6 +12,8 @@ import {
 } from "../store/modules/monthCollection";
 import { setItemsNavBar } from "../store/modules/itemsNavBar";
 import { setItemsShopBy } from "../store/modules/itemsShopBy";
+//HOOKS
+import useMediaQuery from "../hooks/useMediaQuery";
 //API
 import getAllArticles from "../api/articles";
 import getShopBy from "../api/shopBy";
@@ -25,8 +27,8 @@ import SliderHomeCollection from "../templates/slider-home-collection";
 import SliderArticles from "../components/slider-articles";
 import AnimatedPage from "../components/animated-page";
 import Layout from "../components/layout";
+import Crisp from "../components/crisp";
 import SubscribeForm from "../components/subscribe-form";
-import useMediaQuery from "../hooks/useMediaQuery";
 
 const IndexPage = ({
   articles,
@@ -143,6 +145,7 @@ const IndexPage = ({
           <SliderHomeCollection />
           <SliderMenu allShopBy={allShopBy} />
           {/*{!isDesktop && <SubscribeForm />}*/}
+          {isDesktop && <Crisp />}
           {show && (
             <ModalsIcons
               selectSingleIcon={selectSingleIcon}

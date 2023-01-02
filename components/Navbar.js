@@ -3,10 +3,8 @@ import React, { useState, useEffect } from "react";
 
 //NEXT
 import Link from "next/link";
-import { useRouter } from "next/router";
 //STORE
 import { useDispatch, useSelector } from "react-redux";
-import { setDialogContactShow } from "../store/modules/dialogContact";
 import { setSideBarShow } from "../store/modules/sideBar";
 import { setCartContent } from "../store/modules/cart";
 //HOOKS
@@ -36,11 +34,8 @@ import {
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 
 export const Navbar = () => {
-  //ROUTER
-  const pathName = useRouter().pathname;
   //STORE
   const dispatch = useDispatch();
-  const showDialogContact = useSelector(state => state.dialogContact.value);
   const showSideBar = useSelector(state => state.sideBar.value);
   const cart = useSelector(state => JSON.parse(state.cart.value));
 
@@ -228,12 +223,24 @@ export const Navbar = () => {
             <Link
               href={{
                 pathname: "/designers/[designer]",
-                query: { designer: "new" },
+                query: { designer: "sunglasses" },
               }}
             >
               <button className="link">
                 <div className="flex flex-col justify-center items-center hover:font-bold mackay">
-                  New in
+                  Sunglasses
+                </div>
+              </button>
+            </Link>
+            <Link
+              href={{
+                pathname: "/designers/[designer]",
+                query: { designer: "Frames" },
+              }}
+            >
+              <button className="link">
+                <div className="flex flex-col justify-center items-center hover:font-bold mackay">
+                  Frames
                 </div>
               </button>
             </Link>
