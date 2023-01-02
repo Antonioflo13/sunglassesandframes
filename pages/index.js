@@ -25,7 +25,6 @@ import SliderHomeCollection from "../templates/slider-home-collection";
 import SliderArticles from "../components/slider-articles";
 import AnimatedPage from "../components/animated-page";
 import Layout from "../components/layout";
-import Zendesk from "../components/zendesk";
 import SubscribeForm from "../components/subscribe-form";
 import useMediaQuery from "../hooks/useMediaQuery";
 
@@ -144,7 +143,6 @@ const IndexPage = ({
           <SliderHomeCollection />
           <SliderMenu allShopBy={allShopBy} />
           {/*{!isDesktop && <SubscribeForm />}*/}
-          <Zendesk />
           {show && (
             <ModalsIcons
               selectSingleIcon={selectSingleIcon}

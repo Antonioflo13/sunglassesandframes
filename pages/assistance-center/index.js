@@ -16,7 +16,6 @@ const Index = ({ assistanceCenterInfo, selectedMenu }) => {
 
   //FUNCTIONS
   const executeScroll = menu => {
-    console.log(menu);
     const menuID = document.getElementById(menu).offsetTop;
     const container = document.getElementById("container");
     container.scrollTo({
@@ -61,6 +60,15 @@ const Index = ({ assistanceCenterInfo, selectedMenu }) => {
                 dangerouslySetInnerHTML={{
                   __html: assistanceCenterInfo.description,
                 }}
+              />
+              <iframe
+                title="Contact Form"
+                src={`https://plugins.crisp.chat/urn:crisp.im:contact-form:0/contact/${process.env.NEXT_PUBLIC_CRISP_ID_SITE}&locale=en`}
+                referrerPolicy="origin"
+                sandbox="allow-forms allow-popups allow-scripts"
+                width="100%"
+                height="600px"
+                frameBorder="0"
               />
             </div>
             <div className="container-descriptions-assistance">
