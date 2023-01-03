@@ -34,7 +34,7 @@ const Footer = () => {
             className={`${
               isDesktop
                 ? "customWidthFooter"
-                : "grid gap-y-6 md:grid-cols-5 lg:grid-cols-5 md:gap-x-12 md:gap-y-24 whitespace-pre-line"
+                : "grid gap-y-3 md:grid-cols-5 lg:grid-cols-5 md:gap-x-12 md:gap-y-24 whitespace-pre-line"
             }`}
           >
             <div className="flex justify-center noDesktop">
@@ -63,8 +63,37 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="flex flex-col accordionMobile mobileCenterSocial"></div>
+            {!isDesktop && (
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "15px",
+                    placeContent: "center",
+                  }}
+                >
+                  <FontAwesomeIcon icon={faInstagram} width={15} />
+                  <FontAwesomeIcon icon={faFacebook} width={15} />
+                  <FontAwesomeIcon icon={faTiktok} width={15} />
+                  <FontAwesomeIcon icon={faPinterest} width={15} />
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    placeContent: "center",
+                  }}
+                >
+                  <img src={amex.src} width={35} alt="icon" />
+                  <img src={applepay.src} width={35} alt="icon" />
+                  <img src={visa.src} width={35} alt="icon" />
+                  <img src={mastercard.src} width={35} alt="icon" />
+                  <img src={paypal.src} width={35} alt="icon" />
+                </div>
+              </>
+            )}
             <div className="flex flex-col accordionMobile">
+              <div className="flex flex-col accordionMobile mobileCenterSocial"></div>
               <div
                 className="containerAccordion"
                 onClick={() =>
@@ -270,14 +299,23 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="customWidthFooter">
-          <div
-            className="text-3xs textCenterDesktop justify-center mt-20 mb-8"
-            style={{ maxWidth: "83rem", width: "37%" }}
-          >
-            <FormattedMessage id="footer.legal" />
+        {isDesktop ? (
+          <div className="customWidthFooter">
+            <div
+              className="text-3xs textCenterDesktop justify-center mt-20 mb-8"
+              style={{ maxWidth: "83rem", width: "37%" }}
+            >
+              <FormattedMessage id="footer.legal" />
+            </div>
           </div>
-        </div>
+        ) : (
+          <div
+            className="text-3xs textCenterDesktop justify-center mt-10 mb-8"
+            style={{ textAlignLast: "center" }}
+          >
+            <FormattedMessage id="footer.legal.mobile" />
+          </div>
+        )}
         <style jsx="true">
           {`
             .backgroudcolorfooter {
