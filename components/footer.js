@@ -203,7 +203,7 @@ const Footer = () => {
                 <div className="font-bold uppercase text-sm">
                   <FormattedMessage id="footer.whyus.title" />
                 </div>
-                {accordion.support ? (
+                {accordion.whyus ? (
                   <FontAwesomeIcon
                     icon={faMinus}
                     className="containerIcon"
@@ -218,24 +218,19 @@ const Footer = () => {
                 )}
               </div>
               <AnimatePresence>
-                {accordion.support && (
+                {accordion.whyus && (
                   <motion.div
                     layout
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    <Link to="/faq">
-                      <div className="text-xs mt-2 ">
-                        <FormattedMessage id="footer.support.faq" />
-                      </div>
-                    </Link>
                     <a
                       href="https://sunglassesandframes-vision.myshopify.com/15652721/policies/terms-of-service.html?locale=en"
                       target="_blank"
                     >
                       <div className="text-xs mt-2 ">
-                        <FormattedMessage id="footer.support.terms_and_conditions" />
+                        <FormattedMessage id="footer.about.title" />
                       </div>
                     </a>
                     <a
@@ -243,7 +238,7 @@ const Footer = () => {
                       target="_blank"
                     >
                       <div className="text-xs mt-2 ">
-                        <FormattedMessage id="footer.support.privacy_policy" />
+                        <FormattedMessage id="footer.licensed.title" />
                       </div>
                     </a>
                     <a
@@ -251,7 +246,7 @@ const Footer = () => {
                       target="_blank"
                     >
                       <div className="text-xs mt-2 ">
-                        <FormattedMessage id="footer.support.cookie_policy" />
+                        <FormattedMessage id="footer.promise.title" />
                       </div>
                     </a>
                   </motion.div>
@@ -271,24 +266,6 @@ const Footer = () => {
               <div className="text-xs mt-2 ">
                 <FormattedMessage id="footer.promise.title" />
               </div>
-            </div>
-            <div className="flex flex-col accordionMobile">
-              <div
-                className="containerAccordion"
-                onClick={() =>
-                  setAccordion({ ...accordion, whyus: !accordion.whyus })
-                }
-              ></div>
-              <AnimatePresence>
-                {accordion.wherIs && (
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  ></motion.div>
-                )}
-              </AnimatePresence>
             </div>
           </div>
         </div>
