@@ -259,3 +259,8 @@ body {
 .swiper-pagination-bullet-active {
   background-color: #000 !important;
 }
+
+.swiper-pagination-vertical.swiper-pagination-bullets,
+.swiper-vertical > .swiper-pagination-bullets {
+  top: 45%;
+}
