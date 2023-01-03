@@ -310,8 +310,8 @@ const Footer = () => {
           </div>
         ) : (
           <div
-            className="text-3xs textCenterDesktop justify-center mt-10 mb-8"
-            style={{ textAlignLast: "center" }}
+            className="text-2xs textCenterDesktop justify-center mt-10 mb-8"
+            style={{ textAlignLast: "center", color: "#333333" }}
           >
             <FormattedMessage id="footer.legal.mobile" />
           </div>
