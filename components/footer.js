@@ -21,9 +21,8 @@ import createHandle from "../hooks/createHandle";
 
 const Footer = () => {
   const [accordion, setAccordion] = React.useState({
-    contact: false,
-    support: false,
-    wherIs: false,
+    assistance: false,
+    whyus: false,
   });
   const isDesktop = useMediaQuery(768);
 
@@ -69,13 +68,16 @@ const Footer = () => {
               <div
                 className="containerAccordion"
                 onClick={() =>
-                  setAccordion({ ...accordion, contact: !accordion.contact })
+                  setAccordion({
+                    ...accordion,
+                    assistance: !accordion.assistance,
+                  })
                 }
               >
                 <div className="font-bold uppercase text-sm">
-                  <FormattedMessage id="footer.contacts.title" />
+                  <FormattedMessage id="footer.support.title" />
                 </div>
-                {accordion.contact ? (
+                {accordion.assistance ? (
                   <FontAwesomeIcon
                     icon={faMinus}
                     className="containerIcon"
@@ -90,7 +92,7 @@ const Footer = () => {
                 )}
               </div>
               <AnimatePresence>
-                {accordion.contact && (
+                {accordion.assistance && (
                   <motion.div
                     layout
                     initial={{ opacity: 0 }}
@@ -98,7 +100,25 @@ const Footer = () => {
                     exit={{ opacity: 0 }}
                   >
                     <div className="text-xs mt-2 ">
-                      <FormattedMessage id="footer.contacts.email" />
+                      <FormattedMessage id="footer.contact.title" />
+                    </div>
+                    <div className="text-xs mt-2 ">
+                      <FormattedMessage id="footer.order.title" />
+                    </div>
+                    <div className="text-xs mt-2 ">
+                      <FormattedMessage id="footer.payment.title" />
+                    </div>
+                    <div className="text-xs mt-2 ">
+                      <FormattedMessage id="footer.return.title" />
+                    </div>
+                    <div className="text-xs mt-2 ">
+                      <FormattedMessage id="footer.faq.title" />
+                    </div>
+                    <div className="text-xs mt-2 ">
+                      <FormattedMessage id="footer.terms.title" />
+                    </div>
+                    <div className="text-xs mt-2 ">
+                      <FormattedMessage id="footer.privacy.title" />
                     </div>
                   </motion.div>
                 )}
@@ -177,11 +197,11 @@ const Footer = () => {
               <div
                 className="containerAccordion"
                 onClick={() =>
-                  setAccordion({ ...accordion, support: !accordion.support })
+                  setAccordion({ ...accordion, whyus: !accordion.whyus })
                 }
               >
                 <div className="font-bold uppercase text-sm">
-                  <FormattedMessage id="footer.support.title" />
+                  <FormattedMessage id="footer.whyus.title" />
                 </div>
                 {accordion.support ? (
                   <FontAwesomeIcon
@@ -256,26 +276,9 @@ const Footer = () => {
               <div
                 className="containerAccordion"
                 onClick={() =>
-                  setAccordion({ ...accordion, wherIs: !accordion.wherIs })
+                  setAccordion({ ...accordion, whyus: !accordion.whyus })
                 }
-              >
-                <div className="font-bold uppercase text-sm">
-                  <FormattedMessage id="footer.location.title" />
-                </div>
-                {accordion.wherIs ? (
-                  <FontAwesomeIcon
-                    icon={faMinus}
-                    className="containerIcon"
-                    width={10}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    icon={faPlus}
-                    className="containerIcon"
-                    width={10}
-                  />
-                )}
-              </div>
+              ></div>
               <AnimatePresence>
                 {accordion.wherIs && (
                   <motion.div
