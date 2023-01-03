@@ -32,6 +32,7 @@ const CollectionTemplate = ({ collection }) => {
   const [products, setProducts] = useState([]);
   const [filterObj, setFilterObj] = useState({});
   const [filters, setFilters] = useState([]);
+  const [productsFiltered, setProductsFiltered] = useState([]);
 
   const [isLoadingImage, setIsLoadingImage] = useState(true);
 
@@ -75,12 +76,13 @@ const CollectionTemplate = ({ collection }) => {
   const filterProducts = () => {
     let productsArray = [...products];
     let arr = [];
+    let allFilteredProducts = [];
     for (let filter of filters) {
       console.log(filter);
       switch (filter.filterLabel) {
         case "Color":
-        case "Material":
-        case "Size":
+        case "Materiale":
+        case "Taglia":
         case "Shape":
           for (let value of filter.filterValue) {
             let filtered = productsArray.filter(product => {
@@ -96,20 +98,29 @@ const CollectionTemplate = ({ collection }) => {
 
             arr.push(filtered);
           }
+        case "Design":
+          for (let value of filter.filterValue) {
+            let filtered = productsArray.filter(
+              product => product.node.vendor === value
+            );
+
+            arr.push(filtered);
+          }
       }
     }
-    setFilters(arr);
+
+    for (let filteredProducts of arr) {
+      for (let product of filteredProducts) {
+        allFilteredProducts.push(product);
+      }
+    }
+    let prods = [...new Set(allFilteredProducts)];
+    setProductsFiltered(prods);
   };
-  //EFFECT
+  // EFFECT
   useEffect(() => {
     filterProducts();
   }, [filters]);
-
-  // useEffect(() => {
-  //   if (filters.length) {
-  //     setProducts(filters);
-  //   }
-  // }, [filters]);
 
   useEffect(() => {
     setProducts(collection.products.edges);
@@ -129,19 +140,19 @@ const CollectionTemplate = ({ collection }) => {
   }, []);
 
   // Handle loading more articles
-  useEffect(() => {
-    if (loadMore && hasMore) {
-      getProductByCollection().then(response => {
-        const newProducts = response.data.collection.products.edges;
-        const isMore = response.data.collection.products.pageInfo.hasNextPage;
-        const cursor = response.data.collection.products.pageInfo.endCursor;
-        setCursor(cursor);
-        setHasMore(isMore);
-        setProducts(oldProducts => [...oldProducts, ...newProducts]);
-        setLoadMore(false);
-      });
-    }
-  }, [loadMore, hasMore]); //eslint-disable-line
+  // useEffect(() => {
+  //   if (loadMore && hasMore) {
+  //     getProductByCollection().then(response => {
+  //       const newProducts = response.data.collection.products.edges;
+  //       const isMore = response.data.collection.products.pageInfo.hasNextPage;
+  //       const cursor = response.data.collection.products.pageInfo.endCursor;
+  //       setCursor(cursor);
+  //       setHasMore(isMore);
+  //       setProducts(oldProducts => [...oldProducts, ...newProducts]);
+  //       setLoadMore(false);
+  //     });
+  //   }
+  // }, [loadMore, hasMore]); //eslint-disable-line
 
   const mapArray = ({
     arrProducts,
@@ -229,14 +240,17 @@ const CollectionTemplate = ({ collection }) => {
     setFilterObj({
       ...filterObj,
       design,
-      color,
-      size,
+      Color: color,
+      Taglia: size,
       shape,
       category,
       gender,
       material,
     });
   }, [products]);
+
+  const availabileProducts =
+    productsFiltered.length > 0 ? productsFiltered : products;
 
   return (
     <Layout>
@@ -315,9 +329,9 @@ const CollectionTemplate = ({ collection }) => {
               filterObj={filterObj}
               filterHandler={onFilterHandler}
             />
-            {products && (
+            {availabileProducts && (
               <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
-                {products.map(product => (
+                {availabileProducts.map(product => (
                   <Product
                     key={product.node.id}
                     product={product}
@@ -328,9 +342,9 @@ const CollectionTemplate = ({ collection }) => {
             )}
           </div>
         ) : (
-          products && (
+          availabileProducts && (
             <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
-              {products.map(product => (
+              {availabileProducts.map(product => (
                 <Product
                   key={product.node.id}
                   product={product}
