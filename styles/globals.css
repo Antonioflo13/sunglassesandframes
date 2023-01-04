@@ -84,6 +84,11 @@
   font-display: swap;
 } */
 
+@font-face {
+  font-family: Raleway;
+  src: url("../fonts/Raleway-VariableFont_wght.ttf");
+}
+
 body {
   font-family: "Artegra Sans", sans-serif;
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
