@@ -235,7 +235,7 @@ export const Navbar = () => {
             <Link
               href={{
                 pathname: "/designers/[designer]",
-                query: { designer: "Frames" },
+                query: { designer: "frames" },
               }}
             >
               <button className="link">

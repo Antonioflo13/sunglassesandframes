@@ -1,5 +1,5 @@
 //REACT
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 //NEXT
 import Head from "next/head";
 import Script from "next/script";
