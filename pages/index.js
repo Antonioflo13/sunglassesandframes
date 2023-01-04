@@ -1,5 +1,5 @@
 //REACT
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 //NEXT
 import Head from "next/head";
 import Script from "next/script";
@@ -12,6 +12,8 @@ import {
 } from "../store/modules/monthCollection";
 import { setItemsNavBar } from "../store/modules/itemsNavBar";
 import { setItemsShopBy } from "../store/modules/itemsShopBy";
+//HOOKS
+import useMediaQuery from "../hooks/useMediaQuery";
 //API
 import getAllArticles from "../api/articles";
 import getShopBy from "../api/shopBy";
@@ -19,15 +21,13 @@ import getMonthlyHighlight from "../api/monthlyHighlight";
 import getShopByItems from "../api/ShopByItems";
 import { getCollection } from "../api/collections";
 //COMPONENTS
-import ModalsIcons from "../components/modalsIcons";
 import SliderMenu from "../components/slider-menu";
 import SliderHomeCollection from "../templates/slider-home-collection";
 import SliderArticles from "../components/slider-articles";
 import AnimatedPage from "../components/animated-page";
 import Layout from "../components/layout";
-import Zendesk from "../components/zendesk";
+import Crisp from "../components/crisp";
 import SubscribeForm from "../components/subscribe-form";
-import useMediaQuery from "../hooks/useMediaQuery";
 
 const IndexPage = ({
   articles,
@@ -42,10 +42,8 @@ const IndexPage = ({
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.value);
   //STATE
-  const [show, setShown] = useState(false);
   const allShopBy = shopBy?.data?.allShopBies;
   articles = articles.data.allArticles;
-  let selectSingleIcon;
   //FUNCTION
   const setLanguageByBrowser = () => {
     if (navigator.language !== "it-IT") {
@@ -143,14 +141,8 @@ const IndexPage = ({
           <SliderArticles articles={articles} />
           <SliderHomeCollection />
           <SliderMenu allShopBy={allShopBy} />
-          {!isDesktop && <SubscribeForm />}
-          <Zendesk />
-          {show && (
-            <ModalsIcons
-              selectSingleIcon={selectSingleIcon}
-              setShown={setShown}
-            />
-          )}
+          {/*{!isDesktop && <SubscribeForm />}*/}
+          <Crisp />
         </AnimatedPage>
       </Layout>
     </>

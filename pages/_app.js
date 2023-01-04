@@ -2,7 +2,6 @@
 import { Analytics } from "@vercel/analytics/react";
 import Head from "next/head";
 //REACT
-import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 //INTL
 import { IntlProvider } from "react-intl";
@@ -16,7 +15,7 @@ import { Provider } from "react-redux";
 import { useRouter } from "next/router";
 //COMPONENTS
 import LoadingPage from "../components/loadingPage";
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }) {
   //ROUTER
   const router = useRouter();
   //STATE

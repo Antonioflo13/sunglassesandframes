@@ -151,10 +151,6 @@ const MobileProductTemplate = props => {
 
   return (
     <div>
-      <div className="title-product">
-        <span>{products[swiperIndex].node.vendor}</span>
-        <span className="font-bold">{products[swiperIndex].node.title}</span>
-      </div>
       <Swiper
         initialSlide={swiperIndex}
         allowSlideNext={isExpanded}
@@ -178,6 +174,12 @@ const MobileProductTemplate = props => {
                   slidesPerView={1}
                   modules={[Pagination]}
                 >
+                  <div className="title-product">
+                    <span>{products[swiperIndex].node.vendor}</span>
+                    <span className="font-bold">
+                      {products[swiperIndex].node.title}
+                    </span>
+                  </div>
                   {product.node.variants.edges[0].node.product.images.nodes.map(
                     image => (
                       <SwiperSlide
@@ -309,21 +311,21 @@ const MobileProductTemplate = props => {
                           </>
                         )}
                       </div>
-                      <div className="mt-10">
-                        <ProductIcon />
-                      </div>
+                      <ProductIcon />
                       <div
                         className="md:hidden mt-6 text-xs whitespace-pre-line product-description"
                         dangerouslySetInnerHTML={{
                           __html: product.node.descriptionHtml,
                         }}
                       />
-                      {relatedProducts.length > 0 && (
-                        <SliderRelatedProducts
-                          relatedProducts={relatedProducts}
-                          collectionHandle={collectionHandle}
-                        />
-                      )}
+                    </div>
+                    {relatedProducts.length > 0 && (
+                      <SliderRelatedProducts
+                        relatedProducts={relatedProducts}
+                        collectionHandle={collectionHandle}
+                      />
+                    )}
+                    <div className="customStyle">
                       <InfoMobile />
                     </div>
                     <Footer />
@@ -337,7 +339,7 @@ const MobileProductTemplate = props => {
         .image-container {
           display: flex;
           height: 100%;
-          width: 80%;
+          width: 70%;
         }
 
         .collection-logo-container {
@@ -349,8 +351,9 @@ const MobileProductTemplate = props => {
         .title-product {
           position: absolute;
           bottom: 55%;
-          font-size: 12px;
-          z-index: 1;
+          font-size: 10px;
+          left: -40px;
+          z-index: 99999;
           transform: rotate(270deg);
         }
 

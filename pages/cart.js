@@ -153,7 +153,7 @@ const Cart = () => {
                       />
                     </div>
                     <div className="drawer-product-description">
-                      {/* <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead mt-2">
+                      {/* <div className="text-sunglassesandframes-red text-xs font-bold italic raleway noToHead mt-2">
                           {item.details.title}
                         </div> */}
                       <div className="text-xs uppercase font-bold">
@@ -166,7 +166,7 @@ const Cart = () => {
                           {isLoading ? (
                             <div>
                               <div className="animate-pulse flex space-x-4">
-                                <div className="rounded-sm bg-slate-700 h-5 w-4"></div>
+                                <div className="rounded-sm bg-slate-100 h-5 w-4"></div>
                               </div>
                             </div>
                           ) : (
@@ -197,7 +197,7 @@ const Cart = () => {
                         {isLoading ? (
                           <div>
                             <div className="animate-pulse flex space-x-4">
-                              <div className="rounded-sm bg-slate-700 h-4 w-3"></div>
+                              <div className="rounded-sm bg-slate-100 h-4 w-3"></div>
                             </div>
                           </div>
                         ) : (

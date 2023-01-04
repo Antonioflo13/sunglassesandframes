@@ -120,6 +120,11 @@ const FilterDesktop = ({ filterObj, filterHandler }) => {
 
       <style jsx="true">
         {`
+          .iconFilter {
+            width: 15px;
+            margin-top: 5px;
+            height: 15px;
+          }
           .containerFilterArrow {
             display: flex;
             justify-content: space-between;

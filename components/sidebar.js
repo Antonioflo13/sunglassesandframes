@@ -58,7 +58,7 @@ const Sidebar = ({
               <div
                 className={`${
                   pathName === "/" &&
-                  "text-sunglassesandframes-black font-bold mackay"
+                  "text-sunglassesandframes-black font-bold raleway"
                 } flex flex-col justify-center items-center mt-4`}
               >
                 <LinkMenu to="/" sidebar>
@@ -68,7 +68,7 @@ const Sidebar = ({
               <div
                 className={`${
                   pathName === "/magazine" &&
-                  "text-sunglassesandframes-black font-bold mackay"
+                  "text-sunglassesandframes-black font-bold raleway"
                 } flex flex-col justify-center items-center mt-4`}
               >
                 <LinkMenu to="/magazine" sidebar>
@@ -96,7 +96,7 @@ const Sidebar = ({
               <div
                 className={`${
                   pathName === "/designers" &&
-                  "text-sunglassesandframes-black font-bold mackay"
+                  "text-sunglassesandframes-black font-bold raleway"
                 } flex flex-col justify-center items-center mt-4`}
               >
                 <LinkMenu to="/designers" sidebar>
@@ -106,7 +106,7 @@ const Sidebar = ({
               <div
                 className={`${
                   pathName === "/promotions" &&
-                  "text-sunglassesandframes-black font-bold mackay"
+                  "text-sunglassesandframes-black font-bold raleway"
                 } flex flex-col justify-center items-center text-sunglassesandframes-red mt-4`}
               >
                 <LinkMenu to="/promotions" sidebar>

@@ -57,7 +57,7 @@ const Layout = ({ children, itemsNavbar }) => {
       onError={errorMissingTranslation}
     >
       <Navbar itemsNavbar={itemsNavbar} />
-      {children}
+      <div style={{ marginTop: "130px" }}>{children}</div>
       {router.pathname !== "/designers/[...product]" && <Footer />}
     </IntlProvider>
   );

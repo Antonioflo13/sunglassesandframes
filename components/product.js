@@ -36,6 +36,7 @@ const Product = ({ product, collectionHandle }) => {
             <>
               {isLoadingImage && <LoadingImage />}
               <Image
+                className="custon"
                 fill="true"
                 style={{ objectFit: "cover" }}
                 sizes="100%"
@@ -49,7 +50,7 @@ const Product = ({ product, collectionHandle }) => {
               />
             </>
           </div>
-          <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
+          <div className="text-sunglassesandframes-black text-xs font-bold italic raleway noToHead mt-2">
             {product.node.vendor}
           </div>
           <div className="ml-1 text-xs uppercase font-bold mt-2">
@@ -63,7 +64,7 @@ const Product = ({ product, collectionHandle }) => {
       <style jsx="true">
         {`
           .image-container {
-            width: 100%;
+            width: 90%;
             position: relative;
             height: 150px;
             overflow: hidden;

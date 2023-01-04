@@ -23,7 +23,10 @@ const SliderMenu = () => {
 
   return (
     <>
-      <div className="titleSliderMenu" style={{ textAlign: "center" }}>
+      <div
+        className="titleSliderMenu raleway-bold"
+        style={{ textAlign: "center" }}
+      >
         SHOP BY
       </div>
       {isDesktop ? (

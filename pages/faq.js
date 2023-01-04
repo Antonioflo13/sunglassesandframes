@@ -65,7 +65,7 @@ export default FaqPage;
 
 const FaqList = ({ title, itemsCount }) => (
   <div>
-    <div className="font-semibold leading-none monument whitespace-pre-line uppercase">
+    <div className="font-semibold leading-none lato whitespace-pre-line uppercase">
       <FormattedMessage id={title} />
     </div>
     <ul className="mt-4">
@@ -73,7 +73,7 @@ const FaqList = ({ title, itemsCount }) => (
         .fill(0)
         .map((_, i) => (
           <li key={`${title}.${i}`} className="my-2">
-            <div className="text-sm font-black italic mackay text-sunglassesandframes-red">
+            <div className="text-sm font-black italic raleway text-sunglassesandframes-red">
               <FormattedMessage id={`${title}.${i}.title`} />
             </div>
             <div className="text-xs whitespace-pre-line">

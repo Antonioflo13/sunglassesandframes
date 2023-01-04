@@ -63,8 +63,12 @@ const SliderArticles = ({ articles }) => {
                         />
                       </div>
                       <div className={mainClasses["slide-content"]}>
-                        <h2 className="text-white">{article.title}</h2>
-                        <p className="text-white">{article.description}</p>
+                        <h2 className="text-white raleway-semiBold customText">
+                          {article.title}
+                        </h2>
+                        <p className="text-white raleway customColor">
+                          {article.description}
+                        </p>
                       </div>
                     </div>
                   </Link>
@@ -75,6 +79,12 @@ const SliderArticles = ({ articles }) => {
         </Swiper>
       </div>
       <style jsx="true">{`
+        .customText {
+          font-size: 17px;
+        }
+        .customColor {
+          color: white;
+        }
         .image-container {
           position: relative;
           height: 347px;

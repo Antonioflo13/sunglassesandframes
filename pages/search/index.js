@@ -73,7 +73,7 @@ export const Hit = props => {
             </div>
           </div>
           <div className="hit-name">
-            <div className="text-sunglassesandframes-red text-xs font-bold mackay noToHead mt-2">
+            <div className="text-sunglassesandframes-red text-xs font-bold raleway noToHead mt-2">
               {props.hit.vendor}
             </div>
           </div>

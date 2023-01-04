@@ -43,66 +43,52 @@
 .hit-name .ais-Highlight em {
   font-weight: bold !important;
 }
-/*
-.tl-edges {
-  @apply h-full;
-}
-
-.tl-wrapper {
-  @apply h-full;
-} */
-/*! purgecss end ignore */
 
 @font-face {
-  font-family: "Artegra Sans";
-  font-weight: 400;
-  font-style: normal;
-  src: url("../fonts/Lato-Regular.ttf");
-  font-display: swap;
+  font-family: Raleway-linght;
+  src: url("../fonts/Raleway-VariableFont_wght.ttf");
 }
 
 @font-face {
-  font-family: "Artegra Sans";
-  font-weight: 700;
-  font-style: bold;
-  src: url("../fonts/Lato-Bold.ttf");
-  /* src: url("../fonts/ArtegraSansExtended-Bold.otf"); */
-  font-display: swap;
+  font-family: Raleway;
+  src: url("../fonts/Raleway-Medium.ttf");
 }
 
 @font-face {
-  font-family: "Monument";
-  font-weight: 400;
-  font-style: normal;
-  src: url("../fonts/Lato-Regular.ttf");
-  /* src: url("../fonts/MonumentExtended-Regular.otf"); */
-  font-display: swap;
+  font-family: Raleway-semiBold;
+  src: url("../fonts/Raleway-SemiBold.ttf");
 }
 
 @font-face {
-  font-family: "Mackay";
-  font-weight: 800;
-  font-style: italic;
-  /* src: url("../fonts/Mackay-BlackItalic.otf"); */
-  font-display: swap;
+  font-family: Raleway-bold;
+  src: url("../fonts/Raleway-Bold.ttf");
 }
 
 body {
   font-family: "Artegra Sans", sans-serif;
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
     env(safe-area-inset-bottom) env(safe-area-inset-left);
-
-  /* max-width: 1280px;
-    margin-left: auto;
-    margin-right: auto; */
 }
 
-.monument {
-  font-family: "Monument", sans-serif;
+.lato {
+  font-family: "Lato", sans-serif;
 }
 
-.mackay {
-  font-family: "Mackay", sans-serif;
+.raleway {
+  font-family: "Raleway", sans-serif;
+}
+
+.raleway-semiBold {
+  font-family: "Raleway-semiBold", sans-serif;
+}
+
+.raleway-bold {
+  font-family: "Raleway-bold", sans-serif;
+}
+
+.ralewayLight {
+  font-family: "Raleway-linght", sans-serif;
+  font-weight: 400;
 }
 
 .text-shadow-white {
@@ -258,4 +244,9 @@ body {
 
 .swiper-pagination-bullet-active {
   background-color: #000 !important;
+}
+
+.swiper-pagination-vertical.swiper-pagination-bullets,
+.swiper-vertical > .swiper-pagination-bullets {
+  top: 45%;
 }

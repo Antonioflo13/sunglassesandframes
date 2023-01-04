@@ -54,7 +54,7 @@ const SliderArticleCollection = ({ products, collectionHandle }) => {
                     <div className="text-xs uppercase font-bold">
                       {item?.node?.vendor}
                     </div>
-                    <div className="text-sunglassesandframes-black text-xs font-bold mackay noToHead">
+                    <div className="text-sunglassesandframes-black text-xs font-bold raleway noToHead">
                       {item?.node?.title}
                     </div>
                     {item.node.availableForSale &&

@@ -3,10 +3,8 @@ import React, { useState, useEffect } from "react";
 
 //NEXT
 import Link from "next/link";
-import { useRouter } from "next/router";
 //STORE
 import { useDispatch, useSelector } from "react-redux";
-import { setDialogContactShow } from "../store/modules/dialogContact";
 import { setSideBarShow } from "../store/modules/sideBar";
 import { setCartContent } from "../store/modules/cart";
 //HOOKS
@@ -36,17 +34,15 @@ import {
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 
 export const Navbar = () => {
-  //ROUTER
-  const pathName = useRouter().pathname;
   //STORE
   const dispatch = useDispatch();
-  const showDialogContact = useSelector(state => state.dialogContact.value);
   const showSideBar = useSelector(state => state.sideBar.value);
   const cart = useSelector(state => JSON.parse(state.cart.value));
 
   //STATE
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [hasHover, setHasHover] = useState(false);
+  const [customHover, setCustomHover] = useState(true);
   const [monthCollectionInfo, setMonthCollectionInfo] = useState({});
   const [itemsNavbar, setItemsNavbar] = useState([]);
   const [viewSecondSidebar, setViewSecondSidebar] = useState(false);
@@ -93,199 +89,257 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className="px-5 md:px-5 left-0 top-0 w-full min-h-20 bg-white flex items-center justify-between z-30 customWidthHeader">
-        {isDesktop ? (
-          <Link href={"/"}>
-            <img src={homeIcon.src} width={20} alt="icon-home" />
-          </Link>
-        ) : (
-          <div style={{ display: "flex", gap: "20px" }}>
-            {!isDesktop && (
-              <>
-                {!showSideBar && (
-                  <button
-                    className="text-black font-semibold text-xs md:text-sm"
-                    onClick={() => dispatch(setSideBarShow(!showSideBar))}
-                  >
-                    <img src={menuBurgher.src} width={15} alt="burger-icon" />
-                  </button>
-                )}
-
-                {!viewSecondSidebar && !viewThirdSidebar && showSideBar && (
-                  <button
-                    className="text-black font-semibold text-xs md:text-sm"
-                    onClick={() => dispatch(setSideBarShow(!showSideBar))}
-                  >
-                    <FontAwesomeIcon icon={faXmark} width={10} />
-                  </button>
-                )}
-
-                {viewSecondSidebar && !viewThirdSidebar && (
-                  <button
-                    className="text-black font-semibold text-xs md:text-sm"
-                    onClick={() => setViewSecondSidebar(false)}
-                  >
-                    <FontAwesomeIcon icon={faChevronLeft} width={10} />
-                  </button>
-                )}
-
-                {viewThirdSidebar && (
-                  <button
-                    className="text-black font-semibold text-xs md:text-sm"
-                    onClick={() => setViewThirdSidebar(false)}
-                  >
-                    <FontAwesomeIcon icon={faChevronLeft} width={10} />
-                  </button>
-                )}
-
-                <FontAwesomeIcon
-                  icon={faMagnifyingGlass}
-                  width={15}
-                  onClick={openSearchModal}
-                />
-                {isSearchActive && (
-                  <div
-                    id="search-overlay"
-                    className={`fullScreenBackgroundSearch absolute w-screen h-screen top-0 left-0 z-50  transition-all duration-300 overflow-y-scroll ${
-                      isSearchActive
-                        ? "visible opacity-100"
-                        : "invisible opacity-0"
-                    }`}
-                    onClick={closeSearchModal}
-                  >
-                    <div>
-                      <FontAwesomeIcon
-                        style={{ marginLeft: "2px", width: 15 }}
-                        className="cursor-pointer absolute right-10 top-10"
-                        icon={faXmark}
-                        onClick={closeSearchModal}
-                      />
-                    </div>
-                    {/* className="absolute top-50/100 left-50/100 min-w-[80%] min-h-[80%] translate-x-[-50%] translate-y-[-50%] bg-white" */}
-                    <div
-                      className=" bg-white p-4"
-                      onClick={e => e.stopPropagation()}
-                    >
-                      <AlgoliaSearch onClose={closeSearchModal} />
-                    </div>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-        )}
-
-        <Link href="/">
-          <button>
-            <div className="flex flex-col justify-center items-center">
-              <img src={logo.src} width={110} alt="logo" />
-            </div>
-          </button>
-        </Link>
-        <Link
-          href="/cart"
-          className="text-black font-semibold text-xs md:text-sm"
-          style={{ fontSize: "10px" }}
-        >
-          <img src={cartIcon.src} width={20} alt="cart-icon" />
-          {/* <div>({totalQuantity})</div> */}
-        </Link>
-      </div>
-      {isDesktop && (
-        <div className="customWidthHeaderTwo">
-          <div>
-            <Link href="/magazine">
-              <button className="link">
-                <div className="flex flex-col justify-center items-center hover:font-bold mackay">
-                  Magazine
-                </div>
-              </button>
+      <div className="header-sticky">
+        <div className="px-5 md:px-5 left-0 top-0 w-full min-h-20 bg-white flex items-center justify-between z-30 customWidthHeader">
+          {isDesktop ? (
+            <Link href={"/"}>
+              <img src={homeIcon.src} width={20} alt="icon-home" />
             </Link>
+          ) : (
+            <div style={{ display: "flex", gap: "20px" }}>
+              {!isDesktop && (
+                <>
+                  {!showSideBar && (
+                    <button
+                      className="text-black font-semibold text-xs md:text-sm"
+                      onClick={() => dispatch(setSideBarShow(!showSideBar))}
+                    >
+                      <img src={menuBurgher.src} width={15} alt="burger-icon" />
+                    </button>
+                  )}
 
-            <button
-              className="link"
-              onMouseEnter={() => setHasHover(true)}
-              onMouseLeave={() => setHasHover(false)}
-            >
-              <div className="flex flex-col justify-center items-center hover:font-bold mackay">
-                Shop By
+                  {!viewSecondSidebar && !viewThirdSidebar && showSideBar && (
+                    <button
+                      className="text-black font-semibold text-xs md:text-sm"
+                      onClick={() => dispatch(setSideBarShow(!showSideBar))}
+                    >
+                      <FontAwesomeIcon icon={faXmark} width={10} />
+                    </button>
+                  )}
+
+                  {viewSecondSidebar && !viewThirdSidebar && (
+                    <button
+                      className="text-black font-semibold text-xs md:text-sm"
+                      onClick={() => setViewSecondSidebar(false)}
+                    >
+                      <FontAwesomeIcon icon={faChevronLeft} width={10} />
+                    </button>
+                  )}
+
+                  {viewThirdSidebar && (
+                    <button
+                      className="text-black font-semibold text-xs md:text-sm"
+                      onClick={() => setViewThirdSidebar(false)}
+                    >
+                      <FontAwesomeIcon icon={faChevronLeft} width={10} />
+                    </button>
+                  )}
+
+                  <FontAwesomeIcon
+                    icon={faMagnifyingGlass}
+                    width={15}
+                    onClick={openSearchModal}
+                  />
+                  {isSearchActive && (
+                    <div
+                      id="search-overlay"
+                      className={`fullScreenBackgroundSearch absolute w-screen h-screen top-0 left-0 z-50  transition-all duration-300 overflow-y-scroll ${
+                        isSearchActive
+                          ? "visible opacity-100"
+                          : "invisible opacity-0"
+                      }`}
+                      onClick={closeSearchModal}
+                    >
+                      <div>
+                        <FontAwesomeIcon
+                          style={{ marginLeft: "2px", width: 15 }}
+                          className="cursor-pointer absolute right-10 top-10"
+                          icon={faXmark}
+                          onClick={closeSearchModal}
+                        />
+                      </div>
+                      {/* className="absolute top-50/100 left-50/100 min-w-[80%] min-h-[80%] translate-x-[-50%] translate-y-[-50%] bg-white" */}
+                      <div
+                        className=" bg-white p-4"
+                        onClick={e => e.stopPropagation()}
+                      >
+                        <AlgoliaSearch onClose={closeSearchModal} />
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          )}
+
+          <Link href="/">
+            <button>
+              <div className="flex flex-col justify-center items-center">
+                <img src={logo.src} width={110} alt="logo" />
               </div>
             </button>
-
-            <Link href="/designers">
-              <button className="link">
-                <div className="flex flex-col justify-center items-center hover:font-bold mackay">
-                  Our Designer
-                </div>
-              </button>
-            </Link>
-            <Link
-              href={{
-                pathname: "/designers/[designer]",
-                query: { designer: "new" },
-              }}
-            >
-              <button className="link">
-                <div className="flex flex-col justify-center items-center hover:font-bold mackay">
-                  New in
-                </div>
-              </button>
-            </Link>
-            <Link
-              href={{
-                pathname: "/designers/[designer]",
-                query: { designer: "promo" },
-              }}
-            >
-              <button className="link">
-                <div className="flex flex-col justify-center items-center text-sunglassesandframes-red hover:font-bold mackay">
-                  Promotions
-                </div>
-              </button>
-            </Link>
-            {isSearchActive && (
-              <div
-                id="search-overlay"
-                className={`absolute w-screen h-screen top-0 left-0 z-50 fullScreenBackground transition-all duration-300 overflow-y-scroll ${
-                  isSearchActive ? "visible opacity-100" : "invisible opacity-0"
-                }`}
-                onClick={closeSearchModal}
-              >
-                <div>
-                  <FontAwesomeIcon
-                    style={{ marginLeft: "2px", width: 15 }}
-                    className="cursor-pointer absolute right-10 top-10"
-                    icon={faXmark}
-                    onClick={closeSearchModal}
-                  />
-                </div>
-                {/* className="absolute top-50/100 left-50/100 min-w-[80%] min-h-[80%] translate-x-[-50%] translate-y-[-50%] bg-white" */}
-                <div
-                  className=" bg-white p-4"
-                  onClick={e => e.stopPropagation()}
-                >
-                  <AlgoliaSearch onClose={closeSearchModal} />
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div style={{ position: "relative" }} onClick={openSearchModal}>
-            <FontAwesomeIcon
-              style={{
-                marginLeft: "2px",
-                width: 12,
-                position: "absolute",
-                top: "6px",
-                left: "6px",
-              }}
-              className="cursor-pointer"
-              icon={faSearch}
-            />
-            <input className="searchInput" />
-          </div>
+          </Link>
+          <Link
+            href="/cart"
+            className="text-black font-semibold text-xs md:text-sm"
+            style={{ fontSize: "10px" }}
+          >
+            <div className="relative">
+              <img src={cartIcon.src} width={20} alt="cart-icon" />
+              {totalQuantity > 0 && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <div className="badge">{totalQuantity}</div>
+                </motion.div>
+              )}
+            </div>
+          </Link>
         </div>
-      )}
+        {isDesktop && (
+          <div className="customWidthHeaderTwo">
+            <div>
+              <Link href="/magazine">
+                <button className="link">
+                  <div
+                    onMouseEnter={() => setCustomHover(false)}
+                    onMouseLeave={() => setCustomHover(true)}
+                    className={`flex flex-col justify-center items-center ralewayLight customHoverColor ${
+                      !customHover && "changeColor"
+                    }`}
+                  >
+                    Magazine
+                  </div>
+                </button>
+              </Link>
+
+              <button
+                className="link"
+                onMouseEnter={() => setHasHover(true)}
+                onMouseLeave={() => setHasHover(false)}
+              >
+                <div
+                  onMouseEnter={() => setCustomHover(false)}
+                  onMouseLeave={() => setCustomHover(true)}
+                  className={`flex flex-col justify-center items-center ralewayLight customHoverColor ${
+                    !customHover && "changeColor"
+                  }`}
+                >
+                  Shop By
+                </div>
+              </button>
+
+              <Link href="/designers">
+                <button className="link">
+                  <div
+                    onMouseEnter={() => setCustomHover(false)}
+                    onMouseLeave={() => setCustomHover(true)}
+                    className={`flex flex-col justify-center items-center ralewayLight customHoverColor ${
+                      !customHover && "changeColor"
+                    }`}
+                  >
+                    Our Designers
+                  </div>
+                </button>
+              </Link>
+              <Link
+                href={{
+                  pathname: "/designers/[designer]",
+                  query: { designer: "sunglasses" },
+                }}
+              >
+                <button className="link">
+                  <div
+                    onMouseEnter={() => setCustomHover(false)}
+                    onMouseLeave={() => setCustomHover(true)}
+                    className={`flex flex-col justify-center items-center ralewayLight customHoverColor ${
+                      !customHover && "changeColor"
+                    }`}
+                  >
+                    Sunglasses
+                  </div>
+                </button>
+              </Link>
+              <Link
+                href={{
+                  pathname: "/designers/[designer]",
+                  query: { designer: "frames" },
+                }}
+              >
+                <button className="link">
+                  <div
+                    onMouseEnter={() => setCustomHover(false)}
+                    onMouseLeave={() => setCustomHover(true)}
+                    className={`flex flex-col justify-center items-center ralewayLight customHoverColor ${
+                      !customHover && "changeColor"
+                    }`}
+                  >
+                    Frames
+                  </div>
+                </button>
+              </Link>
+              <Link
+                href={{
+                  pathname: "/designers/[designer]",
+                  query: { designer: "promo" },
+                }}
+              >
+                <button className="link">
+                  <div
+                    onMouseEnter={() => setCustomHover(false)}
+                    onMouseLeave={() => setCustomHover(true)}
+                    className={`flex flex-col justify-center items-center ralewayLight customHoverColorRed ${
+                      !customHover && "changeColor"
+                    }`}
+                  >
+                    Promotions
+                  </div>
+                </button>
+              </Link>
+              {isSearchActive && (
+                <div
+                  id="search-overlay"
+                  className={`absolute w-screen h-screen top-0 left-0 z-50 fullScreenBackground transition-all duration-300 overflow-y-scroll ${
+                    isSearchActive
+                      ? "visible opacity-100"
+                      : "invisible opacity-0"
+                  }`}
+                  onClick={closeSearchModal}
+                >
+                  <div>
+                    <FontAwesomeIcon
+                      style={{ marginLeft: "2px", width: 15 }}
+                      className="cursor-pointer absolute right-10 top-10"
+                      icon={faXmark}
+                      onClick={closeSearchModal}
+                    />
+                  </div>
+                  {/* className="absolute top-50/100 left-50/100 min-w-[80%] min-h-[80%] translate-x-[-50%] translate-y-[-50%] bg-white" */}
+                  <div
+                    className=" bg-white p-4"
+                    onClick={e => e.stopPropagation()}
+                  >
+                    <AlgoliaSearch onClose={closeSearchModal} />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div style={{ position: "relative" }} onClick={openSearchModal}>
+              <FontAwesomeIcon
+                style={{
+                  marginLeft: "2px",
+                  width: 12,
+                  position: "absolute",
+                  top: "6px",
+                  left: "6px",
+                }}
+                className="cursor-pointer"
+                icon={faSearch}
+              />
+              <input className="searchInput" placeholder="Search" />
+            </div>
+          </div>
+        )}
+      </div>
       <AnimatePresence>
         {isDesktop && hasHover && (
           <div className="fullScreenBackground">
@@ -383,6 +437,31 @@ export const Navbar = () => {
       <style jsx="true">{`
         .logo {
           width: 10em;
+        }
+
+        .header-sticky {
+          position: fixed;
+          width: 100%;
+          z-index: 9999;
+          background-color: white;
+          top: 0%;
+          height: 120px;
+        }
+
+        .badge {
+          position: absolute;
+          bottom: -7px;
+          left: 12px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 15px;
+          height: 15px;
+          border-radius: 100%;
+          border: 1px solid white;
+          background: black;
+          font-size: 8px;
+          color: white;
         }
 
         .customWidthHeader {
@@ -486,13 +565,35 @@ export const Navbar = () => {
         }
 
         .link {
-          padding-right: 2.5rem;
+          padding-right: 4rem;
         }
 
         .searchInput {
           border: solid 1px;
           border-radius: 10px;
           height: 23px;
+        }
+
+        .searchInput::placeholder {
+          padding-left: 25px;
+          font-size: 14px;
+          color: #d9d9d9;
+        }
+
+        .customHoverColorRed {
+          color: #c60000;
+        }
+
+        .changeColor {
+          color: #727272;
+        }
+
+        .customHoverColorRed:hover {
+          color: #c60000;
+        }
+
+        .customHoverColor:hover {
+          color: black;
         }
 
         @media screen and (max-width: 1150px) {

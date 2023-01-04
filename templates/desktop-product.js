@@ -1,5 +1,5 @@
 //REACT
-import React from "react";
+import React, { useState } from "react";
 //NEXT
 import Link from "next/link";
 import Image from "next/image";
@@ -12,7 +12,6 @@ import {
 import Label from "../components/label";
 import ProductIcon from "../components/product-icon";
 import Product from "../components/product";
-import Footer from "../components/footer";
 
 const DesktopProduct = props => {
   const {
@@ -26,6 +25,38 @@ const DesktopProduct = props => {
     collectionImage,
   } = props;
 
+  //STATE
+  const [activePanels, setActivePanels] = useState({});
+
+  //FUNCTIONS
+  const togglePanel = panel => {
+    switch (panel) {
+      case "details":
+        setActivePanels({
+          ...activePanels,
+          details: true,
+          size: false,
+          delivery: false,
+        });
+        break;
+      case "size":
+        setActivePanels({
+          ...activePanels,
+          details: false,
+          size: true,
+          delivery: false,
+        });
+        break;
+      case "delivery":
+        setActivePanels({
+          ...activePanels,
+          details: false,
+          size: false,
+          delivery: true,
+        });
+        break;
+    }
+  };
   return (
     <>
       <div className="customTemplate">
@@ -123,7 +154,7 @@ const DesktopProduct = props => {
                       />
                     </>
                   </div>
-                  <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
+                  <div className="text-sunglassesandframes-black text-xs font-bold italic raleway noToHead mt-2">
                     {product.node.vendor}
                   </div>
                   <div className="ml-1 text-xs uppercase font-bold mt-2">
@@ -137,23 +168,50 @@ const DesktopProduct = props => {
         {/* Other info and main image */}
       </div>
       <div className="flex gap-8">
-        <button className="text-xs menu-button">
+        <button
+          className="text-xs menu-button"
+          onClick={() => togglePanel("details")}
+        >
           <FormattedMessage id="product.details" />
         </button>
-        <button className="text-xs menu-button">
+        <button
+          className="text-xs menu-button"
+          onClick={() => togglePanel("size")}
+        >
           <FormattedMessage id="product.size" />
         </button>
-        <button className="text-xs menu-button">
+        <button
+          className="text-xs menu-button"
+          onClick={() => togglePanel("delivery")}
+        >
           <FormattedMessage id="product.delivery.and.returns" />
         </button>
       </div>
       <hr />
-      <div
-        className="my-4 text-xs whitespace-pre-line product-description"
-        dangerouslySetInnerHTML={{
-          __html: shopifyProduct.node.descriptionHtml,
-        }}
-      />
+      {activePanels.details && (
+        <div
+          className="my-4 text-xs whitespace-pre-line product-description"
+          dangerouslySetInnerHTML={{
+            __html: shopifyProduct.node.descriptionHtml.split("<br><br>")[0],
+          }}
+        />
+      )}
+      {activePanels.size && (
+        <div
+          className="my-4 text-xs whitespace-pre-line product-description"
+          dangerouslySetInnerHTML={{
+            __html: shopifyProduct.node.descriptionHtml.split("<br><br>")[1],
+          }}
+        />
+      )}
+      {activePanels.delivery && (
+        <div
+          className="my-4 text-xs whitespace-pre-line product-description"
+          dangerouslySetInnerHTML={{
+            __html: shopifyProduct.node.descriptionHtml.split("<br><br>")[0],
+          }}
+        />
+      )}
       {relatedProducts.length > 0 && (
         <>
           <div className="my-20 text-xs text-center px-5">

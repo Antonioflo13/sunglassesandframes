@@ -1,3 +1,15 @@
+//REACT
+import React from "react";
+//NEXT
+import Link from "next/link";
+//INTL
+import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
+//HOOKS
+import useMediaQuery from "../hooks/useMediaQuery";
+import createHandle from "../hooks/createHandle";
+//FRAMER
+import { AnimatePresence, motion } from "framer-motion";
+//FONTAWESOME
 import {
   faFacebook,
   faInstagram,
@@ -6,23 +18,18 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
-import Link from "./LanguagesLink";
-import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
+//IMAGES
 import logo from "../assets/images/logo.svg";
-import useMediaQuery from "../hooks/useMediaQuery";
-import { AnimatePresence, motion } from "framer-motion";
 import amex from "../assets/images/amex.svg";
-import applepay from "../assets/images/applepay.svg";
+import applePay from "../assets/images/applepay.svg";
 import mastercard from "../assets/images/mastercard.svg";
 import visa from "../assets/images/visa.svg";
 import paypal from "../assets/images/paypal.svg";
 
 const Footer = () => {
   const [accordion, setAccordion] = React.useState({
-    contact: false,
-    support: false,
-    wherIs: false,
+    assistance: false,
+    whyus: false,
   });
   const isDesktop = useMediaQuery(768);
 
@@ -34,7 +41,7 @@ const Footer = () => {
             className={`${
               isDesktop
                 ? "customWidthFooter"
-                : "grid gap-y-6 md:grid-cols-5 lg:grid-cols-5 md:gap-x-12 md:gap-y-24 whitespace-pre-line"
+                : "grid gap-y-3 md:grid-cols-5 lg:grid-cols-5 md:gap-x-12 md:gap-y-24 whitespace-pre-line"
             }`}
           >
             <div className="flex justify-center noDesktop">
@@ -46,7 +53,7 @@ const Footer = () => {
               </div>
               <div style={{ display: "flex", gap: "10px", marginTop: "5px" }}>
                 <img src={amex.src} width={40} alt="icon" />
-                <img src={applepay.src} width={40} alt="icon" />
+                <img src={applePay.src} width={40} alt="icon" />
                 <img src={visa.src} width={40} alt="icon" />
                 <img src={mastercard.src} width={40} alt="icon" />
                 <img src={paypal.src} width={40} alt="icon" />
@@ -63,18 +70,50 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="flex flex-col accordionMobile mobileCenterSocial"></div>
+            {!isDesktop && (
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "15px",
+                    placeContent: "center",
+                  }}
+                >
+                  <FontAwesomeIcon icon={faInstagram} width={15} />
+                  <FontAwesomeIcon icon={faFacebook} width={15} />
+                  <FontAwesomeIcon icon={faTiktok} width={15} />
+                  <FontAwesomeIcon icon={faPinterest} width={15} />
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    placeContent: "center",
+                  }}
+                >
+                  <img src={amex.src} width={35} alt="icon" />
+                  <img src={applePay.src} width={35} alt="icon" />
+                  <img src={visa.src} width={35} alt="icon" />
+                  <img src={mastercard.src} width={35} alt="icon" />
+                  <img src={paypal.src} width={35} alt="icon" />
+                </div>
+              </>
+            )}
             <div className="flex flex-col accordionMobile">
+              <div className="flex flex-col accordionMobile mobileCenterSocial"></div>
               <div
                 className="containerAccordion"
                 onClick={() =>
-                  setAccordion({ ...accordion, contact: !accordion.contact })
+                  setAccordion({
+                    ...accordion,
+                    assistance: !accordion.assistance,
+                  })
                 }
               >
                 <div className="font-bold uppercase text-sm">
-                  <FormattedMessage id="footer.contacts.title" />
+                  <FormattedMessage id="footer.support.title" />
                 </div>
-                {accordion.contact ? (
+                {accordion.assistance ? (
                   <FontAwesomeIcon
                     icon={faMinus}
                     className="containerIcon"
@@ -89,7 +128,7 @@ const Footer = () => {
                 )}
               </div>
               <AnimatePresence>
-                {accordion.contact && (
+                {accordion.assistance && (
                   <motion.div
                     layout
                     initial={{ opacity: 0 }}
@@ -97,7 +136,67 @@ const Footer = () => {
                     exit={{ opacity: 0 }}
                   >
                     <div className="text-xs mt-2 ">
-                      <FormattedMessage id="footer.contacts.email" />
+                      <FormattedMessage id="footer.contact.title" />
+                    </div>
+                    <div className="text-xs mt-2 ">
+                      <Link
+                        href={{
+                          pathname: "/assistance-center",
+                          query: { menu: createHandle("Orders & Deliveries") },
+                        }}
+                      >
+                        <FormattedMessage id="footer.order.title" />
+                      </Link>
+                    </div>
+                    <div className="text-xs mt-2 ">
+                      <Link
+                        href={{
+                          pathname: "/assistance-center",
+                          query: { menu: createHandle("Payment") },
+                        }}
+                      >
+                        <FormattedMessage id="footer.payment.title" />
+                      </Link>
+                    </div>
+                    <div className="text-xs mt-2 ">
+                      <Link
+                        href={{
+                          pathname: "/assistance-center",
+                          query: { menu: createHandle("Returns & Refunds") },
+                        }}
+                      >
+                        <FormattedMessage id="footer.return.title" />
+                      </Link>
+                    </div>
+                    <div className="text-xs mt-2 ">
+                      <Link
+                        href={{
+                          pathname: "/assistance-center",
+                          query: { menu: createHandle("FAQ") },
+                        }}
+                      >
+                        <FormattedMessage id="footer.faq.title" />
+                      </Link>
+                    </div>
+                    <div className="text-xs mt-2 ">
+                      <Link
+                        href={{
+                          pathname: "/assistance-center",
+                          query: { menu: createHandle("Terms and Conditions") },
+                        }}
+                      >
+                        <FormattedMessage id="footer.terms.title" />
+                      </Link>
+                    </div>
+                    <div className="text-xs mt-2 ">
+                      <Link
+                        href={{
+                          pathname: "/assistance-center",
+                          query: { menu: createHandle("Privacy Policy") },
+                        }}
+                      >
+                        <FormattedMessage id="footer.privacy.title" />
+                      </Link>
                     </div>
                   </motion.div>
                 )}
@@ -112,35 +211,77 @@ const Footer = () => {
                 <FormattedMessage id="footer.support.title" />
               </div>
               <div className="text-xs mt-2 ">
-                <FormattedMessage id="footer.order.title" />
+                <Link
+                  href={{
+                    pathname: "/assistance-center",
+                    query: { menu: createHandle("Orders & Deliveries") },
+                  }}
+                >
+                  <FormattedMessage id="footer.order.title" />
+                </Link>
               </div>
               <div className="text-xs mt-2 ">
-                <FormattedMessage id="footer.payment.title" />
+                <Link
+                  href={{
+                    pathname: "/assistance-center",
+                    query: { menu: createHandle("Payment") },
+                  }}
+                >
+                  <FormattedMessage id="footer.payment.title" />
+                </Link>
               </div>
               <div className="text-xs mt-2 ">
-                <FormattedMessage id="footer.return.title" />
+                <Link
+                  href={{
+                    pathname: "/assistance-center",
+                    query: { menu: createHandle("Returns & Refunds") },
+                  }}
+                >
+                  <FormattedMessage id="footer.return.title" />
+                </Link>
               </div>
               <div className="text-xs mt-2 ">
-                <FormattedMessage id="footer.faq.title" />
+                <Link
+                  href={{
+                    pathname: "/assistance-center",
+                    query: { menu: createHandle("FAQ") },
+                  }}
+                >
+                  <FormattedMessage id="footer.faq.title" />
+                </Link>
               </div>
               <div className="text-xs mt-2 ">
-                <FormattedMessage id="footer.terms.title" />
+                <Link
+                  href={{
+                    pathname: "/assistance-center",
+                    query: { menu: createHandle("Terms and Conditions") },
+                  }}
+                >
+                  <FormattedMessage id="footer.terms.title" />
+                </Link>
               </div>
               <div className="text-xs mt-2 ">
-                <FormattedMessage id="footer.privacy.title" />
+                <Link
+                  href={{
+                    pathname: "/assistance-center",
+                    query: { menu: createHandle("Privacy Policy") },
+                  }}
+                >
+                  <FormattedMessage id="footer.privacy.title" />
+                </Link>
               </div>
             </div>
             <div className="flex flex-col accordionMobile">
               <div
                 className="containerAccordion"
                 onClick={() =>
-                  setAccordion({ ...accordion, support: !accordion.support })
+                  setAccordion({ ...accordion, whyus: !accordion.whyus })
                 }
               >
                 <div className="font-bold uppercase text-sm">
-                  <FormattedMessage id="footer.support.title" />
+                  <FormattedMessage id="footer.whyus.title" />
                 </div>
-                {accordion.support ? (
+                {accordion.whyus ? (
                   <FontAwesomeIcon
                     icon={faMinus}
                     className="containerIcon"
@@ -155,24 +296,19 @@ const Footer = () => {
                 )}
               </div>
               <AnimatePresence>
-                {accordion.support && (
+                {accordion.whyus && (
                   <motion.div
                     layout
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    <Link to="/faq">
-                      <div className="text-xs mt-2 ">
-                        <FormattedMessage id="footer.support.faq" />
-                      </div>
-                    </Link>
                     <a
                       href="https://sunglassesandframes-vision.myshopify.com/15652721/policies/terms-of-service.html?locale=en"
                       target="_blank"
                     >
                       <div className="text-xs mt-2 ">
-                        <FormattedMessage id="footer.support.terms_and_conditions" />
+                        <FormattedMessage id="footer.about.title" />
                       </div>
                     </a>
                     <a
@@ -180,7 +316,7 @@ const Footer = () => {
                       target="_blank"
                     >
                       <div className="text-xs mt-2 ">
-                        <FormattedMessage id="footer.support.privacy_policy" />
+                        <FormattedMessage id="footer.licensed.title" />
                       </div>
                     </a>
                     <a
@@ -188,7 +324,7 @@ const Footer = () => {
                       target="_blank"
                     >
                       <div className="text-xs mt-2 ">
-                        <FormattedMessage id="footer.support.cookie_policy" />
+                        <FormattedMessage id="footer.promise.title" />
                       </div>
                     </a>
                   </motion.div>
@@ -209,52 +345,26 @@ const Footer = () => {
                 <FormattedMessage id="footer.promise.title" />
               </div>
             </div>
-            <div className="flex flex-col accordionMobile">
-              <div
-                className="containerAccordion"
-                onClick={() =>
-                  setAccordion({ ...accordion, wherIs: !accordion.wherIs })
-                }
-              >
-                <div className="font-bold uppercase text-sm">
-                  <FormattedMessage id="footer.location.title" />
-                </div>
-                {accordion.wherIs ? (
-                  <FontAwesomeIcon
-                    icon={faMinus}
-                    className="containerIcon"
-                    width={10}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    icon={faPlus}
-                    className="containerIcon"
-                    width={10}
-                  />
-                )}
-              </div>
-              <AnimatePresence>
-                {accordion.wherIs && (
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  ></motion.div>
-                )}
-              </AnimatePresence>
-            </div>
           </div>
         </div>
 
-        <div className="customWidthFooter">
-          <div
-            className="text-3xs textCenterDesktop justify-center mt-20 mb-8"
-            style={{ maxWidth: "83rem", width: "37%" }}
-          >
-            <FormattedMessage id="footer.legal" />
+        {isDesktop ? (
+          <div className="customWidthFooter">
+            <div
+              className="text-3xs textCenterDesktop justify-center mt-20 mb-8"
+              style={{ maxWidth: "83rem", width: "37%" }}
+            >
+              <FormattedMessage id="footer.legal" />
+            </div>
           </div>
-        </div>
+        ) : (
+          <div
+            className="text-2xs textCenterDesktop justify-center mt-10 mb-8"
+            style={{ textAlignLast: "center", color: "#333333" }}
+          >
+            <FormattedMessage id="footer.legal.mobile" />
+          </div>
+        )}
         <style jsx="true">
           {`
             .backgroudcolorfooter {
