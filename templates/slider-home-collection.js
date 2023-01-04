@@ -25,7 +25,7 @@ const SliderHomeCollection = () => {
   return (
     isVisible && (
       <>
-        <div className="titleSliderHome text-center uppercase">
+        <div className="titleSliderHome text-center uppercase raleway-bold">
           <FormattedMessage id="home.slider_monthly.title" />
         </div>
         <div className="sliderCollection">

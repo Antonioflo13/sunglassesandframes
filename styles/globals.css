@@ -59,6 +59,11 @@
   src: url("../fonts/Raleway-SemiBold.ttf");
 }
 
+@font-face {
+  font-family: Raleway-bold;
+  src: url("../fonts/Raleway-Bold.ttf");
+}
+
 body {
   font-family: "Artegra Sans", sans-serif;
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
@@ -75,6 +80,10 @@ body {
 
 .raleway-semiBold {
   font-family: "Raleway-semiBold", sans-serif;
+}
+
+.raleway-bold {
+  font-family: "Raleway-bold", sans-serif;
 }
 
 .ralewayLight {
