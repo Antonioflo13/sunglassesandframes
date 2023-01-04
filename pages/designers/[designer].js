@@ -75,16 +75,21 @@ const CollectionTemplate = ({ collection }) => {
 
   const filterProducts = () => {
     let productsArray = [...products];
+
+    console.log("PRODUCTS ARRAY: ", productsArray);
     let arr = [];
+    console.log("ARR:", arr);
+    console.log("FILTERS: ", filters);
     let allFilteredProducts = [];
     for (let filter of filters) {
-      console.log(filter);
       switch (filter.filterLabel) {
         case "Color":
         case "Materiale":
         case "Taglia":
         case "Shape":
+          console.log("FILTER 1");
           for (let value of filter.filterValue) {
+            console.log("PRODUCTS ARRAY: ", productsArray);
             let filtered = productsArray.filter(product => {
               const options = product.node.options.find(
                 el => el.name === filter.filterLabel
@@ -95,26 +100,58 @@ const CollectionTemplate = ({ collection }) => {
                 return false;
               }
             });
-
-            arr.push(filtered);
+            if (filtered.length > 0) {
+              arr.push(filtered);
+            }
           }
+        // break;
         case "Design":
+          console.log("FILTER 2");
           for (let value of filter.filterValue) {
             let filtered = productsArray.filter(
               product => product.node.vendor === value
             );
-
-            arr.push(filtered);
+            if (filtered.length > 0) {
+              arr.push(filtered);
+            }
+          }
+        // break;
+        case "Category":
+        case "Gender":
+          console.log("FILTER 3");
+          for (let value of filter.filterValue) {
+            let filtered = productsArray.filter(product => {
+              const tags = product.node.tags;
+              if (tags) {
+                return tags.includes(value);
+              } else {
+                return false;
+              }
+            });
+            if (filtered.length > 0) {
+              arr.push(filtered);
+            }
           }
       }
+      // break;
     }
 
+    console.log("ARR 2:", arr);
+    console.log("----------------------------");
+
+    let length = 0;
+    let largestArr = [];
     for (let filteredProducts of arr) {
+      if (filteredProducts.length > length) {
+        largestArr = filteredProducts;
+        length = filteredProducts.length;
+      }
       for (let product of filteredProducts) {
         allFilteredProducts.push(product);
       }
     }
     let prods = [...new Set(allFilteredProducts)];
+    console.log("LARGEST:", largestArr);
     setProductsFiltered(prods);
   };
   // EFFECT

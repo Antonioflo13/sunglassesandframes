@@ -45,7 +45,7 @@ const FilterDesktop = ({ filterObj, filterHandler }) => {
     if (!event.target.checked) {
       filterObj.active = filterObj.active.filter(act => act !== string);
     } else {
-      filterObj.active.push(string);
+      filterObj.active.unshift(string);
     }
     setFilters(filtersArray);
   };
@@ -55,65 +55,68 @@ const FilterDesktop = ({ filterObj, filterHandler }) => {
   }, [filters]);
   return (
     <>
-      <div className="containerFilter mt-20">
-        <div className="title-filter mb-5">
-          <Image
-            src={FilterIcon}
-            alt="filter-icon"
-            width={24}
-            height={24}
-            className="inline mr-5"
-          />
-          FILTERS
-        </div>
-        {filters.length > 0 &&
-          filters.map(filter => (
-            <div key={filter.label}>
-              <div className="containerFilterArrow mt-8">
-                <div>
-                  {filter.label.charAt(0).toUpperCase() + filter.label.slice(1)}
+      {filters.length > 0 && (
+        <div className="containerFilter mt-20">
+          <div className="title-filter mb-5">
+            <Image
+              src={FilterIcon}
+              alt="filter-icon"
+              width={24}
+              height={24}
+              className="inline mr-5"
+            />
+            FILTERS
+          </div>
+          {filters.length > 0 &&
+            filters.map(filter => (
+              <div key={filter.label}>
+                <div className="containerFilterArrow mt-8">
+                  <div>
+                    {filter.label.charAt(0).toUpperCase() +
+                      filter.label.slice(1)}
+                  </div>
+                  {!filter.isActive ? (
+                    <FontAwesomeIcon
+                      icon={faAngleRight}
+                      width={10}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => toggleActiveFilters(filter)}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faChevronDown}
+                      width={15}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => toggleActiveFilters(filter)}
+                    />
+                  )}
                 </div>
-                {!filter.isActive ? (
-                  <FontAwesomeIcon
-                    icon={faAngleRight}
-                    width={10}
-                    style={{ cursor: "pointer" }}
-                    onClick={() => toggleActiveFilters(filter)}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    width={15}
-                    style={{ cursor: "pointer" }}
-                    onClick={() => toggleActiveFilters(filter)}
-                  />
+                {filter.isActive && filter.value.length > 0 && (
+                  <div className="mt-5">
+                    {filter.value.map(val => (
+                      <div key={val}>
+                        <label
+                          htmlFor={val}
+                          onClick={e =>
+                            toggleStringArrayToFilters(event, filter, val)
+                          }
+                        >
+                          <input
+                            type="checkbox"
+                            id={val}
+                            name={val}
+                            className="mr-1"
+                          />
+                          {val}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
-              {filter.isActive && filter.value.length > 0 && (
-                <div className="mt-5">
-                  {filter.value.map(val => (
-                    <div key={val}>
-                      <label
-                        htmlFor={val}
-                        onClick={e =>
-                          toggleStringArrayToFilters(event, filter, val)
-                        }
-                      >
-                        <input
-                          type="checkbox"
-                          id={val}
-                          name={val}
-                          className="mr-1"
-                        />
-                        {val}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-      </div>
+            ))}
+        </div>
+      )}
 
       <style jsx="true">
         {`
