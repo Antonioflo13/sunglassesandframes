@@ -30,6 +30,9 @@ const CollectionTemplate = ({ collection }) => {
 
   //STATE
   const [products, setProducts] = useState([]);
+  const [filterObj, setFilterObj] = useState({});
+  const [filters, setFilters] = useState([]);
+  const [productsFiltered, setProductsFiltered] = useState([]);
 
   const [isLoadingImage, setIsLoadingImage] = useState(true);
 
@@ -59,7 +62,98 @@ const CollectionTemplate = ({ collection }) => {
     }
   };
 
-  //EFFECT
+  const onFilterHandler = filtersArray => {
+    let arr = [];
+    for (let filter of filtersArray) {
+      if (filter.active.length) {
+        arr.push({ filterLabel: filter.label, filterValue: filter.active });
+      }
+    }
+    setFilters(arr);
+  };
+
+  const filterProducts = () => {
+    let productsArray = [...products];
+
+    let arr = [];
+    let allFilteredProducts = [];
+    for (let filter of filters) {
+      switch (filter.filterLabel) {
+        case "Color":
+        case "Materiale":
+        case "Taglia":
+        case "Shape":
+          for (let value of filter.filterValue) {
+            let filtered = productsArray.filter(product => {
+              const options = product.node.options.find(
+                el => el.name === filter.filterLabel
+              );
+              if (options) {
+                return options.values.includes(value);
+              } else {
+                return false;
+              }
+            });
+            if (filtered.length > 0) {
+              arr.push(filtered);
+            }
+          }
+          continue;
+        case "Design":
+          for (let value of filter.filterValue) {
+            let filtered = productsArray.filter(
+              product => product.node.vendor === value
+            );
+            if (filtered.length > 0) {
+              arr.push(filtered);
+            }
+          }
+          continue;
+        case "Category":
+        case "Gender":
+          for (let value of filter.filterValue) {
+            let filtered = productsArray.filter(product => {
+              const tags = product.node.tags;
+              if (tags) {
+                return tags.includes(value);
+              } else {
+                return false;
+              }
+            });
+            if (filtered.length > 0) {
+              arr.push(filtered);
+            }
+          }
+          continue;
+        default:
+          return [];
+      }
+    }
+
+    for (let filteredProducts of arr) {
+      for (let product of filteredProducts) {
+        allFilteredProducts.push(product);
+      }
+    }
+    if (filters.length > 1 && arr.length > 1) {
+      let duplicates = allFilteredProducts.filter(
+        (a, i, aa) =>
+          aa.indexOf(a) === i &&
+          aa.lastIndexOf(a) !== i &&
+          aa.filter(p => p.node.id === a.node.id).length === filters.length
+      );
+      setProductsFiltered(duplicates);
+    } else {
+      let prods = [...new Set(allFilteredProducts)];
+      setProductsFiltered(prods);
+    }
+    // }
+  };
+  // EFFECT
+  useEffect(() => {
+    filterProducts();
+  }, [filters]);
+
   useEffect(() => {
     setProducts(collection.products.edges);
   }, [collection]);
@@ -78,19 +172,116 @@ const CollectionTemplate = ({ collection }) => {
   }, []);
 
   // Handle loading more articles
-  useEffect(() => {
-    if (loadMore && hasMore) {
-      getProductByCollection().then(response => {
-        const newProducts = response.data.collection.products.edges;
-        const isMore = response.data.collection.products.pageInfo.hasNextPage;
-        const cursor = response.data.collection.products.pageInfo.endCursor;
-        setCursor(cursor);
-        setHasMore(isMore);
-        setProducts(oldProducts => [...oldProducts, ...newProducts]);
-        setLoadMore(false);
-      });
+  // useEffect(() => {
+  //   if (loadMore && hasMore) {
+  //     getProductByCollection().then(response => {
+  //       const newProducts = response.data.collection.products.edges;
+  //       const isMore = response.data.collection.products.pageInfo.hasNextPage;
+  //       const cursor = response.data.collection.products.pageInfo.endCursor;
+  //       setCursor(cursor);
+  //       setHasMore(isMore);
+  //       setProducts(oldProducts => [...oldProducts, ...newProducts]);
+  //       setLoadMore(false);
+  //     });
+  //   }
+  // }, [loadMore, hasMore]); //eslint-disable-line
+
+  const mapArray = ({
+    arrProducts,
+    OptionsOrTags,
+    type,
+    key,
+    logic,
+    tagArray,
+  }) => {
+    let filtered = [];
+    if (OptionsOrTags) {
+      if (type === "options") {
+        arrProducts.map(product => {
+          const option = product.node[type].find(el => el.name === key);
+          if (option) {
+            for (let element of option.values) {
+              filtered.push(element);
+            }
+          }
+        });
+      } else {
+        arrProducts.map(product => {
+          const tags = product.node.tags;
+          if (tags) {
+            for (let element of tags) {
+              if (tagArray.includes(element)) {
+                filtered.push(element);
+              }
+            }
+          }
+        });
+      }
+    } else {
+      filtered = arrProducts.map(logic);
     }
-  }, [loadMore, hasMore]); //eslint-disable-line
+    let setFiltered = [...new Set(filtered)];
+    return setFiltered;
+  };
+
+  // Filter Products
+  useEffect(() => {
+    let color = mapArray({
+      arrProducts: products,
+      OptionsOrTags: true,
+      type: "options",
+      key: "Color",
+    });
+    let design = mapArray({
+      arrProducts: products,
+      OptionsOrTags: false,
+      logic: product => product.node.vendor,
+    });
+    let size = mapArray({
+      arrProducts: products,
+      OptionsOrTags: true,
+      type: "options",
+      key: "Taglia",
+    });
+    let shape = mapArray({
+      arrProducts: products,
+      OptionsOrTags: true,
+      type: "options",
+      key: "Stile",
+    });
+    let gender = mapArray({
+      arrProducts: products,
+      OptionsOrTags: true,
+      type: "tags",
+      tagArray: ["Man", "Woman", "Unisex"],
+    });
+    let category = mapArray({
+      arrProducts: products,
+      OptionsOrTags: true,
+      type: "tags",
+      tagArray: ["SUNGLASSES", "FRAMES"],
+    });
+    let material = mapArray({
+      arrProducts: products,
+      OptionsOrTags: true,
+      type: "options",
+      key: "Materiale",
+    });
+
+    setFilterObj({
+      ...filterObj,
+      design,
+      Color: color,
+      Taglia: size,
+      shape,
+      category,
+      gender,
+      material,
+    });
+  }, [products]);
+
+  const availabileProducts = filters.length > 0 ? productsFiltered : products;
+
   return (
     <Layout>
       <Head>
@@ -164,10 +355,13 @@ const CollectionTemplate = ({ collection }) => {
         </div>
         {isDesktop ? (
           <div className="containerAll">
-            <FilterDesktop />
-            {products && (
+            <FilterDesktop
+              filterObj={filterObj}
+              filterHandler={onFilterHandler}
+            />
+            {availabileProducts && (
               <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
-                {products.map(product => (
+                {availabileProducts.map(product => (
                   <Product
                     key={product.node.id}
                     product={product}
@@ -178,9 +372,9 @@ const CollectionTemplate = ({ collection }) => {
             )}
           </div>
         ) : (
-          products && (
+          availabileProducts && (
             <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
-              {products.map(product => (
+              {availabileProducts.map(product => (
                 <Product
                   key={product.node.id}
                   product={product}
