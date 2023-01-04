@@ -21,7 +21,6 @@ import getMonthlyHighlight from "../api/monthlyHighlight";
 import getShopByItems from "../api/ShopByItems";
 import { getCollection } from "../api/collections";
 //COMPONENTS
-import ModalsIcons from "../components/modalsIcons";
 import SliderMenu from "../components/slider-menu";
 import SliderHomeCollection from "../templates/slider-home-collection";
 import SliderArticles from "../components/slider-articles";
@@ -43,10 +42,8 @@ const IndexPage = ({
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.value);
   //STATE
-  const [show, setShown] = useState(false);
   const allShopBy = shopBy?.data?.allShopBies;
   articles = articles.data.allArticles;
-  let selectSingleIcon;
   //FUNCTION
   const setLanguageByBrowser = () => {
     if (navigator.language !== "it-IT") {
@@ -144,14 +141,8 @@ const IndexPage = ({
           <SliderArticles articles={articles} />
           <SliderHomeCollection />
           <SliderMenu allShopBy={allShopBy} />
-          {/*{!isDesktop && <SubscribeForm />}*/}
-          {isDesktop && <Crisp />}
-          {show && (
-            <ModalsIcons
-              selectSingleIcon={selectSingleIcon}
-              setShown={setShown}
-            />
-          )}
+          {isDesktop && <SubscribeForm />}
+          <Crisp />
         </AnimatedPage>
       </Layout>
     </>

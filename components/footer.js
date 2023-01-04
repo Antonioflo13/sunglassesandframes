@@ -1,3 +1,15 @@
+//REACT
+import React from "react";
+//NEXT
+import Link from "next/link";
+//INTL
+import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
+//HOOKS
+import useMediaQuery from "../hooks/useMediaQuery";
+import createHandle from "../hooks/createHandle";
+//FRAMER
+import { AnimatePresence, motion } from "framer-motion";
+//FONTAWESOME
 import {
   faFacebook,
   faInstagram,
@@ -6,18 +18,13 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
-import Link from "next/link";
-import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
+//IMAGES
 import logo from "../assets/images/logo.svg";
-import useMediaQuery from "../hooks/useMediaQuery";
-import { AnimatePresence, motion } from "framer-motion";
 import amex from "../assets/images/amex.svg";
-import applepay from "../assets/images/applepay.svg";
+import applePay from "../assets/images/applepay.svg";
 import mastercard from "../assets/images/mastercard.svg";
 import visa from "../assets/images/visa.svg";
 import paypal from "../assets/images/paypal.svg";
-import createHandle from "../hooks/createHandle";
 
 const Footer = () => {
   const [accordion, setAccordion] = React.useState({
@@ -46,7 +53,7 @@ const Footer = () => {
               </div>
               <div style={{ display: "flex", gap: "10px", marginTop: "5px" }}>
                 <img src={amex.src} width={40} alt="icon" />
-                <img src={applepay.src} width={40} alt="icon" />
+                <img src={applePay.src} width={40} alt="icon" />
                 <img src={visa.src} width={40} alt="icon" />
                 <img src={mastercard.src} width={40} alt="icon" />
                 <img src={paypal.src} width={40} alt="icon" />
@@ -85,7 +92,7 @@ const Footer = () => {
                   }}
                 >
                   <img src={amex.src} width={35} alt="icon" />
-                  <img src={applepay.src} width={35} alt="icon" />
+                  <img src={applePay.src} width={35} alt="icon" />
                   <img src={visa.src} width={35} alt="icon" />
                   <img src={mastercard.src} width={35} alt="icon" />
                   <img src={paypal.src} width={35} alt="icon" />
@@ -132,22 +139,64 @@ const Footer = () => {
                       <FormattedMessage id="footer.contact.title" />
                     </div>
                     <div className="text-xs mt-2 ">
-                      <FormattedMessage id="footer.order.title" />
+                      <Link
+                        href={{
+                          pathname: "/assistance-center",
+                          query: { menu: createHandle("Orders & Deliveries") },
+                        }}
+                      >
+                        <FormattedMessage id="footer.order.title" />
+                      </Link>
                     </div>
                     <div className="text-xs mt-2 ">
-                      <FormattedMessage id="footer.payment.title" />
+                      <Link
+                        href={{
+                          pathname: "/assistance-center",
+                          query: { menu: createHandle("Payment") },
+                        }}
+                      >
+                        <FormattedMessage id="footer.payment.title" />
+                      </Link>
                     </div>
                     <div className="text-xs mt-2 ">
-                      <FormattedMessage id="footer.return.title" />
+                      <Link
+                        href={{
+                          pathname: "/assistance-center",
+                          query: { menu: createHandle("Returns & Refunds") },
+                        }}
+                      >
+                        <FormattedMessage id="footer.return.title" />
+                      </Link>
                     </div>
                     <div className="text-xs mt-2 ">
-                      <FormattedMessage id="footer.faq.title" />
+                      <Link
+                        href={{
+                          pathname: "/assistance-center",
+                          query: { menu: createHandle("FAQ") },
+                        }}
+                      >
+                        <FormattedMessage id="footer.faq.title" />
+                      </Link>
                     </div>
                     <div className="text-xs mt-2 ">
-                      <FormattedMessage id="footer.terms.title" />
+                      <Link
+                        href={{
+                          pathname: "/assistance-center",
+                          query: { menu: createHandle("Terms and Conditions") },
+                        }}
+                      >
+                        <FormattedMessage id="footer.terms.title" />
+                      </Link>
                     </div>
                     <div className="text-xs mt-2 ">
-                      <FormattedMessage id="footer.privacy.title" />
+                      <Link
+                        href={{
+                          pathname: "/assistance-center",
+                          query: { menu: createHandle("Privacy Policy") },
+                        }}
+                      >
+                        <FormattedMessage id="footer.privacy.title" />
+                      </Link>
                     </div>
                   </motion.div>
                 )}
