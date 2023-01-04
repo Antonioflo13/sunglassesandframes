@@ -49,6 +49,16 @@
   src: url("../fonts/Raleway-VariableFont_wght.ttf");
 }
 
+@font-face {
+  font-family: Raleway;
+  src: url("../fonts/Raleway-Medium.ttf");
+}
+
+@font-face {
+  font-family: Raleway-semiBold;
+  src: url("../fonts/Raleway-SemiBold.ttf");
+}
+
 body {
   font-family: "Artegra Sans", sans-serif;
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
@@ -60,7 +70,11 @@ body {
 }
 
 .raleway {
-  font-family: "Raleway-linght", sans-serif;
+  font-family: "Raleway", sans-serif;
+}
+
+.raleway-semiBold {
+  font-family: "Raleway-semiBold", sans-serif;
 }
 
 .ralewayLight {
