@@ -42,6 +42,7 @@ export const Navbar = () => {
   //STATE
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [hasHover, setHasHover] = useState(false);
+  const [customHover, setCustomHover] = useState(true);
   const [monthCollectionInfo, setMonthCollectionInfo] = useState({});
   const [itemsNavbar, setItemsNavbar] = useState([]);
   const [viewSecondSidebar, setViewSecondSidebar] = useState(false);
@@ -197,7 +198,13 @@ export const Navbar = () => {
           <div>
             <Link href="/magazine">
               <button className="link">
-                <div className="flex flex-col justify-center items-center hover:font-bold ralewayLight">
+                <div
+                  onMouseEnter={() => setCustomHover(false)}
+                  onMouseLeave={() => setCustomHover(true)}
+                  className={`flex flex-col justify-center items-center ralewayLight customHoverColor ${
+                    !customHover && "changeColor"
+                  }`}
+                >
                   Magazine
                 </div>
               </button>
@@ -208,14 +215,26 @@ export const Navbar = () => {
               onMouseEnter={() => setHasHover(true)}
               onMouseLeave={() => setHasHover(false)}
             >
-              <div className="flex flex-col justify-center items-center hover:font-bold ralewayLight">
+              <div
+                onMouseEnter={() => setCustomHover(false)}
+                onMouseLeave={() => setCustomHover(true)}
+                className={`flex flex-col justify-center items-center ralewayLight customHoverColor ${
+                  !customHover && "changeColor"
+                }`}
+              >
                 Shop By
               </div>
             </button>
 
             <Link href="/designers">
               <button className="link">
-                <div className="flex flex-col justify-center items-center hover:font-bold ralewayLight">
+                <div
+                  onMouseEnter={() => setCustomHover(false)}
+                  onMouseLeave={() => setCustomHover(true)}
+                  className={`flex flex-col justify-center items-center ralewayLight customHoverColor ${
+                    !customHover && "changeColor"
+                  }`}
+                >
                   Our Designer
                 </div>
               </button>
@@ -227,7 +246,13 @@ export const Navbar = () => {
               }}
             >
               <button className="link">
-                <div className="flex flex-col justify-center items-center hover:font-bold ralewayLight">
+                <div
+                  onMouseEnter={() => setCustomHover(false)}
+                  onMouseLeave={() => setCustomHover(true)}
+                  className={`flex flex-col justify-center items-center ralewayLight customHoverColor ${
+                    !customHover && "changeColor"
+                  }`}
+                >
                   Sunglasses
                 </div>
               </button>
@@ -239,7 +264,13 @@ export const Navbar = () => {
               }}
             >
               <button className="link">
-                <div className="flex flex-col justify-center items-center hover:font-bold ralewayLight">
+                <div
+                  onMouseEnter={() => setCustomHover(false)}
+                  onMouseLeave={() => setCustomHover(true)}
+                  className={`flex flex-col justify-center items-center ralewayLight customHoverColor ${
+                    !customHover && "changeColor"
+                  }`}
+                >
                   Frames
                 </div>
               </button>
@@ -251,7 +282,13 @@ export const Navbar = () => {
               }}
             >
               <button className="link">
-                <div className="flex flex-col justify-center items-center text-sunglassesandframes-red hover:font-bold ralewayLight">
+                <div
+                  onMouseEnter={() => setCustomHover(false)}
+                  onMouseLeave={() => setCustomHover(true)}
+                  className={`flex flex-col justify-center items-center ralewayLight customHoverColorRed ${
+                    !customHover && "changeColor"
+                  }`}
+                >
                   Promotions
                 </div>
               </button>
@@ -522,6 +559,22 @@ export const Navbar = () => {
           border: solid 1px;
           border-radius: 10px;
           height: 23px;
+        }
+
+        .customHoverColorRed {
+          color: #970000;
+        }
+
+        .changeColor {
+          color: #727272;
+        }
+
+        .customHoverColorRed:hover {
+          color: #970000;
+        }
+
+        .customHoverColor:hover {
+          color: black;
         }
 
         @media screen and (max-width: 1150px) {
