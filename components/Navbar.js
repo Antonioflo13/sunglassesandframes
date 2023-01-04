@@ -568,7 +568,7 @@ export const Navbar = () => {
         }
 
         .customHoverColorRed {
-          color: #970000;
+          color: #c60000;
         }
 
         .changeColor {
@@ -576,7 +576,7 @@ export const Navbar = () => {
         }
 
         .customHoverColorRed:hover {
-          color: #970000;
+          color: #c60000;
         }
 
         .customHoverColor:hover {
