@@ -32,7 +32,7 @@ const SliderHomeCollection = () => {
           <Swiper
             slidesPerView={2.3}
             centeredSlides={true}
-            spaceBetween={90}
+            spaceBetween={60}
             loop={true}
             className="mySwiper"
             breakpoints={{
@@ -93,7 +93,7 @@ const SliderHomeCollection = () => {
             }
           }
           .sliderCollection {
-            max-width: 62rem;
+            max-width: 72rem;
             margin-left: auto;
             margin-right: auto;
           }
