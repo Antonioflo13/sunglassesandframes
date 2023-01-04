@@ -332,7 +332,7 @@ export const Navbar = () => {
               className="cursor-pointer"
               icon={faSearch}
             />
-            <input className="searchInput" />
+            <input className="searchInput" placeholder="Search" />
           </div>
         </div>
       )}
@@ -552,13 +552,17 @@ export const Navbar = () => {
         }
 
         .link {
-          padding-right: 2.5rem;
+          padding-right: 4rem;
         }
 
         .searchInput {
           border: solid 1px;
           border-radius: 10px;
           height: 23px;
+        }
+
+        .searchInput::placeholder {
+          padding-left: 30px;
         }
 
         .customHoverColorRed {
