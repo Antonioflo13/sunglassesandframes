@@ -235,7 +235,7 @@ export const Navbar = () => {
                     !customHover && "changeColor"
                   }`}
                 >
-                  Our Designer
+                  Our Designers
                 </div>
               </button>
             </Link>
