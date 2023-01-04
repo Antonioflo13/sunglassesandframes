@@ -562,7 +562,8 @@ export const Navbar = () => {
         }
 
         .searchInput::placeholder {
-          padding-left: 30px;
+          padding-left: 25px;
+          font-size: 14px;
         }
 
         .customHoverColorRed {
