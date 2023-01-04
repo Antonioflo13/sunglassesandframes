@@ -154,7 +154,7 @@ const Drawer = ({ handleClose }) => {
                         ></img>
                       </div>
                       <div className="drawer-product-description">
-                        {/* <div className="text-sunglassesandframes-red text-xs font-bold italic mackay noToHead mt-2">
+                        {/* <div className="text-sunglassesandframes-red text-xs font-bold italic raleway noToHead mt-2">
                           {item.details.title}
                         </div> */}
                         <div className="text-xs uppercase font-bold">

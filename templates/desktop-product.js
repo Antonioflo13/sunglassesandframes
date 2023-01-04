@@ -154,7 +154,7 @@ const DesktopProduct = props => {
                       />
                     </>
                   </div>
-                  <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
+                  <div className="text-sunglassesandframes-black text-xs font-bold italic raleway noToHead mt-2">
                     {product.node.vendor}
                   </div>
                   <div className="ml-1 text-xs uppercase font-bold mt-2">

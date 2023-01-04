@@ -38,7 +38,7 @@ const PageTitle = ({
         </div>
       </div>
     )}
-    <div className="text-xl md:text-3xl font-semibold leading-tight monument whitespace-pre-line">
+    <div className="text-xl md:text-3xl font-semibold leading-tight lato whitespace-pre-line">
       {React.isValidElement(title) ? (
         title
       ) : (
@@ -75,7 +75,7 @@ const PageTitle = ({
 export default PageTitle;
 
 export const Bold = ({ children }) => (
-  <span className="text-2xl md:text-4xl font-black italic mackay text-sunglassesandframes-red">
+  <span className="text-2xl md:text-4xl font-black italic raleway text-sunglassesandframes-red">
     {children}
   </span>
 );

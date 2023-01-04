@@ -35,7 +35,7 @@ const SliderArticleProducts = ({ productsinArticle }) => {
                     src={item.node.images[1].transformedSrc}
                     alt="product"
                   />
-                  <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead mt-2">
+                  <div className="text-sunglassesandframes-black text-xs font-bold italic raleway noToHead mt-2">
                     {item.node.vendor}
                   </div>
                   <div className="ml-1 text-xs uppercase font-bold mt-2">

@@ -53,39 +53,36 @@
 } */
 /*! purgecss end ignore */
 
-@font-face {
+/* @font-face {
   font-family: "Artegra Sans";
   font-weight: 400;
   font-style: normal;
   src: url("../fonts/Lato-Regular.ttf");
   font-display: swap;
-}
+} */
 
-@font-face {
+/* @font-face {
   font-family: "Artegra Sans";
   font-weight: 700;
   font-style: bold;
   src: url("../fonts/Lato-Bold.ttf");
-  /* src: url("../fonts/ArtegraSansExtended-Bold.otf"); */
   font-display: swap;
-}
+} */
 
-@font-face {
-  font-family: "Monument";
+/* @font-face {
+  font-family: "lato";
   font-weight: 400;
   font-style: normal;
   src: url("../fonts/Lato-Regular.ttf");
-  /* src: url("../fonts/MonumentExtended-Regular.otf"); */
   font-display: swap;
-}
+} */
 
-@font-face {
-  font-family: "Mackay";
+/* @font-face {
+  font-family: "raleway";
   font-weight: 800;
   font-style: italic;
-  /* src: url("../fonts/Mackay-BlackItalic.otf"); */
   font-display: swap;
-}
+} */
 
 body {
   font-family: "Artegra Sans", sans-serif;
@@ -97,12 +94,17 @@ body {
     margin-right: auto; */
 }
 
-.monument {
-  font-family: "Monument", sans-serif;
+.lato {
+  font-family: "Lato", sans-serif;
 }
 
-.mackay {
-  font-family: "Mackay", sans-serif;
+.raleway {
+  font-family: "Raleway", sans-serif;
+}
+
+.ralewayLight {
+  font-family: "Raleway", sans-serif;
+  font-weight: 100;
 }
 
 .text-shadow-white {

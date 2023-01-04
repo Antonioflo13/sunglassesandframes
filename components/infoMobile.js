@@ -8,7 +8,7 @@ const InfoMobile = () => {
         <div className="containerInfo mt-5">
           <div>Need help?</div>
           <div className="info">
-            <div className="text-sunglassesandframes-black font-bold mackay">
+            <div className="text-sunglassesandframes-black font-bold raleway">
               Whatsapp us
             </div>
             <div>+39 339 46 44 407</div>
@@ -17,13 +17,13 @@ const InfoMobile = () => {
             </div>
           </div>
           <div className="info">
-            <div className="text-sunglassesandframes-black font-bold mackay">
+            <div className="text-sunglassesandframes-black font-bold raleway">
               E-mail us
             </div>
             <div>info@sunglassesandframes.com</div>
           </div>
           <div className="info">
-            <div className="text-sunglassesandframes-black font-bold mackay">
+            <div className="text-sunglassesandframes-black font-bold raleway">
               Assistance Center
             </div>
             <div>Anything you need to know is here</div>

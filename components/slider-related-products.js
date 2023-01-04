@@ -48,7 +48,7 @@ const sliderRelatedProducts = props => {
                       }
                       alt="product"
                     />
-                    <div className="text-sunglassesandframes-black text-xs font-bold italic mackay noToHead">
+                    <div className="text-sunglassesandframes-black text-xs font-bold italic raleway noToHead">
                       {item.node.vendor}
                     </div>
                     <div className="text-xs uppercase font-bold">

@@ -197,7 +197,7 @@ export const Navbar = () => {
           <div>
             <Link href="/magazine">
               <button className="link">
-                <div className="flex flex-col justify-center items-center hover:font-bold mackay">
+                <div className="flex flex-col justify-center items-center hover:font-bold ralewayLight">
                   Magazine
                 </div>
               </button>
@@ -208,14 +208,14 @@ export const Navbar = () => {
               onMouseEnter={() => setHasHover(true)}
               onMouseLeave={() => setHasHover(false)}
             >
-              <div className="flex flex-col justify-center items-center hover:font-bold mackay">
+              <div className="flex flex-col justify-center items-center hover:font-bold ralewayLight">
                 Shop By
               </div>
             </button>
 
             <Link href="/designers">
               <button className="link">
-                <div className="flex flex-col justify-center items-center hover:font-bold mackay">
+                <div className="flex flex-col justify-center items-center hover:font-bold ralewayLight">
                   Our Designer
                 </div>
               </button>
@@ -227,7 +227,7 @@ export const Navbar = () => {
               }}
             >
               <button className="link">
-                <div className="flex flex-col justify-center items-center hover:font-bold mackay">
+                <div className="flex flex-col justify-center items-center hover:font-bold ralewayLight">
                   Sunglasses
                 </div>
               </button>
@@ -239,7 +239,7 @@ export const Navbar = () => {
               }}
             >
               <button className="link">
-                <div className="flex flex-col justify-center items-center hover:font-bold mackay">
+                <div className="flex flex-col justify-center items-center hover:font-bold ralewayLight">
                   Frames
                 </div>
               </button>
@@ -251,7 +251,7 @@ export const Navbar = () => {
               }}
             >
               <button className="link">
-                <div className="flex flex-col justify-center items-center text-sunglassesandframes-red hover:font-bold mackay">
+                <div className="flex flex-col justify-center items-center text-sunglassesandframes-red hover:font-bold ralewayLight">
                   Promotions
                 </div>
               </button>
