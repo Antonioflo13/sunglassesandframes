@@ -141,7 +141,7 @@ const IndexPage = ({
           <SliderArticles articles={articles} />
           <SliderHomeCollection />
           <SliderMenu allShopBy={allShopBy} />
-          {isDesktop && <SubscribeForm />}
+          {/*{!isDesktop && <SubscribeForm />}*/}
           <Crisp />
         </AnimatedPage>
       </Layout>
