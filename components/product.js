@@ -36,6 +36,7 @@ const Product = ({ product, collectionHandle }) => {
             <>
               {isLoadingImage && <LoadingImage />}
               <Image
+                className="custon"
                 fill="true"
                 style={{ objectFit: "cover" }}
                 sizes="100%"
@@ -63,7 +64,7 @@ const Product = ({ product, collectionHandle }) => {
       <style jsx="true">
         {`
           .image-container {
-            width: 100%;
+            width: 90%;
             position: relative;
             height: 150px;
             overflow: hidden;
