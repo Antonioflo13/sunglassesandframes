@@ -70,16 +70,12 @@ const CollectionTemplate = ({ collection }) => {
       }
     }
     setFilters(arr);
-    // setFilters(filters);
   };
 
   const filterProducts = () => {
     let productsArray = [...products];
 
-    console.log("PRODUCTS ARRAY: ", productsArray);
     let arr = [];
-    console.log("ARR:", arr);
-    console.log("FILTERS: ", filters);
     let allFilteredProducts = [];
     for (let filter of filters) {
       switch (filter.filterLabel) {
@@ -87,9 +83,7 @@ const CollectionTemplate = ({ collection }) => {
         case "Materiale":
         case "Taglia":
         case "Shape":
-          console.log("FILTER 1");
           for (let value of filter.filterValue) {
-            console.log("PRODUCTS ARRAY: ", productsArray);
             let filtered = productsArray.filter(product => {
               const options = product.node.options.find(
                 el => el.name === filter.filterLabel
@@ -104,9 +98,8 @@ const CollectionTemplate = ({ collection }) => {
               arr.push(filtered);
             }
           }
-        // break;
+          continue;
         case "Design":
-          console.log("FILTER 2");
           for (let value of filter.filterValue) {
             let filtered = productsArray.filter(
               product => product.node.vendor === value
@@ -115,10 +108,9 @@ const CollectionTemplate = ({ collection }) => {
               arr.push(filtered);
             }
           }
-        // break;
+          continue;
         case "Category":
         case "Gender":
-          console.log("FILTER 3");
           for (let value of filter.filterValue) {
             let filtered = productsArray.filter(product => {
               const tags = product.node.tags;
@@ -132,27 +124,30 @@ const CollectionTemplate = ({ collection }) => {
               arr.push(filtered);
             }
           }
+          continue;
+        default:
+          return [];
       }
-      // break;
     }
 
-    console.log("ARR 2:", arr);
-    console.log("----------------------------");
-
-    let length = 0;
-    let largestArr = [];
     for (let filteredProducts of arr) {
-      if (filteredProducts.length > length) {
-        largestArr = filteredProducts;
-        length = filteredProducts.length;
-      }
       for (let product of filteredProducts) {
         allFilteredProducts.push(product);
       }
     }
-    let prods = [...new Set(allFilteredProducts)];
-    console.log("LARGEST:", largestArr);
-    setProductsFiltered(prods);
+    if (filters.length > 1 && arr.length > 1) {
+      let duplicates = allFilteredProducts.filter(
+        (a, i, aa) =>
+          aa.indexOf(a) === i &&
+          aa.lastIndexOf(a) !== i &&
+          aa.filter(p => p.node.id === a.node.id).length === filters.length
+      );
+      setProductsFiltered(duplicates);
+    } else {
+      let prods = [...new Set(allFilteredProducts)];
+      setProductsFiltered(prods);
+    }
+    // }
   };
   // EFFECT
   useEffect(() => {
@@ -273,7 +268,6 @@ const CollectionTemplate = ({ collection }) => {
       key: "Materiale",
     });
 
-    // console.log(products);
     setFilterObj({
       ...filterObj,
       design,
@@ -286,8 +280,7 @@ const CollectionTemplate = ({ collection }) => {
     });
   }, [products]);
 
-  const availabileProducts =
-    productsFiltered.length > 0 ? productsFiltered : products;
+  const availabileProducts = filters.length > 0 ? productsFiltered : products;
 
   return (
     <Layout>
