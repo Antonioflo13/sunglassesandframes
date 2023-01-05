@@ -40,9 +40,9 @@ const CollectionTemplate = ({ collection }) => {
   const [loadMore, setLoadMore] = useState(false);
 
   // State of whether there is more to load
-  const [hasMore, setHasMore] = useState(
-    collection.products.pageInfo.hasNextPage
-  );
+  const [hasMore, setHasMore] = useState({
+    hasMore: collection.products.pageInfo.hasNextPage,
+  });
 
   // Cursor
   const [cursor, setCursor] = useState(collection.products.pageInfo.endCursor);
@@ -172,19 +172,20 @@ const CollectionTemplate = ({ collection }) => {
   }, []);
 
   // Handle loading more articles
-  // useEffect(() => {
-  //   if (loadMore && hasMore) {
-  //     getProductByCollection().then(response => {
-  //       const newProducts = response.data.collection.products.edges;
-  //       const isMore = response.data.collection.products.pageInfo.hasNextPage;
-  //       const cursor = response.data.collection.products.pageInfo.endCursor;
-  //       setCursor(cursor);
-  //       setHasMore(isMore);
-  //       setProducts(oldProducts => [...oldProducts, ...newProducts]);
-  //       setLoadMore(false);
-  //     });
-  //   }
-  // }, [loadMore, hasMore]); //eslint-disable-line
+  useEffect(() => {
+    if (hasMore.hasMore) {
+      getProductByCollection().then(response => {
+        const newProducts = response.data.collection.products.edges;
+        const isMore = response.data.collection.products.pageInfo.hasNextPage;
+        console.log(isMore);
+        const cursor = response.data.collection.products.pageInfo.endCursor;
+        setCursor(cursor);
+        setHasMore({ hasMore: isMore });
+        setProducts(oldProducts => [...oldProducts, ...newProducts]);
+        setLoadMore(false);
+      });
+    }
+  }, [hasMore]);
 
   const mapArray = ({
     arrProducts,
