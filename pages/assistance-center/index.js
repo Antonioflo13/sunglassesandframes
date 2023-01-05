@@ -95,22 +95,11 @@ const Index = ({ assistanceCenterInfo, selectedMenu }) => {
                     <div className="font-bold uppercase text-sm">
                       {menu.title}
                     </div>
-                    {menu.description.includes("https") ? (
-                      <div className="">
-                        <iframe
-                          className="w-full"
-                          height="700"
-                          scrolling="no"
-                          src={menu.description}
-                        />
-                      </div>
-                    ) : (
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: menu.description,
-                        }}
-                      />
-                    )}
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: menu.description,
+                      }}
+                    />
                   </div>
                 ))}
               </div>
