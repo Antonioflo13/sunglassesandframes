@@ -173,6 +173,7 @@ const CollectionTemplate = ({ collection }) => {
 
   // Handle loading more articles
   useEffect(() => {
+    console.log(hasMore);
     if (hasMore.hasMore) {
       getProductByCollection().then(response => {
         const newProducts = response.data.collection.products.edges;
