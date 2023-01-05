@@ -3,7 +3,7 @@ const LoadingImage = () => {
   return (
     <div className="h-full">
       <div className="animate-pulse h-full">
-        <div className="rounded-sm bg-slate-100	h-full w-full"></div>
+        <div className="rounded-sm bg-slate-50	h-full w-full"></div>
       </div>
     </div>
   );

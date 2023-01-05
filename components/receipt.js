@@ -26,7 +26,7 @@ const Receipt = ({ items, isLoading, cart, goToCheckout }) => {
                 {isLoading ? (
                   <div>
                     <div className="animate-pulse flex space-x-4">
-                      <div className="rounded-sm bg-slate-700 h-4 w-7"></div>
+                      <div className="rounded-sm bg-slate-50 h-4 w-7"></div>
                     </div>
                   </div>
                 ) : (
@@ -68,7 +68,7 @@ const Receipt = ({ items, isLoading, cart, goToCheckout }) => {
                 {isLoading ? (
                   <div>
                     <div className="animate-pulse flex space-x-4">
-                      <div className="rounded-sm bg-slate-700 h-5 w-10"></div>
+                      <div className="rounded-sm bg-slate-50 h-5 w-10"></div>
                     </div>
                   </div>
                 ) : (

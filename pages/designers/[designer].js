@@ -362,9 +362,9 @@ const CollectionTemplate = ({ collection }) => {
             />
             {availabileProducts && (
               <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
-                {availabileProducts.map(product => (
+                {availabileProducts.map((product, index) => (
                   <Product
-                    key={product.node.id}
+                    key={index}
                     product={product}
                     collectionHandle={collectionHandle}
                   />
@@ -375,9 +375,9 @@ const CollectionTemplate = ({ collection }) => {
         ) : (
           availabileProducts && (
             <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
-              {availabileProducts.map(product => (
+              {availabileProducts.map((product, index) => (
                 <Product
-                  key={product.node.id}
+                  key={index}
                   product={product}
                   collectionHandle={collectionHandle}
                 />

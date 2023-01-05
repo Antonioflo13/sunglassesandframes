@@ -16,7 +16,7 @@ const AnimatedPage = ({ children, margins, fullHeight, grey, noAnimate }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
-          duration: 0.5,
+          duration: 3,
           delay: 0.4,
           ease: [0, 0.71, 0.2, 1.01],
         }}
