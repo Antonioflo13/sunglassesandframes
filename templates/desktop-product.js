@@ -26,7 +26,7 @@ const DesktopProduct = props => {
   } = props;
 
   //STATE
-  const [activePanels, setActivePanels] = useState({});
+  const [activePanels, setActivePanels] = useState({ details: true });
 
   //FUNCTIONS
   const togglePanel = panel => {
