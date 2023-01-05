@@ -55,6 +55,7 @@ const CollectionTemplate = ({ collection }) => {
     await getCollection(collection.handle, 250, cursor);
 
   // Handle intersection with load more div
+
   const handleObserver = entities => {
     const target = entities[0];
     if (target.isIntersecting) {
