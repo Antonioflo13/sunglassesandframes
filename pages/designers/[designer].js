@@ -52,7 +52,7 @@ const CollectionTemplate = ({ collection }) => {
 
   //FUNCTIONS
   const getProductByCollection = async () =>
-    await getCollection(collection.handle, 20, cursor);
+    await getCollection(collection.handle, 250, cursor);
 
   // Handle intersection with load more div
   const handleObserver = entities => {
