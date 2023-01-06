@@ -5,8 +5,19 @@ import { faAngleRight } from "@fortawesome/free-solid-svg-icons/faAngleRight";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
 import Image from "next/image";
 import FilterIcon from "../assets/images/filter-icon.png";
+import useMediaQuery from "../hooks/useMediaQuery";
+import {
+  faAngleLeft,
+  faCheck,
+  faCheckDouble,
+} from "@fortawesome/free-solid-svg-icons";
 
-const FilterDesktop = ({ filterObj, filterHandler, removeValue }) => {
+const FilterDesktop = ({
+  filterObj,
+  filterHandler,
+  removeValue,
+  hideModal,
+}) => {
   const [filters, setFilters] = useState([]);
 
   useEffect(() => {
@@ -65,10 +76,32 @@ const FilterDesktop = ({ filterObj, filterHandler, removeValue }) => {
     }
   }, [removeValue]);
 
+  const isDesktop = useMediaQuery(768);
+
   return (
     <>
       {filters.length > 0 && (
-        <div className="containerFilter">
+        <div className={isDesktop ? "containerFilter" : "mt-10"}>
+          {!isDesktop && (
+            <div className="flex items-center">
+              <FontAwesomeIcon
+                icon={faAngleLeft}
+                width={10}
+                style={{ cursor: "pointer", marginBottom: "32px" }}
+                onClick={hideModal}
+              />
+              {/* <div className="title-filter">
+                <Image
+                  src={FilterIcon}
+                  alt="filter-icon"
+                  width={24}
+                  height={24}
+                  className="inline mr-5"
+                />
+                FILTERS
+              </div> */}
+            </div>
+          )}
           <div className="title-filter mb-5">
             <Image
               src={FilterIcon}
@@ -134,6 +167,21 @@ const FilterDesktop = ({ filterObj, filterHandler, removeValue }) => {
                 )}
               </div>
             ))}
+          {!isDesktop && (
+            <button
+              className="text-center border border-black rounded-xl w-full uppercase p-2 mt-5 flex justify-center items-center"
+              onClick={hideModal}
+            >
+              <FontAwesomeIcon
+                icon={faCheckDouble}
+                width={16}
+                height={16}
+                style={{ cursor: "pointer", marginRight: 10 }}
+                onClick={hideModal}
+              />
+              Apply
+            </button>
+          )}
         </div>
       )}
 

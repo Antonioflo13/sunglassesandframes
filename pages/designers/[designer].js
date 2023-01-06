@@ -18,6 +18,9 @@ import FilterDesktop from "../../components/filterDesktop";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
+//Filter Icon
+import FilterIcon from "../../assets/images/filter-icon.png";
+
 const CollectionTemplate = ({ collection }) => {
   collection = collection.data.collection;
   const collectionHandle = collection.handle;
@@ -37,6 +40,7 @@ const CollectionTemplate = ({ collection }) => {
   const [filters, setFilters] = useState([]);
   const [productsFiltered, setProductsFiltered] = useState([]);
   const [removeValueFromFilter, setRemoveValueToFilter] = useState();
+  const [showFilters, setShowFilters] = useState(false);
 
   const [isLoadingImage, setIsLoadingImage] = useState(true);
 
@@ -292,6 +296,18 @@ const CollectionTemplate = ({ collection }) => {
 
   const availabileProducts = filters.length > 0 ? productsFiltered : products;
 
+  const openFiltersModal = () => {
+    setShowFilters(true);
+    document.body.classList.remove("overflow-auto");
+    document.body.classList.add("overflow-hidden");
+  };
+
+  const closeFiltersModal = () => {
+    setShowFilters(false);
+    document.body.classList.remove("overflow-hidden");
+    document.body.classList.add("overflow-auto");
+  };
+
   return (
     <Layout>
       <Head>
@@ -377,7 +393,7 @@ const CollectionTemplate = ({ collection }) => {
                     <>
                       {filter.filterValue.map(value => (
                         <div
-                          className="m-3 px-3 py-1 border rounded-xl flex"
+                          className="m-3 px-3 py-1 border border-black rounded-xl flex"
                           onClick={() =>
                             removeValueFromFilterHandler(
                               filter.filterLabel,
@@ -413,17 +429,46 @@ const CollectionTemplate = ({ collection }) => {
             </div>
           </div>
         ) : (
-          availabileProducts && (
-            <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
-              {availabileProducts.map(product => (
-                <Product
-                  key={product.node.id}
-                  product={product}
-                  collectionHandle={collectionHandle}
-                />
-              ))}
+          <>
+            <div
+              className={`fixed w-screen h-screen top-0 left-0 transition-all duration-300 px-5 bg-white visible opacity-100 overflow-scroll p-5 searchModal ${
+                showFilters ? "visible opacity-100" : "invisible opacity-0"
+              }`}
+            >
+              <FilterDesktop
+                filterObj={filterObj}
+                filterHandler={onFilterHandler}
+                removeValue={removeValueFromFilter}
+                hideModal={closeFiltersModal}
+              />
             </div>
-          )
+            <div className="mt-20">
+              <button
+                className="text-center border border-black rounded-xl block w-full uppercase p-2"
+                onClick={openFiltersModal}
+              >
+                <Image
+                  src={FilterIcon}
+                  alt="filter-icon"
+                  width={16}
+                  height={16}
+                  className="inline mr-5"
+                />
+                Filter By
+              </button>
+              {availabileProducts && (
+                <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
+                  {availabileProducts.map(product => (
+                    <Product
+                      key={product.node.id}
+                      product={product}
+                      collectionHandle={collectionHandle}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </>
         )}
         <div ref={loadRef}></div>
       </AnimatedPage>
@@ -460,6 +505,18 @@ const CollectionTemplate = ({ collection }) => {
 
           .container-text {
             width: 50%;
+          }
+
+          .fullScreenBackgroundSearch {
+            background-color: rgb(FF FF FF);
+            z-index: 99;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            position: absolute;
+          }
+          .searchModal {
+            z-index: 9999999;
           }
 
           @media (max-width: 768px) {
