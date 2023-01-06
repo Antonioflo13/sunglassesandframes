@@ -6,7 +6,7 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
 import Image from "next/image";
 import FilterIcon from "../assets/images/filter-icon.png";
 
-const FilterDesktop = ({ filterObj, filterHandler }) => {
+const FilterDesktop = ({ filterObj, filterHandler, removeValue }) => {
   const [filters, setFilters] = useState([]);
 
   useEffect(() => {
@@ -53,6 +53,18 @@ const FilterDesktop = ({ filterObj, filterHandler }) => {
   useEffect(() => {
     filterHandler(filters);
   }, [filters]);
+
+  useEffect(() => {
+    if (removeValue) {
+      const arr = [...filters];
+      const obj = arr.find(filter => filter.label === removeValue.label);
+      if (obj) {
+        obj.active = obj.active.filter(act => act !== removeValue.value);
+        setFilters(arr);
+      }
+    }
+  }, [removeValue]);
+
   return (
     <>
       {filters.length > 0 && (
@@ -72,8 +84,10 @@ const FilterDesktop = ({ filterObj, filterHandler }) => {
               <div key={filter.label}>
                 <div className="containerFilterArrow mt-8">
                   <div>
-                    {filter.label.charAt(0).toUpperCase() +
-                      filter.label.slice(1)}
+                    {filter.label !== "Taglia"
+                      ? filter.label.charAt(0).toUpperCase() +
+                        filter.label.slice(1)
+                      : "Size"}
                   </div>
                   {!filter.isActive ? (
                     <FontAwesomeIcon
@@ -97,12 +111,17 @@ const FilterDesktop = ({ filterObj, filterHandler }) => {
                       <div key={val}>
                         <label
                           htmlFor={val}
-                          onClick={e =>
-                            toggleStringArrayToFilters(event, filter, val)
-                          }
+                          // onClick={e =>
+                          //   toggleStringArrayToFilters(e, filter, val)
+                          // }
                         >
                           <input
                             type="checkbox"
+                            // defaultChecked={filter.active.includes(val)}
+                            checked={filter.active.includes(val)}
+                            onChange={e =>
+                              toggleStringArrayToFilters(e, filter, val)
+                            }
                             id={val}
                             name={val}
                             className="mr-1"

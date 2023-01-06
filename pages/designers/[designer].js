@@ -33,6 +33,7 @@ const CollectionTemplate = ({ collection }) => {
   const [filterObj, setFilterObj] = useState({});
   const [filters, setFilters] = useState([]);
   const [productsFiltered, setProductsFiltered] = useState([]);
+  const [removeValueFromFilter, setRemoveValueToFilter] = useState();
 
   const [isLoadingImage, setIsLoadingImage] = useState(true);
 
@@ -52,10 +53,9 @@ const CollectionTemplate = ({ collection }) => {
 
   //FUNCTIONS
   const getProductByCollection = async () =>
-    await getCollection(collection.handle, 250, cursor);
+    await getCollection(collection.handle, 20, cursor);
 
   // Handle intersection with load more div
-
   const handleObserver = entities => {
     const target = entities[0];
     if (target.isIntersecting) {
@@ -283,6 +283,10 @@ const CollectionTemplate = ({ collection }) => {
     });
   }, [products]);
 
+  const removeValueFromFilterHandler = (label, value) => {
+    setRemoveValueToFilter({ label, value });
+  };
+
   const availabileProducts = filters.length > 0 ? productsFiltered : products;
 
   return (
@@ -361,25 +365,48 @@ const CollectionTemplate = ({ collection }) => {
             <FilterDesktop
               filterObj={filterObj}
               filterHandler={onFilterHandler}
+              removeValue={removeValueFromFilter}
             />
-            {availabileProducts && (
-              <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
-                {availabileProducts.map((product, index) => (
-                  <Product
-                    key={index}
-                    product={product}
-                    collectionHandle={collectionHandle}
-                  />
-                ))}
+            <div className="w-full">
+              <div className="flex w-full flex-wrap">
+                {filters.length > 0 &&
+                  filters.map(filter => (
+                    <>
+                      {filter.filterValue.map(value => (
+                        <div
+                          className="m-3 px-3 py-1 border rounded-xl"
+                          onClick={() =>
+                            removeValueFromFilterHandler(
+                              filter.filterLabel,
+                              value
+                            )
+                          }
+                        >
+                          {value}
+                        </div>
+                      ))}
+                    </>
+                  ))}
               </div>
-            )}
+              {availabileProducts && (
+                <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
+                  {availabileProducts.map(product => (
+                    <Product
+                      key={product.node.id}
+                      product={product}
+                      collectionHandle={collectionHandle}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         ) : (
           availabileProducts && (
             <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-16 gap-y-10 md:gap-y-20 containerProduct">
-              {availabileProducts.map((product, index) => (
+              {availabileProducts.map(product => (
                 <Product
-                  key={index}
+                  key={product.node.id}
                   product={product}
                   collectionHandle={collectionHandle}
                 />
