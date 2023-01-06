@@ -68,7 +68,7 @@ const FilterDesktop = ({ filterObj, filterHandler, removeValue }) => {
   return (
     <>
       {filters.length > 0 && (
-        <div className="containerFilter mt-20">
+        <div className="containerFilter">
           <div className="title-filter mb-5">
             <Image
               src={FilterIcon}

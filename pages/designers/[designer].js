@@ -364,7 +364,7 @@ const CollectionTemplate = ({ collection }) => {
           </div>
         </div>
         {isDesktop ? (
-          <div className="containerAll">
+          <div className="containerAll mt-20">
             <FilterDesktop
               filterObj={filterObj}
               filterHandler={onFilterHandler}
@@ -377,7 +377,7 @@ const CollectionTemplate = ({ collection }) => {
                     <>
                       {filter.filterValue.map(value => (
                         <div
-                          className="m-3 px-3 py-1 border rounded-xl"
+                          className="m-3 px-3 py-1 border rounded-xl flex"
                           onClick={() =>
                             removeValueFromFilterHandler(
                               filter.filterLabel,
@@ -386,10 +386,14 @@ const CollectionTemplate = ({ collection }) => {
                           }
                         >
                           <FontAwesomeIcon
-                            style={{ marginRight: "5px" }}
+                            style={{
+                              marginRight: "5px",
+                              width: 24,
+                              height: 24,
+                            }}
                             icon={faXmark}
                           />
-                          {value}
+                          <span>{value}</span>
                         </div>
                       ))}
                     </>
