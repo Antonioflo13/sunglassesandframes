@@ -14,6 +14,9 @@ import Image from "next/image";
 import Product from "../../components/product";
 import LoadingImage from "../../components/loading-image";
 import FilterDesktop from "../../components/filterDesktop";
+//FontAwesome
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const CollectionTemplate = ({ collection }) => {
   collection = collection.data.collection;
@@ -382,6 +385,10 @@ const CollectionTemplate = ({ collection }) => {
                             )
                           }
                         >
+                          <FontAwesomeIcon
+                            style={{ marginRight: "5px" }}
+                            icon={faXmark}
+                          />
                           {value}
                         </div>
                       ))}
