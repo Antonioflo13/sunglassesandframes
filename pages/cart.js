@@ -166,7 +166,7 @@ const Cart = () => {
                           {isLoading ? (
                             <div>
                               <div className="animate-pulse flex space-x-4">
-                                <div className="rounded-sm bg-slate-100 h-5 w-4"></div>
+                                <div className="rounded-sm bg-slate-50 h-5 w-4"></div>
                               </div>
                             </div>
                           ) : (
@@ -197,7 +197,7 @@ const Cart = () => {
                         {isLoading ? (
                           <div>
                             <div className="animate-pulse flex space-x-4">
-                              <div className="rounded-sm bg-slate-100 h-4 w-3"></div>
+                              <div className="rounded-sm bg-slate-50 h-4 w-3"></div>
                             </div>
                           </div>
                         ) : (

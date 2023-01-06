@@ -191,8 +191,7 @@ const Footer = () => {
                     <div className="text-xs mt-2 ">
                       <Link
                         href={{
-                          pathname: "/assistance-center",
-                          query: { menu: createHandle("Privacy Policy") },
+                          pathname: "/privacy-policy",
                         }}
                       >
                         <FormattedMessage id="footer.privacy.title" />
@@ -208,7 +207,13 @@ const Footer = () => {
             </div>
             <div className="flex flex-col accordionDesktop ">
               <div className="font-bold uppercase text-sm">
-                <FormattedMessage id="footer.support.title" />
+                <Link
+                  href={{
+                    pathname: "/assistance-center",
+                  }}
+                >
+                  <FormattedMessage id="footer.support.title" />
+                </Link>
               </div>
               <div className="text-xs mt-2 ">
                 <Link
@@ -263,8 +268,7 @@ const Footer = () => {
               <div className="text-xs mt-2 ">
                 <Link
                   href={{
-                    pathname: "/assistance-center",
-                    query: { menu: createHandle("Privacy Policy") },
+                    pathname: "/privacy-policy",
                   }}
                 >
                   <FormattedMessage id="footer.privacy.title" />

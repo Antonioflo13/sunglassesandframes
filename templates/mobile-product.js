@@ -106,6 +106,25 @@ const MobileProductTemplate = props => {
   //   }
   // }, [cursor]);
 
+  //CHANGE INDEX IMAGE
+  useEffect(() => {
+    if (mobileProducts) {
+      const copyMobileProducts = JSON.parse(JSON.stringify(mobileProducts));
+      let arr = [];
+      for (const product of copyMobileProducts) {
+        const [firstImage, secondImage] =
+          product.node.variants.edges[0].node.product.images.nodes;
+        const copyArray =
+          product.node.variants.edges[0].node.product.images.nodes;
+        copyArray.splice(0, 1, secondImage);
+        copyArray.splice(1, 1, firstImage);
+        product.node.variants.edges[0].node.product.images.nodes = copyArray;
+        arr.push(product);
+      }
+      setProducts(arr);
+    }
+  }, [mobileProducts]);
+
   useEffect(() => {
     if (swiperIndex === products.length - 2 && hasNextPage) {
       console.log(swiperIndex);
