@@ -495,6 +495,8 @@ export const Navbar = () => {
 
         .link {
           padding-right: 4rem;
+          color: black;
+          transition: color 0.2s ease-in;
         }
 
         .searchInput {
@@ -511,10 +513,12 @@ export const Navbar = () => {
 
         .customHoverColorRed {
           color: #c60000;
+          transition: color 0.2s ease-in;
         }
 
         .changeColor {
           color: #727272;
+          transition: color 0.2s ease-in;
         }
 
         .customHoverColorRed:hover {
@@ -523,6 +527,7 @@ export const Navbar = () => {
 
         .customHoverColor:hover {
           color: black;
+          transition: color 0.2s ease-in;
         }
 
         @media screen and (max-width: 1150px) {
