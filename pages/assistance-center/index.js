@@ -10,6 +10,7 @@ import Head from "next/head";
 import getAssistanceCenterInfo from "../../api/assistanceCenter";
 //COMPONENTS
 import AnimatedPage from "../../components/animated-page";
+import CrispEmailForm from "../../components/crisp-email-form";
 
 const Index = ({ assistanceCenterInfo, selectedMenu }) => {
   assistanceCenterInfo = assistanceCenterInfo.data.allAssistanceCenters[0];
@@ -61,15 +62,7 @@ const Index = ({ assistanceCenterInfo, selectedMenu }) => {
                   __html: assistanceCenterInfo.description,
                 }}
               />
-              <iframe
-                title="Contact Form"
-                src="https://plugins.crisp.chat/urn:crisp.im:contact-form:0/contact/aaf1fe97-d435-477e-af54-89488a97b2fd"
-                referrerPolicy="origin"
-                sandbox="allow-forms allow-popups allow-scripts"
-                width="100%"
-                height="600px"
-                frameBorder="0"
-              />
+              <CrispEmailForm />
             </div>
             <div className="container-descriptions-assistance">
               <div className="container-menu-titles">

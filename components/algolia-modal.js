@@ -1,9 +1,13 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
-import AlgoliaSearch from "./algolia-search";
+//REACT
 import React from "react";
+//STORE
 import { useDispatch, useSelector } from "react-redux";
 import { setAlgoliaModalShow } from "../store/modules/algoliaModal";
+//ALGOLIA
+import AlgoliaSearch from "./algolia-search";
+// FONTAWESOME
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 
 const AlgoliaModal = () => {
   const dispatch = useDispatch();

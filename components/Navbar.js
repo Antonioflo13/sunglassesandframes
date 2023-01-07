@@ -275,79 +275,77 @@ export const Navbar = () => {
             </div>
           </div>
         )}
-        <AnimatePresence>
-          {isDesktop && hasHover && (
-            <>
-              <div>
-                <motion.div
-                  style={{
-                    backgroundColor: "white",
-                    paddingBottom: "40px",
-                    borderBottomRightRadius: "15px",
-                    borderBottomLeftRadius: "15px",
-                  }}
-                  onMouseEnter={() => setHasHover(true)}
-                  onMouseLeave={() => setHasHover(false)}
-                >
-                  <div className="containerMenuTwo">
-                    <div className="containerItems">
-                      {items.map((first, index) => (
-                        <div
-                          key={index}
-                          className="flex flex-col items-center"
-                          style={{ alignItems: "start" }}
-                        >
-                          <div className="first">{first?.title}</div>
-                          {first?.item?.map((item, index) => (
-                            <div className="second" key={index}>
-                              <Link
-                                href={{
-                                  pathname: "/designers/[designer]",
-                                  query: {
-                                    designer: item?.handle.toLowerCase(),
-                                  },
-                                }}
-                              >
-                                {item?.item}
-                              </Link>
-                            </div>
-                          ))}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="containerAdv">
-                      <Link href={`/designers/${monthCollectionInfo?.handle}`}>
-                        <div className="adv">
-                          <Image
-                            fill="true"
-                            style={{ objectFit: "cover" }}
-                            sizes="100%"
-                            priority={true}
-                            placeholder="blur"
-                            src={monthCollectionInfo?.navbarImage?.url}
-                            blurDataURL={
-                              monthCollectionInfo?.navbarImage?.blurUpThumb
-                            }
-                            alt="advImage"
-                          />
-                          <div className="containerTextAdv">
-                            <p className="textAdv">
-                              {monthCollectionInfo?.designer}
-                            </p>
-                            <p className="textAdv centertext">
-                              {monthCollectionInfo?.text}
-                            </p>
+        {isDesktop && hasHover && (
+          <>
+            <div>
+              <div
+                style={{
+                  backgroundColor: "white",
+                  paddingBottom: "40px",
+                  borderBottomRightRadius: "15px",
+                  borderBottomLeftRadius: "15px",
+                }}
+                onMouseEnter={() => setHasHover(true)}
+                onMouseLeave={() => setHasHover(false)}
+              >
+                <div className="containerMenuTwo">
+                  <div className="containerItems">
+                    {items.map((first, index) => (
+                      <div
+                        key={index}
+                        className="flex flex-col items-center"
+                        style={{ alignItems: "start" }}
+                      >
+                        <div className="first">{first?.title}</div>
+                        {first?.item?.map((item, index) => (
+                          <div className="second" key={index}>
+                            <Link
+                              href={{
+                                pathname: "/designers/[designer]",
+                                query: {
+                                  designer: item?.handle.toLowerCase(),
+                                },
+                              }}
+                            >
+                              {item?.item}
+                            </Link>
                           </div>
-                        </div>
-                      </Link>
-                    </div>
+                        ))}
+                      </div>
+                    ))}
                   </div>
-                </motion.div>
+                  <div className="containerAdv">
+                    <Link href={`/designers/${monthCollectionInfo?.handle}`}>
+                      <div className="adv">
+                        <Image
+                          fill="true"
+                          style={{ objectFit: "cover" }}
+                          sizes="100%"
+                          priority={true}
+                          placeholder="blur"
+                          src={monthCollectionInfo?.navbarImage?.url}
+                          blurDataURL={
+                            monthCollectionInfo?.navbarImage?.blurUpThumb
+                          }
+                          alt="advImage"
+                        />
+                        <div className="containerTextAdv">
+                          <p className="textAdv">
+                            {monthCollectionInfo?.designer}
+                          </p>
+                          <p className="textAdv centertext">
+                            {monthCollectionInfo?.text}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                </div>
               </div>
-              <div className="fullScreenBackground"></div>
-            </>
-          )}
-        </AnimatePresence>
+            </div>
+            <div className="fullScreenBackground"></div>
+          </>
+        )}
       </div>
       <AnimatePresence>
         {showSideBar && (
