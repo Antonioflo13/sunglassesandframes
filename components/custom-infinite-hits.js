@@ -1,13 +1,11 @@
 import { connectInfiniteHits } from "react-instantsearch-dom";
 import Link from "next/link";
 // import { Highlight } from "react-instantsearch-dom";
-import createHandle from "../hooks/createHandle";
-import { FormattedNumber } from "react-intl";
 import { InfiniteHits } from "./infiniteHits";
 import { useRouter } from "next/router";
+import Product from "./product";
 
 export const HitCollection = props => {
-  console.log(props.hit);
   // if (props.hit.image) {
   return (
     <div
@@ -42,49 +40,10 @@ export const HitCollection = props => {
 };
 
 export const HitProduct = props => {
-  console.log(props.hit);
   // if (props.hit.variants_inventory_count > 0 || props.hit.image) {
   return (
     <div onClick={props.onClose}>
-      <Link
-        href={`/designers/${createHandle(props.hit.vendor)}/${
-          props.hit.handle
-        }`}
-      >
-        <div className="w-full flex flex-col items-center text-center">
-          <div className="relative w-full" style={{ paddingTop: "66.6%" }}>
-            <div className="absolute top-0 w-full h-full">
-              <img
-                className="w-full h-full"
-                src={props.hit.image}
-                align="left"
-                alt={props.hit.name}
-                style={{ objectFit: "cover" }}
-              />
-            </div>
-          </div>
-          <div className="hit-name">
-            <div className="text-sunglassesandframes-red text-xs font-bold raleway noToHead mt-2">
-              {props.hit.vendor}
-            </div>
-          </div>
-          <div className="hit-name">
-            <div className="ml-1 uppercase font-bold mt-1">
-              {props.hit.title}
-            </div>
-          </div>
-          {/* {props.hit.title} */}
-          {/* </Highlight> */}
-          <p className="mt-1">
-            <FormattedNumber
-              style="currency"
-              value={props.hit.price}
-              minimumFractionDigits={2}
-            />
-            {"€"}
-          </p>
-        </div>
-      </Link>
+      <Product product={props.hit} fromAlgoliaSearch={true} />
     </div>
   );
   // }

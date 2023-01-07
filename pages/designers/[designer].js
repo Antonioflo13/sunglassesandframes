@@ -181,12 +181,10 @@ const CollectionTemplate = ({ collection }) => {
 
   // Handle loading more articles
   useEffect(() => {
-    console.log(hasMore);
     if (hasMore.hasMore) {
       getProductByCollection().then(response => {
         const newProducts = response.data.collection.products.edges;
         const isMore = response.data.collection.products.pageInfo.hasNextPage;
-        console.log(isMore);
         const cursor = response.data.collection.products.pageInfo.endCursor;
         setCursor(cursor);
         setHasMore({ hasMore: isMore });
@@ -422,6 +420,7 @@ const CollectionTemplate = ({ collection }) => {
                       key={product.node.id}
                       product={product}
                       collectionHandle={collectionHandle}
+                      fromAlgoliaSearch={false}
                     />
                   ))}
                 </div>
@@ -463,6 +462,7 @@ const CollectionTemplate = ({ collection }) => {
                       key={product.node.id}
                       product={product}
                       collectionHandle={collectionHandle}
+                      fromAlgoliaSearch={false}
                     />
                   ))}
                 </div>

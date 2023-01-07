@@ -15,10 +15,12 @@ import en from "../intl/en.json";
 //COMPONENTS
 import { Navbar } from "./Navbar";
 import Footer from "./footer";
+import AlgoliaModal from "./algolia-modal";
 
 const Layout = ({ children, itemsNavbar }) => {
   //STORE
   const language = useSelector(state => state.language.value);
+  const showAlgoliaModal = useSelector(state => state.algoliaModal.value);
   //ROUTER
   const router = useRouter();
   //STATE
@@ -56,6 +58,7 @@ const Layout = ({ children, itemsNavbar }) => {
       messages={messages[language]}
       onError={errorMissingTranslation}
     >
+      {showAlgoliaModal && <AlgoliaModal />}
       <Navbar itemsNavbar={itemsNavbar} />
       <div style={{ marginTop: "130px" }}>{children}</div>
       {router.pathname !== "/designers/[...product]" && <Footer />}

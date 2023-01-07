@@ -1,15 +1,24 @@
 //REACT
 import React, { useState, useEffect } from "react";
-
 //NEXT
 import Link from "next/link";
+import Image from "next/image";
 //STORE
 import { useDispatch, useSelector } from "react-redux";
 import { setSideBarShow } from "../store/modules/sideBar";
+import { setAlgoliaModalShow } from "../store/modules/algoliaModal";
 import { setCartContent } from "../store/modules/cart";
 //HOOKS
 import useMediaQuery from "../hooks/useMediaQuery";
 import { getCookie } from "../utils/cookie";
+//FONTAWESOME
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faSearch,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 //FRAMER-MOTION
 import { AnimatePresence, motion } from "framer-motion";
 //COMPONENTS
@@ -18,29 +27,16 @@ import Sidebar from "../components/sidebar";
 import logo from "../assets/images/logo.svg";
 import menuBurgher from "../assets/images/menu-burger.svg";
 import cartIcon from "../assets/images/shopping-bag.svg";
-import homeIcon from "../assets/images/home.svg";
-
-import Image from "next/image";
-
-import AlgoliaSearch from "../components/algolia-search";
-
-//Add FontAwesome
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faSearch,
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
-import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
+import homeIcon from "../assets/images/home.svg"; //Add FontAwesome
 
 export const Navbar = () => {
   //STORE
   const dispatch = useDispatch();
   const showSideBar = useSelector(state => state.sideBar.value);
+  const showAlgoliaModal = useSelector(state => state.algoliaModal.value);
   const cart = useSelector(state => JSON.parse(state.cart.value));
 
   //STATE
-  const [isSearchActive, setIsSearchActive] = useState(false);
   const [hasHover, setHasHover] = useState(false);
   const [customHover, setCustomHover] = useState(true);
   const [monthCollectionInfo, setMonthCollectionInfo] = useState({});
@@ -55,6 +51,12 @@ export const Navbar = () => {
   const totalQuantity = cart?.lineItems
     .map(item => item.quantity)
     .reduce((prev, curr) => prev + curr, 0);
+
+  const openSearchModal = () => {
+    dispatch(setAlgoliaModalShow(!showAlgoliaModal));
+    document.body.classList.remove("overflow-auto");
+    document.body.classList.add("overflow-hidden");
+  };
 
   // EFFECT
   useEffect(() => {
@@ -72,18 +74,6 @@ export const Navbar = () => {
       setItemsNavbar(JSON.parse(localStorage.getItem("itemsNavBar")));
     }
   }, []);
-
-  const openSearchModal = () => {
-    setIsSearchActive(true);
-    document.body.classList.remove("overflow-auto");
-    document.body.classList.add("overflow-hidden");
-  };
-
-  const closeSearchModal = () => {
-    setIsSearchActive(false);
-    document.body.classList.remove("overflow-hidden");
-    document.body.classList.add("overflow-auto");
-  };
 
   const items = itemsNavbar?.data?.shopByItem?.items;
 
@@ -140,33 +130,6 @@ export const Navbar = () => {
                     width={15}
                     onClick={openSearchModal}
                   />
-                  {isSearchActive && (
-                    <div
-                      id="search-overlay"
-                      className={`fullScreenBackgroundSearch absolute w-screen h-screen top-0 left-0 z-50  transition-all duration-300 overflow-y-scroll ${
-                        isSearchActive
-                          ? "visible opacity-100"
-                          : "invisible opacity-0"
-                      }`}
-                      onClick={closeSearchModal}
-                    >
-                      <div>
-                        <FontAwesomeIcon
-                          style={{ marginLeft: "2px", width: 15 }}
-                          className="cursor-pointer absolute right-10 top-10"
-                          icon={faXmark}
-                          onClick={closeSearchModal}
-                        />
-                      </div>
-                      {/* className="absolute top-50/100 left-50/100 min-w-[80%] min-h-[80%] translate-x-[-50%] translate-y-[-50%] bg-white" */}
-                      <div
-                        className=" bg-white p-4"
-                        onClick={e => e.stopPropagation()}
-                      >
-                        <AlgoliaSearch onClose={closeSearchModal} />
-                      </div>
-                    </div>
-                  )}
                 </>
               )}
             </div>
@@ -294,33 +257,6 @@ export const Navbar = () => {
                   </div>
                 </button>
               </Link>
-              {isSearchActive && (
-                <div
-                  id="search-overlay"
-                  className={`absolute w-screen h-screen top-0 left-0 z-50 fullScreenBackground transition-all duration-300 overflow-y-scroll ${
-                    isSearchActive
-                      ? "visible opacity-100"
-                      : "invisible opacity-0"
-                  }`}
-                  onClick={closeSearchModal}
-                >
-                  <div>
-                    <FontAwesomeIcon
-                      style={{ marginLeft: "2px", width: 15 }}
-                      className="cursor-pointer absolute right-10 top-10"
-                      icon={faXmark}
-                      onClick={closeSearchModal}
-                    />
-                  </div>
-                  {/* className="absolute top-50/100 left-50/100 min-w-[80%] min-h-[80%] translate-x-[-50%] translate-y-[-50%] bg-white" */}
-                  <div
-                    className=" bg-white p-4"
-                    onClick={e => e.stopPropagation()}
-                  >
-                    <AlgoliaSearch onClose={closeSearchModal} />
-                  </div>
-                </div>
-              )}
             </div>
 
             <div style={{ position: "relative" }} onClick={openSearchModal}>
@@ -339,75 +275,80 @@ export const Navbar = () => {
             </div>
           </div>
         )}
-      </div>
-      <AnimatePresence>
-        {isDesktop && hasHover && (
-          <div className="fullScreenBackground">
-            <motion.div
-              style={{
-                backgroundColor: "white",
-                paddingBottom: "40px",
-                borderBottomRightRadius: "15px",
-                borderBottomLeftRadius: "15px",
-              }}
-              onMouseEnter={() => setHasHover(true)}
-              onMouseLeave={() => setHasHover(false)}
-            >
-              <div className="containerMenuTwo">
-                <div className="containerItems">
-                  {items.map((first, index) => (
-                    <div
-                      key={index}
-                      className="flex flex-col items-center"
-                      style={{ alignItems: "start" }}
-                    >
-                      <div className="first">{first?.title}</div>
-                      {first?.item?.map((item, index) => (
-                        <div className="second" key={index}>
-                          <Link
-                            href={{
-                              pathname: "/designers/[designer]",
-                              query: { designer: item?.handle.toLowerCase() },
-                            }}
-                          >
-                            {item?.item}
-                          </Link>
+        <AnimatePresence>
+          {isDesktop && hasHover && (
+            <>
+              <div>
+                <motion.div
+                  style={{
+                    backgroundColor: "white",
+                    paddingBottom: "40px",
+                    borderBottomRightRadius: "15px",
+                    borderBottomLeftRadius: "15px",
+                  }}
+                  onMouseEnter={() => setHasHover(true)}
+                  onMouseLeave={() => setHasHover(false)}
+                >
+                  <div className="containerMenuTwo">
+                    <div className="containerItems">
+                      {items.map((first, index) => (
+                        <div
+                          key={index}
+                          className="flex flex-col items-center"
+                          style={{ alignItems: "start" }}
+                        >
+                          <div className="first">{first?.title}</div>
+                          {first?.item?.map((item, index) => (
+                            <div className="second" key={index}>
+                              <Link
+                                href={{
+                                  pathname: "/designers/[designer]",
+                                  query: {
+                                    designer: item?.handle.toLowerCase(),
+                                  },
+                                }}
+                              >
+                                {item?.item}
+                              </Link>
+                            </div>
+                          ))}
                         </div>
                       ))}
                     </div>
-                  ))}
-                </div>
-                <div className="containerAdv">
-                  <Link href={`/designers/${monthCollectionInfo?.handle}`}>
-                    <div className="adv">
-                      <Image
-                        fill="true"
-                        style={{ objectFit: "cover" }}
-                        sizes="100%"
-                        priority={true}
-                        placeholder="blur"
-                        src={monthCollectionInfo?.navbarImage?.url}
-                        blurDataURL={
-                          monthCollectionInfo?.navbarImage?.blurUpThumb
-                        }
-                        alt="advImage"
-                      />
-                      <div className="containerTextAdv">
-                        <p className="textAdv">
-                          {monthCollectionInfo?.designer}
-                        </p>
-                        <p className="textAdv centertext">
-                          {monthCollectionInfo?.text}
-                        </p>
-                      </div>
+                    <div className="containerAdv">
+                      <Link href={`/designers/${monthCollectionInfo?.handle}`}>
+                        <div className="adv">
+                          <Image
+                            fill="true"
+                            style={{ objectFit: "cover" }}
+                            sizes="100%"
+                            priority={true}
+                            placeholder="blur"
+                            src={monthCollectionInfo?.navbarImage?.url}
+                            blurDataURL={
+                              monthCollectionInfo?.navbarImage?.blurUpThumb
+                            }
+                            alt="advImage"
+                          />
+                          <div className="containerTextAdv">
+                            <p className="textAdv">
+                              {monthCollectionInfo?.designer}
+                            </p>
+                            <p className="textAdv centertext">
+                              {monthCollectionInfo?.text}
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
                     </div>
-                  </Link>
-                </div>
+                  </div>
+                </motion.div>
               </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+              <div className="fullScreenBackground"></div>
+            </>
+          )}
+        </AnimatePresence>
+      </div>
       <AnimatePresence>
         {showSideBar && (
           <motion.div
@@ -442,9 +383,9 @@ export const Navbar = () => {
         .header-sticky {
           position: fixed;
           width: 100%;
-          z-index: 9999;
+          z-index: 2;
           background-color: white;
-          top: 0%;
+          top: 0;
           height: 120px;
         }
 
@@ -484,22 +425,11 @@ export const Navbar = () => {
         }
 
         .fullScreenBackground {
-          height: 100%;
+          height: 100vh;
           background-color: rgb(0 0 0/25%);
-          z-index: 99;
           width: 100%;
           margin-left: auto;
           margin-right: auto;
-          position: absolute;
-        }
-
-        .fullScreenBackgroundSearch {
-          background-color: rgb(0 0 0/25%);
-          z-index: 99;
-          width: 100%;
-          margin-left: auto;
-          margin-right: auto;
-          position: absolute;
         }
 
         .containerMenuTwo {
@@ -511,7 +441,6 @@ export const Navbar = () => {
           padding-right: 1.25rem;
           display: flex;
           justify-content: space-between;
-          z-index: 999;
         }
 
         .containerItems {

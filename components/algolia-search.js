@@ -45,13 +45,15 @@ const AlgoliaSearch = props => {
           items.filter(item => item.inventory_quantity > 0)
         }
       /> */}
-      <div className="flex justify-center items-center mb-3">
-        <Link href="/">
-          <Image src={logo.src} width={150} height={100} alt="logo" />
-        </Link>
-      </div>
-      <div className="mb-5">
-        <AlgoliaSearchInput isSearchActive={showProducts} />
+      <div>
+        <div className="flex justify-center items-center mb-3">
+          <Link href="/">
+            <Image src={logo.src} width={150} height={100} alt="logo" />
+          </Link>
+        </div>
+        <div className="mb-5">
+          <AlgoliaSearchInput isSearchActive={showProducts} />
+        </div>
       </div>
 
       {activeSearch && (
@@ -69,7 +71,7 @@ const AlgoliaSearch = props => {
           </Index>
           <Index indexName="shopify_products">
             <h2 className="text-center uppercase text-gray-400">
-              <CustomStats type="Prodotti" className="mb-3" />
+              <CustomStats type="Products" className="mb-3" />
             </h2>
             <CustomInfiniteHits
               hasMore={false}

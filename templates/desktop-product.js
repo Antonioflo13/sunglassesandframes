@@ -4,10 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 //INTL
-import {
-  FormattedMessage as OriginalFormattedMessage,
-  FormattedNumber,
-} from "react-intl";
+import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
 //COMPONENTS
 import Label from "../components/label";
 import ProductIcon from "../components/product-icon";
@@ -227,6 +224,7 @@ const DesktopProduct = props => {
                   key={index}
                   product={product}
                   collectionHandle={collectionHandle}
+                  fromAlgoliaSearch={false}
                 />
               ))}
             </div>

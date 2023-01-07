@@ -173,6 +173,7 @@ const Article = ({ article, collection }) => {
                       key={product.node.id}
                       product={product}
                       collectionHandle={collectionHandle}
+                      fromAlgoliaSearch={false}
                     />
                   ))}
                 </div>
