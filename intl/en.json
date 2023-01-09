@@ -188,5 +188,11 @@
 
   "subscribe.signup": "Sign up",
   "subscribe.title": "join our club and get 10% off",
-  "subscribe.description": "Sign up for promotions, new arrivals alert and style advice directly in your inbox"
+  "subscribe.description": "Sign up for promotions, new arrivals alert and style advice directly in your inbox",
+
+  "email.form.name": "Your name",
+  "email.form.email": "E-mail",
+  "email.form.orderID": "Order ID",
+  "email.form.message": "Message",
+  "email.form.submit": "Submit"
 }

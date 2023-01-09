@@ -57,7 +57,6 @@ const SubscribeForm = () => {
                   <input
                     type="email"
                     placeholder={"Your e-mail address"}
-                    className="searchInput"
                     pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
                     required
                     value={email}
@@ -86,7 +85,7 @@ const SubscribeForm = () => {
       </div>
       <style jsx="true">
         {`
-          .searchInput {
+          input {
             width: 100%;
             margin-bottom: 10px;
             border: solid 1px;

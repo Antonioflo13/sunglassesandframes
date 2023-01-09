@@ -7,7 +7,13 @@ import { FormattedMessage as OriginalFormattedMessage } from "react-intl";
 
 const CrispEmailForm = () => {
   //STATE
-  const [email, setEmail] = useState("");
+  const [formMessage, setFormMessage] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    segments: ["sunglassesandframes"],
+    message: "",
+  });
 
   //FUNCTIONS
   const validateEmail = email => {
@@ -16,67 +22,128 @@ const CrispEmailForm = () => {
       .match(
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       );
-    return false;
+    return validEmail === null;
   };
 
   const doSendEmail = async () => {
-    console.log("c");
-    const response = await fetch(
-      `https://api.crisp.chat/v1/website/${process.env.NEXT_PUBLIC_CRISP_ID_SITE}/conversation
-`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials:
-          "97909153-3a2b-45e0-b234-a8f02ed84131:8fb928062ec13ebd03d02f701d9a8783edef4fa7d4339004f20375d94b2e7c81",
-        referrerPolicy: "no-referrer",
-        // body: JSON.stringify(data)
-      }
-    );
-    console.log(response.json());
-    return response.json();
+    console.log(formMessage);
+    const requestOptions = {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify(formMessage),
+    };
+    fetch(`http://localhost:3000/api/crisp/sendMessage`, requestOptions)
+      .then(async response => {
+        const data = await response.json();
+        // check for error response
+        if (!response.ok) {
+          // get error message from body or default to response status
+          const error = (data && data.message) || response.status;
+          return Promise.reject(error);
+        }
+        setFormMessage({
+          name: "",
+          email: "",
+          subject: "",
+          segments: [],
+          message: "",
+        });
+        console.log(data);
+      })
+      .catch(error => {
+        console.error("There was an error!", error);
+      });
   };
+
   return (
-    <div className="flex flex-col mx-5">
-      <div>
-        <div className="text-center mb-5">
-          <div>
-            <div className="uppercase text-md font-bold">
-              <FormattedMessage id="subscribe.title" />
-            </div>
-            <div className="text-sm">
-              <FormattedMessage id="subscribe.description" />
-            </div>
-          </div>
-        </div>
+    <>
+      <div className="flex flex-col mx-5">
+        <label htmlFor="">
+          <FormattedMessage id="email.form.name" />
+        </label>
         <input
+          name="name"
+          type="text"
+          required
+          value={formMessage.name}
+          onChange={$event =>
+            setFormMessage({ ...formMessage, name: $event.target.value })
+          }
+        />
+        <label htmlFor="email">
+          <FormattedMessage id="email.form.email" />
+        </label>
+        <input
+          name="email"
           type="email"
-          placeholder={"Your e-mail address"}
-          className="searchInput"
           pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
           required
-          value={email}
-          onChange={$event => setEmail($event.target.value)}
+          value={formMessage.email}
+          onChange={$event =>
+            setFormMessage({ ...formMessage, email: $event.target.value })
+          }
         />
+        <label htmlFor="orderID">
+          <FormattedMessage id="email.form.orderID" />
+        </label>
+        <input
+          name="orderID"
+          type="text"
+          required
+          value={formMessage.subject}
+          onChange={$event =>
+            setFormMessage({ ...formMessage, subject: $event.target.value })
+          }
+        />
+        <label htmlFor="Message">
+          <FormattedMessage id="email.form.message" />
+        </label>
+        <textarea
+          name="Message"
+          required
+          value={formMessage.message}
+          onChange={$event =>
+            setFormMessage({ ...formMessage, message: $event.target.value })
+          }
+        />
+        <div>
+          <motion.button
+            className="w-full rounded-lg bg-sunglassesandframes-black py-2 px-4 leading-5 text-white font-bold text-base"
+            style={{ height: "45px" }}
+            disabled={validateEmail(formMessage.email)}
+            onClick={() => {
+              doSendEmail();
+            }}
+          >
+            <div className="flex justify-center align-center">
+              <FormattedMessage id="email.form.submit" />
+            </div>
+          </motion.button>
+        </div>
       </div>
-      <div>
-        <motion.button
-          className="w-full rounded-lg bg-sunglassesandframes-black py-2 px-4 leading-5 text-white font-bold text-base"
-          style={{ height: "45px" }}
-          disabled={validateEmail(email)}
-          onClick={() => {
-            doSendEmail();
-            setEmail("");
-          }}
-        >
-          <div className="flex justify-center align-center">
-            <FormattedMessage id="subscribe.signup" />
-          </div>
-        </motion.button>
-      </div>
-    </div>
+      <style jsx="true">
+        {`
+          label {
+            font-weight: bold;
+          }
+          input,
+          textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            border: solid 1px;
+            padding: 20px 10px;
+            border-radius: 9px;
+          }
+          input {
+            height: 23px;
+          }
+        `}
+      </style>
+    </>
   );
 };
 
