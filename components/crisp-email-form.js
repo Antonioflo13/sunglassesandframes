@@ -87,6 +87,30 @@ const CrispEmailForm = () => {
             setFormMessage({ ...formMessage, email: $event.target.value })
           }
         />
+        <div className="flex gap-3">
+          <motion.button
+            className="w-20 rounded-lg bg-sunglassesandframes-black py-2 px-4 leading-5 text-white font-bold text-base"
+            style={{ height: "45px" }}
+            onClick={() => {
+              setFormMessage({ ...formMessage, segments: ["Farfetch"] });
+            }}
+          >
+            <div className="flex justify-center align-center">
+              <FormattedMessage id="email.form.submit" />
+            </div>
+          </motion.button>
+          <motion.button
+            className="w-20 rounded-lg bg-sunglassesandframes-black py-2 px-4 leading-5 text-white font-bold text-base"
+            style={{ height: "45px" }}
+            onClick={() => {
+              setFormMessage({ ...formMessage, segments: ["YOOX"] });
+            }}
+          >
+            <div className="flex justify-center align-center">
+              <FormattedMessage id="email.form.submit" />
+            </div>
+          </motion.button>
+        </div>
         <label htmlFor="orderID">
           <FormattedMessage id="email.form.orderID" />
         </label>
@@ -129,13 +153,14 @@ const CrispEmailForm = () => {
         {`
           label {
             font-weight: bold;
+            font-size: 12px;
           }
           input,
           textarea {
             width: 100%;
             margin-bottom: 10px;
             border: solid 1px;
-            padding: 20px 10px;
+            padding: 10px 10px;
             border-radius: 9px;
           }
           input {

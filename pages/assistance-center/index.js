@@ -56,13 +56,14 @@ const Index = ({ assistanceCenterInfo, selectedMenu }) => {
                   alt="assistance-center"
                 />
               </div>
-              <div
-                className="header-description-container"
-                dangerouslySetInnerHTML={{
-                  __html: assistanceCenterInfo.description,
-                }}
-              />
-              <CrispEmailForm />
+              <div className="header-description-container">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: assistanceCenterInfo.description,
+                  }}
+                />
+                <CrispEmailForm />
+              </div>
             </div>
             <div className="container-descriptions-assistance">
               <div className="container-menu-titles">
