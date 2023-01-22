@@ -443,7 +443,7 @@ const CollectionTemplate = ({ collection }) => {
             </div>
             <div className="mt-20">
               <button
-                className="text-center border border-black rounded-xl block w-full uppercase p-2"
+                className="text-center border border-black rounded-xl block w-full uppercase p-2 sticky top-[60px] z-30"
                 onClick={openFiltersModal}
               >
                 <Image
